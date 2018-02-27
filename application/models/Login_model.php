@@ -33,4 +33,16 @@ class Login_model extends CI_Model{
    		return $usuario;
 	}
 
+	public function verificaEmailECpf($email, $cpf){
+		$this->db->where('email', $email);
+		$this->db->where('cpf', $cpf);
+		return $this->db->get('participante')->row();
+	}
+
+	public function atualizaSenha($id, $senha){
+		$this->db->where('id', $id);
+		$usuario['senha'] = $senha;
+		$this->db->update('participante', $usuario);
+	}
+
 }

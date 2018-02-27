@@ -132,18 +132,19 @@
                                                   data-type       ="update"
                                                   data-id         ="<?=$participante->id?>" 
                                                   data-nome       ="<?=$participante->nome?>" 
-                                                  data-estado  ="<?=$participante->estado?>">
+                                                  data-estado     ="<?=$participante->estado?>"
+                                          >
 
-                                              <i class="fa fa-pencil"></i>
+                                              <i class="fa fa-eye"></i>
 
                                           </button>
 
-                                          <button class="btn btn-danger btn-xs"
+                                        <!--   <button class="btn btn-danger btn-xs"
                                                   data-toggle ="modal"
                                                   data-target ="#modalPiretoriaExcluir"
                                                   data-id     ="<?=$participante->id?>"  >
                                               <i class="fa fa-trash-o "></i>
-                                          </button>
+                                          </button> -->
 
                                       </td>
                                   </tr>
