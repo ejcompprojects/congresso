@@ -15,6 +15,12 @@ function limpa_formulário_cep() {
             document.getElementById('bairro').value=(conteudo.bairro);
             document.getElementById('cidade').value=(conteudo.localidade);
             document.getElementById('uf').value=(conteudo.uf);
+            $(function(){
+                $('#rua').focus();
+                $('#bairro').focus();
+                $('#cidade').focus();
+                $('#uf').focus();
+            });
         } //end if.
         else {
             //CEP não Encontrado.
@@ -57,10 +63,11 @@ function limpa_formulário_cep() {
                 document.getElementById('uf').value="...";
 
                 //show div
-                document.getElementById('div_escondida').hidden = false;
-
+                var div_escondida = document.getElementById('div_escondida');
+                div_escondida.hidden = false;
                 //Cria um elemento javascript.
                 var script = document.createElement('script');
+
 
                 //Sincroniza com o callback.
                 script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
@@ -76,7 +83,6 @@ function limpa_formulário_cep() {
                 divErroCep.hidden = false;
                 divErroCep.className = 'alert alert-danger';
                 divErroCep.innerHTML = "Formato de CEP inválido.";
-                
             }
         } //end if.
         else {

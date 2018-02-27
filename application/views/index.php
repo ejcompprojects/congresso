@@ -77,12 +77,14 @@
 
                                     <div class="md-form">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" disabled>
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" readonly="true">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
-
-                                    <input name="uf" type="text" class="form-control" id="uf" size="2" disabled/> 
-                                    <label class="mr-sm-2" for="estado">Estado</label><br>
+                                    <div class="md-form">
+                                        <i class="fa fa-map-marker prefix grey-text"></i>
+                                        <input name="uf" type="text" class="form-control" id="uf" size="2" readonly="true"/> 
+                                        <label class="mr-sm-2" for="estado">Estado</label><br>
+                                    </div>
 
                                     <div class="md-form">
                                         <i class="fa fa-info prefix grey-text"></i>
@@ -103,16 +105,16 @@
 
                                 <label class="mr-sm-2" for="tipo"></label>
                                 <select class="form-control" id="tipo" name="tipo">
-                                   <option selected>Tipo da Inscrição</option>
-                                   <option value="1">Aluno Graduação</option>
-                                   <option value="2">Aluno Pós-Graduação</option>
-                                   <option value="3">Professor Universitário</option>
-                                   <option value="4">Professor Ensino Público</option>
-                                   <option value="5">Demais Profissionais</option>
-                               </select>
+                                 <option selected>Tipo da Inscrição</option>
+                                 <option value="1">Aluno Graduação</option>
+                                 <option value="2">Aluno Pós-Graduação</option>
+                                 <option value="3">Professor Universitário</option>
+                                 <option value="4">Professor Ensino Público</option>
+                                 <option value="5">Demais Profissionais</option>
+                             </select>
 
 
-                               <div class="text-center">
+                             <div class="text-center">
                                 <button class="btn btn-deep-orange">Próximo<i class="fa fa-angle-double-right pl-2" aria-hidden="true"></i></button>
                             </div>
                         </form>
@@ -126,7 +128,7 @@
 
         </div>
         <!--modalCep-->
-      <div class="modal" id="modalCep" tabindex="-1" role="dialog">
+        <div class="modal" id="modalCep" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
