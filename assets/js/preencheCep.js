@@ -1,10 +1,9 @@
 function limpa_formulário_cep() {
-
             //Limpa valores do formulário de cep.
             document.getElementById('rua').value=("");
             document.getElementById('bairro').value=("");
             document.getElementById('cidade').value=("");
-            document.getElementById('uf').value=("");
+            document.getElementById('estado').value=("");
         }
 
         function meu_callback(conteudo) {
@@ -14,12 +13,11 @@ function limpa_formulário_cep() {
             document.getElementById('rua').value=(conteudo.logradouro);
             document.getElementById('bairro').value=(conteudo.bairro);
             document.getElementById('cidade').value=(conteudo.localidade);
-            document.getElementById('uf').value=(conteudo.uf);
+            document.getElementById('estado').value=(conteudo.uf);
             $(function(){
                 $('#rua').focus();
                 $('#bairro').focus();
                 $('#cidade').focus();
-                $('#uf').focus();
             });
         } //end if.
         else {
@@ -60,7 +58,6 @@ function limpa_formulário_cep() {
                 document.getElementById('rua').value="...";
                 document.getElementById('bairro').value="...";
                 document.getElementById('cidade').value="...";
-                document.getElementById('uf').value="...";
 
                 //show div
                 var div_escondida = document.getElementById('div_escondida');
