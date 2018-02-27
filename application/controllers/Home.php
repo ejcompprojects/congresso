@@ -51,8 +51,14 @@ class Home extends CI_Controller {
 	}
 
 
-	public function crypt ($senha){
- 		$senhaCrypt = md5($senha);
- 		return $senhaCrypt; 
- 	}
+	// public function crypt ($senha){
+ // 		$senhaCrypt = md5($senha);
+ // 		return $senhaCrypt; 
+ // 	}
+
+ 	private function crypt ($password){
+        $options = ['cost' => 12];
+        $password = password_hash($password, PASSWORD_DEFAULT, $options);
+        return $password; 
+    }
 }

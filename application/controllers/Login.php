@@ -8,7 +8,7 @@ class Login extends CI_Controller {
         $this->load->model('Login_model', 'model');
         if(!$this->isLogged() && 
             get_class($this) != get_class()){
-            redirect(base_url(LOGIN_URL));
+            redirect(base_url('Login'));
             exit();
         }
     }
