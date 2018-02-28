@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="md-form">
                                     <i class="fa fa-map-o prefix grey-text"></i>
-                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="9" maxlength="9" onblur="pesquisacep(this.value);">
+                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onblur="pesquisacep(this.value);">
                                     <label for="orangeForm-pass3">CEP</label>
                                 </div>
                                 <div id="div_escondida" hidden="true">

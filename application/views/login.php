@@ -21,7 +21,7 @@
       				<br>
 
 
-      				<button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> ENTRAR</button>
+      				<button class="btn btn-theme btn-block" type="submit">ENTRAR <i class="fa fa-lock"></i></button>
 
                                 <div class="">
                                     <a href="<?= base_url('Login/forgot_password') ?>">Esqueci minha senha</a>

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH.'controllers/Login.php');
 
 
-class Participante extends Login {
+class Participante extends Admin {
     public function __construct(){
         parent::__construct();
         $this->load->helper('frontend_helper'); 
