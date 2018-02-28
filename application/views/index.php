@@ -11,39 +11,53 @@
                 <div class="col-md-6 col-centered">
                     <div class="card">
                         <div class="card-body">
+                            <?php 
+                                if ($this->session->flashdata('senhasDiferentes') == TRUE){
+                                    echo '<div class="alert alert-danger"> Senhas digitadas são diferentes!</div>';
+                                }
+                                if ($this->session->flashdata('cadastrado') == TRUE){
+                                    echo '<div class="alert alert-success"> Você foi cadastrado com sucesso</div>';
+                                }
+                            ?>
                             <!-- Form -->
-                            <form method="POST" action="">
+                            <form method="POST" action="home/cadastrar">
                                 <h2 class="text-center font-bold deep-orange-text py-4">Cadastro participante</h2>
 
                                 <h3 class="text-center font-bold deep-black-text py-4">Dados Pessoais</h3>
 
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
-                                    <input type="text" id="nome" name="nome" class="form-control" required="true" minlength="10" maxlength="100">
+                                    <input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100">
                                     <label for="orangeForm-name3">Nome</label>
                                 </div>
 
                                 <div class="md-form">
+                                    <i class="fa fa-user prefix grey-text"></i>
+                                    <input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15">
+                                    <label for="orangeForm-name3">CPF</label>
+                                </div>
+
+                                <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
-                                    <input type="email" id="email" name="email" class="form-control"  required="true" minlength="10" maxlength="100">
+                                    <input type="email" id="email" name="email" class="form-control"  required="true" maxlength="100">
                                     <label for="orangeForm-email3">E-mail</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-lock prefix grey-text"></i>
-                                    <input type="password" id="senha" name="senha" class="form-control"  required="true" minlength="6" maxlength="20">
+                                    <input type="password" id="senha" name="senha" class="form-control"  required="true" minlength="6" maxlength="30">
                                     <label for="orangeForm-pass3">Senha</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-repeat prefix grey-text"></i>
-                                    <input type="password" id="confirma-senha" name="confirma-senha" class="form-control" required="true" minlength="6" maxlength="20">
+                                    <input type="password" id="confirma-senha" name="confirma-senha" class="form-control" required="true" minlength="6" maxlength="30">
                                     <label for="orangeForm-pass3">Confirmar Senha</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-phone-square prefix grey-text"></i>
-                                    <input type="text" id="celular" name="celular" class="form-control" required="true" minlength="6" maxlength="20">
+                                    <input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15">
                                     <label for="orangeForm-pass3">Celular</label>
                                 </div>
 
@@ -71,12 +85,13 @@
 
                                     <div class="md-form">
                                         <i class="fa fa-home prefix grey-text"></i>
-                                        <input type="text" id="bairro" name="bairro" class="form-control" required="true" minlength="10" maxlength="100">
+                                        <input type="text" id="bairro" name="bairro" class="form-control" required="true" minlength="3" maxlength="100">
                                         <label for="orangeForm-pass3">Bairro</label>
                                     </div>
 
                                     <div class="md-form">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
+
                                         <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" readonly="true">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
@@ -110,34 +125,21 @@
                                         <option value="SE">Sergipe</option> 
                                         <option value="TO">Tocantins</option> 
                                     </select> 
+
                                     <label class="mr-sm-2" for="estado">Estado</label><br>
 
-                                    <div class="md-form">
-                                        <i class="fa fa-info prefix grey-text"></i>
-                                        <input type="text" id="numero" name="numero" class="form-control" required="true" minlength="1" maxlength="20">
-                                        <label for="orangeForm-pass3">Numero</label>
-                                    </div>
-
-                                    <div class="md-form">
-                                        <i class="fa fa-home prefix grey-text"></i>
-                                        <input type="text" id="complemento" name="complemento" class="form-control" required="true" minlength="10" maxlength="100">
-                                        <label for="orangeForm-pass3">Complemento</label>
-                                    </div>
-                                </div>
 
 
+                                    <label class="mr-sm-2" for="tipo"></label>
+                                    <select class="form-control" id="tipo" name="tipo" required="">
+                                       <option value="">Tipo da Inscrição</option>
+                                       <option value="1">Aluno Graduação</option>
+                                       <option value="2">Aluno Pós-Graduação</option>
+                                       <option value="3">Professor Universitário</option>
+                                       <option value="4">Professor Ensino Público</option>
+                                       <option value="5">Demais Profissionais</option>
+                                   </select>
 
-
-
-                                <label class="mr-sm-2" for="tipo"></label>
-                                <select class="form-control" id="tipo" name="tipo">
-                                 <option selected>Tipo da Inscrição</option>
-                                 <option value="1">Aluno Graduação</option>
-                                 <option value="2">Aluno Pós-Graduação</option>
-                                 <option value="3">Professor Universitário</option>
-                                 <option value="4">Professor Ensino Público</option>
-                                 <option value="5">Demais Profissionais</option>
-                             </select>
 
 
                              <div class="text-center">
@@ -151,7 +153,7 @@
 
             <div class="text-center darken-grey-text mb-4">
             </div>
-
+        
         </div>
         <!--modalCep-->
         <div class="modal" id="modalCep" tabindex="-1" role="dialog">
