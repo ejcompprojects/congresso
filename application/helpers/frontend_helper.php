@@ -6,7 +6,7 @@ function mensagens(){
         $html = '<div class="alert alert-danger">'.
                 $_SESSION['danger'].'</div>';
     }if(isset($_SESSION['success']) && $_SESSION['success'] != ''){
-        $html = '<div class="alert alert-success >'.
+        $html = '<div class="alert alert-success">'.
                 $_SESSION['success'].'</div>'; 
     }
 

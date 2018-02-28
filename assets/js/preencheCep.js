@@ -1,10 +1,9 @@
 function limpa_formulário_cep() {
-
             //Limpa valores do formulário de cep.
             document.getElementById('rua').value=("");
             document.getElementById('bairro').value=("");
             document.getElementById('cidade').value=("");
-            document.getElementById('uf').value=("");
+            document.getElementById('estado').value=("");
         }
 
         function meu_callback(conteudo) {
@@ -14,7 +13,12 @@ function limpa_formulário_cep() {
             document.getElementById('rua').value=(conteudo.logradouro);
             document.getElementById('bairro').value=(conteudo.bairro);
             document.getElementById('cidade').value=(conteudo.localidade);
-            document.getElementById('uf').value=(conteudo.uf);
+            document.getElementById('estado').value=(conteudo.uf);
+            $(function(){
+                $('#rua').focus();
+                $('#bairro').focus();
+                $('#cidade').focus();
+            });
         } //end if.
         else {
             //CEP não Encontrado.
@@ -54,13 +58,13 @@ function limpa_formulário_cep() {
                 document.getElementById('rua').value="...";
                 document.getElementById('bairro').value="...";
                 document.getElementById('cidade').value="...";
-                document.getElementById('uf').value="...";
 
                 //show div
-                document.getElementById('div_escondida').hidden = false;
-
+                var div_escondida = document.getElementById('div_escondida');
+                div_escondida.hidden = false;
                 //Cria um elemento javascript.
                 var script = document.createElement('script');
+
 
                 //Sincroniza com o callback.
                 script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
@@ -76,7 +80,6 @@ function limpa_formulário_cep() {
                 divErroCep.hidden = false;
                 divErroCep.className = 'alert alert-danger';
                 divErroCep.innerHTML = "Formato de CEP inválido.";
-                
             }
         } //end if.
         else {

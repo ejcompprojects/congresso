@@ -91,12 +91,43 @@
 
                                     <div class="md-form">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" readonly>
+
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" readonly="true">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
+                                    <select class="form-control" id="estado" name="estado" disabled>
+                                        <option value=""></option>
+                                        <option value="AC">Acre</option> 
+                                        <option value="AL">Alagoas</option> 
+                                        <option value="AP">Amapá</option> 
+                                        <option value="AM">Amazonas</option> 
+                                        <option value="BA">Bahia</option> 
+                                        <option value="CE">Ceará</option> 
+                                        <option value="DF">Distrito Federal</option> 
+                                        <option value="ES">Espírito Santo</option> 
+                                        <option value="GO">Goiás</option> 
+                                        <option value="MA">Maranhão</option> 
+                                        <option value="MT">Mato Grosso</option> 
+                                        <option value="MS">Mato Grosso do Sul</option> 
+                                        <option value="MG">Minas Gerais</option> 
+                                        <option value="PA">Pará</option> 
+                                        <option value="PB">Paraíba</option> 
+                                        <option value="PR">Paraná</option> 
+                                        <option value="PE">Pernambuco</option> 
+                                        <option value="PI">Piauí</option> 
+                                        <option value="RJ">Rio de Janeiro</option> 
+                                        <option value="RN">Rio Grande do Norte</option> 
+                                        <option value="RS">Rio Grande do Sul</option> 
+                                        <option value="RO">Rondônia</option> 
+                                        <option value="RR">Roraima</option> 
+                                        <option value="SC">Santa Catarina</option> 
+                                        <option value="SP">São Paulo</option> 
+                                        <option value="SE">Sergipe</option> 
+                                        <option value="TO">Tocantins</option> 
+                                    </select> 
 
-                                    <input name="uf" type="text" class="form-control" id="uf" size="2" readonly> 
                                     <label class="mr-sm-2" for="estado">Estado</label><br>
+
 
 
                                     <label class="mr-sm-2" for="tipo"></label>
@@ -110,7 +141,8 @@
                                    </select>
 
 
-                               <div class="text-center">
+
+                             <div class="text-center">
                                 <button class="btn btn-deep-orange">Próximo<i class="fa fa-angle-double-right pl-2" aria-hidden="true"></i></button>
                             </div>
                         </form>
@@ -121,10 +153,10 @@
 
             <div class="text-center darken-grey-text mb-4">
             </div>
-
+        
         </div>
         <!--modalCep-->
-      <div class="modal" id="modalCep" tabindex="-1" role="dialog">
+        <div class="modal" id="modalCep" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
