@@ -49,6 +49,12 @@ class Participante_model extends CI_Model{
 		return $this->db->get(self::DB_TABLE)->num_rows();
 	}
 
+    public function cadastraParticipante($dados){
+        $this->db->insert('participante',$dados);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+
 	public function list_filter($filtros = array(), $inicio = 0){
 		if(!isset($filtros['attribute'])){
 			$filtros['attribute'] = 'nome';
