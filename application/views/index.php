@@ -92,7 +92,7 @@
                                     <div class="md-form">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
 
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" readonly="true">
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
                                     <select class="form-control" id="estado" name="estado" disabled>

@@ -20,7 +20,7 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('senha','senha','required');
 		$this->form_validation->set_rules('celular','celular','required');
 		$this->form_validation->set_rules('cpf','cpf','required');
-		$this->form_validation->set_rules('uf','uf','required');
+		$this->form_validation->set_rules('estado','estado','required');
 		$this->form_validation->set_rules('cep','cep','required');
 		$this->form_validation->set_rules('cidade','cidade','required');
 
@@ -36,13 +36,16 @@ class Home extends CI_Controller {
 
  		$dados['cep'] = $this->input->post('cep');
  		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['estado'] = $this->input->post('uf');
+ 		$dados['estado'] = $this->input->post('estado');
  		$dados['endereco'] = $this->input->post('rua');
  		$dados['bairro'] = $this->input->post('bairro');
  		$dados['id_tipo_inscricao'] = $this->input->post('tipo');
  		$tipo_inscricao = $this->input->post('tipo');
 
  		if ($this->form_validation->run() == FALSE){
+ 			print_r($this->input->post());
+ 			print_r($this->form_validation->error_array());
+ 			exit();
  			redirect(base_url());
  		}else{
  		
