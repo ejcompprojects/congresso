@@ -1,6 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+define('EMAIL_ADMIN', 'darlanmnakamura@gmail.com');
+define('EMAIL', 'noreply.enejunesp@gmail.com') ;
+define('SENHA', 'En3#JuN3sP1313');
+define('NOME', 'Darlan');
+define('SUBJECT', 'Dúvida');
+ define('UPLOADS', APPPATH. 'uploads/');
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
