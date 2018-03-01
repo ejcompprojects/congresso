@@ -18,17 +18,26 @@
                                 if ($this->session->flashdata('cadastrado') == TRUE){
                                     echo '<div class="alert alert-success"> Você foi cadastrado com sucesso</div>';
                                 }
+                                if ($this->session->flashdata('emailCadastrado') == TRUE){
+                                    echo '<div class="alert alert-danger">Este e-mail ja foi cadastrado!</div>';
+                                }
+                                if ($this->session->flashdata('cpfCadastrado') == TRUE){
+                                    echo '<div class="alert alert-danger">Este CPF ja foi cadastrado!</div>';
+                                }
+
                             ?>
                             <!-- Form -->
                             <form method="POST" action="home/cadastrar">
                                 <h2 class="text-center font-bold deep-orange-text py-4">Cadastro participante</h2>
+
+                                <center><img src="<?= base_url('assets/img/progress1.png')?>" width="80%" margin="auto" ></center>
 
                                 <h3 class="text-center font-bold deep-black-text py-4">Dados Pessoais</h3>
 
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
                                     <input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100">
-                                    <label for="orangeForm-name3">Nome</label>
+                                    <label for="orangeForm-name3">Nome Completo</label>
                                 </div>
 
                                 <div class="md-form">
@@ -39,7 +48,7 @@
 
                                 <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
-                                    <input type="email" id="email" name="email" class="form-control"  required="true" maxlength="100">
+                                    <input type="email" id="email" name="email" class="form-control"  required="true" minlenght="5" maxlength="100">
                                     <label for="orangeForm-email3">E-mail</label>
                                 </div>
 
@@ -79,24 +88,24 @@
                                 <div id="div_escondida" hidden="true">
                                     <div class="md-form">
                                         <i class="fa fa-home prefix grey-text"></i>
-                                        <input type="text" id="rua" name="rua" class="form-control" required="true" minlength="10" maxlength="100">
+                                        <input type="text" id="rua" name="rua" class="form-control" required="true" minlength="3" maxlength="50">
                                         <label for="orangeForm-pass3">Endereço</label>
                                     </div>
 
                                     <div class="md-form">
                                         <i class="fa fa-home prefix grey-text"></i>
-                                        <input type="text" id="bairro" name="bairro" class="form-control" required="true" minlength="3" maxlength="100">
+                                        <input type="text" id="bairro" name="bairro" class="form-control" required="true" minlength="3" maxlength="50">
                                         <label for="orangeForm-pass3">Bairro</label>
                                     </div>
 
                                     <div class="md-form">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
 
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" readonly="true">
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="3" maxlength="50" readonly="true">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
-                                    <select class="form-control" id="estado" name="estado" disabled>
-                                        <option value=""></option>
+                                    <select class="form-control" id="estado" name="estado">
+                                        <option value="">Selecione um Estado</option>
                                         <option value="AC">Acre</option> 
                                         <option value="AL">Alagoas</option> 
                                         <option value="AP">Amapá</option> 
@@ -126,8 +135,15 @@
                                         <option value="TO">Tocantins</option> 
                                     </select> 
 
-                                    <label class="mr-sm-2" for="estado">Estado</label><br>
 
+                                    
+                                    <label class="mr-sm-2" for="tipo"></label>
+                                        <select class="form-control" id="submeter_trabalho" name="submeter_trabalho" required="">
+                                            <option value="">Ira submeter Trabalhos/Artigos?</option>
+                                            <option value="1">Sim</option>
+                                            <option value="0">Não</option>
+                                        </select>
+                                    
 
 
                                     <label class="mr-sm-2" for="tipo"></label>

@@ -21,6 +21,8 @@
                             <form method="POST" action="cadastro_professor_universitario">
                                 <h2 class="text-center font-bold deep-orange-text py-4">Cadastro Professor Universitario</h2>
 
+                                <center><img src="<?= base_url('assets/img/progress2.png')?>" width="80%" margin="auto" ></center>
+
                                 <h3 class="text-center font-bold deep-black-text py-4">Dados da Instituição</h3>
 
                                 <div class="md-form">
@@ -104,6 +106,7 @@
                                 <?php echo '<input id="cpf" name="cpf" type="hidden"  value="'.$cpf.'"' ?>>
                                 <?php echo '<input id="endereco" name="endereco" type="hidden"  value="'.$endereco.'"' ?>>
                                 <?php echo '<input id="bairro" name="bairro" type="hidden"  value="'.$bairro.'"' ?>>
+                                <?php echo '<input id="submeter_trabalho" name="submeter_trabalho" type="hidden"  value="'.$submeter_trabalho.'"' ?>>
 
 
 
