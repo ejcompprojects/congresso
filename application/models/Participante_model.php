@@ -13,6 +13,30 @@ class Participante_model extends CI_Model{
         parent::__construct();
     }
 
+      function email_exists($key){
+        $this->db->where('email',$key);
+        $query = $this->db->get('participante');
+        if ($query->num_rows() > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function cpf_exists($key){
+        $this->db->where('cpf',$key);
+        $query = $this->db->get('participante');
+        if ($query->num_rows() > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+  
+  
     public function get(int $id){
         $this->db->where(self::ID_COLUMN, $id);
         $row = $this->db->get(self::DB_TABLE)->row();
@@ -129,5 +153,6 @@ $this->db->where('status_inscricao', 0);
 $this->db->where("foto_comprovante != ''");
 return $this->db->get(self::DB_TABLE)->num_rows();
 }
+
 
 }
