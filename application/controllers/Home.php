@@ -57,6 +57,9 @@ class Home extends CI_Controller {
 
 
  		if ($this->form_validation->run() == FALSE){
+ 			print_r($this->input->post());
+ 			print_r($this->form_validation->error_array());
+ 			exit();
  			redirect(base_url());
  		}else{
  		

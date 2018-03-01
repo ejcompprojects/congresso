@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="md-form">
                                     <i class="fa fa-map-o prefix grey-text"></i>
-                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="9" maxlength="9" onblur="pesquisacep(this.value);">
+                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onblur="pesquisacep(this.value);">
                                     <label for="orangeForm-pass3">CEP</label>
                                 </div>
                                 <div id="div_escondida" hidden="true">
@@ -101,7 +101,8 @@
                                     <div class="md-form">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
 
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="3" maxlength="50" readonly="true">
+
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
                                     <select class="form-control" id="estado" name="estado">

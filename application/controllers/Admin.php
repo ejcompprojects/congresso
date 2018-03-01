@@ -9,6 +9,7 @@ require_once(APPPATH.'controllers/Login.php');
 class Admin extends Login {
     public function __construct(){
         parent::__construct();
+        if($this->session->userdata('usuario')->tipo_usuario == 'Participante') redirect(base_url('Painel'));
         $this->load->helper('frontend_helper'); 
 
     }
