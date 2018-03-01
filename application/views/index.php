@@ -95,7 +95,7 @@
                                         <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
-                                    <select class="form-control" id="estado" name="estado" disabled>
+                                    <select class="form-control" id="estado" name="estado">
                                         <option value=""></option>
                                         <option value="AC">Acre</option> 
                                         <option value="AL">Alagoas</option> 

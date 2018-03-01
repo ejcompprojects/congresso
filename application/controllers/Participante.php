@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once(APPPATH.'controllers/Login.php');
+require_once(APPPATH.'controllers/Admin.php');
 
 
 class Participante extends Admin {
@@ -48,7 +48,7 @@ class Participante extends Admin {
             if($nome != '0') $filtros['nome'] = $nome;
         }
 
-        $num_rows = $this->participante_model->num_rows($filtros);
+        $num_rows = $this->participante_model->num_rows_listar_pagamento_analisar($filtros);
 
         $config['base_url'] = base_url('Participante/'.$funcao.'/'.$attribute.'/'.$order_by.'/'.$quantidade.'/'.$nome.'/');
         $config['total_rows'] = $num_rows; 
@@ -92,12 +92,14 @@ class Participante extends Admin {
             else if($filtros['order_by'] == 'DESC') $filtros_verbose['order_by'] = 'Do maior para o menor';
         }
 
+        $dados['titulo'] = 'Participantes Para Analisar o Pagamento';
         $dados['participantes'] = $this->participante_model->list_filter_pagamento_analisar($filtros, $inicio); 
         $dados['paginacao'] = $this->pagination->create_links();
         $dados['filtros'] = $filtros;
         $dados['filtros_verbose'] = $filtros_verbose;
         $dados['quantidade'] = $num_rows;
-   
+        $dados['mensagens'] = mensagens();
+
        $this->load->view('html-header-admin');
         $this->load->view('header-admin');
         $this->load->view('listar-participantes', $dados);
@@ -105,7 +107,47 @@ class Participante extends Admin {
     }
 
        
+    public function recusar_comprovante_pagamento($id){
+        $this->db->where('id', $id);
+        $dados['status_inscricao'] = 2;
+        $resposta = $this->db->update('participante', $dados);
 
+        $this->db->where('id', $id);
+        $this->db->select('nome');
+        $usuario = $this->db->get('participante')->row();
+
+        if($resposta){
+             $this->session->set_flashdata('success', 'Comprovante de pagamento do '.$usuario->nome.' <strong>recusado</strong> com sucesso!');
+            
+        }
+        else{
+             $this->session->set_flashdata('danger', 'Erro ao processar a requisição, por favor tente novamente mais tarde.');
+
+        }
+        redirect(base_url('Participante/listar_pagamento_analisar'));
+    }
+
+    public function confirmar_comprovante_pagamento($id){
+       $this->db->where('id', $id);
+        $dados['status_inscricao'] = 1;
+        $resposta = $this->db->update('participante', $dados);
+
+        $this->db->where('id', $id);
+        $this->db->select('nome');
+        $usuario = $this->db->get('participante')->row();
+
+
+        if($resposta){
+             $this->session->set_flashdata('success', 'Comprovante de pagamento do '.$usuario->nome.' <strong>recusado</strong> com sucesso!');
+            
+        }
+        else{
+             $this->session->set_flashdata('danger', 'Erro ao processar a requisição, por favor tente novamente mais tarde.');
+
+        }
+        redirect(base_url('Participante/listar_pagamento_analisar'));
+
+    }
     
 
 

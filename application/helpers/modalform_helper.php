@@ -54,4 +54,9 @@ function getInput($input = array())
 	if($input['type'] == "input_select") 	return(form_dropdown($input['attr'], $input['options'], $input['selected']));
 	if($input['type'] == "input_password") return(form_password($input['attr']));
 	if($input['type'] == "input_file") return(form_upload($input['attr']));
+	if($input['type'] == 'image') return ("<div class='imageContainer'>
+	<div class='image'>
+	<img src='' width='350' heigth='350' id='".$input['attr']['id']."'>
+	</div>
+	</div>");
 }

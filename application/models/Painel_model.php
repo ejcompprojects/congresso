@@ -22,6 +22,7 @@ class Painel_model extends CI_Model{
 	}
 
 	public function get($id){
+		$this->db->where('id', $id);
 		return $this->db->get('participante')->row();
 	}
 
