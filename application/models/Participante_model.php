@@ -13,7 +13,7 @@ class Participante_model extends CI_Model{
         parent::__construct();
     }
 
-      function email_exists($key){
+    function email_exists($key){
         $this->db->where('email',$key);
         $query = $this->db->get('participante');
         if ($query->num_rows() > 0){
@@ -35,8 +35,8 @@ class Participante_model extends CI_Model{
         }
     }
 
-  
-  
+
+
     public function get(int $id){
         $this->db->where(self::ID_COLUMN, $id);
         $row = $this->db->get(self::DB_TABLE)->row();
@@ -59,21 +59,21 @@ class Participante_model extends CI_Model{
         return $this->db->delete(self::DB_TABLE);
     }
 
-    public function list_all(){
-        return $this->db->get(self::DB_TABLE)->result();
+    // public function list_all(){
+    //     return $this->db->get(self::DB_TABLE)->result();
 
-    }
+    // }
     
     public function num_rows($filtros = array()){
 
       if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
-         $this->db->like(self::DB_TABLE.'.'.self::NOME_COLUMN, $filtros[self::NOME_COLUMN]);
-     }
+       $this->db->like(self::DB_TABLE.'.'.self::NOME_COLUMN, $filtros[self::NOME_COLUMN]);
+   }
 
-     return $this->db->get(self::DB_TABLE)->num_rows();
- }
+   return $this->db->get(self::DB_TABLE)->num_rows();
+}
 
- public function cadastraParticipante($dados){
+public function cadastraParticipante($dados){
     $this->db->insert('participante',$dados);
     $insert_id = $this->db->insert_id();
     return $insert_id;
@@ -81,25 +81,25 @@ class Participante_model extends CI_Model{
 
 public function list_filter($filtros = array(), $inicio = 0){
   if(!isset($filtros['attribute'])){
-     $filtros['attribute'] = 'nome';
- } 
- if(!isset($filtros['order_by'])){
-     $filtros['order_by'] = 'ASC';
- }
- if(!isset($filtros['quantidade'])){
-     $filtros['quantidade'] = 10;
- }
+   $filtros['attribute'] = 'nome';
+} 
+if(!isset($filtros['order_by'])){
+   $filtros['order_by'] = 'ASC';
+}
+if(!isset($filtros['quantidade'])){
+   $filtros['quantidade'] = 10;
+}
 
- $this->db->order_by($filtros['attribute'], $filtros['order_by']);
- $this->db->limit($filtros['quantidade'], $inicio);
+$this->db->order_by($filtros['attribute'], $filtros['order_by']);
+$this->db->limit($filtros['quantidade'], $inicio);
 
- if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
-     $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
- }
+if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
+   $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
+}
 
- $this->db->select(self::DB_TABLE . '.*');
+$this->db->select(self::DB_TABLE . '.*');
 
- return $this->db->get(self::DB_TABLE)->result();
+return $this->db->get(self::DB_TABLE)->result();
 
 
 }
@@ -131,7 +131,7 @@ public function list_filter_pagamento_analisar($filtros = array(), $inicio = 0){
 }
 
 public function num_rows_listar_pagamento_analisar($filtros = array(), $inicio = 0){
-   if(!isset($filtros['attribute'])){
+ if(!isset($filtros['attribute'])){
     $filtros['attribute'] = 'nome';
 } 
 if(!isset($filtros['order_by'])){
@@ -153,6 +153,166 @@ $this->db->where('status_inscricao', 0);
 $this->db->where("foto_comprovante != ''");
 return $this->db->get(self::DB_TABLE)->num_rows();
 }
+
+
+public function list_filter_trabalho_analisar($filtros = array(), $inicio = 0){
+    if(!isset($filtros['attribute'])){
+        $filtros['attribute'] = 'nome';
+    } 
+    if(!isset($filtros['order_by'])){
+        $filtros['order_by'] = 'ASC';
+    }
+    if(!isset($filtros['quantidade'])){
+        $filtros['quantidade'] = 10;
+    }
+
+    $this->db->order_by($filtros['attribute'], $filtros['order_by']);
+    $this->db->limit($filtros['quantidade'], $inicio);
+
+    if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
+        $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
+    }
+    $this->db->join('tipo_inscricao', 'tipo_inscricao.id = participante.id_tipo_inscricao', 'INNER');
+    $this->db->join('trabalho', 'trabalho.id_participante = participante.id', 'INNER');
+    $this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER'); 
+    $this->db->select('tipo_inscricao.tipo as tipo_inscricao, eixo.nome as eixo, trabalho.*, '.self::DB_TABLE . '.*');
+    $this->db->where('trabalho.status', 0);
+    $this->db->order_by('trabalho.data_registro', 'ASC');
+    return $this->db->get(self::DB_TABLE)->result();
+
+
+}
+
+public function num_rows_listar_trabalho_analisar($filtros = array(), $inicio = 0){
+ if(!isset($filtros['attribute'])){
+    $filtros['attribute'] = 'nome';
+} 
+if(!isset($filtros['order_by'])){
+    $filtros['order_by'] = 'ASC';
+}
+if(!isset($filtros['quantidade'])){
+    $filtros['quantidade'] = 10;
+}
+
+$this->db->order_by($filtros['attribute'], $filtros['order_by']);
+$this->db->limit($filtros['quantidade'], $inicio);
+
+if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
+    $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
+}
+$this->db->join('tipo_inscricao', 'tipo_inscricao.id = participante.id_tipo_inscricao', 'INNER');
+$this->db->join('trabalho', 'trabalho.id_participante = participante.id', 'INNER');
+$this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER'); 
+$this->db->select('tipo_inscricao.tipo as tipo_inscricao, eixo.nome as eixo, trabalho.*, '.self::DB_TABLE . '.*');
+$this->db->where('trabalho.status', 0);
+$this->db->order_by('trabalho.data_registro', 'ASC');
+return $this->db->get(self::DB_TABLE)->num_rows();
+}
+
+public function num_rows_todos($filtros = array(), $inicio = 0){
+    return count($this->list_all($filtros, $inicio));
+    // if(!isset($filtros['attribute'])){
+    //     $filtros['attribute'] = 'nome';
+    // } 
+    // if(!isset($filtros['order_by'])){
+    //     $filtros['order_by'] = 'ASC';
+    // }
+    // if(!isset($filtros['quantidade'])){
+    //     $filtros['quantidade'] = 10;
+    // }
+
+    // if($filtros['attribute'] == 'vai_submeter_trabalho'){
+    //     $this->db->where('submeter_trabalho', 1);
+    //     $filtros['attribute'] = 'nome';
+    // }else if($filtros['attribute'] == 'nao_vai_submeter_trabalho'){
+    //     $this->db->where('submeter_trabalho', 0);
+    //     $filtros['attribute'] = 'nome';
+    // }
+
+    // if($filtros['attribute'] == 'data_registro'){
+    //     $filtros['attribute'] = 'participante.data_registro';
+    // }
+
+    // $this->db->order_by($filtros['attribute'], $filtros['order_by']);
+    // $this->db->limit($filtros['quantidade'], $inicio);
+
+    // if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
+    //     $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
+    // }
+
+    // if(isset($filtros['tipo_inscricao']) && $filtros['tipo_inscricao'] != ''){
+    //     $this->db->where('id_tipo_inscricao', $filtros['tipo_inscricao']);
+    // }
+    
+    // if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 3){
+    //     $this->db->where('status_inscricao', $filtros['status_inscricao']);
+    // }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 3){
+    //     $this->db->where('foto_comprovante', '');
+    // }
+
+    // if(isset($filtros['status_trabalho']) && $filtros['status_trabalho'] != ''){
+    //     $this->db->join('trabalho', 'participante.id = trabalho.id_participante', 'INNER');
+    //     $this->db->where('trabalho.status', $filtros['status_trabalho']);
+    // }
+
+    // $this->db->join('tipo_inscricao', 'participante.id_tipo_inscricao = tipo_inscricao.id', 'INNER');
+    // $this->db->join('trabalho', 'participante.id = trabalho.id_participante', 'LEFT');
+    // $this->db->join('eixo', 'trabalho.id_eixo = eixo.id', 'LEFT');
+    // $this->db->select('eixo.nome as eixo, tipo_inscricao.tipo as tipo_inscricao, '.self::DB_TABLE . '.*, trabalho.*');
+    // return $this->db->get(self::DB_TABLE)->num_rows();
+}
+
+public function list_all($filtros = array(), $inicio = 0){
+    if(!isset($filtros['attribute'])){
+        $filtros['attribute'] = 'nome';
+    } 
+    if(!isset($filtros['order_by'])){
+        $filtros['order_by'] = 'ASC';
+    }
+    if(!isset($filtros['quantidade'])){
+        $filtros['quantidade'] = 10;
+    }
+
+    if($filtros['attribute'] == 'vai_submeter_trabalho'){
+        $this->db->where('submeter_trabalho', 1);
+        $filtros['attribute'] = 'nome';
+    }else if($filtros['attribute'] == 'nao_vai_submeter_trabalho'){
+        $this->db->where('submeter_trabalho', 0);
+        $filtros['attribute'] = 'nome';
+    }
+    
+    if($filtros['attribute'] == 'data_registro'){
+        $filtros['attribute'] = 'participante.data_registro';
+    }
+
+    $this->db->order_by($filtros['attribute'], $filtros['order_by']);
+    $this->db->limit($filtros['quantidade'], $inicio);
+
+    if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
+        $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
+    }
+
+    if(isset($filtros['tipo_inscricao']) && $filtros['tipo_inscricao'] != ''){
+        $this->db->where('id_tipo_inscricao', $filtros['tipo_inscricao']);
+    }
+    
+    if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 3){
+        $this->db->where('status_inscricao', $filtros['status_inscricao']);
+    }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 3){
+        $this->db->where('foto_comprovante', '');
+    }
+
+    if(isset($filtros['status_trabalho']) && $filtros['status_trabalho'] != ''){
+        //$this->db->join('trabalho', 'participante.id = trabalho.id_participante', 'INNER');
+        $this->db->where('trabalho.status', $filtros['status_trabalho']);
+    }
+    $this->db->join('tipo_inscricao', 'participante.id_tipo_inscricao = tipo_inscricao.id', 'INNER');
+    $this->db->join('trabalho', 'participante.id = trabalho.id_participante', 'LEFT');
+    $this->db->join('eixo', 'trabalho.id_eixo = eixo.id', 'LEFT');
+    $this->db->select('eixo.nome as eixo, tipo_inscricao.tipo as tipo_inscricao, '.self::DB_TABLE . '.*, trabalho.*');
+    return $this->db->get(self::DB_TABLE)->result();
+}
+
 
 
 }

@@ -98,6 +98,18 @@
 
       <table class="table table-striped table-advance table-hover">
         <thead>
+          <?php if($funcao == 'listar_trabalho_analisar'){ ?>
+          <tr>
+            <th><i class="fa fa-font"></i> ID</th>
+            <th><i class="fa fa-book"></i> Titulo</th>
+            <th><i class="fa fa-book"></i> Eixo</th>
+            <th><i class="fa fa-book"></i> Tipo Inscrição</th>
+            <th class="hidden-phone"><i class="fa fa-question-circle"></i> Estado</th>
+            <th></th>
+
+          </tr>
+          <?php } 
+          else{ ?>
           <tr>
             <th><i class="fa fa-font"></i> Nome</th>
             <th><i class="fa fa-book"></i> Tipo Inscrição</th>
@@ -106,10 +118,14 @@
             <th></th>
 
           </tr>
+          <?php } ?>
         </thead>
         <tbody>
-          <?php foreach ($participantes as $participante) : ?>
-            <?php 
+
+          <?php 
+
+          foreach ($participantes as $participante) :
+
             switch($participante->status_inscricao){
               case 0: $participante->status_inscricao = 'Pendente'; break;
               case 1: $participante->status_inscricao = 'Aprovado'; break;
@@ -118,16 +134,29 @@
             }
             ?>
             <tr>
+              <?php if($funcao == 'listar_trabalho_analisar'){ ?>
+
+            <?php   $participante->data_registro = date('d/m/Y', strtotime($participante->data_registro)); ?>
+
+              <td><?=$participante->id ?></td>
+              <td><?=$participante->titulo ?></td>
+              <td><?=$participante->eixo ?></td>
+              <td><?= $participante->tipo_inscricao ?></td>
+              <td><?= $participante->estado ?></td>
+
+              <?php }
+              else{ ?>
               <td><?=$participante->nome ?></td>
               <td><?=$participante->tipo_inscricao ?></td>
               <td><?=$participante->estado ?></td>
               <td><?= $participante->status_inscricao ?></td>
+              <?php } ?>
               <td>
-
                 <button class           ="btn btn-primary btn-xs" 
                 data-toggle     ="modal" 
                 data-target     ="#modalParticipante" 
                 data-type       ="update"
+                <?php if($funcao == 'listar_pagamento_analisar'){ ?>
                 data-id         ="<?=$participante->id?>" 
                 data-nome       ="<?=$participante->nome?>" 
                 data-email      ="<?=$participante->email?>"
@@ -144,8 +173,18 @@
                 data-tipo_inscricao      ="<?=$participante->tipo_inscricao?>"
                 data-status_inscricao      ="<?=$participante->status_inscricao?>"
                 data-data_registro      ="<?=$participante->data_registro?>"
+                <?php } ?>
+                <?php if($funcao == 'listar_trabalho_analisar'){ ?>
+                data-id         ="<?=$participante->id?>" 
+                data-titulo      ="<?=$participante->titulo?>"
+                data-eixo      ="<?=$participante->eixo?>"
+                data-tipo_inscricao      ="<?=$participante->tipo_inscricao?>"
+                data-arquivo_sem_nome_autor      ="<?=$participante->arquivo_sem_nome_autor?>"
+                data-arquivo_com_nome_autor      ="<?=$participante->arquivo_com_nome_autor?>"
+                data-status      ="<?=$participante->status?>"
+                data-data_registro      ="<?=$participante->data_registro?>"
 
-
+                <?php } ?>
                 >
 
                 <i class="fa fa-eye"></i>
@@ -161,7 +200,8 @@
 
                                           </td>
                                         </tr>
-                                      <?php endforeach; ?>
+                                      <?php endforeach;
+                                      ?>
                                     </tbody>
                                   </table>
                                   <?php echo $paginacao; ?>
@@ -169,142 +209,185 @@
                               </div>
                             </div>
                             <?php
-                            $input[0]['type']  = "input_text";
+                            if($funcao == 'listar_pagamento_analisar'){
+                              $input[0]['type']  = "input_text";
 
-                            $input[0]['label'] = "Nome";
+                              $input[0]['label'] = "Nome";
 
-                            $input[0]['attr']  = array(
-                              'name'        => 'nome',
-                              'id'          => 'nome',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
+                              $input[0]['attr']  = array(
+                                'name'        => 'nome',
+                                'id'          => 'nome',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
 
-                            $input[1]['type']  = "input_text";
+                              $input[1]['type']  = "input_text";
 
-                            $input[1]['label'] = "email";
+                              $input[1]['label'] = "email";
 
-                            $input[1]['attr']  = array(
-                              'name'        => 'email',
-                              'id'          => 'email',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
-
-
-                            $input[2]['type']  = "input_text";
-
-                            $input[2]['label'] = "cpf";
-
-                            $input[2]['attr']  = array(
-                              'name'        => 'cpf',
-                              'id'          => 'cpf',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
-
-                            $input[3]['type']  = "input_text";
-
-                            $input[3]['label'] = "celular";
-
-                            $input[3]['attr']  = array(
-                              'name'        => 'celular',
-                              'id'          => 'celular',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
+                              $input[1]['attr']  = array(
+                                'name'        => 'email',
+                                'id'          => 'email',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
 
 
-                            $input[4]['type']  = "input_text";
+                              $input[2]['type']  = "input_text";
 
-                            $input[4]['label'] = "endereco";
+                              $input[2]['label'] = "cpf";
 
-                            $input[4]['attr']  = array(
-                              'name'        => 'endereco',
-                              'id'          => 'endereco',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
+                              $input[2]['attr']  = array(
+                                'name'        => 'cpf',
+                                'id'          => 'cpf',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
 
-                            $input[5]['type']  = "input_text";
+                              $input[3]['type']  = "input_text";
 
-                            $input[5]['label'] = "cidade";
+                              $input[3]['label'] = "celular";
 
-                            $input[5]['attr']  = array(
-                              'name'        => 'cidade',
-                              'id'          => 'cidade',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
-
-
-                            $input[6]['type']  = "input_text";
-
-                            $input[6]['label'] = "estado";
-
-                            $input[6]['attr']  = array(
-                              'name'        => 'estado',
-                              'id'          => 'estado',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
-
-                            $input[7]['type']  = "input_text";
-
-                            $input[7]['label'] = "cep";
-
-                            $input[7]['attr']  = array(
-                              'name'        => 'cep',
-                              'id'          => 'cep',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
+                              $input[3]['attr']  = array(
+                                'name'        => 'celular',
+                                'id'          => 'celular',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
 
 
+                              $input[4]['type']  = "input_text";
 
-                            $input[8]['type']  = "input_text";
+                              $input[4]['label'] = "endereco";
 
-                            $input[8]['label'] = "Submeter Trabalho";
+                              $input[4]['attr']  = array(
+                                'name'        => 'endereco',
+                                'id'          => 'endereco',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
 
-                            $input[8]['attr']  = array(
-                              'name'        => 'submeter_trabalho',
-                              'id'          => 'submeter_trabalho',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
+                              $input[5]['type']  = "input_text";
 
-                            $input[9]['type']  = "input_text";
+                              $input[5]['label'] = "cidade";
 
-                            $input[9]['label'] = "Tipo Inscrição";
-
-                            $input[9]['attr']  = array(
-                              'name'        => 'tipo_inscricao',
-                              'id'          => 'tipo_inscricao',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
-                              'class'       => 'form-control',);
-                            $input[10]['type']  = "image";
-
-                            $input[10]['label'] = "Foto Comprovante";
-
-                            $input[10]['attr']  = array(
-                              'name'        => 'foto_comprovante',
-                              'id'          => 'foto_comprovante',
-                              'maxlength'   => 255,
-                              'class'       => 'form-control',);
+                              $input[5]['attr']  = array(
+                                'name'        => 'cidade',
+                                'id'          => 'cidade',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
 
 
-                            //  echo "<div class='imageContainer'>
-                            // <div class='image'>
-                            // <img src='' width='172' heigth='172' id='userImage'>
-                            // </div>
-                            // <div class='removeImage'>
-                            // <i class='fa fa-minus-circle'></i>
-                            // </div></div>";
+                              $input[6]['type']  = "input_text";
+
+                              $input[6]['label'] = "estado";
+
+                              $input[6]['attr']  = array(
+                                'name'        => 'estado',
+                                'id'          => 'estado',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
+
+                              $input[7]['type']  = "input_text";
+
+                              $input[7]['label'] = "cep";
+
+                              $input[7]['attr']  = array(
+                                'name'        => 'cep',
+                                'id'          => 'cep',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
+
+
+
+                              $input[8]['type']  = "input_text";
+
+                              $input[8]['label'] = "Submeter Trabalho";
+
+                              $input[8]['attr']  = array(
+                                'name'        => 'submeter_trabalho',
+                                'id'          => 'submeter_trabalho',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
+
+                              $input[9]['type']  = "input_text";
+
+                              $input[9]['label'] = "Tipo Inscrição";
+
+                              $input[9]['attr']  = array(
+                                'name'        => 'tipo_inscricao',
+                                'id'          => 'tipo_inscricao',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
+                              $input[10]['type']  = "image";
+
+                              $input[10]['label'] = "Foto Comprovante";
+
+                              $input[10]['attr']  = array(
+                                'name'        => 'foto_comprovante',
+                                'id'          => 'foto_comprovante',
+                                'maxlength'   => 255,
+                                'class'       => 'form-control',);
+                            }
+                            if($funcao == 'listar_trabalho_analisar'){
+                              $input[0]['type']  = "input_text";
+
+                              $input[0]['label'] = "Titulo";
+                              $input[0]['attr']  = array(
+                                'name'        => 'titulo',
+                                'id'          => 'titulo',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
+
+                              $input[1]['type']  = "input_text";
+
+                              $input[1]['label'] = "Eixo";
+                              $input[1]['attr']  = array(
+                                'name'        => 'eixo',
+                                'id'          => 'eixo',
+                                'maxlength'   => 255,
+                                'disabled'   => true,
+                                'class'       => 'form-control',);
+
+                              $input[2]['type']  = "input_text";
+
+                              $input[2]['label'] = "Tipo Inscrição";
+                              $input[2]['attr']  = array(
+                                'name'        => 'tipo_inscricao',
+                                'id'          => 'tipo_inscricao',
+                                'maxlength'   => 255,
+                                'disabled'   => true,
+                                'class'       => 'form-control',);
+
+                              $input[3]['type']  = "input_text";
+
+                              $input[3]['label'] = "Data de Anexo do Trabalho";
+                              $input[3]['attr']  = array(
+                                'name'        => 'data_registro',
+                                'id'          => 'data_registro',
+                                'maxlength'   => 255,
+                                'disabled'    => true,
+                                'class'       => 'form-control',);
+
+                              $input[4]['type'] = 'link';
+
+                              $input[4]['label'] = 'Trabalho SEM o autor';
+                              $input[4]['attr']  = array(
+                                'name'        => 'arquivo_sem_nome_autor',
+                                'id'          => 'arquivo_com_nome_autor',
+                              );
+                            }
+
 
 
                             echo modalForm("modalParticipante", "participanteLabel", "", "formParticipante", $input); 
-                           
+
                             ?>
 
                             <div class="modal fade in" id="modalParticipanteExcluir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -353,57 +436,91 @@
                               }
                               else if(action == "update")
                               {
-        var id      = button.data('id') // Extract info from data-* attributes
-        modal.find('#ParticipanteLabel').text("Validar Comprovante de Pagamento")
-        modal.find('#mandabala').text("Aceitar")
-        modal.find('#id').show()
-        modal.find('#formParticipante').attr("action", "<?=base_url('Participante/confirmar_comprovante_pagamento/')?>"+id)
-
-        modal.find('#nao_aceitar').text('Recusar')
-        modal.find('#nao_aceitar').attr('href', "<?= base_url('Participante/recusar_comprovante_pagamento/')?>"+id)
-
-        var id        = button.data('id')
-        var nome      = button.data('nome')
-        var email     = button.data('email')
-        var cpf       = button.data('cpf')
-        var celular   = button.data('celular')
-        var telefone  = button.data('telefone')
-        var endereco  = button.data('endereco')
-        var bairro    = button.data('bairro')
-        var complemento = button.data('complemento')
-        var cidade    = button.data('cidade')
-        var estado    = button.data('estado')
-        var cep       = button.data('cep')
-        var submeter_trabalho = button.data('submeter_trabalho')
-        var foto_comprovante = button.data('foto_comprovante')
-        var tipo_inscricao = button.data('tipo_inscricao')
-        var status_inscricao = button.data('status_inscricao')
 
 
-        if(submeter_trabalho == 0) submeter_trabalho = 'Não';
-        else submeter_trabalho = 'Sim';
+                                <?php if($funcao == 'listar_pagamento_analisar'){ ?>
+          var id      = button.data('id') // Extract info from data-* attributes
+          modal.find('#ParticipanteLabel').text("Validar Comprovante de Pagamento")
+          modal.find('#mandabala').text("Aceitar")
+          modal.find('#id').show()
+          modal.find('#formParticipante').attr("action", "<?=base_url('Participante/confirmar_comprovante_pagamento/')?>"+id)
 
-        modal.find('#id').val(id)
-        modal.find('#nome').val(nome)
-        modal.find('#email').val(email)
-        modal.find('#cpf').val(cpf)
-        modal.find('#celular').val(celular)
-        modal.find('#telefone').val(telefone)
-        modal.find('#endereco').val(endereco)
-        modal.find('#bairro').val(bairro)
-        modal.find('#complemento').val(complemento)
-        modal.find('#cidade').val(cidade)
-        modal.find('#estado').val(estado)
-        modal.find('#cep').val(cep)
-        modal.find('#submeter_trabalho').val(submeter_trabalho)
+          modal.find('#nao_aceitar').text('Recusar')
+          modal.find('#nao_aceitar').attr('href', "<?= base_url('Participante/recusar_comprovante_pagamento/')?>"+id)
+
+
+          var id        = button.data('id')
+          var nome      = button.data('nome')
+          var email     = button.data('email')
+          var cpf       = button.data('cpf')
+          var celular   = button.data('celular')
+          var telefone  = button.data('telefone')
+          var endereco  = button.data('endereco')
+          var bairro    = button.data('bairro')
+          var complemento = button.data('complemento')
+          var cidade    = button.data('cidade')
+          var estado    = button.data('estado')
+          var cep       = button.data('cep')
+          var submeter_trabalho = button.data('submeter_trabalho')
+          var foto_comprovante = button.data('foto_comprovante')
+          var tipo_inscricao = button.data('tipo_inscricao')
+          var status_inscricao = button.data('status_inscricao')
+
+
+          if(submeter_trabalho == 0) submeter_trabalho = 'Não';
+          else submeter_trabalho = 'Sim';
+
+          modal.find('#id').val(id)
+          modal.find('#nome').val(nome)
+          modal.find('#email').val(email)
+          modal.find('#cpf').val(cpf)
+          modal.find('#celular').val(celular)
+          modal.find('#telefone').val(telefone)
+          modal.find('#endereco').val(endereco)
+          modal.find('#bairro').val(bairro)
+          modal.find('#complemento').val(complemento)
+          modal.find('#cidade').val(cidade)
+          modal.find('#estado').val(estado)
+          modal.find('#cep').val(cep)
+          modal.find('#submeter_trabalho').val(submeter_trabalho)
         //modal.find('#foto_comprovante').val(foto_comprovante)
         modal.find('#tipo_inscricao').val(tipo_inscricao)
         modal.find('#status_inscricao').val(status_inscricao)
         modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
-      }
-    })
 
-                            $('#modalParticipanteExcluir').on('show.bs.modal', function (event) {
+        <?php } ?>
+        <?php if($funcao == 'listar_trabalho_analisar'){ ?>
+          var id      = button.data('id') // Extract info from data-* attributes
+          //modal.find('#ParticipanteLabel').text("Validar Trabalho de Pagamento")
+          modal.find('#mandabala').text("Aceitar")
+          modal.find('#id').show()
+          modal.find('#formParticipante').attr("action", "<?=base_url('Participante/confirmar_trabalho/')?>"+id)
+
+          modal.find('#nao_aceitar').text('Recusar')
+          modal.find('#nao_aceitar').attr('href', "<?= base_url('Participante/recusar_trabalho/')?>"+id)
+
+          //var id        = button.data('id')
+          var titulo    = button.data('titulo')
+          var eixo        = button.data('eixo')
+          var tipo_inscricao  = button.data('tipo_inscricao')
+          var data_registro  = button.data('data_registro')
+          var arquivo_sem_nome_autor        = button.data('arquivo_sem_nome_autor')
+
+          console.log()
+          //modal.find('#id').val(id)
+          modal.find('#titulo').val(titulo)
+          modal.find('#eixo').val(eixo)
+          modal.find('#tipo_inscricao').val(tipo_inscricao)
+          modal.find('#data_registro').val(data_registro)
+          modal.find('#link').attr('href', '<?= base_url('uploads/artigo/') ?>'+arquivo_sem_nome_autor)
+
+          <?php } ?>
+
+          
+        }
+      })
+
+$('#modalParticipanteExcluir').on('show.bs.modal', function (event) {
       var button  = $(event.relatedTarget) // Button that triggered the modal
       var id      = button.data('id') // Extract info from data-* attributes
       var link    = "<?=base_url('Participante/delete/')?>" + id
@@ -413,5 +530,5 @@
       modal.find('#descricao').val(descricao)
     })
 
-                          });
-                        </script>
+});
+</script>

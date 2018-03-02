@@ -48,6 +48,7 @@ function getImage($src){
 
 function getInput($input = array())
 {
+	if($input['type'] == 'link') return ('<div class=""><a href="" target="_blank" id="'.$input['attr']['id'].'" class="btn btn-primary">CLIQUE AQUI PARA ABRIR O TRABALHO</a></div>');
 	if($input['type'] == "input_text") 		return(form_input($input['attr']));
 	if($input['type'] == "input_file") 		return(form_upload($input['attr']));
 	if($input['type'] == "input_textarea") 	return(form_textarea($input['attr']));

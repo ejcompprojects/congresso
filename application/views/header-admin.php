@@ -50,6 +50,7 @@ $usuario = $_SESSION['usuario']; ?>
               <span>Participantes</span>
             </a>  
             <ul class="sub">
+              <li><a  href="<?= base_url('Participante/listar_todos') ?>">Todos</a></li>
               <li><a  href="<?= base_url('Participante/listar_pagamento_analisar') ?>">Para Analisar o Pagamento</a></li>
               <li><a  href="<?= base_url('Participante/listar_trabalho_analisar') ?>">Para Analisar o Trabalho</a></li>
             </ul>
