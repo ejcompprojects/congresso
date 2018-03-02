@@ -1,0 +1,6 @@
+.ampulheta:hover{
+  transition: .8s;
+  overflow: auto !important;
+  width: 100%;
+  height: 100%;
+}
