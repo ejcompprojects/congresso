@@ -9,7 +9,7 @@ $usuario = $_SESSION['usuario']; ?>
           <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Abrir/Esconder Menu"></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo"><b>Congresso: Pedagogia Histórico-crítica</b></a>
+        <a href="<?= base_url('Admin') ?>" class="logo"><b>Congresso: Pedagogia Histórico-crítica</b></a>
         <!--logo end-->
 
 
@@ -33,9 +33,9 @@ $usuario = $_SESSION['usuario']; ?>
            <p class="centered"><a href="<?= base_url('Admin/profile') ?>"><img src="<?= base_url('assets/img/default.jpeg') ?>" class="img-circle" width="60"></a></p>
            <h5 class="centered"><?= $usuario->nome ?></h5>
 
-     
 
-          <li class="sub-menu">
+
+           <li class="sub-menu">
             <a href="<?= base_url('Admin') ?>" >
               <i class="fa fa-info"></i>
               <span>Página Inicial</span>
@@ -55,6 +55,29 @@ $usuario = $_SESSION['usuario']; ?>
             </ul>
           </li>
 
+          <li class="sub-menu">
+            <a href="javascript:;" >
+              <i class="fa fa-envelope"></i>
+              <span>E-mail</span>
+            </a>  
+            <ul class="sub">
+              <li><a  href="<?= base_url('Email/especifico') ?>">P/ um Part. Específico</a></li>
+              <li><a  href="<?= base_url('Email/pagamento/pendente') ?>">P/ Pagamentos Em Análise</a></li>
+              <li><a  href="<?= base_url('Email/pagamento/aprovado') ?>">P/ Pagamentos Aprovados</a></li>
+              <li><a  href="<?= base_url('Email/pagamento/reprovado') ?>">P/ Pagamentos Reprovados</a></li>
+              <li><a  href="<?= base_url('Email/trabalho/pendente') ?>">P/ Trabalhos Em Análise</a></li>
+              <li><a  href="<?= base_url('Email/trabalho/aprovado') ?>">P/ Trabalhos  Aprovados</a></li>
+              <li><a  href="<?= base_url('Email/trabalho/reprovado') ?>">P/ Trabalhos Reprovados</a></li>
+            </ul>
+          </li>
+
+
+          <li class="sub-menu">
+            <a href="<?= base_url('Admin/profile') ?>" >
+              <i class="fa fa-file"></i>
+              <span>Alterar Meus Dados</span>
+            </a>
+          </li>
 
 
 

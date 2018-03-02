@@ -21,6 +21,8 @@
                             <form method="POST" action="declarar_interesse_minicursos">
                                 <h2 class="text-center font-bold deep-orange-text py-4">Declarar Interesse por minicursos</h2>
 
+                                <center><img src="<?= base_url('assets/img/progress3.png')?>" width="80%" margin="auto" ></center>
+
                                 <h3 class="text-center font-bold deep-black-text py-4">Utilizado para fins organizacionais, Nâo garante vaga!</h3>
 
                                 <div>
