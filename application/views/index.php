@@ -32,7 +32,7 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <i class="fa fa-user prefix grey-text"></i>
+                                    <i class="fa fa-id-card prefix grey-text"></i>
                                     <input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15">
                                     <label for="orangeForm-name3">CPF</label>
                                 </div>
@@ -56,7 +56,7 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <i class="fa fa-phone-square prefix grey-text"></i>
+                                    <i class="fa fa-mobile prefix grey-text"></i>
                                     <input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15">
                                     <label for="orangeForm-pass3">Celular</label>
                                 </div>
@@ -95,7 +95,7 @@
                                         <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100">
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
-                                    <select class="form-control" id="estado" name="estado" disabled>
+                                    <select class="form-control" id="estado" name="estado">
                                         <option value=""></option>
                                         <option value="AC">Acre</option> 
                                         <option value="AL">Alagoas</option> 
