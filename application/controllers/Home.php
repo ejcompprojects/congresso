@@ -427,14 +427,17 @@ class Home extends CI_Controller {
 		$minicursosSelecionados = $this->input->post('minicursos'); 
 		$id_participante = $this->input->post('id_participante');
 
+		if($minicursosSelecionados != NULL){
 		foreach ($minicursosSelecionados as $item){
 			$dados['id_participante'] = $id_participante;
 			$dados['id_minicurso'] = $item;
 			$this->modelMinicursos->insertParticipante_interesse($dados);
-		}
+		}}
 
 		$this->session->set_flashdata('cadastrado', TRUE);
-		redirect(base_url());
+		$this->load->view('html_header');
+	 	$this->load->view('cadastro_sucesso');
+	 	$this->load->view('html_footer');
 	}
 
 
