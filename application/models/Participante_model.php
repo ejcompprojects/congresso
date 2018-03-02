@@ -154,4 +154,5 @@ $this->db->where("foto_comprovante != ''");
 return $this->db->get(self::DB_TABLE)->num_rows();
 }
 
+
 }
