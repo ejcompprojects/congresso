@@ -74,12 +74,6 @@ class Painel extends Login {
         else{
             $data['completo'] = true;
         }
-
-        if(!$vai_submeter_trabalho && $porcentagem == 70){
-            $porcentagem = 100;
-            $data['completo'] = true;
-        }
-
         $data['info'] = $info;
         // $data['success'] = $success;
         // $data['danger'] = $danger;
