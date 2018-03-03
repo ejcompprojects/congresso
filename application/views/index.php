@@ -2,6 +2,8 @@
 <body class="hm-gradient"> 
     <body class="hm-gradient">
         <script type="text/javascript" src="assets/js/preencheCep.js"></script>
+         <script type="text/javascript" src="assets/js/jquery.mask.js"></script>
+          <script type="text/javascript" src="assets/js/mascara.js"></script>
         <main>
             <div class="container">
 
