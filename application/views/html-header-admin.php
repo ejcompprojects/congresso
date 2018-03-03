@@ -15,7 +15,8 @@
     <link href="<?= base_url('assets/font-awesome/css/font-awesome.css')?>" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/zabuto_calendar.css')?> ">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/js/gritter/css/jquery.gritter.css')?> " />
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/lineicons/style.css')?> ">    
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/lineicons/style.css')?> ">
+    <link href="<?= base_url('assets/css/zoom.css')?>" rel="stylesheet" /> 
     
     <!-- Custom styles for this template -->
     <link href="<?= base_url('assets/css/style.css')?> " rel="stylesheet">
