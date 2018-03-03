@@ -263,7 +263,7 @@ private function verificaEmailECpf($email, $cpf){
       return $this->session->has_userdata('usuario');
     }
 
-    private function crypt ($password){
+    public function crypt ($password){
       $options = ['cost' => 12];
       $password = password_hash($password, PASSWORD_DEFAULT, $options);
       return $password; 

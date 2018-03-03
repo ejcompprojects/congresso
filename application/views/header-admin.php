@@ -63,12 +63,12 @@ $usuario = $_SESSION['usuario']; ?>
             </a>  
             <ul class="sub">
               <li><a  href="<?= base_url('Email/especifico') ?>">P/ um Part. Específico</a></li>
-              <li><a  href="<?= base_url('Email/pagamento/pendente') ?>">P/ Pagamentos Em Análise</a></li>
-              <li><a  href="<?= base_url('Email/pagamento/aprovado') ?>">P/ Pagamentos Aprovados</a></li>
+              <li><a  href="<?= base_url('Email/pagamento/pendente') ?>">P/ um grupo</a></li>
+              <!-- <li><a  href="<?= base_url('Email/pagamento/aprovado') ?>">P/ Pagamentos Aprovados</a></li>
               <li><a  href="<?= base_url('Email/pagamento/reprovado') ?>">P/ Pagamentos Reprovados</a></li>
               <li><a  href="<?= base_url('Email/trabalho/pendente') ?>">P/ Trabalhos Em Análise</a></li>
               <li><a  href="<?= base_url('Email/trabalho/aprovado') ?>">P/ Trabalhos  Aprovados</a></li>
-              <li><a  href="<?= base_url('Email/trabalho/reprovado') ?>">P/ Trabalhos Reprovados</a></li>
+              <li><a  href="<?= base_url('Email/trabalho/reprovado') ?>">P/ Trabalhos Reprovados</a></li> -->
             </ul>
           </li>
 
@@ -77,6 +77,13 @@ $usuario = $_SESSION['usuario']; ?>
             <a href="<?= base_url('Admin/profile') ?>" >
               <i class="fa fa-file"></i>
               <span>Alterar Meus Dados</span>
+            </a>
+          </li>
+
+          <li class="sub-menu">
+            <a href="<?= base_url('Admin/logout') ?>" >
+              <i class="fa fa-times"></i>
+              <span>Sair</span>
             </a>
           </li>
 

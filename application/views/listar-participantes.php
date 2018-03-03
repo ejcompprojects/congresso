@@ -1,13 +1,6 @@
 <section id="main-content">
   <section class="wrapper site-min-height">
    <h2><i class="fa fa-angle-right"></i><?= $titulo ?>
-    <button class       ="btn btn-primary btn-xs" 
-    data-toggle ="modal" 
-    data-target ="#modalParticipante" 
-    data-type   ="new"
-    >
-    <i class="fa fa-new"></i>Novo
-  </button>
 </h2>
 <div class="row mt">
   <div class="col-md-12">
