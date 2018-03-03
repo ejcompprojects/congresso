@@ -81,6 +81,31 @@ function getInput($input = array())
 			return $html;
 			
 		}
+
+		if($input['type'] == 'select_status_inscricao'){
+			
+			$html = '';
+			
+			$html = "<div class=\"form-group\">";
+			
+			$html.= '<select class="form-control round-form" name="'.$input['attr']['name'].'" id="'.$input['attr']['id'].'">';
+			
+			$html.= '<option value="0">Em Análise</option>';
+			
+			$html.= '<option value="1">Aprovado</option>';
+			
+			$html.= '<option value="2">Reprovado</option>';
+
+			$html.= '<option value="3">Isento</option>';
+	
+			$html.= '</select>';
+			
+			$html.= '</div>';
+			
+			return $html;
+			
+		}
+
 		
 		if($input['type'] == 'select_status'){
 			

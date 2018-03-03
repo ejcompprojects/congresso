@@ -37,7 +37,7 @@ $usuario = $_SESSION['usuario']; ?>
 
            <li class="sub-menu">
             <a href="<?= base_url('Admin') ?>" >
-              <i class="fa fa-info"></i>
+              <i class="fa fa-home"></i>
               <span>Página Inicial</span>
             </a>
           </li>
@@ -63,15 +63,17 @@ $usuario = $_SESSION['usuario']; ?>
             </a>  
             <ul class="sub">
               <li><a  href="<?= base_url('Email/especifico') ?>">P/ um Part. Específico</a></li>
-              <li><a  href="<?= base_url('Email/pagamento/pendente') ?>">P/ um grupo</a></li>
-              <!-- <li><a  href="<?= base_url('Email/pagamento/aprovado') ?>">P/ Pagamentos Aprovados</a></li>
-              <li><a  href="<?= base_url('Email/pagamento/reprovado') ?>">P/ Pagamentos Reprovados</a></li>
-              <li><a  href="<?= base_url('Email/trabalho/pendente') ?>">P/ Trabalhos Em Análise</a></li>
-              <li><a  href="<?= base_url('Email/trabalho/aprovado') ?>">P/ Trabalhos  Aprovados</a></li>
-              <li><a  href="<?= base_url('Email/trabalho/reprovado') ?>">P/ Trabalhos Reprovados</a></li> -->
+              <li><a  href="<?= base_url('Email/grupo') ?>">P/ um grupo</a></li>
+              
             </ul>
           </li>
 
+          <li class="sub-menu">
+            <a href="<?= base_url('Interesse') ?>" >
+              <i class="fa fa-info"></i>
+              <span>Interesse Nos Minicursos</span>
+            </a>
+          </li>
 
           <li class="sub-menu">
             <a href="<?= base_url('Admin/profile') ?>" >
@@ -79,6 +81,8 @@ $usuario = $_SESSION['usuario']; ?>
               <span>Alterar Meus Dados</span>
             </a>
           </li>
+
+          
 
           <li class="sub-menu">
             <a href="<?= base_url('Admin/logout') ?>" >

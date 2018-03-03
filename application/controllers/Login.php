@@ -143,7 +143,7 @@ public function esqueci_senha(){
 
 
 
-              private function send_email($message, $email){
+              public function send_email($message, $email){
 
                 $config = Array(
                   'protocol' => 'smtp',

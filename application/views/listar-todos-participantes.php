@@ -136,6 +136,7 @@
 
 
             <tr>
+              <th><i class="fa fa-info"></i> ID</th>
               <th><i class="fa fa-font"></i> Nome</th>
               <th><i class="fa fa-book"></i> Tipo Inscrição</th>
               <th><i class="fa fa-file"></i> Enviou Comprovante</th>
@@ -160,6 +161,8 @@
 
                case 2: $participante->status_inscricao_label = 'Reprovado'; break;
 
+               case 3: $participante->status_inscricao_label = 'Isento'; break;
+
 
              }
 
@@ -177,7 +180,7 @@
            else $participante->submeter_trabalho = 'Sim'; 
            ?>
            <tr>
-
+            <td><?=$participante->id ?></td>
             <td><?=$participante->nome ?></td>
             <td><?=$participante->tipo_inscricao ?></td>
             <td><?=$participante->enviou_comprovante ?></td>
@@ -390,7 +393,7 @@
                               'maxlength'   => 255,
                               'class'       => 'form-control',);
                             
-                            $input[13]['type']  = "select_status";
+                            $input[13]['type']  = "select_status_inscricao";
 
                             $input[13]['label'] = "Status Inscrição";
 

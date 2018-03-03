@@ -1,5 +1,6 @@
 <div class="col-sm-12">
-	<p class="back-link">Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a></p>
+	<p class="back-link" style="font-size: 16pt;">Desenvolvido por <a href="http://ejcomp.com.br" target="_blank">EJComp</a></p>
+	<p class="back-link">Template by <a href="https://www.medialoot.com" target="_blank">Medialoot</a></p>
 </div>
 </div><!--/.row-->
 </div>	<!--/.main-->
