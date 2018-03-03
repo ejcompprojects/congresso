@@ -394,7 +394,8 @@ class Participante extends Admin {
             else if($filtros['status_trabalho'] ==  2) $filtros_verbose['status_trabalho'] = 'Trabalho Recusado';
         }
 
-
+        $dados['eixos'] = $this->db->get('eixo')->result();
+ 
         $dados['titulo'] = 'Listar Participantes';
         $dados['participantes'] = $this->participante_model->list_all($filtros, $inicio); 
         $dados['paginacao'] = $this->pagination->create_links();
@@ -409,6 +410,77 @@ class Participante extends Admin {
         $this->load->view('listar-todos-participantes', $dados);
         $this->load->view('footer-admin');
     }
+
+    public function alterar_dados(){
+ 
+        //print_r($this->input->post());exit();
+ 
+
+ 
+        $id = $this->input->post('id');
+ 
+        $status_inscricao = '';
+ 
+        $status_inscricao = $this->input->post('status_inscricao');
+ 
+
+ 
+        $eixo = '';
+ 
+        $eixo = $this->input->post('eixo');
+ 
+
+ 
+        $status = '';
+ 
+        $status = $this->input->post('status');
+ 
+
+ 
+        // if(isset($status_inscricao) && $status_inscricao == ''){
+ 
+        //     $status_inscricao = $this->input->post('status_inscricao'); 
+ 
+        // }else{
+ 
+        //     $status_inscricao = '';
+ 
+        // }
+ 
+        // if(isset($this->input->post('eixo')) && $this->input->post('eixo') == ''){
+ 
+        //     $eixo = $this->input->post('eixo'); 
+ 
+        // }else{
+ 
+        //     $eixo = '';
+ 
+        // }
+ 
+        // if(isset($this->input->post('status')) && $this->input->post('status') == ''){
+ 
+        //     $status = $this->input->post('status'); 
+ 
+        // }else{
+ 
+        //     $status = '';
+ 
+        // }
+ 
+
+ 
+        $usuario = $this->participante_model->update_dados($id, $status_inscricao, $eixo, $status);
+ 
+
+ 
+        $this->session->set_flashdata('success', 'Dados de <strong>'.$usuario->nome.'</strong> alterado com sucesso!');
+ 
+
+ 
+        redirect(base_url('Participante/listar_todos'));
+ 
+    }
+ 
 
  
 }

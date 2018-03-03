@@ -309,10 +309,48 @@ public function list_all($filtros = array(), $inicio = 0){
     $this->db->join('tipo_inscricao', 'participante.id_tipo_inscricao = tipo_inscricao.id', 'INNER');
     $this->db->join('trabalho', 'participante.id = trabalho.id_participante', 'LEFT');
     $this->db->join('eixo', 'trabalho.id_eixo = eixo.id', 'LEFT');
-    $this->db->select('eixo.nome as eixo, tipo_inscricao.tipo as tipo_inscricao, '.self::DB_TABLE . '.*, trabalho.*');
+    $this->db->select('eixo.nome as eixo, eixo.id as id_eixo, tipo_inscricao.tipo as tipo_inscricao, '.self::DB_TABLE . '.*, trabalho.*');
     return $this->db->get(self::DB_TABLE)->result();
 }
 
+public function update_dados($id, $status_inscricao, $eixo, $status){
+ 
+    if($status_inscricao != ''){
+ 
+        $this->db->where('id', $id);
+ 
+        $dados['status_inscricao'] = $status_inscricao;
+ 
+        $this->db->update('participante', $dados);
+ 
+    }
+ 
+    if($eixo != '' || $status != ''){
+ 
+        $this->db->where('id_participante', $id);
+ 
+        if($eixo != '') $dados1['id_eixo'] = $eixo;
+ 
+        if($eixo != '') $dados1['status'] = $status;
+ 
+        $this->db->update('trabalho', $dados1);
+ 
+    }
+ 
+
+ 
+
+ 
+    $this->db->where('id', $id);
+ 
+    $this->db->select('nome');
+ 
+    return $this->db->get('participante')->row();
+ 
+
+ 
+}
+ 
 
 
 }
