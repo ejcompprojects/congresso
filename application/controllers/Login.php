@@ -113,8 +113,6 @@ public function esqueci_senha(){
 
       public function send_email_to_admin($message){
 
-
-
        $config = Array(
         'protocol' => 'smtp',
         'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -182,6 +180,7 @@ public function esqueci_senha(){
       'Email', 
       'required|valid_email'
     );
+    
     $this->form_validation->set_rules(
       'senha', 
       'Senha', 

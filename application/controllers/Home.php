@@ -4,9 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home extends CI_Controller {
 
 
-	public function index(){
+	public function index($dados = NULL){
+
 		$this->load->view('html_header');
-		$this->load->view('index');
+		$this->load->view('index',$dados);
 		$this->load->view('html_footer');
 	}
 
@@ -106,6 +107,28 @@ class Home extends CI_Controller {
 	 			redirect(base_url());
 	 		}
  		}
+	}
+
+	public function voltar_cadastro(){
+		
+		$dados['nome'] = $this->input->post('nome');
+ 		$dados['email'] = $this->input->post('email');
+ 		$dados['celular'] = $this->input->post('celular');
+ 		$dados['telefone'] = $this->input->post('telefone');
+ 		$dados['senha'] = $this->input->post('senha');
+ 		$dados['cidade'] = $this->input->post('cidade');
+ 		$dados['cep'] = $this->input->post('cep');
+ 		$dados['estado'] = $this->input->post('estado');
+ 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+ 		$dados['cpf'] = $this->input->post('cpf');
+ 		$dados['bairro'] = $this->input->post('bairro');
+ 		$dados['endereco'] = $this->input->post('endereco');
+ 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+
+ 		$this->load->view("html_header");
+ 		$this->load->view('index',$dados);
+ 		$this->load->view("html_footer");
+
 	}
 
 	public function cadastro_aluno_graduacao(){
@@ -434,10 +457,17 @@ class Home extends CI_Controller {
 			$this->modelMinicursos->insertParticipante_interesse($dados);
 		}}
 
-		$this->session->set_flashdata('cadastrado', TRUE);
-		$this->load->view('html_header');
-	 	$this->load->view('cadastro_sucesso');
-	 	$this->load->view('html_footer');
+
+		if ($this->enviarEmail($id_participante)){
+			$this->session->set_flashdata('cadastrado', TRUE);
+			$this->load->view('html_header');
+	 		$this->load->view('cadastro_sucesso');
+	 		$this->load->view('html_footer');
+	 	}else{
+	 		echo "erro ao enviar o e-mail";
+	 		die;
+	 	}
+
 	}
 
 
@@ -446,5 +476,59 @@ class Home extends CI_Controller {
         $options = ['cost' => 12];
         $password = password_hash($password, PASSWORD_DEFAULT, $options);
         return $password; 
+    }
+
+
+ 
+    public function enviarEmail($idParticipante){
+
+    	$this->load->model('Participante_model','modelParticipante');
+
+        $usuario = $this->modelParticipante->get($idParticipante);
+
+        $subject = 'Confirme seu e-mail!';
+        
+        $message = 'Clique no e-mail link abaixo para confirmar o seu cadastro no Congresso: Pedagogia Histórico-Crítica! \n  <a'.base_url().'/Home/confirmaEmail/'.$usuario->email.'">Clique Aqui para confirmar seu e-mail</a>  ';
+
+        $email = $usuario->email;
+
+        $config = Array(
+                  'protocol' => 'mail',
+                  'smtp_host' => 'ssl://smtp.googlemail.com',
+                  'smtp_port' => 465,
+                    'smtp_user' => EMAIL,// your mail name
+                    'smtp_pass' => SENHA,
+                    'mailtype'  => 'html', 
+                    'charset'   => 'iso-8859-1',
+                    'wordwrap' => TRUE
+        );
+        $this->load->library('email', $config);
+        $this->email->from(EMAIL, NOME);//your mail address and name
+        $this->email->set_newline('\r\n');
+        $this->email->crlf('\r\n');
+
+        $this->email->to($email); //receiver mail
+        $this->email->subject($subject);
+        $this->email->message($message);
+                if(!$this->email->send()){ 
+                  return $this->email->print_debugger();
+                }
+                else{
+                	return true;
+                }
+    }
+
+
+    public function confirmaEmail($emailMD){
+
+    	$this->load->model('Confirma_Email_model','modelConfirmaEmail');
+
+    	if($this->modelConfirmaEmail->ativaParticipante($email)){
+    		echo ("email confirmado com sucesso!");
+    	}else{
+    		echo ("erro ao confirmar o e-mail");
+    	}
+
+
     }
 }

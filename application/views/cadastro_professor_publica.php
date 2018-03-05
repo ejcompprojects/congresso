@@ -28,7 +28,7 @@
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
                                     <input type="text" id="escola" name="escola" class="form-control" required="true" minlength="3" maxlength="100">
-                                    <label for="orangeForm-name3">Escola</label>
+                                    <label for="escola">Escola</label>
                                 </div>
 
                                 
@@ -65,6 +65,25 @@
                             </div>
                         </form>
                         <!-- Form -->
+
+                        <form method="POST" action="voltar_cadastro"> 
+                                <?php echo '<input id="nome" name="nome" type="hidden"  value="'.$nome.'"' ?>>
+                                <?php echo '<input id="email" name="email" type="hidden"  value="'.$email.'"' ?>>
+                                <?php echo '<input id="celular" name="celular" type="hidden"  value="'.$celular.'"' ?>>
+                                <?php echo '<input id="telefone" name="telefone" type="hidden"  value="'.$telefone.'"' ?>>
+                                <?php echo '<input id="senha" name="senha" type="hidden"  value="'.$senha.'"' ?>>
+                                <?php echo '<input id="cidade" name="cidade" type="hidden"  value="'.$cidade.'"' ?>>
+                                <?php echo '<input id="cep" name="cep" type="hidden"  value="'.$cep.'"' ?>>
+                                <?php echo '<input id="estado" name="estado" type="hidden"  value="'.$estado.'"' ?>>
+                                <?php echo '<input id="id_tipo_inscricao" name="id_tipo_inscricao" type="hidden"  value="'.$id_tipo_inscricao.'"' ?>>
+                                <?php echo '<input id="cpf" name="cpf" type="hidden"  value="'.$cpf.'"' ?>>
+                                <?php echo '<input id="endereco" name="endereco" type="hidden"  value="'.$endereco.'"' ?>>
+                                <?php echo '<input id="bairro" name="bairro" type="hidden"  value="'.$bairro.'"' ?>>
+                                <?php echo '<input id="submeter_trabalho" name="submeter_trabalho" type="hidden"  value="'.$submeter_trabalho.'"' ?>>
+                            <div class="text-center">
+                                <button class="btn btn-deep-orange"><i class="fa fa-angle-double-left pl-2" aria-hidden="true"></i> Voltar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

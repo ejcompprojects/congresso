@@ -1,9 +1,10 @@
 
 <body class="hm-gradient"> 
     <body class="hm-gradient">
-        <script type="text/javascript" src="assets/js/preencheCep.js"></script>
+    
          <script type="text/javascript" src="assets/js/jquery.mask.js"></script>
           <script type="text/javascript" src="assets/js/mascara.js"></script>
+        <script type="text/javascript"  src="<?php echo base_url();?>assets/js/preencheCep.js"></script>
         <main>
             <div class="container">
 
@@ -29,7 +30,8 @@
 
                             ?>
                             <!-- Form -->
-                            <form method="POST" action="home/cadastrar">
+                            <form method="POST" action="<?php echo base_url('home/cadastrar') ?>">
+                            <h1 class="text-center font-bold deep-black-text py-4">Congresso: Pedagogia histórico-crítica</h2>
                                 <h2 class="text-center font-bold deep-orange-text py-4">Cadastro participante</h2>
 
                                 <center><img src="<?= base_url('assets/img/progress1.png')?>" width="80%" margin="auto" ></center>
@@ -38,44 +40,46 @@
 
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
-                                    <input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100">
-                                    <label for="orangeForm-name3">Nome Completo</label>
+                                    <input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100" <?php if(isset($nome)){ echo 'value="'.$nome.'"';}?>">
+                                    <label for="nome">Nome Completo</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-id-card prefix grey-text"></i>
-                                    <input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15">
-                                    <label for="orangeForm-name3">CPF</label>
+                                    <input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15" <?php if(isset($cpf)){ echo 'value="'.$cpf.'"';}?>>
+                                    <label for="cpf-name3">CPF</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
-                                    <input type="email" id="email" name="email" class="form-control"  required="true" minlenght="5" maxlength="100">
-                                    <label for="orangeForm-email3">E-mail</label>
+                                    <input type="email" id="email" name="email" class="form-control"  required="true" minlenght="5" maxlength="100" <?php if(isset($email)){ echo 'value="'.$email.'"';}?>">
+                                    <label for="email">E-mail</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-lock prefix grey-text"></i>
                                     <input type="password" id="senha" name="senha" class="form-control"  required="true" minlength="6" maxlength="30">
-                                    <label for="orangeForm-pass3">Senha</label>
+                                    <label for="senha">Senha</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-repeat prefix grey-text"></i>
                                     <input type="password" id="confirma-senha" name="confirma-senha" class="form-control" required="true" minlength="6" maxlength="30">
-                                    <label for="orangeForm-pass3">Confirmar Senha</label>
+                                    <label for="confirma-senha">Confirmar Senha</label>
                                 </div>
 
                                 <div class="md-form">
+
                                     <i class="fa fa-mobile prefix grey-text"></i>
-                                    <input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15">
-                                    <label for="orangeForm-pass3">Celular</label>
+                                    <input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15" <?php if(isset($celular)){ echo 'value="'.$celular.'"';}?>>
+
+                                    <label for="celular">Celular</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-phone prefix grey-text"></i>
-                                    <input type="text" id="telefone" name="telefone" class="form-control">
-                                    <label for="orangeForm-pass3">Telefone</label>
+                                    <input type="text" id="telefone" name="telefone" class="form-control" <?php if(isset($telefone)){ echo 'value="'.$telefone.'"';}?>">
+                                    <label for="telefone">Telefone</label>
                                 </div>
 
                                 <h3 class="text-center font-bold deep-black-text py-4">Dados de Endereço</h3>
@@ -84,28 +88,28 @@
                                 </div>
                                 <div class="md-form">
                                     <i class="fa fa-map-o prefix grey-text"></i>
-                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onblur="pesquisacep(this.value);">
-                                    <label for="orangeForm-pass3">CEP</label>
+                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onkeyup="pesquisacep(this.value);">
+                                    <label for="cep">CEP</label>
                                 </div>
                                 <div id="div_escondida" hidden="true">
                                     <div class="md-form">
                                         <i class="fa fa-home prefix grey-text"></i>
                                         <input type="text" id="rua" name="rua" class="form-control" required="true" minlength="3" maxlength="50">
-                                        <label for="orangeForm-pass3">Endereço</label>
+                                        <label for="rua">Endereço</label>
                                     </div>
 
                                     <div class="md-form">
                                         <i class="fa fa-home prefix grey-text"></i>
                                         <input type="text" id="bairro" name="bairro" class="form-control" required="true" minlength="3" maxlength="50">
-                                        <label for="orangeForm-pass3">Bairro</label>
+                                        <label for="bairro">Bairro</label>
                                     </div>
 
                                     <div class="md-form">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
 
 
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100">
-                                        <label for="orangeForm-pass3">Cidade</label>
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" >
+                                        <label for="cidade">Cidade</label>
                                     </div>
                                     <select class="form-control" id="estado" name="estado">
                                     
@@ -145,7 +149,7 @@
                                     
                                     <label class="mr-sm-2" for="tipo"></label>
                                         <select class="form-control" id="submeter_trabalho" name="submeter_trabalho" required="">
-                                            <option value="">Ira submeter Trabalhos/Artigos?</option>
+                                            <option value="">Irá submeter Trabalhos/Artigos?</option>
                                             <option value="1">Sim</option>
                                             <option value="0">Não</option>
                                         </select>
@@ -182,8 +186,8 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Loading</h5>
-
+                    <h5 class="modal-title">Carregando</h5>
+                    Aguarde! informações do CEP sendo carregadas.
                 </div>
                 <div class="modal-body">
                     <p style="text-align: center;"><img src="assets/img/loading.gif"></p>
