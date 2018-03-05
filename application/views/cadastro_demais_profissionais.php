@@ -28,7 +28,7 @@
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
                                     <input type="text" id="area_de_atuacao" name="area_de_atuacao" class="form-control" required="true" minlength="3" maxlength="100">
-                                    <label for="orangeForm-name3">Area de Atuação</label>
+                                    <label for="area_de_atuacao">Area de Atuação</label>
                                 </div>
 
                                 <!--INPUTS HIDDEN PARA O INSERT --> 

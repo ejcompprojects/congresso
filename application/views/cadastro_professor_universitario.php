@@ -28,13 +28,13 @@
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
                                     <input type="text" id="instituicao" name="instituicao" class="form-control" required="true" minlength="3" maxlength="100">
-                                    <label for="orangeForm-name3">Instituição</label>
+                                    <label for="instituicao">Instituição</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
                                     <input type="text" id="departamento" name="departamento" class="form-control"  required="true" minlength="3" maxlength="100">
-                                    <label for="orangeForm-email3">Departamento</label>
+                                    <label for="departamento">Departamento</label>
                                 </div>
 
                                 <div class="md-form">
@@ -49,7 +49,7 @@
                                 <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
                                     <input type="text" id="cidade_instituicao" name="cidade_instituicao" class="form-control"  required="true" minlength="3" maxlength="100">
-                                    <label for="orangeForm-email3">Cidade da Instituição</label>
+                                    <label for="cidade_instituicao">Cidade da Instituição</label>
                                 </div>
 
                                 <div class="md-form">
@@ -89,7 +89,7 @@
                                 <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
                                     <input type="text" id="curso" name="curso" class="form-control"  required="true" minlength="3" maxlength="100">
-                                    <label for="orangeForm-email3">Curso</label>
+                                    <label for="curso">Curso</label>
                                 </div>
 
                                 <!--INPUTS HIDDEN PARA O INSERT --> 

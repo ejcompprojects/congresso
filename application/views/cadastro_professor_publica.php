@@ -28,7 +28,7 @@
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
                                     <input type="text" id="escola" name="escola" class="form-control" required="true" minlength="3" maxlength="100">
-                                    <label for="orangeForm-name3">Escola</label>
+                                    <label for="escola">Escola</label>
                                 </div>
 
                                 
