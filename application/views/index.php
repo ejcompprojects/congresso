@@ -1,9 +1,10 @@
 
 <body class="hm-gradient"> 
     <body class="hm-gradient">
-        <script type="text/javascript" src="assets/js/preencheCep.js"></script>
+    
          <script type="text/javascript" src="assets/js/jquery.mask.js"></script>
           <script type="text/javascript" src="assets/js/mascara.js"></script>
+        <script type="text/javascript"  src="<?php echo base_url();?>assets/js/preencheCep.js"></script>
         <main>
             <div class="container">
 
@@ -29,7 +30,7 @@
 
                             ?>
                             <!-- Form -->
-                            <form method="POST" action="home/cadastrar">
+                            <form method="POST" action="<?php echo base_url('home/cadastrar') ?>">
                                 <h2 class="text-center font-bold deep-orange-text py-4">Cadastro participante</h2>
 
                                 <center><img src="<?= base_url('assets/img/progress1.png')?>" width="80%" margin="auto" ></center>
@@ -38,19 +39,19 @@
 
                                 <div class="md-form">
                                     <i class="fa fa-user prefix grey-text"></i>
-                                    <input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100">
-                                    <label for="orangeForm-name3">Nome Completo</label>
+                                    <input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100" <?php if(isset($nome)){ echo 'value="'.$nome.'"';}?>">
+                                    <label for="nome" >Nome Completo</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-id-card prefix grey-text"></i>
-                                    <input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15">
+                                    <input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15" <?php if(isset($cpf)){ echo 'value="'.$cpf.'"';}?>>
                                     <label for="orangeForm-name3">CPF</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
-                                    <input type="email" id="email" name="email" class="form-control"  required="true" minlenght="5" maxlength="100">
+                                    <input type="email" id="email" name="email" class="form-control"  required="true" minlenght="5" maxlength="100" <?php if(isset($email)){ echo 'value="'.$email.'"';}?>">
                                     <label for="orangeForm-email3">E-mail</label>
                                 </div>
 
@@ -67,14 +68,16 @@
                                 </div>
 
                                 <div class="md-form">
+
                                     <i class="fa fa-mobile prefix grey-text"></i>
-                                    <input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15">
+                                    <input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15" <?php if(isset($celular)){ echo 'value="'.$celular.'"';}?>>
+
                                     <label for="orangeForm-pass3">Celular</label>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-phone prefix grey-text"></i>
-                                    <input type="text" id="telefone" name="telefone" class="form-control">
+                                    <input type="text" id="telefone" name="telefone" class="form-control" <?php if(isset($telefone)){ echo 'value="'.$telefone.'"';}?>">
                                     <label for="orangeForm-pass3">Telefone</label>
                                 </div>
 
@@ -84,7 +87,7 @@
                                 </div>
                                 <div class="md-form">
                                     <i class="fa fa-map-o prefix grey-text"></i>
-                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onblur="pesquisacep(this.value);">
+                                    <input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onkeyup="pesquisacep(this.value);">
                                     <label for="orangeForm-pass3">CEP</label>
                                 </div>
                                 <div id="div_escondida" hidden="true">
@@ -104,7 +107,7 @@
                                         <i class="fa fa-map-marker prefix grey-text"></i>
 
 
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100">
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" >
                                         <label for="orangeForm-pass3">Cidade</label>
                                     </div>
                                     <select class="form-control" id="estado" name="estado">

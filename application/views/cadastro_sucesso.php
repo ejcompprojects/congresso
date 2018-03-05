@@ -32,8 +32,8 @@
                                 <center><a href="<?php echo base_url('login') ?>" >Clique aqui para ser redirecionado para o login!</a></center>
 
                                <div class="text-center">
-                            </div>
-                        </form>
+                                </div>
+                            </form>
                         <!-- Form -->
                     </div>
                 </div>
