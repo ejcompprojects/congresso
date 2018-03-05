@@ -31,7 +31,7 @@
                             ?>
                             <!-- Form -->
                             <form method="POST" action="<?php echo base_url('home/cadastrar') ?>">
-                            <h1 class="text-center font-bold deep-orange-text py-4">Congresso: Pedagogia histórico-crítica</h2>
+                            <h1 class="text-center font-bold deep-black-text py-4">Congresso: Pedagogia histórico-crítica</h2>
                                 <h2 class="text-center font-bold deep-orange-text py-4">Cadastro participante</h2>
 
                                 <center><img src="<?= base_url('assets/img/progress1.png')?>" width="80%" margin="auto" ></center>
