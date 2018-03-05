@@ -21,70 +21,74 @@
 	</div>
 	<?php } ?>
 
+	<?php if($enviou_comprovante){
+		$panel = '';
+		$message = '';
+		if($status_inscricao == 'Em análise'){
+			$title = 'Status: Em Análise';
+			$panel = 'panel-info';
+			$message = '<h2>Seu comprovante de pagamento está em <strong>análise.</strong></h2>';
+		}else if($status_inscricao == 'Aprovado'){
+			$title = 'Status: Aprovado';
+			$panel = 'panel-success';
+			$message = '<h2>Seu comprovante de depósito foi <strong>aprovado!</strong></h2>';
+		}else if($status_inscricao == 'Reprovado'){
+			$title = 'Status: Reprovado';
+			$panel = 'panel-danger';
+			$message = '<h2>Seu comprovante de pagamento foi <strong>reprovado.</strong></h2><br><p>Isto pode acontecer por você ter pago o valor que não corresponde à sua inscrição no respectivo mês.</p><p>O Comprovante de depósito pode não estar claro (estar embaçado).</p><br><p>Envie um novo comprovante:</p>';
+		}else if($status_inscricao == 'Isento'){
+			$title = 'Status: Isento';
+			$panel = 'panel-success';
+			$message = '<h2>Você está <strong>isento</strong> do pagamento.</h2>';
+
+		}
+		?>
+		<div class="col-md-12">
+			<div class="panel <?= $panel ?>">
+				<div class="panel-heading">
+					<p align="center" style="color:white;"><?= $title ?></p>
 
 
-	<?php if(!$enviou_comprovante){ ?>
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading" id="duvida">
-				<strong>Instruções para anexar o <strong>comprovante de depósito:</strong></strong>
+					<span class="pull-right"></span></div>
+					<div class="panel-body">
+						<?= $message ?>
+					</div>
 
-
-				<span class="pull-right"></span></div>
-				<div class="panel-body">
-					
-					<form class="form-horizontal" action="<?= base_url('Painel/send_photo') ?>" method="post" enctype="multipart/form-data">
-						<fieldset>
-							<p><strong>1</strong> - Tire a foto do comprovante de depósito via câmera (celular ou câmera digital) de maneira que seja legível as informações contidas no mesmo.</p>
-							<p><strong>2</strong> - Passe para o computador.</p>
-							<p><strong>3</strong> - Selecione abaixo a foto do comprovante de depósito. Os tipos de imagens permitidos são: <strong>.jpg, .jpeg, .gif, .bmp, .png.</strong></p>
-							<p><strong>4</strong> - Clique sobre o botão <strong>"Enviar Comprovante"</strong></p>
-							<!-- Message body -->
-							<div class="form-group">
-
-								<div class="col-md-12">
-									<input type="file" name="comprovante_deposito" id="comprovante_deposito" class="form-control" required="true" accept="image/*"> 
-									<br>
-									<input type="submit" name="submit" id="submimt" class="btn btn-primary" value="Enviar Comprovante">
-								</div>
-
-							</div>
-
-							
-						</fieldset>
-					</form>
 				</div>
-
 			</div>
-		</div>
 
-		<?php } 
-		else { 
-			$panel = '';
-			$message = '';
-			if($status_inscricao == 'Em análise'){
-				$title = 'Status: Em Análise';
-				$panel = 'panel-info';
-				$message = '<h2>Seu comprovante de pagamento está em <strong>análise.</strong></h2>';
-			}else if($status_inscricao == 'Aprovado'){
-				$title = 'Status: Aprovado';
-				$panel = 'panel-success';
-				$message = '<h2>Seu comprovante de depósito foi <strong>aprovado!</strong></h2>';
-			}else if($status_inscricao == 'Reprovado'){
-				$title = 'Status: Reprovado';
-				$panel = 'panel-danger';
-				$message = '<h2>Seu comprovante de pagamento foi <strong>reprovado.</strong></h2><br><p>Isto pode acontecer por você ter pago o valor que não corresponde à sua inscrição no respectivo mês.</p><p>O Comprovante de depósito pode não estar claro (estar embaçado).</p>Entre em contato com a nossa equipe para saber o que ocorreu.';
-			}
-			?>
+			<?php }
+			 if(!$enviou_comprovante || $status_inscricao == 'Reprovado'){ ?>
+
 			<div class="col-md-12">
-				<div class="panel <?= $panel ?>">
-					<div class="panel-heading">
-						<p align="center" style="color:white;"><?= $title ?></p>
+				<div class="panel panel-default">
+					<div class="panel-heading" id="duvida">
+						<strong>Instruções para anexar o <strong>comprovante de depósito:</strong></strong>
 
 
 						<span class="pull-right"></span></div>
 						<div class="panel-body">
-							<?= $message ?>
+
+							<form class="form-horizontal" action="<?= base_url('Painel/send_photo') ?>" method="post" enctype="multipart/form-data">
+								<fieldset>
+									<p><strong>1</strong> - Tire a foto do comprovante de depósito via câmera (celular ou câmera digital) de maneira que seja legível as informações contidas no mesmo.</p>
+									<p><strong>2</strong> - Passe para o computador.</p>
+									<p><strong>3</strong> - Selecione abaixo a foto do comprovante de depósito. Os tipos de imagens permitidos são: <strong>.jpg, .jpeg, .gif, .bmp, .png.</strong></p>
+									<p><strong>4</strong> - Clique sobre o botão <strong>"Enviar Comprovante"</strong></p>
+									<!-- Message body -->
+									<div class="form-group">
+
+										<div class="col-md-12">
+											<input type="file" name="comprovante_deposito" id="comprovante_deposito" class="form-control" required="true" accept="image/*"> 
+											<br>
+											<input type="submit" name="submit" id="submimt" class="btn btn-primary" value="Enviar Comprovante">
+										</div>
+
+									</div>
+
+
+								</fieldset>
+							</form>
 						</div>
 
 					</div>

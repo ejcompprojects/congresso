@@ -28,6 +28,7 @@ class Painel_model extends CI_Model{
 
 	public function update_image($foto, $id){
 		$data['foto_comprovante'] = $foto;
+		$data['status_inscricao'] = 0;
 		$this->db->where('id', $id);
 		return $this->db->update('participante', $data);
  	}

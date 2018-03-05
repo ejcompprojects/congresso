@@ -45,7 +45,8 @@ class Painel extends Login {
             switch($status_inscricao){
                 case 0: $info[] = 'Seu pagamento está em análise.'; $ponto += 20; $estagio = 3; break;
                 case 1: $info[] = 'Seu pagamento foi <strong>aprovado!</strong>'; $ponto += 30; if(!$vai_submeter_trabalho) $estagio =5; else $estagio = 4; break;
-                case 2: $info[] = 'Seu comprovante foi reprovado por nossa equipe, por favor, envie um novo comprovante.'; break;
+                case 2: $info[] = 'Seu comprovante foi reprovado por nossa equipe, por favor, envie um novo comprovante <a href="'.base_url('Painel/enviar_arquivos').'">clicando aqui</a>.'; break;
+                case 3: $info[] = 'Você está <strong>isento</strong> do pagamento deste evento.'; $ponto +=30; if(!$vai_submeter_trabalho) $estagio =5; else $estagio = 4; break;
             }
         }
 
@@ -102,15 +103,15 @@ class Painel extends Login {
         if($this->send_email_to_admin($mensagem)){
             $this->session->set_flashdata('success', 'Dúvida enviada com sucesso!<br>Em breve te responderemos através de seu e-mail. Fique ligado em sua caixa de entrada.');
         }else{
-         $this->session->set_flashdata('danger', 'Houve um erro ao enviar o e-mail.Tente enviar a dúvida para o e-mail:'.EMAIL_ADMIN);
-     }
+           $this->session->set_flashdata('danger', 'Houve um erro ao enviar o e-mail.Tente enviar a dúvida para o e-mail:'.EMAIL_ADMIN);
+       }
 
 
 
-     redirect(base_url('Painel#duvida'));
- }
+       redirect(base_url('Painel#duvida'));
+   }
 
- public function enviar_arquivos(){
+   public function enviar_arquivos(){
 
     $id = $this->session->userdata('usuario')->id;
     $vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
@@ -129,6 +130,7 @@ class Painel extends Login {
             case 0: $status_inscricao = 'Em análise'; break;
             case 1: $status_inscricao = 'Aprovado'; break;
             case 2: $status_inscricao = 'Reprovado'; break;
+            case 3: $status_inscricao = 'Isento'; break;
         }
     }
     $status_trabalho = '';
@@ -163,13 +165,24 @@ class Painel extends Login {
 
 
 public function send_photo(){
+
+    //verificar se já existia uma imagem lá:
+    $id = $this->session->userdata('usuario')->id;
+    $this->db->where('id', $id);
+    $participante = $this->db->get('participante')->row();
+    $foto_comprovante = $participante->foto_comprovante;
+
+    if($foto_comprovante != ''){
+        unlink('uploads/comprovante/'.$foto_comprovante);
+    }
+
     $resposta = $this->do_upload_image('comprovante_deposito');
 
 
     if($resposta == true){
-       $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
+     $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
 
-   }else{
+ }else{
     $this->session->set_flashdata('danger', $resposta);
 }
 
@@ -190,10 +203,10 @@ public function send_article(){
 
     $this->db->insert('trabalho', $data);
 
-   $this->session->set_flashdata('success', 'Artigo enviado para análise.<br>Em breve você receberá a resposta.');
+    $this->session->set_flashdata('success', 'Artigo enviado para análise.<br>Em breve você receberá a resposta.');
 
 }else{
-    
+
     if($resposta1['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta1['message']);
     if($resposta2['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta2['message']);
 }
@@ -202,9 +215,91 @@ redirect(base_url('Painel/enviar_arquivos'));
 }
 
 public function profile(){
+    $data['mensagens'] = mensagens();
+    $id = $this->session->userdata('usuario')->id;
+    $this->db->where('id', $id);
+    $usuario = $this->db->get('participante')->row();    
 
+    // $this->db->where('id_participante', $id);
+    // switch($usuario->id_tipo_inscricao){
+    //     case 1:  $usuario = $this->db->get('aluno_graduacao')->row(); break;
+    //     case 2:  $usuario = $this->db->get('aluno_pos_graduacao')->row(); break;
+    //     case 3:  $usuario = $this->db->get('professor_universitario')->row(); break;
+    //     case 4:  $usuario = $this->db->get('prof_ensino_publico')->row(); break;
+    //     case 5:  $usuario = $this->db->get('demais_profissionais')->row(); break;
+    // }
+   
+
+
+    $data['usuario'] = $usuario;
+    $this->load->view('painel/html_header');
+    $this->load->view('painel/header');
+    $this->load->view('painel/profile', $data);
+    $this->load->view('painel/footer');
 }
 
+    public function alterar_meus_dados(){
+     $id = $this->session->userdata('usuario')->id;
+     $nome =  $this->input->post('nome');
+     $celular = $this->input->post('celular');
+     $telefone = $this->input->post('telefone');
+
+     $endereco = $this->input->post('endereco');
+     $bairro = $this->input->post('bairro');
+     $cep = $this->input->post('cep');
+     $cidade = $this->input->post('cidade');
+     $estado = $this->input->post('estado');
+
+     $dados['nome'] = $nome;
+     $dados['celular'] = $celular;
+     $dados['telefone'] = $telefone;
+
+     $dados['endereco'] = $endereco;
+     $dados['bairro'] = $bairro;
+     $dados['cep'] = $cep;
+     $dados['cidade'] = $cidade;
+     $dados['estado'] = $estado;
+
+
+     $senha_atual = $this->input->post('senha_atual');
+     $senha_nova  = $this->input->post('senha_nova');
+     $repetir_senha = $this->input->post('repetir_senha');
+
+
+     $this->db->where('id', $id);
+     $this->db->select('senha');
+     $usuario = $this->db->get('participante')->row();
+     $senha = $usuario->senha;
+     if($senha_nova != '' || $senha_atual != ''){
+       if(password_verify($senha_atual, $senha)){ //senhas iguais:
+           if($senha_nova == $repetir_senha){
+            //devemos atualizar a senha:
+            $dados['senha'] = $this->crypt($senha_nova);
+            $this->db->where('id', $id);
+            $this->db->update('administrador', $dados);
+
+            $this->session->set_flashdata('success', 'Dados atualizados com sucesso!');
+
+            }else{
+
+                $this->session->set_flashdata('danger', 'Senha Nova e Repetir Senha estão diferentes!');
+            }
+            }else{ //se for diferente
+                $this->session->set_flashdata('danger', 'Senha Atual incorreta!');
+
+            }
+     }
+     else{
+        $this->session->set_flashdata('success', 'Dados atualizados com sucesso!');
+        $this->db->where('id', $id);
+        $this->db->update('participante', $dados);
+
+     }
+
+
+redirect(base_url('Painel/profile'));
+
+}
 
 public function do_upload_image($name)
 {
@@ -260,12 +355,12 @@ public function do_upload_article($name){
     }
     else
     {   
-           
+
         $resposta['deu_certo'] = true;
         $resposta['message'] = $this->upload->data('file_name');
-         
+
     }
-        return $resposta;
+    return $resposta;
 }
 
 public function save($article, $name, $id){
