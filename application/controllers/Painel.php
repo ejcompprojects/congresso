@@ -266,6 +266,7 @@ redirect(base_url('Painel/enviar_arquivos'));
 }
 
 public function send_article(){
+
   $resposta1 = $this->do_upload_article('artigo_com_autor');
   $resposta2 = $this->do_upload_article('artigo_sem_autor');
 
@@ -278,6 +279,18 @@ public function send_article(){
     $data['id_participante'] = $this->session->userdata('usuario')->id;
 
     $this->db->insert('trabalho', $data);
+    $cdata['id_trabalho'] = $data['id_participante'];
+
+    $coautores = $this->input->post('coautoresCPF');
+
+    foreach ($coautores as $cpf) {
+        $qcoaut = $this->getcouator($cpf);
+        if($qcoaut->num_rows() == 1){
+            $cdata['id_participante'] = $qcoaut->row()->id;
+            $this->db->insert('coautor', $cdata);
+        }
+    }
+
     $this->log_model->insert('O participante enviou o artigo.', $data['id_participante']);
     $this->session->set_flashdata('success', 'Artigo enviado para análise.<br>Em breve você receberá a resposta.');
 
@@ -470,13 +483,21 @@ public function save($article, $name, $id){
 // 	$json = json_encode($participantes);
 // 	echo $json;
 // }
-
-public function coautor($cpf){
-    $this->db->where('cpf', $cpf);
-    $this->db->select('id, nome');
-    $participante = $this->db->get('participante')->row();
-
-    echo json_encode($participante);
+public function getcouator($cpf)
+{
+    if ($cpf!="") {
+        $this->db->where('cpf', $cpf);
+        $this->db->where('status_inscricao', 1);
+        $this->db->select('id, nome');
+        return $this->db->get('participante');
+    }
+    return "";
+}
+public function coautor($cpf=""){
+    if ($cpf!="") {
+        $participante = $this->getcouator($cpf)->row();
+        echo json_encode($participante);
+    }
 }
 
 }
