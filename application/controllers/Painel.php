@@ -10,6 +10,7 @@ class Painel extends Login {
     public function __construct(){
         parent::__construct();
         $this->load->helper('frontend_helper'); 
+        $this->load->model('Log_model', 'log_model');
         $this->load->model('Painel_model', 'painel_model');
 
     }
@@ -34,7 +35,7 @@ class Painel extends Login {
         $estagio = 2; //qual nível ele está.
 
         if($foto_comprovante == ''){//porque ainda não enviou o comprovante
-            $info[] = 'Você não anexou a foto de seu comprovante de pagamento ainda!';
+            $info[] = 'Você não anexou a foto de seu comprovante de pagamento!';
             $estagio =  2;
         }
         else{
@@ -59,7 +60,9 @@ class Painel extends Login {
                     case 2: $info[] = 'Infelimente seu trabalho <strong>não</strong> foi aprovado, mas você poderá ainda participar do Congresso.'; $ponto += 30; if($estagio == 4) $estagio = 5;   break;
                 }
             }else{
-                $info[] = 'Você deve enviar seu artigo até fim do mês!'; 
+                $ultimo_dia_mes = $this->ultimo_dia(date('m'));
+                $nome_do_mes = $this->nome_do_mes(date('m'));
+                $info[] = 'O <span style="font-size:14pt;"><strong>PRAZO</strong></span> para envio do seu artigo é até <span style="font-size:14pt;"><strong>dia '.$ultimo_dia_mes.' de '.$nome_do_mes.'!</strong></span>'; 
                 if($estagio != 2) $estagio = 4;
             }
         }
@@ -84,6 +87,13 @@ class Painel extends Login {
         $data['vai_submeter_trabalho'] = $vai_submeter_trabalho;
 
 
+        //relacionado ao VALOR que deverá ser pago:
+        $valor = $this->calcula_valor(date('m'), $this->session->userdata('usuario')->id_tipo_inscricao);
+        // $data['ultimo_dia_mes'] = $this->ultimo_dia(date('m'));
+        // $data['nome_do_mes'] = $this->nome_do_mes(date('m'));
+        $data['valor'] = $valor;
+
+
         $data['mensagens'] = mensagens();
 
         $this->load->view('painel/html_header');
@@ -93,14 +103,79 @@ class Painel extends Login {
 
     }
 
+    public function nome_do_mes($mes){
+        switch($mes){
+            case 2: return 'Fevereiro'; break;
+            case 3: return 'Março'; break;
+            case 4: return 'Abril'; break;
+            case 5: return 'Maio'; break;
+            case 6: return 'Junho'; break;
+            case 7: return 'Julho'; break;
+        }
+    }
+
+    public function ultimo_dia($mes){
+        switch($mes){
+            case 2: return 28; break;
+            case 3: return 31; break;
+            case 4: return 30; break;
+            case 5: return 31; break;
+            case 6: return 30; break;
+            case 7: return 31; break;
+        }
+    }
+
+    public function calcula_valor($mes, $tipo_inscricao){
+        switch($tipo_inscricao){
+            case 1: //graduando
+            switch($mes){
+                case 2: return 20; break;
+                case 3: return 25; break;
+                case 4: return 35; break;
+                case 5: 
+                case 6:
+                case 7: return 35; break;
+            }
+            break; 
+            case 2: //pos graduação
+            case 4: //professor de ensino publico
+            switch($mes){
+                case 2: return 35; break;
+                case 3: return 40; break;
+                case 4: return 60; break;
+                case 5:
+                case 6:
+                case 7: return 60; break;
+            }
+            break;
+            case 3: 
+            case 5:
+            switch($mes){
+                case 2: return 80; break;
+                case 3: return 90; break;
+                case 4: 
+                case 5:
+                case 6:
+                case 7: return 110; break;
+            } 
+            break;
+        }
+    }
+
     public function send_doubt(){
         //enviar dúvida
         $email = $this->session->userdata('usuario')->email;
         $nome = $this->session->userdata('usuario')->nome;
-        $mensagem = htmlspecialchars($this->input->post('message'));
-        $mensagem.='<br>Participante: '.$nome;
-        $mensagem.="<br>E-mail: ".$email;
+        $id = $this->session->userdata('usuario')->id;
+        $mensagem = '';
+        $mensagem.= '<h2>O Participante '.$nome.' te enviou uma mensagem através do Painel do Participante:</h2>';
+        $mensagem.='<strong>Participante:</strong> '.$nome;
+        $mensagem.="<br><strong>E-mail:</strong> ".$email;
+        $mensagem.= '<br><br>';
+        $mensagem.='<strong>Mensagem:</strong><br>';
+        $mensagem.= nl2br($this->input->post('message'));
         if($this->send_email_to_admin($mensagem)){
+            $this->log_model->insert('O participante enviou uma dúvida.', $id);
             $this->session->set_flashdata('success', 'Dúvida enviada com sucesso!<br>Em breve te responderemos através de seu e-mail. Fique ligado em sua caixa de entrada.');
         }else{
            $this->session->set_flashdata('danger', 'Houve um erro ao enviar o e-mail.Tente enviar a dúvida para o e-mail:'.EMAIL_ADMIN);
@@ -180,6 +255,7 @@ public function send_photo(){
 
 
     if($resposta == true){
+     $this->log_model->insert('O participante enviou o comprovante.', $id);
      $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
 
  }else{
@@ -202,7 +278,7 @@ public function send_article(){
     $data['id_participante'] = $this->session->userdata('usuario')->id;
 
     $this->db->insert('trabalho', $data);
-
+    $this->log_model->insert('O participante enviou o artigo.', $data['id_participante']);
     $this->session->set_flashdata('success', 'Artigo enviado para análise.<br>Em breve você receberá a resposta.');
 
 }else{
@@ -237,6 +313,14 @@ public function profile(){
     $this->load->view('painel/profile', $data);
     $this->load->view('painel/footer');
 }
+
+    // public function dados_referentes_ao_tipo_de_inscricao(){
+    //     $tipo_inscricao = $this->session->userdata('usuario')->id_tipo_inscricao;
+
+    //     switch($tipo_inscricao){
+    //         case 1: 
+    //     }
+    // }
 
     public function alterar_meus_dados(){
      $id = $this->session->userdata('usuario')->id;
@@ -276,8 +360,8 @@ public function profile(){
             //devemos atualizar a senha:
             $dados['senha'] = $this->crypt($senha_nova);
             $this->db->where('id', $id);
-            $this->db->update('administrador', $dados);
-
+            $this->db->update('participante', $dados);
+            $this->log_model->insert('O participante alterou a senha.', $id);
             $this->session->set_flashdata('success', 'Dados atualizados com sucesso!');
 
             }else{
@@ -290,6 +374,7 @@ public function profile(){
             }
      }
      else{
+        $this->log_model->insert('O participante alterou os dados.', $id);
         $this->session->set_flashdata('success', 'Dados atualizados com sucesso!');
         $this->db->where('id', $id);
         $this->db->update('participante', $dados);
@@ -307,7 +392,7 @@ public function do_upload_image($name)
 
 
     $config['upload_path']          = 'uploads/comprovante';
-    $config['allowed_types']        = 'gif|jpg|png|jpeg|bmp';
+    $config['allowed_types']        = 'pdf|gif|jpg|png|jpeg|bmp';
     $config['max_size']             = 2048;
     $config['encrypt_name']         = TRUE;
 
@@ -340,7 +425,7 @@ public function do_upload_article($name){
 
     $config['upload_path']          = $upload_path;
     $config['allowed_types']        = 'doc|docx|pdf';
-    $config['max_size']             = 8192;
+    //$config['max_size']             = 8192;
     $config['encrypt_name']         = TRUE;
 
     $this->load->library('upload', $config);
@@ -372,6 +457,26 @@ public function save($article, $name, $id){
     }else{
         $this->painel_model->insert_trabalho($article, $name, $id, $titulo, $eixo);
     }
+}
+
+
+// public function coautores($text){
+
+// 	$this->db->like('nome', $text);
+// 	$this->db->or_where('cpf', $text);
+// 	$this->db->select('id, nome, cpf');
+// 	$participantes = $this->db->get('participante')->result();
+
+// 	$json = json_encode($participantes);
+// 	echo $json;
+// }
+
+public function coautor($cpf){
+    $this->db->where('cpf', $cpf);
+    $this->db->select('id, nome');
+    $participante = $this->db->get('participante')->row();
+
+    echo json_encode($participante);
 }
 
 }

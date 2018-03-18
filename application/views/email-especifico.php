@@ -18,14 +18,24 @@
 									<select class="form-control round-form" name="email" id="email" required="true">
 										<option value="" selected="true" disabled="true">Selecione o destinatário</option>
 										<?php 
-											foreach($participantes as $participante){
-												echo '<option value="'.$participante->email.'">'.$participante->nome.' - '.$participante->tipo.' - '.$participante->estado.'</option>';
-											}
+										foreach($participantes as $participante){
+											echo '<option value="'.$participante->email.'">'.$participante->nome.' - '.$participante->tipo.' - '.$participante->estado.'</option>';
+										}
 										
 										?>
 									</select>
 								</div>
 								
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-12">
+									<label class="col-sm-12 control-label">Título:</label>
+									
+									<input type="text" name="title" id="title" class="form-control round-form" required="true" minlength="1" maxlength="100">
+									</textarea>
+								</div>
 							</div>
 						</div>
 						<div class="form-group">
@@ -38,13 +48,13 @@
 								</div>
 							</div>
 						</div>
-					
+
 						
 						<div class="form-group">
 							<div class="row">
 								<div class="col-md-6">
 									<br><br>
-								<input type="submit" name="submit" class="btn btn-success round-form" value="Enviar">
+									<input type="submit" name="submit" class="btn btn-success round-form" value="Enviar">
 								</div>
 							</div>
 						</div>

@@ -128,5 +128,26 @@ function getInput($input = array())
 			return $html;
 			
 		}
+
+
+		if($input['type'] == 'select_booleano'){
+			
+			$html = '';
+			
+			$html = "<div class=\"form-group\">";
+			
+			$html.= '<select class="form-control round-form" name="'.$input['attr']['name'].'" id="'.$input['attr']['id'].'">';
+			
+			$html.= '<option value="0">Não</option>';
+			
+			$html.= '<option value="1">Sim</option>';
+						
+			$html.= '</select>';
+			
+			$html.= '</div>';
+			
+			return $html;
+			
+		}
 		
 	}

@@ -1,5 +1,4 @@
-
-<body class="hm-gradient"> 
+<body style="background-image: url(<?php echo base_url('assets/img/background2.jpg');?>);" class="hm-gradient">
     <body class="hm-gradient">
         <script type="text/javascript" src="assets/js/preencheCep.js"></script>
         <main>
@@ -8,7 +7,7 @@
                 <div class="text-center darken-grey-text mb-4">
                 </div>
 
-                <div class="col-md-6 col-centered">
+                <div class="col-md-9 col-centered">
                     <div class="card">
                         <div class="card-body">
 
@@ -19,17 +18,18 @@
                             ?>
                             <!-- Form -->
                             <form method="POST" action="declarar_interesse_minicursos">
-                                <h2 class="text-center font-bold deep-orange-text py-4">Declarar Interesse por minicursos</h2>
+                                <h2 class="text-center font-bold deep-orange-text py-4">Você tem interesse por qual(is) minicurso(s) e/ou oficina(s)?</h2>
 
                                 <center><img src="<?= base_url('assets/img/progress3.png')?>" width="80%" margin="auto" ></center>
 
-                                <h3 class="text-center font-bold deep-black-text py-4">Utilizado para fins organizacionais, Não garante vaga!</h3>
+                                <h3 class="text-center font-bold deep-black-text py-4">Selecione abaixo o(s) minicurso(s) e oficina(s) que te interessam:</h3>
+                                <p><strong>OBS:</strong> Este é somente uma pesquisa que estamos fazendo para que possamos organizar melhor o evento, isto não é uma garantia de vaga. Posteriormente será aberta a inscrição para os minicursos.  </p>
 
                                 <div>
                                     <label for="orangeForm-name3">Selecione os Minicursos:</label><br>
                                     <?php  
                                         foreach ($minicursos as $item){
-                                            echo '<input type="checkbox" name="minicursos[]" value="'.$item->id.'">'.$item->nome.'<br>';
+                                            echo '<input type="checkbox" name="minicursos[]" value="'.$item->id.'"><label for="minicursos[]">'.$item->nome.'</label><br>';
                                         }
 
                                     ?>

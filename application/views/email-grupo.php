@@ -59,6 +59,16 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-12">
+									<label class="col-sm-12 control-label">Título:</label>
+									
+									<input type="text" name="title" id="title" class="form-control round-form" required="true" minlength="1" maxlength="100">
+									</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-12">
 									<label class="col-sm-12 control-label">Mensagem:</label>
 									<textarea class="form-control" style="resize:none;" name="message" minlength="10" id="message" required="true" rows="5">
 										

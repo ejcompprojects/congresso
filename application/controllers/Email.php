@@ -40,10 +40,10 @@ class Email extends Admin {
     public function enviar_email_especifico(){
         $email = $this->input->post('email');
         $message = $this->input->post('message');
+        $title = $this->input->post('title');
+        $resposta = $this->send_email_with_title($title,$message,$email);
 
-        $resposta = $this->send_email($message,$email);
-        print_r($resposta); exit();
-        if($respota == true){
+        if($resposta == 1){
             $this->session->set_flashdata('success', 'E-mail enviado com sucesso!');
         }else{
             $this->session->set_flashdata('danger', 'Houve um erro ao enviar este e-mail, por favor, tente novamente.');
@@ -61,6 +61,7 @@ class Email extends Admin {
         $trabalho  = $this->input->post('trabalho');
         $tipo_inscricao = $this->input->post('tipo_inscricao');
         $message = $this->input->post('message');
+        $title = $this->input->post('title');
 
 
        $participantes = $this->participante_model->select_participantes($pagamento, $trabalho, $tipo_inscricao);
@@ -68,8 +69,8 @@ class Email extends Admin {
         print_r($participantes); exit();
 
        foreach($participantes as $participante){
-        $resposta = $this->send_email($message, $participante->email);
-        if($resposta != true){
+        $resposta = $this->send_email_with_title($title, $message, $participante->email);
+        if($resposta != 1){
             $this->session->set_flashdata('danger', 'Houve um erro ao enviar e-mail para '.$participante->email.'. Por favor, tente novamente mais tarde.');
             redirect(base_url('Email/grupo'));
             //break;

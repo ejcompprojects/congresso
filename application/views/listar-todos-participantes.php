@@ -138,6 +138,7 @@
             <tr>
               <th><i class="fa fa-info"></i> ID</th>
               <th><i class="fa fa-font"></i> Nome</th>
+              <th><i class="fa fa-toggle-on"></i> Ativo</th>
               <th><i class="fa fa-book"></i> Tipo Inscrição</th>
               <th><i class="fa fa-file"></i> Enviou Comprovante</th>
               <th><i class="fa fa-file"></i> Status Pagamento</th>
@@ -166,6 +167,11 @@
 
              }
 
+             switch($participante->ativo){
+              case 0: $participante->ativo_label = 'Não'; break;
+              case 1: $participante->ativo_label = 'Sim'; break;
+             }
+
              // switch($participante->status){
              //  case 0: $participante->status = 'Em Análise'; break;
              //  case 1: $participante->status = 'Aprovado'; break;
@@ -182,6 +188,7 @@
            <tr>
             <td><?=$participante->id ?></td>
             <td><?=$participante->nome ?></td>
+            <td><?=$participante->ativo_label ?></td>
             <td><?=$participante->tipo_inscricao ?></td>
             <td><?=$participante->enviou_comprovante ?></td>
             <td><?= $participante->status_inscricao_label ?></td>
@@ -217,6 +224,7 @@
               data-status      ="<?=$participante->status?>"
               data-arquivo_sem_nome_autor ="<?=$participante->arquivo_sem_nome_autor ?>"
               data-arquivo_com_nome_autor ="<?=$participante->arquivo_com_nome_autor ?>"
+              data-ativo = "<?=$participante->ativo ?>"
 
               >
 
@@ -474,6 +482,14 @@
                               'name'        => 'arquivo_com_nome_autor',
                               'id'          => 'arquivo_com_nome_autor',
                             );
+
+                            $input[21]['type'] = 'select_booleano';
+                            $input[21]['label'] = 'Ativo';
+                            $input[21]['attr'] = array(
+                              'name' => 'ativo',
+                              'id'  => 'ativo',
+                            );
+                            
                             
 
 
@@ -566,7 +582,7 @@
           var eixo        = button.data('eixo')
           var status = button.data('status')
           var data_registro  = button.data('data_registro')
-
+          var ativo = button.data('ativo')
 
 
           modal.find('#id').val(id)
@@ -584,8 +600,16 @@
           modal.find('#tipo_inscricao').val(tipo_inscricao)
           modal.find('#status_inscricao').val(status_inscricao)
           modal.find('#enviou_comprovante').val(enviou_comprovante)
+          //modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
+          if(foto_comprovante.includes('.pdf') == true){
+          modal.find('.image').html('<a target="_blank" href="<?= base_url('uploads/comprovante/') ?>'+foto_comprovante+'" class="btn btn-info">ABRIR COMPROVANTE PAGAMENTO</a>')
+          modal.find('#foto_comprovante').hide()
+        }
+        else{
+          
           modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
-
+        }
+          modal.find('#ativo').val(ativo)
 
           if(titulo == ''){ //quer dizer que o usu´rio não submeteu o artigo
 

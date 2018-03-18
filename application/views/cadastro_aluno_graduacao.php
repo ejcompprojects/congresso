@@ -1,5 +1,5 @@
 
-<body class="hm-gradient"> 
+<body style="background-image: url(<?php echo base_url('assets/img/background2.jpg');?>);" class="hm-gradient">
     <body class="hm-gradient">
         <script type="text/javascript" src="assets/js/preencheCep.js"></script>
         <main>
@@ -8,7 +8,7 @@
                 <div class="text-center darken-grey-text mb-4">
                 </div>
 
-                <div class="col-md-6 col-centered">
+                <div class="col-md-9 col-centered">
                     <div class="card">
                         <div class="card-body">
 
@@ -83,7 +83,7 @@
 
                                  <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
-                                    <input type="text" id="semestre" name="semestre" class="form-control"  required="true" minlength="3" maxlength="100">
+                                    <input type="text" id="semestre" name="semestre" class="form-control"  required="true" minlength="1" maxlength="100">
                                     <label for="semestre">Semestre</label>
                                 </div>
 

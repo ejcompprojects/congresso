@@ -5,19 +5,69 @@ class Home extends CI_Controller {
 
 
 	public function index($dados = NULL){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/index');
+		$this->load->view('novo-site/importacoes/footer');
 
+	}
+
+	public function inscricao(){
 		$this->load->view('html_header');
-		$this->load->view('index',$dados);
+		$this->load->view('index');
 		$this->load->view('html_footer');
+	}
+
+	public function eixos(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/eixos-tematicos');
+		// $this->load->view('novo-site/importacoes/footer');
+	}
+
+	// public function historico(){
+	// 	$this->load->view('novo-site/importacoes/header');
+	// 	$this->load->view('novo-site/importacoes/menu');
+	// 	$this->load->view('novo-site/index');
+	// 	$this->load->view('novo-site/importacoes/footer');
+	// }
+
+		public function contato(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/contato');
+		// $this->load->view('novo-site/importacoes/footer');	
+	}
+
+	public function informacoes_gerais(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/informacoes-gerais');
+		// $this->load->view('novo-site/importacoes/footer');	
+	}
+
+	public function informacao_inscricao(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/inscricoes');
+		// $this->load->view('novo-site/importacoes/footer');
+	}
+
+
+	public function programacao(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/programacao');
+		// $this->load->view('novo-site/importacoes/footer');
 	}
 
 	public function cadastrar(){
 
 		$this->load->helper(array('form'));
-        $this->load->library('form_validation');
-        $this->load->model('Participante_model','modelParticipante');
+		$this->load->library('form_validation');
+		$this->load->model('Participante_model','modelParticipante');
 
-        $this->form_validation->set_rules('nome','nome','required');
+		$this->form_validation->set_rules('nome','nome','required');
 		$this->form_validation->set_rules('email','email','required');
 		$this->form_validation->set_rules('senha','senha','required');
 		$this->form_validation->set_rules('celular','celular','required');
@@ -28,106 +78,106 @@ class Home extends CI_Controller {
 
 
 		$dados['nome'] = $this->input->post('nome');
- 		$dados['email'] = $this->input->post('email');
- 		$email = $this->input->post('email');
- 		$dados['celular'] = $this->input->post('celular');
- 		$dados['telefone'] = $this->input->post('telefone');
- 		$dados['cpf'] = $this->input->post('cpf');
- 		$cpf = $this->input->post('cpf');
+		$dados['email'] = $this->input->post('email');
+		$email = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['cpf'] = $this->input->post('cpf');
+		$cpf = $this->input->post('cpf');
 
- 		$senha = $this->input->post('senha');
- 		$confirmacaoSenha = $this->input->post('confirma-senha');
+		$senha = $this->input->post('senha');
+		$confirmacaoSenha = $this->input->post('confirma-senha');
 
- 		$dados['cep'] = $this->input->post('cep');
- 		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['estado'] = $this->input->post('estado');
- 		$dados['endereco'] = $this->input->post('rua');
- 		$dados['bairro'] = $this->input->post('bairro');
- 		$dados['id_tipo_inscricao'] = $this->input->post('tipo');
- 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
- 		$tipo_inscricao = $this->input->post('tipo');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['endereco'] = $this->input->post('rua');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['id_tipo_inscricao'] = $this->input->post('tipo');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$tipo_inscricao = $this->input->post('tipo');
 
- 		if($this->modelParticipante->email_exists($email)){
- 			$this->session->set_flashdata('emailCadastrado', TRUE);
- 			redirect(base_url());
- 		}
- 		if($this->modelParticipante->cpf_exists($cpf)){
- 			$this->session->set_flashdata('cpfCadastrado', TRUE);
- 			redirect(base_url());
- 		}
+		if($this->modelParticipante->email_exists($email)){
+			$this->session->set_flashdata('emailCadastrado', TRUE);
+			redirect(base_url('inscricao'));
+		}
+		if($this->modelParticipante->cpf_exists($cpf)){
+			$this->session->set_flashdata('cpfCadastrado', TRUE);
+			redirect(base_url('inscricao'));
+		}
 
 
- 		if ($this->form_validation->run() == FALSE){
- 			print_r($this->input->post());
- 			print_r($this->form_validation->error_array());
- 			exit();
- 			redirect(base_url());
- 		}else{
- 		
-	 		if (strcmp($senha,$confirmacaoSenha) == 0){
-	 			$dados['senha'] = $this->crypt($senha);
+		if ($this->form_validation->run() == FALSE){
+			print_r($this->input->post());
+			print_r($this->form_validation->error_array());
+			exit();
+			redirect(base_url('inscricao'));
+		}else{
 
-	 			switch($tipo_inscricao){
+			if (strcmp($senha,$confirmacaoSenha) == 0){
+				$dados['senha'] = $this->crypt($senha);
 
-	 			case 1: 
-	 				$this->load->view('html_header');
-	 				$this->load->view('cadastro_aluno_graduacao',$dados);
-	 				$this->load->view('html_footer');
-	 				break; 
+				switch($tipo_inscricao){
 
-	 			case 2: 
-	 				$this->load->view('html_header');
-	 				$this->load->view('cadastro_aluno_pos',$dados);
-	 				$this->load->view('html_footer');
-	 				break;
+					case 1: 
+					$this->load->view('html_header');
+					$this->load->view('cadastro_aluno_graduacao',$dados);
+					$this->load->view('html_footer');
+					break; 
 
-	 			case 3: 
-	 				$this->load->view('html_header');
-	 				$this->load->view('cadastro_professor_universitario',$dados);
-	 				$this->load->view('html_footer');
-	 				break;		
+					case 2: 
+					$this->load->view('html_header');
+					$this->load->view('cadastro_aluno_pos',$dados);
+					$this->load->view('html_footer');
+					break;
 
-	 			case 4: 
-	 				$this->load->view('html_header');
-	 				$this->load->view('cadastro_professor_publica',$dados);
-	 				$this->load->view('html_footer');
-	 				break; 	
+					case 3: 
+					$this->load->view('html_header');
+					$this->load->view('cadastro_professor_universitario',$dados);
+					$this->load->view('html_footer');
+					break;		
 
-	 			case 5:
-	 				$this->load->view('html_header');
-	 				$this->load->view('cadastro_demais_profissionais',$dados);
-	 				$this->load->view('html_footer'); 	
-	 				break;
-	 			default: 
-	 				redirect(base_url());
-	 			}
+					case 4: 
+					$this->load->view('html_header');
+					$this->load->view('cadastro_professor_publica',$dados);
+					$this->load->view('html_footer');
+					break; 	
 
-	 		}else{
-	 			$this->session->set_flashdata('senhasDiferentes', TRUE);
-	 			redirect(base_url());
-	 		}
- 		}
+					case 5:
+					$this->load->view('html_header');
+					$this->load->view('cadastro_demais_profissionais',$dados);
+					$this->load->view('html_footer'); 	
+					break;
+					default: 
+					redirect(base_url('inscricao'));
+				}
+
+			}else{
+				$this->session->set_flashdata('senhasDiferentes', TRUE);
+				redirect(base_url('inscricao'));
+			}
+		}
 	}
 
 	public function voltar_cadastro(){
 		
 		$dados['nome'] = $this->input->post('nome');
- 		$dados['email'] = $this->input->post('email');
- 		$dados['celular'] = $this->input->post('celular');
- 		$dados['telefone'] = $this->input->post('telefone');
- 		$dados['senha'] = $this->input->post('senha');
- 		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['cep'] = $this->input->post('cep');
- 		$dados['estado'] = $this->input->post('estado');
- 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
- 		$dados['cpf'] = $this->input->post('cpf');
- 		$dados['bairro'] = $this->input->post('bairro');
- 		$dados['endereco'] = $this->input->post('endereco');
- 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 
- 		$this->load->view("html_header");
- 		$this->load->view('index',$dados);
- 		$this->load->view("html_footer");
+		$this->load->view("html_header");
+		$this->load->view('index',$dados);
+		$this->load->view("html_footer");
 
 	}
 
@@ -138,7 +188,7 @@ class Home extends CI_Controller {
 		$this->load->model('Minicursos_model','modelMinicursos');
 
 		$this->load->helper(array('form'));
-        $this->load->library('form_validation','session');
+		$this->load->library('form_validation','session');
 
 		$this->form_validation->set_rules('instituicao','instituicao','required');
 		$this->form_validation->set_rules('cidade_instituicao','cidade_instituicao','required');
@@ -147,46 +197,46 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('semestre','semestre','required');
 
 		$dados['nome'] = $this->input->post('nome');
- 		$dados['email'] = $this->input->post('email');
- 		$dados['celular'] = $this->input->post('celular');
- 		$dados['telefone'] = $this->input->post('telefone');
- 		$dados['senha'] = $this->input->post('senha');
- 		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['cep'] = $this->input->post('cep');
- 		$dados['estado'] = $this->input->post('estado');
- 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
- 		$dados['cpf'] = $this->input->post('cpf');
- 		$dados['bairro'] = $this->input->post('bairro');
- 		$dados['endereco'] = $this->input->post('endereco');
- 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 
- 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
+		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
- 		if($id_participante != NULL){
- 			$data['instituicao'] = $this->input->post('instituicao');
- 			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
- 			$data['estado_instituicao'] = $this->input->post('uf');
- 			$data['curso'] = $this->input->post('curso');
- 			$data['semestre'] = $this->input->post('semestre');
- 			$data['id_participante'] = $id_participante; 
+		if($id_participante != NULL){
+			$data['instituicao'] = $this->input->post('instituicao');
+			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
+			$data['estado_instituicao'] = $this->input->post('uf');
+			$data['curso'] = $this->input->post('curso');
+			$data['semestre'] = $this->input->post('semestre');
+			$data['id_participante'] = $id_participante; 
 
- 			if ($this->form_validation->run() != FALSE){
- 				if($this->modelGraduacao->insert($data)){
- 					$this->minicursos($id_participante); 
- 				}else{
- 					redirect(base_url());
- 					$this->session->set_flashdata('erroBanco', TRUE);
- 				}
- 			}else{
- 				$this->load->view('html_header');
- 				$this->load->view('cadastro_aluno_graduacao',$dados);
- 				$this->load->view('html_footer');
- 			}
- 		}else{
- 			$this->load->view('html_header');
- 			$this->load->view('cadastro_aluno_graduacao',$dados);
- 			$this->load->view('html_footer');
- 		}
+			if ($this->form_validation->run() != FALSE){
+				if($this->modelGraduacao->insert($data)){
+					$this->minicursos($id_participante); 
+				}else{
+					redirect(base_url('inscricao'));
+					$this->session->set_flashdata('erroBanco', TRUE);
+				}
+			}else{
+				$this->load->view('html_header');
+				$this->load->view('cadastro_aluno_graduacao',$dados);
+				$this->load->view('html_footer');
+			}
+		}else{
+			$this->load->view('html_header');
+			$this->load->view('cadastro_aluno_graduacao',$dados);
+			$this->load->view('html_footer');
+		}
 	}
 
 	public function cadastro_aluno_pos(){
@@ -196,7 +246,7 @@ class Home extends CI_Controller {
 		$this->load->model('Minicursos_model','modelMinicursos');
 
 		$this->load->helper(array('form'));
-        $this->load->library('form_validation','session');
+		$this->load->library('form_validation','session');
 
 		$this->form_validation->set_rules('instituicao','instituicao','required');
 		$this->form_validation->set_rules('cidade_instituicao','cidade_instituicao','required');
@@ -205,46 +255,46 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('tematica_da_pesquisa','tematica_da_pesquisa','required');
 
 		$dados['nome'] = $this->input->post('nome');
- 		$dados['email'] = $this->input->post('email');
- 		$dados['celular'] = $this->input->post('celular');
- 		$dados['telefone'] = $this->input->post('telefone');
- 		$dados['senha'] = $this->input->post('senha');
- 		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['cep'] = $this->input->post('cep');
- 		$dados['estado'] = $this->input->post('estado');
- 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
- 		$dados['cpf'] = $this->input->post('cpf');
- 		$dados['bairro'] = $this->input->post('bairro');
- 		$dados['endereco'] = $this->input->post('endereco');
- 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 
- 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
+		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
- 		if($id_participante != NULL){
- 			$data['instituicao'] = $this->input->post('instituicao');
- 			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
- 			$data['estado_instituicao'] = $this->input->post('uf');
- 			$data['curso'] = $this->input->post('curso');
- 			$data['tematica_da_pesquisa'] = $this->input->post('tematica_da_pesquisa');
- 			$data['id_participante'] = $id_participante; 
+		if($id_participante != NULL){
+			$data['instituicao'] = $this->input->post('instituicao');
+			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
+			$data['estado_instituicao'] = $this->input->post('uf');
+			$data['curso'] = $this->input->post('curso');
+			$data['tematica_da_pesquisa'] = $this->input->post('tematica_da_pesquisa');
+			$data['id_participante'] = $id_participante; 
 
- 			if ($this->form_validation->run() != FALSE){
- 				if($this->modelPos->insert($data)){
- 					$this->minicursos($id_participante); 
- 				}else{
- 					redirect(base_url());
- 					$this->session->set_flashdata('erroBanco', TRUE);
- 				}
- 			}else{
- 				$this->load->view('html_header');
- 				$this->load->view('cadastro_aluno_graduacao',$dados);
- 				$this->load->view('html_footer');
- 			}
- 		}else{
- 			$this->load->view('html_header');
- 			$this->load->view('cadastro_aluno_graduacao',$dados);
- 			$this->load->view('html_footer');
- 		}
+			if ($this->form_validation->run() != FALSE){
+				if($this->modelPos->insert($data)){
+					$this->minicursos($id_participante); 
+				}else{
+					redirect(base_url('inscricao'));
+					$this->session->set_flashdata('erroBanco', TRUE);
+				}
+			}else{
+				$this->load->view('html_header');
+				$this->load->view('cadastro_aluno_graduacao',$dados);
+				$this->load->view('html_footer');
+			}
+		}else{
+			$this->load->view('html_header');
+			$this->load->view('cadastro_aluno_graduacao',$dados);
+			$this->load->view('html_footer');
+		}
 	}
 
 	public function cadastro_professor_universitario(){
@@ -254,7 +304,7 @@ class Home extends CI_Controller {
 		$this->load->model('Minicursos_model','modelMinicursos');
 
 		$this->load->helper(array('form'));
-        $this->load->library('form_validation','session');
+		$this->load->library('form_validation','session');
 
 		$this->form_validation->set_rules('instituicao','instituicao','required');
 		$this->form_validation->set_rules('cidade_instituicao','cidade_instituicao','required');
@@ -264,47 +314,47 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('atua_na_pos_graduacao','atua_na_pos_graduacao','required');
 
 		$dados['nome'] = $this->input->post('nome');
- 		$dados['email'] = $this->input->post('email');
- 		$dados['celular'] = $this->input->post('celular');
- 		$dados['telefone'] = $this->input->post('telefone');
- 		$dados['senha'] = $this->input->post('senha');
- 		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['cep'] = $this->input->post('cep');
- 		$dados['estado'] = $this->input->post('estado');
- 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
- 		$dados['cpf'] = $this->input->post('cpf');
- 		$dados['bairro'] = $this->input->post('bairro');
- 		$dados['endereco'] = $this->input->post('endereco');
- 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 
- 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
+		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
- 		if($id_participante != NULL){
- 			$data['instituicao'] = $this->input->post('instituicao');
- 			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
- 			$data['estado_instituicao'] = $this->input->post('uf');
- 			$data['curso'] = $this->input->post('curso');
- 			$data['departamento'] = $this->input->post('departamento');
- 			$data['atua_na_pos_graduacao'] = $this->input->post('atua_na_pos_graduacao');
- 			$data['id_participante'] = $id_participante; 
+		if($id_participante != NULL){
+			$data['instituicao'] = $this->input->post('instituicao');
+			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
+			$data['estado_instituicao'] = $this->input->post('uf');
+			$data['curso'] = $this->input->post('curso');
+			$data['departamento'] = $this->input->post('departamento');
+			$data['atua_na_pos_graduacao'] = $this->input->post('atua_na_pos_graduacao');
+			$data['id_participante'] = $id_participante; 
 
- 			if ($this->form_validation->run() != FALSE){
- 				if($this->modelProfessorUni->insert($data)){
- 					$this->minicursos($id_participante); 
- 				}else{
- 					redirect(base_url());
- 					$this->session->set_flashdata('erroBanco', TRUE);
- 				}
- 			}else{
- 				$this->load->view('html_header');
- 				$this->load->view('cadastro_professor_universitario',$dados);
- 				$this->load->view('html_footer');
- 			}
- 		}else{
- 			$this->load->view('html_header');
- 			$this->load->view('cadastro_professor_universitario',$dados);
- 			$this->load->view('html_footer');
- 		}
+			if ($this->form_validation->run() != FALSE){
+				if($this->modelProfessorUni->insert($data)){
+					$this->minicursos($id_participante); 
+				}else{
+					redirect(base_url('inscricao'));
+					$this->session->set_flashdata('erroBanco', TRUE);
+				}
+			}else{
+				$this->load->view('html_header');
+				$this->load->view('cadastro_professor_universitario',$dados);
+				$this->load->view('html_footer');
+			}
+		}else{
+			$this->load->view('html_header');
+			$this->load->view('cadastro_professor_universitario',$dados);
+			$this->load->view('html_footer');
+		}
 	}
 
 	public function cadastro_professor_publica(){
@@ -314,70 +364,70 @@ class Home extends CI_Controller {
 		$this->load->model('Minicursos_model','modelMinicursos');
 
 		$this->load->helper(array('form'));
-        $this->load->library('form_validation','session');
+		$this->load->library('form_validation','session');
 
 		$this->form_validation->set_rules('escola','escola','required');
 
 		$dados['nome'] = $this->input->post('nome');
- 		$dados['email'] = $this->input->post('email');
- 		$dados['celular'] = $this->input->post('celular');
- 		$dados['telefone'] = $this->input->post('telefone');
- 		$dados['senha'] = $this->input->post('senha');
- 		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['cep'] = $this->input->post('cep');
- 		$dados['estado'] = $this->input->post('estado');
- 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
- 		$dados['cpf'] = $this->input->post('cpf');
- 		$dados['bairro'] = $this->input->post('bairro');
- 		$dados['endereco'] = $this->input->post('endereco');
- 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 
- 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
+		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
- 		if($id_participante != NULL){
- 			$data['escola'] = $this->input->post('escola');
- 			$data['id_participante'] = $id_participante; 
- 			
- 			$nivel1 = $this->input->post('infantil');
- 			$nivel2 = $this->input->post('fundamental1');
- 			$nivel3 = $this->input->post('fundamental2');
- 			$nivel4 = $this->input->post('medio');
+		if($id_participante != NULL){
+			$data['escola'] = $this->input->post('escola');
+			$data['id_participante'] = $id_participante; 
 
- 			if ($this->form_validation->run() != FALSE){
- 				if($this->modelProfessorPub->insert($data)){
+			$nivel1 = $this->input->post('infantil');
+			$nivel2 = $this->input->post('fundamental1');
+			$nivel3 = $this->input->post('fundamental2');
+			$nivel4 = $this->input->post('medio');
 
- 					if ($nivel1 == 1){
- 						$nivel['id_nivel'] = $nivel1;
- 						$nivel['id_participante_professor'] = $id_participante;
- 						$this->modelProfessorPub->insertNivel($nivel);
- 					}if ($nivel2 == 2){
- 						$nivel['id_nivel'] = $nivel2;
- 						$nivel['id_participante_professor'] = $id_participante;
- 						$this->modelProfessorPub->insertNivel($nivel);
- 					}if ($nivel3 == 3){
- 						$nivel['id_nivel'] = $nivel3;
- 						$nivel['id_participante_professor'] = $id_participante;
- 						$this->modelProfessorPub->insertNivel($nivel);
- 					}if ($nivel4 == 4){
- 						 $nivel['id_nivel'] = $nivel4;
- 						$nivel['id_participante_professor'] = $id_participante;
- 						$this->modelProfessorPub->insertNivel($nivel);
- 					}
- 					$this->minicursos($id_participante); 
- 				}else{
- 					redirect(base_url());
- 					$this->session->set_flashdata('erroBanco', TRUE);
- 				}
- 			}else{
- 				$this->load->view('html_header');
- 				$this->load->view('cadastro_professor_publica',$dados);
- 				$this->load->view('html_footer');
- 			}
- 		}else{
- 			$this->load->view('html_header');
- 			$this->load->view('cadastro_professor_publica',$dados);
- 			$this->load->view('html_footer');
- 		}
+			if ($this->form_validation->run() != FALSE){
+				if($this->modelProfessorPub->insert($data)){
+
+					if ($nivel1 == 1){
+						$nivel['id_nivel'] = $nivel1;
+						$nivel['id_participante_professor'] = $id_participante;
+						$this->modelProfessorPub->insertNivel($nivel);
+					}if ($nivel2 == 2){
+						$nivel['id_nivel'] = $nivel2;
+						$nivel['id_participante_professor'] = $id_participante;
+						$this->modelProfessorPub->insertNivel($nivel);
+					}if ($nivel3 == 3){
+						$nivel['id_nivel'] = $nivel3;
+						$nivel['id_participante_professor'] = $id_participante;
+						$this->modelProfessorPub->insertNivel($nivel);
+					}if ($nivel4 == 4){
+						$nivel['id_nivel'] = $nivel4;
+						$nivel['id_participante_professor'] = $id_participante;
+						$this->modelProfessorPub->insertNivel($nivel);
+					}
+					$this->minicursos($id_participante); 
+				}else{
+					redirect(base_url('inscricao'));
+					$this->session->set_flashdata('erroBanco', TRUE);
+				}
+			}else{
+				$this->load->view('html_header');
+				$this->load->view('cadastro_professor_publica',$dados);
+				$this->load->view('html_footer');
+			}
+		}else{
+			$this->load->view('html_header');
+			$this->load->view('cadastro_professor_publica',$dados);
+			$this->load->view('html_footer');
+		}
 	}
 
 	public function cadastro_demais_profissionais(){
@@ -387,60 +437,89 @@ class Home extends CI_Controller {
 		$this->load->model('Minicursos_model','modelMinicursos');
 
 		$this->load->helper(array('form'));
-        $this->load->library('form_validation','session');
+		$this->load->library('form_validation','session');
 
 		$this->form_validation->set_rules('area_de_atuacao','area_de_atuacao','required');
 
 		$dados['nome'] = $this->input->post('nome');
- 		$dados['email'] = $this->input->post('email');
- 		$dados['celular'] = $this->input->post('celular');
- 		$dados['telefone'] = $this->input->post('telefone');
- 		$dados['senha'] = $this->input->post('senha');
- 		$dados['cidade'] = $this->input->post('cidade');
- 		$dados['cep'] = $this->input->post('cep');
- 		$dados['estado'] = $this->input->post('estado');
- 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
- 		$dados['cpf'] = $this->input->post('cpf');
- 		$dados['bairro'] = $this->input->post('bairro');
- 		$dados['endereco'] = $this->input->post('endereco');
- 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 
- 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
+		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
- 		if($id_participante != NULL){
- 			$data['area_de_atuacao'] = $this->input->post('area_de_atuacao');
- 			$data['id_participante'] = $id_participante;
+		if($id_participante != NULL){
+			$data['area_de_atuacao'] = $this->input->post('area_de_atuacao');
+			$data['id_participante'] = $id_participante;
 
- 			if ($this->form_validation->run() != FALSE){
- 				if($this->modelProfissionais->insert($data)){
- 					$this->minicursos($id_participante); 
- 				}else{
- 					redirect(base_url());
- 					$this->session->set_flashdata('erroBanco', TRUE);
- 				}
- 			}else{
- 				$this->load->view('html_header');
- 				$this->load->view('cadastro_professor_universitario',$dados);
- 				$this->load->view('html_footer');
- 			}
- 		}else{
- 			$this->load->view('html_header');
- 			$this->load->view('cadastro_professor_universitario',$dados);
- 			$this->load->view('html_footer');
- 		}
+			if ($this->form_validation->run() != FALSE){
+				if($this->modelProfissionais->insert($data)){
+					$this->minicursos($id_participante); 
+				}else{
+					redirect(base_url('inscricao'));
+					$this->session->set_flashdata('erroBanco', TRUE);
+				}
+			}else{
+				$this->load->view('html_header');
+				$this->load->view('cadastro_professor_universitario',$dados);
+				$this->load->view('html_footer');
+			}
+		}else{
+			$this->load->view('html_header');
+			$this->load->view('cadastro_professor_universitario',$dados);
+			$this->load->view('html_footer');
+		}
 	}
 
 	public function minicursos($id_participante){
+		$this->load->model('Log_model', 'log_model');
+		$this->log_model->insert('Participante cadastrado com sucesso.', $id_participante);
+		$this->envia_email($id_participante);
+		// $this->load->model('Participante_model','modelParticipante');
+		// $this->load->model('Minicursos_model','modelMinicursos'); 
 
-		$this->load->model('Participante_model','modelParticipante');
-		$this->load->model('Minicursos_model','modelMinicursos'); 
+		// $dados['minicursos'] = $this->modelMinicursos->listar_minicursos();
+		// $dados['id_participante'] = $id_participante;
 
-		$dados['minicursos'] = $this->modelMinicursos->listar_minicursos();
-		$dados['id_participante'] = $id_participante;
+		// $this->load->view('html_header');
+		// $this->load->view('interesse_minicursos',$dados);
+		// $this->load->view('html_footer');
+	}
 
+	public function cadastro_sucesso(){
 		$this->load->view('html_header');
-		$this->load->view('interesse_minicursos',$dados);
+		$this->load->view('cadastro_sucesso');
 		$this->load->view('html_footer');
+	}
+
+	public function envia_email($id_participante){
+		$this->db->where('id', $id_participante);
+		$usuario = $this->db->get('participante')->row();
+		$key_ativar = strtotime(date("Y-m-d H:i:s"));
+		$key_ativar = hash('sha512', $key_ativar);
+		$key_ativar = substr($key_ativar, 0, 8);
+
+		$dados1['key_ativar'] = $key_ativar;
+		$this->db->where('id', $usuario->id);
+		$this->db->update('participante', $dados1);
+
+		if ($this->enviarEmail($id_participante)){
+			$this->session->set_flashdata('cadastrado', TRUE);
+			redirect('Home/cadastro_sucesso');
+		}else{
+			echo "erro ao enviar o e-mail";
+			die;
+		}
+
 	}
 
 	public function declarar_interesse_minicursos(){
@@ -451,84 +530,130 @@ class Home extends CI_Controller {
 		$id_participante = $this->input->post('id_participante');
 
 		if($minicursosSelecionados != NULL){
-		foreach ($minicursosSelecionados as $item){
-			$dados['id_participante'] = $id_participante;
-			$dados['id_minicurso'] = $item;
-			$this->modelMinicursos->insertParticipante_interesse($dados);
-		}}
+			foreach ($minicursosSelecionados as $item){
+				$dados['id_participante'] = $id_participante;
+				$dados['id_minicurso'] = $item;
+				$this->modelMinicursos->insertParticipante_interesse($dados);
+			}}
+			$this->db->where('id', $id_participante);
+			$usuario = $this->db->get('participante')->row();
+			$key_ativar = strtotime(date("Y-m-d H:i:s"));
+			$key_ativar = hash('sha512', $key_ativar);
+			$key_ativar = substr($key_ativar, 0, 8);
+
+			$dados1['key_ativar'] = $key_ativar;
+			$this->db->where('id', $usuario->id);
+			$this->db->update('participante', $dados1);
+
+			if ($this->enviarEmail($id_participante)){
+				$this->session->set_flashdata('cadastrado', TRUE);
+				$this->load->view('html_header');
+				$this->load->view('cadastro_sucesso');
+				$this->load->view('html_footer');
+			}else{
+				echo "erro ao enviar o e-mail";
+				die;
+			}
+
+		}
 
 
-		if ($this->enviarEmail($id_participante)){
-			$this->session->set_flashdata('cadastrado', TRUE);
-			$this->load->view('html_header');
-	 		$this->load->view('cadastro_sucesso');
-	 		$this->load->view('html_footer');
-	 	}else{
-	 		echo "erro ao enviar o e-mail";
-	 		die;
-	 	}
 
-	}
+		private function crypt ($password){
+			$options = ['cost' => 12];
+			$password = password_hash($password, PASSWORD_DEFAULT, $options);
+			return $password; 
+		}
+
+		public function reenviarEmailAtivacao($idParticipante){
+			if($this->enviarEmail($idParticipante)){
+				$this->session->set_flashdata('success', 'Email de Ativação reenviado com sucesso!');
+			}
+			else{
+				$this->session->set_flashdata('danger', 'Problema ao reenviar e-mail de ativação. Por favor, tente novamente mais tarde');
+
+			}
+
+			redirect('Login');
+		}
 
 
+		public function enviarEmail($idParticipante){
 
- 	private function crypt ($password){
-        $options = ['cost' => 12];
-        $password = password_hash($password, PASSWORD_DEFAULT, $options);
-        return $password; 
-    }
+			$this->load->model('Participante_model','modelParticipante');
+
+        //$usuario = $this->modelParticipante->get($idParticipante);
+			$this->db->where('id', $idParticipante);
+			$usuario = $this->db->get('participante')->row();
+			$key_ativar = $usuario->key_ativar;
 
 
- 
-    public function enviarEmail($idParticipante){
+			$subject = 'Confirme seu e-mail | Congresso:Pedagogia Histórico-Crítica';
 
-    	$this->load->model('Participante_model','modelParticipante');
+			$message = '<h1>MUITO OBRIGADO POR SE CADASTRAR NO CONGRESSO!<h1>
+			<h2>Clique no link abaixo para confirmar seu cadastro:</h2>
+			<br><br>
+			<p>
+			Clique no  link abaixo para confirmar o seu cadastro no Congresso: Pedagogia Histórico-Crítica!<br><br>	<a href="'.base_url().'/Home/confirmaEmail/'.$key_ativar.'" target="_blank">CLIQUE AQUI PARA CONFIRMAR SEU E-MAIL.</a>  ';
 
-        $usuario = $this->modelParticipante->get($idParticipante);
+			$email = $usuario->email;
 
-        $subject = 'Confirme seu e-mail!';
-        
-        $message = 'Clique no e-mail link abaixo para confirmar o seu cadastro no Congresso: Pedagogia Histórico-Crítica! \n  <a'.base_url().'/Home/confirmaEmail/'.$usuario->email.'">Clique Aqui para confirmar seu e-mail</a>  ';
-
-        $email = $usuario->email;
-
-        $config = Array(
-                  'protocol' => 'mail',
-                  'smtp_host' => 'ssl://smtp.googlemail.com',
-                  'smtp_port' => 465,
+			$config = Array(
+				'useragent' => 'CodeIgniter',
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
                     'smtp_user' => EMAIL,// your mail name
                     'smtp_pass' => SENHA,
+                    'smtp_timeout' => 5,
+                    'wordwrap' => TRUE,
+                    'wrapchars' => 76,
+
                     'mailtype'  => 'html', 
-                    'charset'   => 'iso-8859-1',
-                    'wordwrap' => TRUE
-        );
-        $this->load->library('email', $config);
-        $this->email->from(EMAIL, NOME);//your mail address and name
-        $this->email->set_newline('\r\n');
-        $this->email->crlf('\r\n');
+                    'charset'   => 'utf-8',
+                    'validate' => FALSE,
+                    'priority' => 3,
+                    'crlf' => "\r\n",
+                    'newline' => "\r\n",
+                    'bcc_batch_mode' => FALSE,
+                    'bcc_batch_size' => 200,
+                );
+
+			$html = '';
+			$html.= '<!DOCTYPE html><html>';
+			$html.= $message;
+			$html.= '</html>';
+
+			$message = $html;
+
+			$this->load->library('email', $config);
+        $this->email->from(EMAIL, $subject);//your mail address and name
+        //$this->email->set_newline('\r\n');
+        //$this->email->crlf('\r\n');
 
         $this->email->to($email); //receiver mail
         $this->email->subject($subject);
         $this->email->message($message);
-                if(!$this->email->send()){ 
-                  return $this->email->print_debugger();
-                }
-                else{
-                	return true;
-                }
+        if(!$this->email->send()){ 
+        	return $this->email->print_debugger();
+        }
+        else{
+        	return true;
+        }
     }
 
 
-    public function confirmaEmail($emailMD){
+    public function confirmaEmail($key_ativar){
 
     	$this->load->model('Confirma_Email_model','modelConfirmaEmail');
 
-    	if($this->modelConfirmaEmail->ativaParticipante($email)){
-    		echo ("email confirmado com sucesso!");
+    	if($this->modelConfirmaEmail->ativaParticipante($key_ativar)){
+    		$this->session->set_flashdata('success', 'E-mail ativo com sucesso!<br>Faça o <strong>login</strong> para continuar.');
     	}else{
-    		echo ("erro ao confirmar o e-mail");
+    		$this->session->set_flashdata('danger', 'Houve um erro ao ativar seu e-mail, entre em contato com o pessoal da organização para saber sobre.');
+    		
     	}
 
-
+    	redirect('Login');
     }
 }

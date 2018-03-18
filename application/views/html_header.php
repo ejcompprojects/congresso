@@ -9,8 +9,7 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <body background="<?php echo base_url('assets/img/background2.jpg');?>">
 
     <link rel="stylesheet" href="<?php echo base_url('assets/css/cadastroStyle.css');?>" >
 </head>
-<body>
+

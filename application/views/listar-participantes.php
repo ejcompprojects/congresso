@@ -479,7 +479,15 @@
         //modal.find('#foto_comprovante').val(foto_comprovante)
         modal.find('#tipo_inscricao').val(tipo_inscricao)
         modal.find('#status_inscricao').val(status_inscricao)
-        modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
+        if(foto_comprovante.includes('.pdf') == true){
+          modal.find('.image').html('<a target="_blank" href="<?= base_url('uploads/comprovante/') ?>'+foto_comprovante+'" class="btn btn-info">ABRIR COMPROVANTE PAGAMENTO</a>')
+          modal.find('#foto_comprovante').hide()
+        }
+        else{
+          modal.find('.image').html('<img id="foto_comprovante"></img>') 
+          modal.find('#foto_comprovante').show()
+          modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
+        }
 
         <?php } ?>
         <?php if($funcao == 'listar_trabalho_analisar'){ ?>

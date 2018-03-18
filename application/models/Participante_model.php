@@ -313,7 +313,7 @@ public function list_all($filtros = array(), $inicio = 0){
     return $this->db->get(self::DB_TABLE)->result();
 }
 
-public function update_dados($id, $status_inscricao, $eixo, $status){
+public function update_dados($id, $status_inscricao, $eixo, $status, $ativo){
  
     if($status_inscricao != ''){
  
@@ -338,7 +338,12 @@ public function update_dados($id, $status_inscricao, $eixo, $status){
     }
  
 
- 
+    if($ativo != ''){
+        $this->db->where('id',$id);
+        $dados2['ativo'] = $ativo;
+
+        $this->db->update('participante', $dados2);
+    }
 
  
     $this->db->where('id', $id);
@@ -353,13 +358,14 @@ public function update_dados($id, $status_inscricao, $eixo, $status){
  
 
  public function select_participantes($pagamento, $trabalho, $tipo_inscricao){
+
     if($pagamento != ''){
         switch($pagamento){
             case 'nao_anexou': $this->db->where('foto_comprovante', ''); break;
-            case '0': $this->db->where('status_inscricao', 0); break;
-            case '1': $this->db->where('status_inscricao', 1); break;
-            case '2': $this->db->where('status_inscricao', 2); break;
-            case '3': $this->db->where('status_inscricao', 3); break;
+            case 0: $this->db->where('status_inscricao', 0); break;
+            case 1: $this->db->where('status_inscricao', 1); break;
+            case 2: $this->db->where('status_inscricao', 2); break;
+            case 3: $this->db->where('status_inscricao', 3); break;
 
         }
     }
@@ -371,13 +377,15 @@ public function update_dados($id, $status_inscricao, $eixo, $status){
             case '2': $this->db->where('trabalho.status', 2); break;
             case 'nao_submetera_trabalho': $this->db->where('participante.submeter_trabalho', 0); break;
 
+        $this->db->select('trabalho.*, participante.*');
+        $this->db->join('trabalho', ' participante.id = trabalho.id_participante', 'LEFT');
         }
+    }else{
+        $this->db->select('participante.*');
     }
     if($tipo_inscricao != ''){
        $this->db->where('participante.id_tipo_inscricao', $tipo_inscricao);
     }
-    $this->db->select('trabalho.*, participante.*');
-    $this->db->join('trabalho', ' participante.id = trabalho.id_participante', 'LEFT');
     return $this->db->get('participante')->result();
  }
 

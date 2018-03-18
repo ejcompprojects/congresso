@@ -169,7 +169,7 @@ class Participante extends Admin {
             if($filtros['order_by'] == '') $order_by = 'ASC';
             else$order_by = $filtros['order_by'];
 
-            if($filtros['quantidade'] == '') $quantidade = 10;
+            if($filtros['quantidade'] == '') $quantidade = 100;
             else $quantidade = $filtros['quantidade'];
 
 
@@ -307,7 +307,7 @@ class Participante extends Admin {
             if($filtros['order_by'] == '') $order_by = 'ASC';
             else$order_by = $filtros['order_by'];
 
-            if($filtros['quantidade'] == '') $quantidade = 10;
+            if($filtros['quantidade'] == '') $quantidade = 100;
             else $quantidade = $filtros['quantidade'];
 
 
@@ -435,6 +435,9 @@ class Participante extends Admin {
  
         $status = $this->input->post('status');
  
+        $ativo = '';
+
+        $ativo = $this->input->post('ativo');
 
  
         // if(isset($status_inscricao) && $status_inscricao == ''){
@@ -469,7 +472,7 @@ class Participante extends Admin {
  
 
  
-        $usuario = $this->participante_model->update_dados($id, $status_inscricao, $eixo, $status);
+        $usuario = $this->participante_model->update_dados($id, $status_inscricao, $eixo, $status, $ativo);
  
 
  

@@ -21,7 +21,7 @@ class Login_model extends CI_Model{
 
 	public function getParticipante($email){
 		$this->db->where('email', $email);
-		$this->db->select('id, nome, email, celular, telefone, endereco, numero, bairro, complemento, cidade, estado, cep, submeter_trabalho, foto_comprovante, id_tipo_inscricao, status_inscricao, data_registro, data_resposta');
+		$this->db->select('ativo, id, nome, email, celular, telefone, endereco, numero, bairro, complemento, cidade, estado, cep, submeter_trabalho, foto_comprovante, id_tipo_inscricao, status_inscricao, data_registro, data_resposta');
    		$usuario = $this->db->get('participante')->row();
    		return $usuario;
 	}

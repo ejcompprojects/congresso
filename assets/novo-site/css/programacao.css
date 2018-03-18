@@ -1,0 +1,305 @@
+body{
+	background-image: none;
+	background-color: #00519B;
+}
+
+/*FONTES*/
+
+@font-face{
+	font-family: "Tw Cent";
+	src: url('../fonts/TCM_____.TTF');
+}
+
+@font-face{
+	font-family: "Poiret_One";
+	src: url('../fonts/PoiretOne-Regular.ttf');
+}
+
+@font-face{
+	font-family: Brandon_thin;
+	src: url('../fonts/Brandon_thin.otf');
+}
+
+@font-face{
+	font-family: Brandon_regular;
+	src: url('../fonts/Brandon_reg.otf');
+}
+
+@font-face{
+	font-family: "Brandon_bld";
+	src: url('../fonts/Brandon_bld.otf');
+}
+
+@font-face{
+	font-family: "Brandon_med";
+	src: url('../fonts/Brandon_med.otf');
+}
+
+@font-face{
+	font-family: Dharma_Negrito;
+	src: url('../fonts/DharmaGothicE_Bold_R.otf');
+}
+
+.brandon_r{
+	font-family: Brandon_regular;
+}
+
+.brandon_t{
+	font-family: Brandon_thin;
+}
+
+.brandon_n{
+	font-family: Brandon_bld;
+}
+
+.brandon_m{
+	font-family: Brandon_med;
+}
+
+.tw_cent{
+	font-family: "Tw Cent";
+}
+
+.poiret{
+	font-family: Poiret_One;
+}
+
+.txt_center{
+	text-align: center;
+}
+
+.txt_white{
+	color: white !important;
+}
+
+.txt_softdarkgrey{
+	color: #555;
+}
+
+
+/*TEXTOS*/
+.top_offset{
+	margin-top: 2%;
+}
+
+.bottom_offset{
+	margin-bottom: 6%;
+}
+
+.align_center{
+	text-align: center;
+}
+
+.intro{
+	margin-top: 10% !important;
+}
+
+a.brandon_t{
+	font-size: 10.5pt;
+	text-align: left;
+}
+
+.apresentacao{
+	text-align: justify;
+}
+
+.orn{
+	border-bottom: 1px #e60000 solid;
+}
+
+
+/*DIV*/
+.b_green{
+	border: solid green 1px;
+}
+
+.right_offset{
+	margin-right: 10%;
+}
+
+.smooth_red{
+	background-color: #ff6666 !important;
+}
+
+
+/*TABELAS*/
+table.striped > tbody > tr:nth-child(odd){
+	background-color: #f2f2f2 !important;
+}
+
+tr{
+	width: 100% !important;
+}
+
+table.responsive-table tbody{
+	white-space: unset !important;
+}
+
+
+/*LISTA*/
+ul.circular{
+	list-style: circle;
+}
+
+
+/*BOTÕES*/
+a.brandon_t{
+	font-size: 10.5pt;
+	text-align: left;
+}
+
+a.menu{
+	line-height: 40px !important;
+	/*vertical-align: middle !important;*/
+}
+
+.bt_inscrever{
+	background-color: rgba(0,0,0,0) !important;
+	color: #ff6666 !important;
+	border-radius: 0 0 0 0 !important;
+	border: solid #ff6666 1px !important;
+	width: 311px !important;
+	height: 50px;
+	padding: 1% !important;
+	font-size: 14pt;
+	font-weight: bold !important;
+	/*border: none !important;*/
+	-webkit-box-shadow: none !important;
+	transition: all 0.5s ease;
+}
+
+.bt_inscrever:hover{
+	background-color: #e60000 !important;
+	color: white !important;
+	border: none !important;
+	transition: all 0.8s ease !important;
+}
+
+.bt_date{
+
+	background-color: #ff6666 !important;
+	color: white !important;
+	border-radius: 0 0 0 0 !important;
+	width: 311px !important;
+	height: 50px;
+	padding: 0 !important;
+	font-size: 14pt;
+	font-weight: bold !important;
+	border: none !important;
+	-webkit-box-shadow: none !important;
+}
+
+.bt_date:hover,.mudacor{
+	background-color: #e60000 !important;
+	border: none !important;
+	transition: all 0.8s ease !important;
+}
+
+@media screen and (max-width: 1360px) {
+	.bt_date{
+		width: 250px !important;
+		border: solid white 1px !important;
+	}
+}
+
+@media screen and (max-width: 1300px){
+	.bt_date{
+		width: 200px !important;
+		border: solid white 1px !important;
+	}
+}
+
+@media screen and (max-width: 985px){
+	.bt_date{
+		width: 150px !important;
+		border: solid white 1px !important;
+	}
+}
+
+@media screen and (max-width: 787px){
+	.bt_date{
+		width: 100px !important;
+		border: solid white 1px !important;
+	}
+}
+
+@media screen and (max-width: 640px){
+	.bt_date{
+		width: 100% !important;
+		border: solid white 1px !important;
+	}
+}
+
+.back{
+	background-color: #ff6666 !important;
+}
+
+
+/*ANIMAÇÕES*/
+
+.animate{
+	animation-duration: 2s;
+}
+
+@keyframes fadeInLeft{
+	from{
+		opacity: 0;
+		transform: translateX(-10%);
+	}
+
+	to{
+		opacity: 1;
+		transform: none;
+		transition: ease 0.8s;
+	}
+}
+
+.fadeInLeft{
+	animation-name: fadeInLeft;
+}
+
+/*---------------------------------------------*/
+
+@keyframes fadeIn{
+	from{
+		opacity: 0;
+	}
+
+	to{
+		opacity: 1;
+		transition: ease 0.8s;
+	}
+}
+
+.fadeIn{
+	animation-name: fadeIn;
+}
+
+
+/*FOOTER*/
+.ejcomp-footer:hover{
+	transform: scale(1.1) !important;
+	cursor: pointer !important;
+	transition: all 0.5s ease !important;
+}
+
+
+/*MATERIALIZE*/
+footer{
+	position: relative !important;
+	bottom: 0 !important;
+
+}
+
+footer.page-footer{
+	background-color: rgba(0,0,0,0) !important;
+	text-align: center !important;
+	font-size: 16px !important;
+	left: 50% !important;
+	transform: translateX(-50%) !important;
+	font-weight: bold !important;
+}
+
+div.footer-copyright{
+	background-color: rgba(0,0,0,0) !important;
+}

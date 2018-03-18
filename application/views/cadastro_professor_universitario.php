@@ -1,5 +1,5 @@
 
-<body class="hm-gradient"> 
+<body style="background-image: url(<?php echo base_url('assets/img/background2.jpg');?>);" class="hm-gradient">
     <body class="hm-gradient">
         <script type="text/javascript" src="assets/js/preencheCep.js"></script>
         <main>
@@ -8,7 +8,7 @@
                 <div class="text-center darken-grey-text mb-4">
                 </div>
 
-                <div class="col-md-6 col-centered">
+                <div class="col-md-9 col-centered">
                     <div class="card">
                         <div class="card-body">
 
@@ -40,7 +40,7 @@
                                 <div class="md-form">
                                 <label class="mr-sm-2" for="tipo"></label>
                                 <select class="form-control" id="atua_na_pos_graduacao" name="atua_na_pos_graduacao" required="">
-                                   <option value="">Atua na Pós-Graduação</option>
+                                   <option value="">Atua na Pós-Graduação?</option>
                                     <option value="1">Sim</option>
                                     <option value="0">Não</option>
                                </select>
@@ -89,7 +89,7 @@
                                 <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
                                     <input type="text" id="curso" name="curso" class="form-control"  required="true" minlength="3" maxlength="100">
-                                    <label for="curso">Curso</label>
+                                    <label for="curso">Departamento</label>
                                 </div>
 
                                 <!--INPUTS HIDDEN PARA O INSERT --> 
