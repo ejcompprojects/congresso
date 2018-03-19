@@ -182,8 +182,8 @@
            if($participante->foto_comprovante == '') $participante->enviou_comprovante = 'Não';
            else $participante->enviou_comprovante = 'Sim';
 
-           if($participante->submeter_trabalho == 0) $participante->submeter_trabalho = 'Não';
-           else $participante->submeter_trabalho = 'Sim'; 
+           if($participante->submeter_trabalho == 0) $participante->verbose_submeter_trabalho = 'Não';
+           else $participante->verbose_submeter_trabalho = 'Sim'; 
            ?>
            <tr>
             <td><?=$participante->id ?></td>
@@ -192,7 +192,7 @@
             <td><?=$participante->tipo_inscricao ?></td>
             <td><?=$participante->enviou_comprovante ?></td>
             <td><?= $participante->status_inscricao_label ?></td>
-            <td><?= $participante->submeter_trabalho ?></td>
+            <td><?= $participante->verbose_submeter_trabalho ?></td>
             <td><?= $participante->estado ?></td>
 
 
@@ -412,15 +412,14 @@
                               'disabled'    => true,
                               'class'       => 'form-control',);
 
-                            $input[14]['type']  = "input_text";
+                            $input[14]['type']  = "select_booleano";
 
                             $input[14]['label'] = "Submeter Trabalho";
 
                             $input[14]['attr']  = array(
                               'name'        => 'submeter_trabalho',
                               'id'          => 'submeter_trabalho',
-                              'maxlength'   => 255,
-                              'disabled'    => true,
+                  
                               'class'       => 'form-control',);
 
 
@@ -606,8 +605,8 @@
           modal.find('#foto_comprovante').hide()
         }
         else{
-          
-          modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
+          if(foto_comprovante == '') modal.find('#foto_comprovante').html('<p>Não anexou foto.</p>')
+          else modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
         }
           modal.find('#ativo').val(ativo)
 

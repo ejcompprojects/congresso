@@ -19,12 +19,15 @@ class Painel extends Login {
      * Função que retorna o HTML padrão do controller
      */
     public function index(){
+
         $id = $this->session->userdata('usuario')->id;
-        $vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
+        //$vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
 
         //$foto_comprovante = $this->session->userdata('usuario')->foto_comprovante;
         $usuario = $this->painel_model->get($id);
         $foto_comprovante = $usuario->foto_comprovante;
+
+        $vai_submeter_trabalho = $usuario->submeter_trabalho;
 
         $info = array();
         // $success = array();
@@ -64,9 +67,13 @@ class Painel extends Login {
                 $nome_do_mes = $this->nome_do_mes(date('m'));
                 $info[] = 'O <span style="font-size:14pt;"><strong>PRAZO</strong></span> para envio do seu artigo é até <span style="font-size:14pt;"><strong>dia '.$ultimo_dia_mes.' de '.$nome_do_mes.'!</strong></span>'; 
                 if($estagio != 2) $estagio = 4;
+
+                
             }
         }
-
+        else{ //se ele n vai submeter trabalho
+            if($status_inscricao == 1) $ponto+= 30; //se a inscrição tá paga, tá tudo certo.
+        }
 
 
         //calculo de porcentagem:
@@ -94,39 +101,78 @@ class Painel extends Login {
         $data['valor'] = $valor;
 
 
-        $data['mensagens'] = mensagens();
+        $data['nao_cumpriu_prazo'] = false;
 
+        if(date('m') > date('m', strtotime($this->session->userdata('usuario')->data_registro))){ //se tiver virado 1 mês desde a inscrição:
+            if($vai_submeter_trabalho == 1){ //se vai submeter trabalho
+                if(!$this->submeteu_trabalho()){ //E NÃO submeteu trabalho
+                    $data['nao_cumpriu_prazo'] = true;
+              }
+          }
+      }
+
+
+    $data['mensagens'] = mensagens();
+
+      if($data['nao_cumpriu_prazo'] == true){ //se não cumpriu prazo, vou carregar a view de não-cumpriu-prazo.
+        $this->load->view('painel/html_header');
+        $this->load->view('painel/header');
+        $this->load->view('painel/nao-cumpriu-prazo', $data);
+        $this->load->view('painel/footer');
+    }else{
         $this->load->view('painel/html_header');
         $this->load->view('painel/header');
         $this->load->view('painel/widgets', $data);
         $this->load->view('painel/footer');
-
+        
     }
 
-    public function nome_do_mes($mes){
-        switch($mes){
-            case 2: return 'Fevereiro'; break;
-            case 3: return 'Março'; break;
-            case 4: return 'Abril'; break;
-            case 5: return 'Maio'; break;
-            case 6: return 'Junho'; break;
-            case 7: return 'Julho'; break;
-        }
-    }
 
-    public function ultimo_dia($mes){
-        switch($mes){
-            case 2: return 28; break;
-            case 3: return 31; break;
-            case 4: return 30; break;
-            case 5: return 31; break;
-            case 6: return 30; break;
-            case 7: return 31; break;
-        }
-    }
+}
 
-    public function calcula_valor($mes, $tipo_inscricao){
-        switch($tipo_inscricao){
+public function alterar_para_sem_submissao_de_trabalho(){
+    $id = $this->session->userdata('usuario')->id;
+
+    $this->db->where('id', $id);
+    $dados['submeter_trabalho'] = 0;
+    $this->db->update('participante', $dados);
+
+    $this->session->set_flashdata('success', '<strong>Seu cadastro foi alterado para "SEM SUBMISSÃO DE TRABALHO" com sucesso!</strong>');
+    redirect('Painel');
+}
+
+public function submeteu_trabalho(){
+    $id = $this->session->userdata('usuario')->id;
+    $this->db->where('id_participante', $id);
+    $quantidade = $this->db->get('trabalho')->num_rows();
+    if($quantidade == 0) return false;
+    else if($quantidade == 1) return true;
+}
+
+public function nome_do_mes($mes){
+    switch($mes){
+        case 2: return 'Fevereiro'; break;
+        case 3: return 'Março'; break;
+        case 4: return 'Abril'; break;
+        case 5: return 'Maio'; break;
+        case 6: return 'Junho'; break;
+        case 7: return 'Julho'; break;
+    }
+}
+
+public function ultimo_dia($mes){
+    switch($mes){
+        case 2: return 28; break;
+        case 3: return 31; break;
+        case 4: return 30; break;
+        case 5: return 31; break;
+        case 6: return 30; break;
+        case 7: return 31; break;
+    }
+}
+
+public function calcula_valor($mes, $tipo_inscricao){
+    switch($tipo_inscricao){
             case 1: //graduando
             switch($mes){
                 case 2: return 20; break;
@@ -178,15 +224,38 @@ class Painel extends Login {
             $this->log_model->insert('O participante enviou uma dúvida.', $id);
             $this->session->set_flashdata('success', 'Dúvida enviada com sucesso!<br>Em breve te responderemos através de seu e-mail. Fique ligado em sua caixa de entrada.');
         }else{
-           $this->session->set_flashdata('danger', 'Houve um erro ao enviar o e-mail.Tente enviar a dúvida para o e-mail:'.EMAIL_ADMIN);
-       }
+         $this->session->set_flashdata('danger', 'Houve um erro ao enviar o e-mail.Tente enviar a dúvida para o e-mail:'.EMAIL_ADMIN);
+     }
 
 
 
-       redirect(base_url('Painel#duvida'));
-   }
+     redirect(base_url('Painel#duvida'));
+ }
 
-   public function enviar_arquivos(){
+ // public function nao_cumpriu_prazo_enviar_arquivos(){
+ //    $id = $this->session->userdata('usuario')->id;
+
+ //    $usuario = $this->painel_model->get($id);
+ //    $vai_submeter_trabalho = $usuario->submeter_trabalho;
+ //    $foto_comprovante = $usuario->foto_comprovante;
+ //    if($foto_comprovante == ''){
+ //        $enviou_comprovante = false;
+ //    }
+ //    else{
+ //        $enviou_comprovante = true;
+
+ //    $status_inscricao = $usuario->status_inscricao;
+ //     switch($status_inscricao){
+ //            case 0: $status_inscricao = 'Em análise'; break;
+ //            case 1: $status_inscricao = 'Aprovado'; break;
+ //            case 2: $status_inscricao = 'Reprovado'; break;
+ //            case 3: $status_inscricao = 'Isento'; break;
+ //        }
+
+    
+ // }
+
+ public function enviar_arquivos(){
 
     $id = $this->session->userdata('usuario')->id;
     $vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
@@ -255,10 +324,10 @@ public function send_photo(){
 
 
     if($resposta == true){
-     $this->log_model->insert('O participante enviou o comprovante.', $id);
-     $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
+       $this->log_model->insert('O participante enviou o comprovante.', $id);
+       $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
 
- }else{
+   }else{
     $this->session->set_flashdata('danger', $resposta);
 }
 
@@ -317,7 +386,7 @@ public function profile(){
     //     case 4:  $usuario = $this->db->get('prof_ensino_publico')->row(); break;
     //     case 5:  $usuario = $this->db->get('demais_profissionais')->row(); break;
     // }
-   
+
 
 
     $data['usuario'] = $usuario;
@@ -335,41 +404,41 @@ public function profile(){
     //     }
     // }
 
-    public function alterar_meus_dados(){
-     $id = $this->session->userdata('usuario')->id;
-     $nome =  $this->input->post('nome');
-     $celular = $this->input->post('celular');
-     $telefone = $this->input->post('telefone');
+public function alterar_meus_dados(){
+   $id = $this->session->userdata('usuario')->id;
+   $nome =  $this->input->post('nome');
+   $celular = $this->input->post('celular');
+   $telefone = $this->input->post('telefone');
 
-     $endereco = $this->input->post('endereco');
-     $bairro = $this->input->post('bairro');
-     $cep = $this->input->post('cep');
-     $cidade = $this->input->post('cidade');
-     $estado = $this->input->post('estado');
+   $endereco = $this->input->post('endereco');
+   $bairro = $this->input->post('bairro');
+   $cep = $this->input->post('cep');
+   $cidade = $this->input->post('cidade');
+   $estado = $this->input->post('estado');
 
-     $dados['nome'] = $nome;
-     $dados['celular'] = $celular;
-     $dados['telefone'] = $telefone;
+   $dados['nome'] = $nome;
+   $dados['celular'] = $celular;
+   $dados['telefone'] = $telefone;
 
-     $dados['endereco'] = $endereco;
-     $dados['bairro'] = $bairro;
-     $dados['cep'] = $cep;
-     $dados['cidade'] = $cidade;
-     $dados['estado'] = $estado;
-
-
-     $senha_atual = $this->input->post('senha_atual');
-     $senha_nova  = $this->input->post('senha_nova');
-     $repetir_senha = $this->input->post('repetir_senha');
+   $dados['endereco'] = $endereco;
+   $dados['bairro'] = $bairro;
+   $dados['cep'] = $cep;
+   $dados['cidade'] = $cidade;
+   $dados['estado'] = $estado;
 
 
-     $this->db->where('id', $id);
-     $this->db->select('senha');
-     $usuario = $this->db->get('participante')->row();
-     $senha = $usuario->senha;
-     if($senha_nova != '' || $senha_atual != ''){
+   $senha_atual = $this->input->post('senha_atual');
+   $senha_nova  = $this->input->post('senha_nova');
+   $repetir_senha = $this->input->post('repetir_senha');
+
+
+   $this->db->where('id', $id);
+   $this->db->select('senha');
+   $usuario = $this->db->get('participante')->row();
+   $senha = $usuario->senha;
+   if($senha_nova != '' || $senha_atual != ''){
        if(password_verify($senha_atual, $senha)){ //senhas iguais:
-           if($senha_nova == $repetir_senha){
+         if($senha_nova == $repetir_senha){
             //devemos atualizar a senha:
             $dados['senha'] = $this->crypt($senha_nova);
             $this->db->where('id', $id);
@@ -377,100 +446,100 @@ public function profile(){
             $this->log_model->insert('O participante alterou a senha.', $id);
             $this->session->set_flashdata('success', 'Dados atualizados com sucesso!');
 
-            }else{
+        }else{
 
-                $this->session->set_flashdata('danger', 'Senha Nova e Repetir Senha estão diferentes!');
-            }
+            $this->session->set_flashdata('danger', 'Senha Nova e Repetir Senha estão diferentes!');
+        }
             }else{ //se for diferente
                 $this->session->set_flashdata('danger', 'Senha Atual incorreta!');
 
             }
-     }
-     else{
-        $this->log_model->insert('O participante alterou os dados.', $id);
-        $this->session->set_flashdata('success', 'Dados atualizados com sucesso!');
-        $this->db->where('id', $id);
-        $this->db->update('participante', $dados);
+        }
+        else{
+            $this->log_model->insert('O participante alterou os dados.', $id);
+            $this->session->set_flashdata('success', 'Dados atualizados com sucesso!');
+            $this->db->where('id', $id);
+            $this->db->update('participante', $dados);
 
-     }
-
-
-redirect(base_url('Painel/profile'));
-
-}
-
-public function do_upload_image($name)
-{
+        }
 
 
+        redirect(base_url('Painel/profile'));
 
-    $config['upload_path']          = 'uploads/comprovante';
-    $config['allowed_types']        = 'pdf|gif|jpg|png|jpeg|bmp';
-    $config['max_size']             = 2048;
-    $config['encrypt_name']         = TRUE;
+    }
 
-
-    $this->load->library('upload');
-    $this->upload->initialize($config);
-    if ( ! $this->upload->do_upload($name))
+    public function do_upload_image($name)
     {
+
+
+
+        $config['upload_path']          = 'uploads/comprovante';
+        $config['allowed_types']        = 'pdf|gif|jpg|png|jpeg|bmp';
+        $config['max_size']             = 2048;
+        $config['encrypt_name']         = TRUE;
+
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        if ( ! $this->upload->do_upload($name))
+        {
         //$error = array('error' => $this->upload->display_errors());
 
-        return $this->upload->display_errors();
+            return $this->upload->display_errors();
 
-    }
-    else
-    {
+        }
+        else
+        {
         //$data = array('upload_data' => $this->upload->data());
         //inserir no banco
-        $foto = $this->upload->data('file_name');
-        $id = $this->session->userdata('usuario')->id;
-        return $this->painel_model->update_image($foto, $id);
+            $foto = $this->upload->data('file_name');
+            $id = $this->session->userdata('usuario')->id;
+            return $this->painel_model->update_image($foto, $id);
 
+        }
     }
-}
 
-public function do_upload_article($name){
+    public function do_upload_article($name){
 
-    $upload_path = 'uploads/artigo';
+        $upload_path = 'uploads/artigo';
     // if($name == 'artigo_sem_autor') $upload_path = 'uploads/artigo';
     // else $upload_path = 'uploads/artigo';
 
-    $config['upload_path']          = $upload_path;
-    $config['allowed_types']        = 'doc|docx|pdf';
+        $config['upload_path']          = $upload_path;
+        $config['allowed_types']        = 'doc|docx|pdf';
     //$config['max_size']             = 8192;
-    $config['encrypt_name']         = TRUE;
+        $config['encrypt_name']         = TRUE;
 
-    $this->load->library('upload', $config);
+        $this->load->library('upload', $config);
 
-    if ( ! $this->upload->do_upload($name))
-    {
+        if ( ! $this->upload->do_upload($name))
+        {
         //$error = array('error' => $this->upload->display_errors());
         // print_r($this->upload->display_errors()); exit();
-        $resposta['deu_certo'] = false;
-        $resposta['message'] = $this->upload->display_errors();
+            $resposta['deu_certo'] = false;
+            $resposta['message'] = $this->upload->display_errors();
 
+        }
+        else
+        {   
+
+            $resposta['deu_certo'] = true;
+            $resposta['message'] = $this->upload->data('file_name');
+
+        }
+        return $resposta;
     }
-    else
-    {   
 
-        $resposta['deu_certo'] = true;
-        $resposta['message'] = $this->upload->data('file_name');
+    public function save($article, $name, $id){
+        $eixo = $this->input->post('eixo');
+        $titulo  = $this->input->post('titulo');
 
+        if($this->painel_model->existe_trabalho($id)){
+            $this->painel_model->update_trabalho($article, $name, $id, $titulo, $eixo);
+        }else{
+            $this->painel_model->insert_trabalho($article, $name, $id, $titulo, $eixo);
+        }
     }
-    return $resposta;
-}
-
-public function save($article, $name, $id){
-    $eixo = $this->input->post('eixo');
-    $titulo  = $this->input->post('titulo');
-
-    if($this->painel_model->existe_trabalho($id)){
-        $this->painel_model->update_trabalho($article, $name, $id, $titulo, $eixo);
-    }else{
-        $this->painel_model->insert_trabalho($article, $name, $id, $titulo, $eixo);
-    }
-}
 
 
 // public function coautores($text){
@@ -483,21 +552,21 @@ public function save($article, $name, $id){
 // 	$json = json_encode($participantes);
 // 	echo $json;
 // }
-public function getcouator($cpf)
-{
-    if ($cpf!="") {
-        $this->db->where('cpf', $cpf);
-        $this->db->where('status_inscricao', 1);
-        $this->db->select('id, nome');
-        return $this->db->get('participante');
+    public function getcouator($cpf)
+    {
+        if ($cpf!="") {
+            $this->db->where('cpf', $cpf);
+            $this->db->where('status_inscricao', 1);
+            $this->db->select('id, nome');
+            return $this->db->get('participante');
+        }
+        return "";
     }
-    return "";
-}
-public function coautor($cpf=""){
-    if ($cpf!="") {
-        $participante = $this->getcouator($cpf)->row();
-        echo json_encode($participante);
+    public function coautor($cpf=""){
+        if ($cpf!="") {
+            $participante = $this->getcouator($cpf)->row();
+            echo json_encode($participante);
+        }
     }
-}
 
 }

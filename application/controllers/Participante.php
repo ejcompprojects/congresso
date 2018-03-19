@@ -439,6 +439,7 @@ class Participante extends Admin {
 
         $ativo = $this->input->post('ativo');
 
+        $submeter_trabalho = $this->input->post('submeter_trabalho');
  
         // if(isset($status_inscricao) && $status_inscricao == ''){
  
@@ -472,7 +473,7 @@ class Participante extends Admin {
  
 
  
-        $usuario = $this->participante_model->update_dados($id, $status_inscricao, $eixo, $status, $ativo);
+        $usuario = $this->participante_model->update_dados($id, $status_inscricao, $eixo, $status, $ativo, $submeter_trabalho);
  
 
  

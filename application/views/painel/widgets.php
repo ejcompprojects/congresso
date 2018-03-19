@@ -1,4 +1,5 @@
 <?php// print_r($info); print_r($success); print_r($danger); exit(); ?>
+
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<div class="row">
 		<ol class="breadcrumb">
@@ -140,7 +141,7 @@
 							<div class="timeline-badge  <?php if($estagio == 4) echo 'primary' ?>"><i class="glyphicon glyphicon-paperclip"></i></div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
-									<h4 class="timeline-title"><strong>4 - Queremos ver seu trabalho!</strong></h4>
+									<h4 class="timeline-title"><strong>4 - Envie-nos seu trabalho!</strong></h4>
 								</div>
 								<div class="timeline-body">
 									<p>Anexe seu trabalho, com autor e outra versão sem autor e sem informações sobre você.</p>
