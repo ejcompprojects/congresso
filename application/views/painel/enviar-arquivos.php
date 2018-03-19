@@ -64,8 +64,6 @@
 				<div class="panel panel-default">
 					<div class="panel-heading" id="duvida">
 						<strong>Instruções para anexar o <strong>comprovante de depósito:</strong></strong>
-
-
 						<span class="pull-right"></span></div>
 						<div class="panel-body">
 
@@ -134,7 +132,7 @@
 							<span class="pull-right"></span></div>
 							<div class="panel-body">
 
-								<form class="form-horizontal" action="<?= base_url('Painel/send_article') ?>" method="post" enctype="multipart/form-data">
+								<form class="form-horizontal" action="<?= base_url('Painel/send_article') ?>" method="POST" enctype="multipart/form-data">
 									<fieldset>
 										<p><strong>OBS:</strong> O formato válido para o arquivo dos artigos são: <strong>.pdf, .doc, .docx.</strong> com a tamanho máximo de <strong>2 MB.</strong></p>
 										<p><strong>1</strong> - Escreva o título de seu trabalho.</p>
@@ -278,34 +276,54 @@
 							</div>
 
 							<script src="<?= base_url('assets/painel/js/jquery-3.3.1.min.js') ?>"></script>
+							<script src="http://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 							<script src="<?= base_url('assets/painel/js/jquery.ui.js') ?>"></script>
 							<script type="text/javascript">
-
-
-								$('.coautor').blur(function(){
-									var cpf;
-									cpf = $('.coautor').val();
+								$.jMaskGlobals.watchDataMask = true;
+								function addCoautor(input_coautor){
+									var cpf = $(input_coautor).val();
+									if (cpf=="") $(input_coautor).parent().remove();
 									$.ajax({
 										url: '<?= base_url('Painel/coautor/') ?>' + cpf,
 										method: 'POST',
 										dataType: 'json',
 
-										success : function(result){
-											console.log(result);
-										//$('#coautores').append()
+										success : function(coautor){
+											var result = $(input_coautor).parent().children();
+											for (i = 1; i < result.length; i++) { 
+											    result[i].remove();
+											}
+											if(coautor == null)
+											{
+												$(input_coautor).css({borderColor : "red"});
+												$(input_coautor).parent().append("<h5 style='color: red;'>Participante não encontrado ou não aprovado.</h5>");
+											}
+											else
+											{
+												var adicionados = $('input[name="coautoresCPF[]"]');
+												isAdded = 0;
+												for (i = 0; i < adicionados.length; i++) { 
+												    if($(adicionados[i]).val() == cpf){
+												    	isAdded++;
+												    	if(isAdded>1)break;
+												    }
+												}
+												if (isAdded==1) {
+													$(input_coautor).css({borderColor : ""});
+													$(input_coautor).parent().append("<h5>" + coautor['nome'] + "</h5>");
+												}
+												else{
+													$(input_coautor).css({borderColor : "red"});
+													$(input_coautor).parent().append("<h5 style='color: red;'>Participante já adicionado.</h5>");
+												}
+
+											}
 									}
 								});
-								});
-
+								}
 								$( document ).ready(function() {
-
-
 									$( "#adicionar" ).click(function() {
-										$('#coautores').append('<input type="text" class="ui-autocomplete-input coautor form-control" placeholder="Insira o CPF do Coautor." autocomplete="off" name="coautores[]"></input><br>');
-										
+										$('#coautores').append('<div><input type="text" class="ui-autocomplete-input coautor form-control" placeholder="Insira o CPF do Coautor." autocomplete="off" data-mask="000.000.000-00" data-mask-reverse="true" name="coautoresCPF[]" onFocusOut="addCoautor(this)"></input><br></div>');
 									});
-
-									
-
 								});
 							</script>
