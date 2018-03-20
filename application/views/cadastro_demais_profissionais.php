@@ -37,6 +37,9 @@
                                 <?php echo '<input id="email" name="email" type="hidden"  value="'.$email.'"' ?>>
                                 <?php echo '<input id="celular" name="celular" type="hidden"  value="'.$celular.'"' ?>>
                                 <?php echo '<input id="telefone" name="telefone" type="hidden"  value="'.$telefone.'"' ?>>
+                                
+                                <?php echo '<input id="deficiencia" name="deficiencia" type="hidden"  value="'.$deficiencia.'"' ?>>
+                                <?php echo '<input id="deficiencia_desc" name="deficiencia_desc" type="hidden"  value="'.$deficiencia_desc.'"' ?>>
                                 <?php echo '<input id="senha" name="senha" type="hidden"  value="'.$senha.'"' ?>>
                                 <?php echo '<input id="cidade" name="cidade" type="hidden"  value="'.$cidade.'"' ?>>
                                 <?php echo '<input id="cep" name="cep" type="hidden"  value="'.$cep.'"' ?>>
