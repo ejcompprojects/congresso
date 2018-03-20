@@ -61,7 +61,8 @@ public function esqueci_senha(){
             }
             else{ //devemos enviar e-mail e dar a mensagem
                 //enviador de e-mail
-
+                 $id = $resposta->id;
+ 
               
 
             	$date = strtotime(date("Y-m-d H:i:s"));
@@ -106,11 +107,11 @@ public function esqueci_senha(){
             	$resposta = $this->send_email_with_title($title,$message, $email);
 
             	if($resposta == 'true'){
-                $this->log_model->insert('Foi enviado o e-mail de esqueci minha senha para o participante.', $resposta->id);
+                $this->log_model->insert('Foi enviado o e-mail de esqueci minha senha para o participante.', $id);
             		$this->session->set_flashdata('success', 'Fique tranquilo é comum esquecer a senha!<br>Enviamos um e-mail para <strong>'.$email.'</strong> com a sua nova senha.');  
             	}
             	else{
-                $this->log_model->insert('Houve um erro no envio do e-mail para o participante.', $resposta->id);
+                $this->log_model->insert('Houve um erro no envio do e-mail para o participante.', $id);
             		$this->session->set_flashdata('danger', htmlspecialchars($resposta));  
 
             	}

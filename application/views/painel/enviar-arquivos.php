@@ -100,7 +100,7 @@
 							<span class="pull-right"></span>
 						</div>
 						<div class="panel-body">
-							<p style="font-size:18pt;">Você só poderá submeter o trabalho quando seu comprovante de depósito for enviado e validado.</p>
+							<p style="font-size:18pt;">Você só poderá submeter o trabalho quando seu comprovante de depósito for enviado e validado. Isso pode demorar até 24 horas.</p>
 						</div>
 					</div>
 				</div>
@@ -143,7 +143,10 @@
 											</div>
 										</div>
 
-										<p><strong>2</strong> - Adicione os co-autores:</p>
+										<p><strong>2</strong> - Adicione os <strong>co-autores:</strong></p>
+										
+										<p>Adicione abaixo, preenchendo o CPF dos co-autores. Preste atenção, pois o co-autor deve: <strong>ter efetuado o cadastro no sistema e ter o pagamento aceito por nossa equipe.</strong> Caso informe o CPF e apareça logo abaixo o nome do co-autor, é porque está tudo certo e você pode dar seguimento na submissão do trabalho.</p>
+										
 										<div class="form-group">
 											<div class="col-md-12">
 												<div id="coautores"></div>
@@ -291,7 +294,7 @@
 										success : function(coautor){
 											var result = $(input_coautor).parent().children();
 											for (i = 1; i < result.length; i++) { 
-											    result[i].remove();
+												result[i].remove();
 											}
 											if(coautor == null)
 											{
@@ -303,10 +306,10 @@
 												var adicionados = $('input[name="coautoresCPF[]"]');
 												isAdded = 0;
 												for (i = 0; i < adicionados.length; i++) { 
-												    if($(adicionados[i]).val() == cpf){
-												    	isAdded++;
-												    	if(isAdded>1)break;
-												    }
+													if($(adicionados[i]).val() == cpf){
+														isAdded++;
+														if(isAdded>1)break;
+													}
 												}
 												if (isAdded==1) {
 													$(input_coautor).css({borderColor : ""});
@@ -318,8 +321,8 @@
 												}
 
 											}
-									}
-								});
+										}
+									});
 								}
 								$( document ).ready(function() {
 									$( "#adicionar" ).click(function() {
