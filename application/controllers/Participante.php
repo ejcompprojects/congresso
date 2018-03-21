@@ -117,6 +117,7 @@ class Participante extends Admin {
         $usuario = $this->db->get('participante')->row();
 
         if($resposta){
+            $this->log_model->insert_admin('O Administrador recusou o comprovante de pagamento do usuário com e-mail: '.$usuario->email, $this->session->userdata('usuario')->id);
              $this->session->set_flashdata('success', 'Comprovante de pagamento do '.$usuario->nome.' <strong>recusado</strong> com sucesso!');
             
         }
@@ -138,6 +139,7 @@ class Participante extends Admin {
 
 
         if($resposta){
+            $this->log_model->insert_admin('O Administrador aceitou o comprovante de pagamento do usuário com e-mail: '.$usuario->email, $this->session->userdata('usuario')->id);
              $this->session->set_flashdata('success', 'Comprovante de pagamento do '.$usuario->nome.' <strong>aceito</strong> com sucesso!');
             
         }
@@ -471,10 +473,10 @@ class Participante extends Admin {
  
         // }
  
-
- 
+     
         $usuario = $this->participante_model->update_dados($id, $status_inscricao, $eixo, $status, $ativo, $submeter_trabalho);
  
+        $this->log_model->insert_admin('O Administrador alterou os dados do usuário com o nome: '.$usuario->nome, $this->session->userdata('usuario')->id);
 
  
         $this->session->set_flashdata('success', 'Dados de <strong>'.$usuario->nome.'</strong> alterado com sucesso!');

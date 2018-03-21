@@ -484,7 +484,7 @@
           modal.find('#foto_comprovante').hide()
         }
         else{
-          modal.find('.image').html('<img id="foto_comprovante"></img>') 
+          modal.find('.image').html('<a target="_blank" href="<?= base_url('uploads/comprovante/') ?>' + foto_comprovante + '"><img style=" max-height: 400px; max-width: 400px;" id="foto_comprovante"></img></a>') 
           modal.find('#foto_comprovante').show()
           modal.find('#foto_comprovante').attr('src', '<?=base_url('uploads/comprovante/') ?>' + foto_comprovante)
         }

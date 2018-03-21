@@ -194,6 +194,8 @@ public function esqueci_senha(){
 
             	$message = $html;
 
+              $title = 'Congresso PHC 2018';
+
             	$this->load->library('email', $config);
                 $this->email->from(EMAIL, $title);//your mail address and name
                 $this->email->to($email); //receiver mail
@@ -338,6 +340,9 @@ public function esqueci_senha(){
       		if($email && password_verify($password, $passwordHash)){
       			$usuario = $this->model->getAdministrador($email);
       			$usuario->tipo_usuario = 'Administrador';
+
+            $this->log_model->insert_admin('O Administrador efetuou o login.', $usuario->id);
+
       			$this->session->set_userdata(
       				'usuario', 
       				$usuario

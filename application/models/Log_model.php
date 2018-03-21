@@ -34,6 +34,13 @@ class Log_model extends CI_Model{
         $this->db->insert('log', $dados);
     }
 
+    public function insert_admin($descricao, $id_administrador){
+        $dados['ip'] = $this->get_client_ip_server();
+        $dados['id_administrador'] = $id_administrador;
+        $dados['descricao'] = $descricao;
+
+        $this->db->insert('log_admin', $dados);
+    }
 
 }
 

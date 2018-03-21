@@ -101,7 +101,7 @@
 									<i class="fa fa-id-card prefix grey-text"></i> 
 									<input type="text" id="deficiencia_desc" name="deficiencia_desc" class="form-control" maxlength="250" 
 									<?php if(isset($deficiencia_desc)){ echo 'value="'.$deficiencia_desc.'"';}?>> 
-									<label for="deficiencia_desc">Deficiência Especificar:</label> 
+									<label for="deficiencia_desc">Especifique sua deficiência</label> 
 								</div> 
 								
 

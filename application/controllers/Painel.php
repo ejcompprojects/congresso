@@ -107,12 +107,12 @@ class Painel extends Login {
             if($vai_submeter_trabalho == 1){ //se vai submeter trabalho
                 if(!$this->submeteu_trabalho()){ //E NÃO submeteu trabalho
                     $data['nao_cumpriu_prazo'] = true;
-              }
-          }
-      }
+                }
+            }
+        }
 
 
-    $data['mensagens'] = mensagens();
+        $data['mensagens'] = mensagens();
 
       if($data['nao_cumpriu_prazo'] == true){ //se não cumpriu prazo, vou carregar a view de não-cumpriu-prazo.
         $this->load->view('painel/html_header');
@@ -224,13 +224,13 @@ public function calcula_valor($mes, $tipo_inscricao){
             $this->log_model->insert('O participante enviou uma dúvida.', $id);
             $this->session->set_flashdata('success', 'Dúvida enviada com sucesso!<br>Em breve te responderemos através de seu e-mail. Fique ligado em sua caixa de entrada.');
         }else{
-         $this->session->set_flashdata('danger', 'Houve um erro ao enviar o e-mail.Tente enviar a dúvida para o e-mail:'.EMAIL_ADMIN);
-     }
+           $this->session->set_flashdata('danger', 'Houve um erro ao enviar o e-mail.Tente enviar a dúvida para o e-mail:'.EMAIL_ADMIN);
+       }
 
 
 
-     redirect(base_url('Painel#duvida'));
- }
+       redirect(base_url('Painel#duvida'));
+   }
 
  // public function nao_cumpriu_prazo_enviar_arquivos(){
  //    $id = $this->session->userdata('usuario')->id;
@@ -252,10 +252,10 @@ public function calcula_valor($mes, $tipo_inscricao){
  //            case 3: $status_inscricao = 'Isento'; break;
  //        }
 
-    
+
  // }
 
- public function enviar_arquivos(){
+   public function enviar_arquivos(){
 
     $id = $this->session->userdata('usuario')->id;
     $vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
@@ -324,10 +324,10 @@ public function send_photo(){
 
 
     if($resposta == true){
-       $this->log_model->insert('O participante enviou o comprovante.', $id);
-       $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
+     $this->log_model->insert('O participante enviou o comprovante.', $id);
+     $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
 
-   }else{
+ }else{
     $this->session->set_flashdata('danger', $resposta);
 }
 
@@ -353,10 +353,12 @@ public function send_article(){
     $coautores = $this->input->post('coautoresCPF');
 
     foreach ($coautores as $cpf) {
-        $qcoaut = $this->getcouator($cpf);
-        if($qcoaut->num_rows() == 1){
-            $cdata['id_participante'] = $qcoaut->row()->id;
-            $this->db->insert('coautor', $cdata);
+        if($cpf != $this->session->userdata('usuario')->cpf){ //se o cpf do coautor for diferente do CPF do usuário:
+            $qcoaut = $this->getcouator($cpf);
+            if($qcoaut->num_rows() == 1){
+                $cdata['id_participante'] = $qcoaut->row()->id;
+                $this->db->insert('coautor', $cdata);
+            }
         }
     }
 
@@ -405,40 +407,40 @@ public function profile(){
     // }
 
 public function alterar_meus_dados(){
-   $id = $this->session->userdata('usuario')->id;
-   $nome =  $this->input->post('nome');
-   $celular = $this->input->post('celular');
-   $telefone = $this->input->post('telefone');
+ $id = $this->session->userdata('usuario')->id;
+ $nome =  $this->input->post('nome');
+ $celular = $this->input->post('celular');
+ $telefone = $this->input->post('telefone');
 
-   $endereco = $this->input->post('endereco');
-   $bairro = $this->input->post('bairro');
-   $cep = $this->input->post('cep');
-   $cidade = $this->input->post('cidade');
-   $estado = $this->input->post('estado');
+ $endereco = $this->input->post('endereco');
+ $bairro = $this->input->post('bairro');
+ $cep = $this->input->post('cep');
+ $cidade = $this->input->post('cidade');
+ $estado = $this->input->post('estado');
 
-   $dados['nome'] = $nome;
-   $dados['celular'] = $celular;
-   $dados['telefone'] = $telefone;
+ $dados['nome'] = $nome;
+ $dados['celular'] = $celular;
+ $dados['telefone'] = $telefone;
 
-   $dados['endereco'] = $endereco;
-   $dados['bairro'] = $bairro;
-   $dados['cep'] = $cep;
-   $dados['cidade'] = $cidade;
-   $dados['estado'] = $estado;
-
-
-   $senha_atual = $this->input->post('senha_atual');
-   $senha_nova  = $this->input->post('senha_nova');
-   $repetir_senha = $this->input->post('repetir_senha');
+ $dados['endereco'] = $endereco;
+ $dados['bairro'] = $bairro;
+ $dados['cep'] = $cep;
+ $dados['cidade'] = $cidade;
+ $dados['estado'] = $estado;
 
 
-   $this->db->where('id', $id);
-   $this->db->select('senha');
-   $usuario = $this->db->get('participante')->row();
-   $senha = $usuario->senha;
-   if($senha_nova != '' || $senha_atual != ''){
+ $senha_atual = $this->input->post('senha_atual');
+ $senha_nova  = $this->input->post('senha_nova');
+ $repetir_senha = $this->input->post('repetir_senha');
+
+
+ $this->db->where('id', $id);
+ $this->db->select('senha');
+ $usuario = $this->db->get('participante')->row();
+ $senha = $usuario->senha;
+ if($senha_nova != '' || $senha_atual != ''){
        if(password_verify($senha_atual, $senha)){ //senhas iguais:
-         if($senha_nova == $repetir_senha){
+           if($senha_nova == $repetir_senha){
             //devemos atualizar a senha:
             $dados['senha'] = $this->crypt($senha_nova);
             $this->db->where('id', $id);

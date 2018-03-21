@@ -25,19 +25,19 @@
 		$panel = '';
 		$message = '';
 		if($status_inscricao == 'Em análise'){
-			$title = 'Status: Em Análise';
+			$title = 'Status do Pagamento: Em Análise';
 			$panel = 'panel-info';
 			$message = '<h2>Seu comprovante de pagamento está em <strong>análise.</strong></h2>';
 		}else if($status_inscricao == 'Aprovado'){
-			$title = 'Status: Aprovado';
+			$title = 'Status do Pagamento: Aprovado';
 			$panel = 'panel-success';
 			$message = '<h2>Seu comprovante de depósito foi <strong>aprovado!</strong></h2>';
 		}else if($status_inscricao == 'Reprovado'){
-			$title = 'Status: Reprovado';
+			$title = 'Status do Pagamento: Reprovado';
 			$panel = 'panel-danger';
 			$message = '<h2>Seu comprovante de pagamento foi <strong>reprovado.</strong></h2><br><p>Isto pode acontecer por você ter pago o valor que não corresponde à sua inscrição no respectivo mês.</p><p>O Comprovante de depósito pode não estar claro (estar embaçado).</p><br><p>Envie um novo comprovante:</p>';
 		}else if($status_inscricao == 'Isento'){
-			$title = 'Status: Isento';
+			$title = 'Status do Pagamento: Isento';
 			$panel = 'panel-success';
 			$message = '<h2>Você está <strong>isento</strong> do pagamento.</h2>';
 
@@ -106,7 +106,7 @@
 				</div>
 
 				<?php } ?>
-				<?php if(($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == '') || ($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == 'Você deve enviar seu artigo até fim do mês!')){ ?>
+				<?php if(($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == '' && $status_inscricao == 'Aprovado') || ($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == 'Você deve enviar seu artigo até fim do mês!'  && $status_inscricao == 'Aprovado')){ ?>
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -145,7 +145,7 @@
 
 										<p><strong>2</strong> - Adicione os <strong>co-autores:</strong></p>
 										
-										<p>Adicione abaixo, preenchendo o CPF dos co-autores. Preste atenção, pois o co-autor deve: <strong>ter efetuado o cadastro no sistema e ter o pagamento aceito por nossa equipe.</strong> Caso informe o CPF e apareça logo abaixo o nome do co-autor, é porque está tudo certo e você pode dar seguimento na submissão do trabalho.</p>
+										<p>Adicione abaixo, preenchendo o CPF dos co-autores. Preste atenção, pois o co-autor deve: <strong>ter efetuado o cadastro no sistema e ter o pagamento aceito por nossa equipe.</strong> Caso informe o CPF e apareça logo abaixo o nome do co-autor,<strong> ele já foi adicionado </strong> e você pode dar seguimento na submissão do trabalho. Para retirar um co-autor, apenas apague o CPF digitado.</p>
 										
 										<div class="form-group">
 											<div class="col-md-12">
@@ -210,15 +210,15 @@
 						$message = '';
 						$title = '';
 						if($status_trabalho == 'Seu trabalho está em <strong>análise</strong>.'){
-							$title = 'Status: Em Análise';
+							$title = 'Status do Trabalho: Em Análise';
 							$panel = 'panel-info';
 							$message = '<h2>'.$status_trabalho.'</h2>';
 						}else if($status_trabalho == 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'){
-							$title = 'Status: Aprovado';
+							$title = 'Status do Trabalho: Aprovado';
 							$panel = 'panel-success';
 							$message = '<h2>'.$status_trabalho.'</h2>';
 						}else if($status_trabalho == 'Infelimente seu trabalho não foi aprovado, mas você poderá ainda participar do Congresso.'){
-							$title = 'Status: Reprovado';
+							$title = 'Status do Trabalho: Reprovado';
 							$panel = 'panel-danger';
 							$message = '<h2>Infelizmente seu trabalho não foi aprovado, mas você poderá ainda participar do Congresso.</h2>';
 						}
@@ -285,6 +285,8 @@
 								$.jMaskGlobals.watchDataMask = true;
 								function addCoautor(input_coautor){
 									var cpf = $(input_coautor).val();
+									
+									var cpf_do_participante = "<?= $_SESSION['usuario']->cpf ?>";
 									if (cpf=="") $(input_coautor).parent().remove();
 									$.ajax({
 										url: '<?= base_url('Painel/coautor/') ?>' + cpf,
@@ -296,30 +298,37 @@
 											for (i = 1; i < result.length; i++) { 
 												result[i].remove();
 											}
-											if(coautor == null)
-											{
+											if(cpf == cpf_do_participante){
 												$(input_coautor).css({borderColor : "red"});
-												$(input_coautor).parent().append("<h5 style='color: red;'>Participante não encontrado ou não aprovado.</h5>");
+												$(input_coautor).parent().append("<h5 style='color: red;'>Você não pode ser coautor do seu próprio trabalho!</h5>");
 											}
-											else
-											{
-												var adicionados = $('input[name="coautoresCPF[]"]');
-												isAdded = 0;
-												for (i = 0; i < adicionados.length; i++) { 
-													if($(adicionados[i]).val() == cpf){
-														isAdded++;
-														if(isAdded>1)break;
-													}
-												}
-												if (isAdded==1) {
-													$(input_coautor).css({borderColor : ""});
-													$(input_coautor).parent().append("<h5>" + coautor['nome'] + "</h5>");
-												}
-												else{
+											else{
+												
+												if(coautor == null)
+												{
 													$(input_coautor).css({borderColor : "red"});
-													$(input_coautor).parent().append("<h5 style='color: red;'>Participante já adicionado.</h5>");
+													$(input_coautor).parent().append("<h5 style='color: red;'>Participante não encontrado ou não aprovado.</h5>");
 												}
+												else
+												{
+													var adicionados = $('input[name="coautoresCPF[]"]');
+													isAdded = 0;
+													for (i = 0; i < adicionados.length; i++) { 
+														if($(adicionados[i]).val() == cpf){
+															isAdded++;
+															if(isAdded>1)break;
+														}
+													}
+													if (isAdded==1) {
+														$(input_coautor).css({borderColor : ""});
+														$(input_coautor).parent().append("<h5>" + coautor['nome'] + "</h5>");
+													}
+													else{
+														$(input_coautor).css({borderColor : "red"});
+														$(input_coautor).parent().append("<h5 style='color: red;'>Participante já adicionado.</h5>");
+													}
 
+												}
 											}
 										}
 									});
