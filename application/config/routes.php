@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['contato'] = 'home/contato';
 $route['eixos'] = 'home/eixos';
 $route['inscricao'] = 'home/inscricao';
+$route['inscricao_parecerista'] = 'home/inscricao_parecerista';
 $route['historico'] = 'home/historico';
 $route['informacoes_gerais'] = 'home/informacoes_gerais';
 $route['informacao_inscricao'] = 'home/informacao_inscricao';

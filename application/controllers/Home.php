@@ -17,7 +17,13 @@ class Home extends CI_Controller {
 		$this->load->view('index');
 		$this->load->view('html_footer');
 	}
-
+	public function inscricao_parecerista(){
+		//Mudar aqui ra pegar do Parecerista_model
+		$dados['eixos'] = $this->db->get('eixo')->result_array();
+		$this->load->view('html_header');
+		$this->load->view('inscricao_parecerista', $dados);
+		$this->load->view('html_footer');
+	}
 	public function eixos(){
 		// $this->load->view('novo-site/importacoes/header');
 		// $this->load->view('novo-site/importacoes/menu');
@@ -60,7 +66,81 @@ class Home extends CI_Controller {
 		$this->load->view('novo-site/programacao');
 		// $this->load->view('novo-site/importacoes/footer');
 	}
+	public function cadastrar_parecerista(){
+		$this->load->helper(array('form'));
+		$this->load->library('form_validation');
+		$this->load->model('Parecerista_model','modelParecerista');
 
+		$isError = false;
+
+		$dados['nome'] 				= $this->input->post('nome');
+		$dados['cpf'] 				= $this->input->post('cpf');
+		$dados['email'] 			= $this->input->post('email');
+		$dados['senha'] 			= $this->input->post('senha');
+		$dados['celular'] 			= $this->input->post('celular');
+		$dados['telefone'] 			= $this->input->post('telefone');
+		$dados['instituicao'] 		= $this->input->post('instituicao');
+		$eixos 						= $this->input->post('eixos[]');
+		$confirma_senha 			= $this->input->post('confirma-senha');
+
+		$this->form_validation->set_rules('nome','nome','required');
+		$this->form_validation->set_rules('cpf','cpf','required');
+		$this->form_validation->set_rules('email','email','required');
+		$this->form_validation->set_rules('senha','senha','required');
+		$this->form_validation->set_rules('celular','celular','required');
+		$this->form_validation->set_rules('instituicao','instituicao','required');
+
+		if(count($eixos) < 1)
+		{
+			$this->session->set_flashdata('qtdEixos', TRUE);
+			$isError = true;
+		}
+
+		if($this->modelParecerista->cpf_exists($dados['cpf']))
+		{
+			$this->session->set_flashdata('cpfCadastrado', TRUE);
+			$isError = true;
+		}
+		if(!$this->modelParecerista->validaCPF($dados['cpf']))
+		{
+			$this->session->set_flashdata('cpfInvalido', TRUE);
+			$isError = true;
+		}
+
+		if($this->modelParecerista->email_exists($dados['email']))
+		{
+			$this->session->set_flashdata('emailCadastrado', TRUE);
+			$isError = true;
+		}
+
+		if($dados['senha'] != $confirma_senha)
+		{
+			$this->session->set_flashdata('senhasDiferentes', TRUE);
+			$isError = true;
+		}
+		else $dados['senha'] = $this->crypt($dados['senha']);
+
+		if ($this->form_validation->run() == FALSE || $isError){
+			unset($dados['senha']);
+			$this->session->set_flashdata('dados', $dados);
+			// print_r($this->input->post());
+			// print_r($this->form_validation->error_array());
+			// exit();
+		}
+		else
+		{
+			if($this->modelParecerista->cadastraParecerista($dados, $eixos)){
+				$this->session->set_flashdata('success', TRUE);
+			}
+			else $this->session->set_flashdata('error', TRUE);
+		}
+		redirect(base_url('inscricao_parecerista'));
+
+		// echo "<pre>";
+		// var_dump($eixos);
+		// echo "</pre>";
+		// exit();
+	}
 	public function cadastrar(){
 
 		$this->load->helper(array('form'));
@@ -169,7 +249,7 @@ class Home extends CI_Controller {
 		$dados['celular'] 				= $this->input->post('celular');
 		$dados['telefone'] 				= $this->input->post('telefone');
 		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 	= $this->input->post('deficiencia_desc') ?? '';
+		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
 
 		$dados['cidade'] 				= $this->input->post('cidade');
 		$dados['cep'] 					= $this->input->post('cep');
@@ -207,7 +287,7 @@ class Home extends CI_Controller {
 		$dados['celular'] 				= $this->input->post('celular');
 		$dados['telefone'] 				= $this->input->post('telefone');
 		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 	= $this->input->post('deficiencia_desc') ?? '';
+		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
 
 		$dados['cidade'] 				= $this->input->post('cidade');
 		$dados['cep'] 					= $this->input->post('cep');
@@ -268,7 +348,7 @@ class Home extends CI_Controller {
 		$dados['celular'] 				= $this->input->post('celular');
 		$dados['telefone'] 				= $this->input->post('telefone');
 		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 	= $this->input->post('deficiencia_desc') ?? '';
+		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
 
 		$dados['cidade'] 				= $this->input->post('cidade');
 		$dados['cep'] 					= $this->input->post('cep');
@@ -464,7 +544,7 @@ class Home extends CI_Controller {
 		$dados['celular'] 				= $this->input->post('celular');
 		$dados['telefone'] 				= $this->input->post('telefone');
 		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 	= $this->input->post('deficiencia_desc') ?? '';
+		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
 
 		$dados['cidade'] 				= $this->input->post('cidade');
 		$dados['cep'] 					= $this->input->post('cep');
