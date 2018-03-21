@@ -19,6 +19,13 @@ class Login_model extends CI_Model{
    		return ($usuario!= NULL) ? $usuario->senha : false;
 	}
 
+	public function getPasswordHashFromParecerista($email)
+	{
+		$this->db->where('email', $email);
+		$usuario = $this->db->get('parecerista')->row();
+		return ($usuario!= NULL) ? $usuario->senha : false;
+	}
+
 	public function getParticipante($email){
 		$this->db->where('email', $email);
 		$this->db->select('ativo, id, nome, cpf, email, celular, telefone, endereco, numero, bairro, complemento, cidade, estado, cep, submeter_trabalho, foto_comprovante, id_tipo_inscricao, status_inscricao, data_registro, data_resposta');
@@ -31,6 +38,14 @@ class Login_model extends CI_Model{
 		$this->db->select('id, nome, email, data_registro');
    		$usuario = $this->db->get('administrador')->row();
    		return $usuario;
+	}
+
+	public function getParecerista($email)
+	{
+		$this->db->where('email', $email);
+		$this->db->select('id, nome, email, celular, status_inscricao, data_registro');
+		$usuario = $this->db->get('parecerista')->row();
+		return $usuario;
 	}
 
 	public function verificaEmailECpf($email, $cpf){
