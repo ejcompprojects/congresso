@@ -12,9 +12,9 @@ require 'importacoes/menu.php';
 </div>
 <br>
 <p class="apresentacao">Considerando que haverá submissão de trabalhos e que a avaliação dos trabalhos ocorrerá por pareceristas ad hoc, a Comissão Organizadora elaborou prazos de submissão diferenciados visando agilizar o processo de retorno aos autores (prevendo revisões solicitadas pelos pareceristas).
-
-	<table class="responsive-table striped tw_cent animate fadeIn">
-		<tr>
+	<div class="12u">		
+	<table class="responsive-table striped tw_cent animate fadeIn" >
+		<tr class="tr-hide hide-on-med-and-down">
 			<th style="width: 20%;" class="align_center">MÊS</th>
 			<th class="align_center">DESCRIÇÃO</th>
 			<th style="width: 40%;" class="align_center">VALOR DA INSCRIÇÃO</th>
@@ -83,6 +83,7 @@ require 'importacoes/menu.php';
 			</td>
 		</tr>
 	</table>
+	</div>		
 </p>
 <div class="row">
 	<div style="margin-top: 5%; margin-bottom: 5%;" class="col m12 s12 center">

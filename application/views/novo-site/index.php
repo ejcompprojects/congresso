@@ -7,10 +7,19 @@ require 'importacoes/menu.php';
 
 <div class="row animate fadeIn">
 	<div class="col m5 s12 orn" style="padding-bottom: -50%;">
-		<p class="intro brandon_r">SOBRE O EVENTO</p>
+		<p class="intro brandon_r">PÁGINA INICIAL</p>
 	</div>
 </div>
 
+<div class="row">
+	<div class="col m12 s12 center">
+		<i class="large material-icons">report_problem</i>
+		<p style="text-align: center;" class="apresentacao">
+			Aguardando informações!<br>
+			Apenas esta página está em manutenção.<br>
+		</p>
+	</div>
+</div>
 <p class="apresentacao">
 	Destacamos que o Congresso “Pedagogia Histórico-Crítica: em defesa da
 	Escola Pública e Democrática em tempos de Projetos de ‘Escolas sem
@@ -43,8 +52,9 @@ require 'importacoes/menu.php';
 	participaram do evento.
 </p>
 
-<footer class="page-footer tw_cent center">
+<!-- <footer class="page-footer tw_cent center">
 	<div class="footer-copyright">
 		<p><span style="color: #909090;">Desenvolvido por: </span><a href="http://www.ejcomp.com.br" target="_blank" style="color: darkblue">EJCOMP</a></p>
 	</div>
 </footer>
+ -->

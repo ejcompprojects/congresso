@@ -44,8 +44,10 @@ class Email extends Admin {
         $resposta = $this->send_email_with_title($title,$message,$email);
 
         if($resposta == 1){
+            $this->log_model->insert_admin('O Administrador enviou um e-mail para: '.$email.' usando enviar e-mail específico.', $this->session->userdata('usuario')->id);
             $this->session->set_flashdata('success', 'E-mail enviado com sucesso!');
         }else{
+            $this->log_model->insert_admin('O Administrador tentou enviar um e-mail para: '.$email.' e houve uma falha do sistema.', $this->session->userdata('usuario')->id);
             $this->session->set_flashdata('danger', 'Houve um erro ao enviar este e-mail, por favor, tente novamente.');
             $this->session->set_flashdata('danger', htmlspecialchars($resposta));
 
@@ -66,7 +68,7 @@ class Email extends Admin {
 
        $participantes = $this->participante_model->select_participantes($pagamento, $trabalho, $tipo_inscricao);
         
-        print_r($participantes); exit();
+        // print_r($participantes); exit();
 
        foreach($participantes as $participante){
         $resposta = $this->send_email_with_title($title, $message, $participante->email);
@@ -75,6 +77,8 @@ class Email extends Admin {
             redirect(base_url('Email/grupo'));
             //break;
 
+        }else{
+            $this->log_model->insert_admin('O Administrador enviou um e-mail para: '.$participante->email.' usando o enviar e-mail grupo.', $this->session->userdata('usuario')->id);
         }
        }
         $this->session->set_flashdata('success', 'E-mails enviados com sucesso!');

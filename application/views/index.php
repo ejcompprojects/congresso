@@ -81,27 +81,29 @@
 									<label for="telefone">Telefone</label>
 								</div>
 
-								<div class="md-form">
-									<label class="mr-sm-2" for="deficiencia"></label>
-									<select name="deficiencia" id="deficiencia" class="form-control" required="false">
-										<option disabled="" value="0" selected>Possui Deficiência?</option>
-										<option value="0">Não</option>
-										<option value="1">Sim</option>
-									</select>
-									<script type="text/javascript">
-										$("#deficiencia").change(function(){
-											if($(this).val() == 1) $("#txtdediciaencia").show();
-											else $("#txtdediciaencia").hide();
-										});
-									</script>
-								</div>
-
-								<div class="md-form" id="txtdediciaencia" style="display: none;">
-									<i class="fa fa-id-card prefix grey-text"></i>
-									<input type="text" id="deficiencia_desc" name="deficiencia_desc" class="form-control" maxlength="250"
-										<?php if(isset($deficiencia_desc)){ echo 'value="'.$deficiencia_desc.'"';}?>>
-									<label for="deficiencia_desc">Deficiência Especificar:</label>
-								</div>
+								<div class="md-form"> 
+									<label class="mr-sm-2" for="deficiencia"></label> 
+									<select name="deficiencia" id="deficiencia" class="form-control" required="false"> 
+										<option disabled="" value="0" selected>Possui Deficiência?</option> 
+										<option value="0">Não</option> 
+										+
+										<option value="1">Sim</option> 
+									</select> 
+									<script type="text/javascript"> 
+										$("#deficiencia").change(function(){ 
+											if($(this).val() == 1) $("#txtdediciaencia").show(); 
+											else $("#txtdediciaencia").hide(); 
+										}); 
+									</script> 
+								</div> 
+								
+								<div class="md-form" id="txtdediciaencia" style="display: none;"> 
+									<i class="fa fa-id-card prefix grey-text"></i> 
+									<input type="text" id="deficiencia_desc" name="deficiencia_desc" class="form-control" maxlength="250" 
+									<?php if(isset($deficiencia_desc)){ echo 'value="'.$deficiencia_desc.'"';}?>> 
+									<label for="deficiencia_desc">Especifique sua deficiência</label> 
+								</div> 
+								
 
 								<h3 class="text-center font-bold deep-black-text py-4">Dados de Endereço</h3>
 
@@ -219,3 +221,31 @@
 
 
 			</main>
+
+
+			<script type="text/javascript"> 
+				var senha = $('#senha'); 
+				var confirma_senha = $('#confirma-senha') 
+				
+				confirma_senha.focusout(function(){ 
+					if(senha.val() != confirma_senha.val()){ 
+						alert("AVISO! Senha e Confirmar Senha estão diferentes!"); 
+						senha.val(''); 
+						confirma_senha.val(''); 
+						senha.focus(); 
+					} 
+				}); 
+				
+				senha.focusout(function(){ 
+					if(confirma_senha.val() != ''){   
+						if(senha.val() != confirma_senha.val()){ 
+							alert("AVISO! Senha e Confirmar Senha estão diferentes!"); 
+							senha.val(''); 
+							confirma_senha.val(''); 
+							senha.focus(); 
+						} 
+					} 
+				}); 
+				
+				
+			</script> 

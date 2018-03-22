@@ -60,7 +60,7 @@ class Admin extends Login {
             $dados['senha'] = $this->crypt($senha_nova);
             $this->db->where('id', $id);
             $this->db->update('administrador', $dados);
-
+            $this->log_model->insert_admin('O Administrador alterou a senha.', $id);
             $this->session->set_flashdata('success', 'Nome e senha atualizados com sucesso!');
 
             }else{
@@ -73,6 +73,7 @@ class Admin extends Login {
             }
      }
      else{
+        $this->log_model->insert_admin('O Administrador alterou o nome.', $id);
         $this->session->set_flashdata('success', 'Nome atualizado com sucesso!');
         $this->db->where('id', $id);
         $this->db->update('administrador', $dados);
