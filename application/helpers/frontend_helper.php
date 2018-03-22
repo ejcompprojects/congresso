@@ -10,5 +10,5 @@ function mensagens(){
                 $_SESSION['success'].'</div>'; 
     }
 
-    return isset($html) ? $html : '';
+    return $html ?? '';
 }

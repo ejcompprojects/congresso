@@ -20,8 +20,11 @@ class Home extends CI_Controller {
 	}
 
 	public function inscricao_parecerista(){
-		//Mudar aqui ra pegar do Parecerista_model
-		$dados['eixos'] = $this->db->get('eixo')->result_array();
+		$this->load->helper('frontend_helper');
+		
+		$dados['mensagens'] = mensagens();
+		$dados['eixos'] 	= $this->db->get('eixo')->result_array();
+
 		$this->load->view('html_header');
 		$this->load->view('inscricao_parecerista', $dados);
 		$this->load->view('html_footer');
@@ -92,8 +95,6 @@ class Home extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('Parecerista_model','modelParecerista');
 
-		$isError = false;
-
 		$dados['nome'] 				= $this->input->post('nome');
 		$dados['cpf'] 				= $this->input->post('cpf');
 		$dados['email'] 			= $this->input->post('email');
@@ -111,56 +112,49 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('celular','celular','required');
 		$this->form_validation->set_rules('instituicao','instituicao','required');
 
+		$msg_success = "";
+		$msg_error	 = "";
+
 		if(count($eixos) < 1)
 		{
-			$this->session->set_flashdata('qtdEixos', TRUE);
-			$isError = true;
+			$msg_error.="Selecione pelo menos um eixo!<br>";
 		}
 
 		if($this->modelParecerista->cpf_exists($dados['cpf']))
-		{
-			$this->session->set_flashdata('cpfCadastrado', TRUE);
-			$isError = true;
+		{			
+			$msg_error.="Este CPF já foi cadastrado!<br>";
 		}
 		if(!$this->modelParecerista->validaCPF($dados['cpf']))
 		{
-			$this->session->set_flashdata('cpfInvalido', TRUE);
-			$isError = true;
+			$msg_error.="CPF inválido ou não existe!<br>";
 		}
 
 		if($this->modelParecerista->email_exists($dados['email']))
 		{
-			$this->session->set_flashdata('emailCadastrado', TRUE);
-			$isError = true;
+			$msg_error.="Este e-mail já foi cadastrado!<br>";
 		}
 
 		if($dados['senha'] != $confirma_senha)
 		{
-			$this->session->set_flashdata('senhasDiferentes', TRUE);
-			$isError = true;
+			$msg_error.="Senhas digitadas são diferentes!<br>";
 		}
 		else $dados['senha'] = $this->crypt($dados['senha']);
 
-		if ($this->form_validation->run() == FALSE || $isError){
+		if ($this->form_validation->run() == FALSE || $msg_error != ""){
 			unset($dados['senha']);
 			$this->session->set_flashdata('dados', $dados);
+			$this->session->set_flashdata('danger', $msg_error);
 			// print_r($this->input->post());
 			// print_r($this->form_validation->error_array());
-			// exit();
 		}
 		else
 		{
 			if($this->modelParecerista->cadastraParecerista($dados, $eixos)){
-				$this->session->set_flashdata('success', TRUE);
+				$this->session->set_flashdata('success', "Cadastro realizado com sucesso!");
 			}
-			else $this->session->set_flashdata('error', TRUE);
+			else $this->session->set_flashdata('danger', "Cadastro não realizado, por favor tente novamente.");
 		}
 		redirect(base_url('inscricao_parecerista'));
-
-		// echo "<pre>";
-		// var_dump($eixos);
-		// echo "</pre>";
-		// exit();
 	}
 	public function cadastrar(){
 
