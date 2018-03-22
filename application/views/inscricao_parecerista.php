@@ -15,33 +15,14 @@
 						<!-- Form -->
 						<form method="POST" action="<?php echo base_url('home/cadastrar_parecerista') ?>">
 							<h1 class="text-center font-bold deep-black-text py-4" align="center">Congresso:<br> Pedagogia Histórico-Crítica</h2>
-								<h2 class="text-center font-bold deep-orange-text py-4">Cadastro Parecerista</h2>
-								<?php 
-								if ($this->session->flashdata('qtdEixos') == TRUE){
-									echo '<div class="alert alert-danger"> Selecione pelo menos um eixo!</div>';
-								}
-								if ($this->session->flashdata('senhasDiferentes') == TRUE){
-									echo '<div class="alert alert-danger"> Senhas digitadas são diferentes!</div>';
-								}
-								if ($this->session->flashdata('success') == TRUE){
-									echo '<div class="alert alert-success"> Você foi cadastrado com sucesso!</div>';
-								}
-								if ($this->session->flashdata('error') == TRUE){
-									echo '<div class="alert alert-danger"> Cadastro não realizado, tente novamente!</div>';
-								}
-								if ($this->session->flashdata('emailCadastrado') == TRUE){
-									echo '<div class="alert alert-danger">Este e-mail já foi cadastrado!</div>';
-								}
-								if (count($this->session->flashdata('dados'))){
+								<h2 class="text-center font-bold deep-orange-text py-4">Cadastro de Parecerista</h2>
+								<?=$mensagens;?>
+								<?php
+								if (($this->session->flashdata('dados')) != NULL){
 									$dados = $this->session->flashdata('dados');
 								}
-								if ($this->session->flashdata('cpfCadastrado') == TRUE){
-									echo '<div class="alert alert-danger">Este CPF já foi cadastrado!</div>';
-								}
-								if ($this->session->flashdata('cpfInvalido') == TRUE){
-									echo '<div class="alert alert-danger">CPF inválido ou não existe!</div>';
-								}
-
+								if(!isset($_SESSION['success']))
+								{
 								?>
 								<p align="center">Use o formulário abaixo para se inscrever no congresso como parecerista!</p>
 								<!-- <h3 class="text-center font-bold deep-black-text py-4">Dados Pessoais</h3> -->
@@ -111,6 +92,9 @@
 									</div>
 								</form>
 								<!-- Form -->
+								<?php
+									}
+								?>
 							</div>
 						</div>
 					</div>

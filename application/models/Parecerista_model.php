@@ -18,7 +18,7 @@ class Parecerista_model extends CI_Model{
         parent::__construct();
     }
 
-    function email_exists($key){
+    public function email_exists($key){
         $this->db->where(self::EMAIL_COLUMN,$key);
         $query = $this->db->get(self::DB_TABLE);
         if ($query->num_rows() > 0){
@@ -29,7 +29,7 @@ class Parecerista_model extends CI_Model{
         }
     }
 
-    function cpf_exists($key){
+    public function cpf_exists($key){
         $this->db->where(self::CPF_COLUMN,$key);
         $query = $this->db->get(self::DB_TABLE);
         if ($query->num_rows() > 0){
@@ -39,51 +39,31 @@ class Parecerista_model extends CI_Model{
             return false;
         }
     }
-    function validaCPF($cpf = null) {
+    
+    public function validaCPF($cpf = '') {
      
-        // Verifica se um número foi informado
-        if(empty($cpf)) {
-            return false;
-        }
-     
-        // Elimina possivel mascara
-        $cpf = preg_match('[^0-9]', '', $cpf);
-        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        // Extrai somente os números
+        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
          
-        // Verifica se o numero de digitos informados é igual a 11 
+        // Verifica se foi informado todos os digitos corretamente
         if (strlen($cpf) != 11) {
             return false;
         }
-        // Verifica se nenhuma das sequências invalidas abaixo 
-        // foi digitada. Caso afirmativo, retorna falso
-        else if ($cpf == '00000000000' || 
-            $cpf == '11111111111' || 
-            $cpf == '22222222222' || 
-            $cpf == '33333333333' || 
-            $cpf == '44444444444' || 
-            $cpf == '55555555555' || 
-            $cpf == '66666666666' || 
-            $cpf == '77777777777' || 
-            $cpf == '88888888888' || 
-            $cpf == '99999999999') {
+        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
             return false;
-         // Calcula os digitos verificadores para verificar se o
-         // CPF é válido
-         } else {   
-             
-            for ($t = 9; $t < 11; $t++) {
-                 
-                for ($d = 0, $c = 0; $c < $t; $c++) {
-                    $d += $cpf{$c} * (($t + 1) - $c);
-                }
-                $d = ((10 * $d) % 11) % 10;
-                if ($cpf{$c} != $d) {
-                    return false;
-                }
-            }
-     
-            return true;
         }
+        // Faz o calculo para validar o CPF
+        for ($t = 9; $t < 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf{$c} * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf{$c} != $d) {
+                return false;
+            }
+        }
+        return true;
     }
     public function get(int $id){
         $this->db->where(self::ID_COLUMN, $id);
