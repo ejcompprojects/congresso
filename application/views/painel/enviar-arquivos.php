@@ -210,9 +210,9 @@
 						$message = '';
 						$title = '';
 						if($status_trabalho == 'Seu trabalho está em <strong>análise</strong>.'){
-							$title = 'Status do Trabalho: Em Análise';
+							$title = 'Status do Trabalho: Etapa de Validação';
 							$panel = 'panel-info';
-							$message = '<h2>'.$status_trabalho.'</h2>';
+							$message = '<h2>Seu trabalho foi enviado com sucesso e será <strong>validado</strong> por um membro de nossa equipe.<br> Fique atento em seu e-mail e no sistema, pois o prazo para correção e reenvio do trabalho é de 3 dias úteis após o recebimento do aviso.</h2>';
 						}else if($status_trabalho == 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'){
 							$title = 'Status do Trabalho: Aprovado';
 							$panel = 'panel-success';

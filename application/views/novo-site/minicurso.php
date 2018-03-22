@@ -8,7 +8,7 @@ require 'importacoes/menu.php';
 
 <div class="row">
 	<div class="col m12 s12 center animate fadeInLeft">
-		<p class="intro brandon_t">PROGRAMAÇÃO</p>
+		<p class="intro brandon_t">MINICURSOS</p>
 	</div>
 </div>
 
@@ -31,45 +31,27 @@ require 'importacoes/menu.php';
 					<th style="width: 20%;" class="align_center">LOCAL</th>
 				</tr>
 				<tr>
-					<th class="align_center brandon_n">TARDE<br>
-						(14h00 - 16h30)
+					<th class="align_center brandon_n">MANHÃ<br> 
+						(08h00 - 11h30)
 					</th>
 					<td>
-						<b>Apresentação de Expressão Artística<br>
-						Mesa redonda:</b> “Educação Inclusiva e Pedagogia Histórico-crítica”<br>
-						<b>Convidados:</b> Régis Henrique dos Reis Silva (UNICAMP); Anna Maria Lunardi Padilha.<br>
-						<b>Coordenação da Mesa:</b> a definir
+						<b>MINICURSO: "Literatura infantil e a Pedagogia Histórico-crítica"<br>
+						Convidado:</b> Ângelo Antônio Abrantes (UNESP/Bauru)<br>
+						<b>35 vagas</b><br><br>
+
+						<b>MINICURSO: "A prática pedagógica em alfabetização: educação infantil<br>e séries iniciais do Ensino Fundamental"<br>
+						Convidado:</b> Meire Cristina dos Santos Dangió (Secretaria Municipal de Educação de Bauru)<br>
+						<b>35 vagas</b><br><br>
+
+						<b>MINICURSO: "O ensino escolar na primeira infância"<br>
+						Convidado:</b> Giselle Modé Magalhães (UFSCAR)<br>
+						<b>35 vagas</b><br><br>
+
+						<b>MINICURSO: "A dinâmica dos processos da avaliação neuropsicológica luriana e suas interfaces com a Pedagogia Histórico-Crítica"<br>
+						Convidado:</b> Valeria Benevides; Amably Monari (USP/S.P.)<br>
+						<b>35 vagas</b><br>
 					</td>
-					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
-				</tr>
-				<tr>
-					<th class="align_center brandon_n">TARDE<br>
-					(17h00 - 18h30)</th>
-					<td>
-						<b>Lançamento de livros</b>
-					</td>
-					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
-				</tr>
-				<tr>
-					<th class="align_center brandon_n">NOITE<br>
-					(19h00 - 19h30)</th>
-					<td>
-						<b>Apresentação de Expressão Artística</b><br>
-						<b>Abertura do Congresso – Comissão Organizadora</b>
-					</td>
-					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
-				</tr>
-				<tr>
-					<th class="align_center brandon_n">NOITE<br>
-					(19h30 - 22h30)</th>
-					<td>
-						<b>Apresentação de Expressão Artística<br>
-						Mesa Redonda:</b> “Fundamentos Filosóficos da Pedagogia Histórico-crítica e Políticas educacionais Contemporâneas”<br>
-						<b>Convidados:</b> Marise N. Ramos (LATEPS/EPSJV-Fiocruz; PPFH/Uerj); Tiago Nicola Lavoura (UESC-Ilhéus/Bahia)<br>
-						<b>Coordenação da Mesa:</b> a definir<br>
-						<b>300 vagas</b> 
-					</td>
-					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
+					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">FCT-UNESP</span></th>
 				</tr>
 			</tbody>
 		</table>
@@ -131,25 +113,30 @@ require 'importacoes/menu.php';
 						<th style="width: 20%;" class="align_center">LOCAL</th>
 					</tr>
 					<tr>
-						<th class="align_center brandon_n">MANHÃ<br> 
-						(08h00 - 11h30)</th>
+						<th class="align_center brandon_n">TARDE<br>
+						(13h00 - 17h00)</th>
 						<td>
-							<b>Apresentação de Expressão Artística</b><br>
-							Apresentação de trabalhos (Eixos Temáticos I; II; III)
+							<b>MINICURSO: "Contribuições da Neuropsicologia para a compreensão do desenvolvimento das Funções Psicológicas Superiores e dos problemas de escolarização”<br>
+							Convidado:</b>	Silvana Calvo Tuleski (UEM)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: "A alfabetização sob o enfoque histórico-crítico"<br>
+							Convidados:</b>	Adriana de Fátima Franco (UEM); Ana Carolina Galvão Marsiglia (UFES)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: "Adolescência, atividade de estudo e formação de conceitos"<br>
+							Convidado:</b>	Ricardo Eleutério dos Anjos (UNOESTE)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: "A organização da atividade de ensino pelo professor alfabetizador: contribuição da Teoria Histórico-Cultural"<br>
+							Convidado:</b>	Fernando Wolff Mendonça (UEM)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: "Educação Ambiental Histórico-Crítica: uma construção coletiva"<br>
+							Convidado:</b> Marília Freitas de Campos Tozzoni-Reis (UNESP/Botucatu); Marcela de Moraes Agudo<br>
+							<b>35 lugares</b>
 						</td>
 						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">FCT-UNESP</span></th>
-					</tr>
-					<tr>
-						<th class="align_center brandon_n">NOITE<br>
-						(19h00 - 22h30)</th>
-						<td>
-							<b>Apresentação de Expressão Artística<br>
-							Mesa redonda:</b> “Relações entre os Fundamentos Psicológicos da Pedagogia Histórico-crítica e Currículo”<br>
-							<b>Convidadas:</b> Lígia Márcia Martins (UNESP/Araraquara); Juliana Pasqualini (UNESP/Bauru)<br>
-							<b>Coordenação da mesa:</b> a definir<br>
-							<b>300 vagas</b>
-						</td>
-						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 					</tr>
 				</tbody>
 			</table>
@@ -259,50 +246,55 @@ require 'importacoes/menu.php';
 						<th style="width: 20%;" class="align_center">LOCAL</th>
 					</tr>
 					<tr>
-						<th class="align_center brandon_n">TARDE<br>
-						(13h00 - 17h00)</th>
+						<th class="align_center brandon_n">MANHÃ<br> 
+						(08h00 - 11h30)</th>
 						<td>
-							<b>Apresentação de trabalhos (Eixos Temáticos IV; V; VI)</b>
+							<b>MINICURSO: “Contribuições da Neuropsicologia para a compreensão do desenvolvimento das Funções Psicológicas Superiores e dos problemas de escolarização”<br>
+							Convidado:</b>	Silvana Calvo Tuleski (UEM)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: “A alfabetização sob o enfoque histórico-crítico”<br>
+							Convidados:</b>	Ana Carolina Galvão Marsiglia (UFES); Adriana de Fátima Franco (UEM)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: “A organização da atividade de ensino pelo professor alfabetizador: contribuição da Teoria Histórico-Cultural”<br>
+							Convidado:</b>	Fernando Wolff Mendonça (UEM)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: “Literatura infantil e a Pedagogia Histórico-crítica”<br>
+							Convidado:</b>	Ângelo Antonio Abrantes (UNESP/Bauru)<br>
+							<b>35 vagas</b><br><br>
+
+							<b>MINICURSO: "Educação Ambiental Histórico-Crítica: uma construção coletiva"<br>
+							Convidado:</b> Marília Freitas de Campos Tozzoni-Reis (UNESP/Botucatu); Marcela de Moraes Agudo<br>
+							<b>35 vagas</b>
 						</td>
 						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">FCT-UNESP</span></th>
 					</tr>
-					<tr>
-						<th class="align_center brandon_n">NOITE<br>
-						(19h00 - 22h30)</th>
-						<td>
-							<b>Apresentação de Expressão Artística<br>
-							Conferência (encerramento):</b> “A defesa da escola pública na perspectiva histórico-crítica em tempos de suicídio democrático”<br>
-							<b>Conferencista:</b> Dermeval Saviani (UNICAMP)<br>
-							<b>Coordenação:</b> Rosiane de Fátima Ponce<br>
-							<b>300 vagas</b>
-						</b>
-					</td>
-					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
-				</tr>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
-	$(".prog").click(function(){
-		$(".prog").removeClass("mudacor")
-		$(this).addClass("mudacor")
-	})
+		$(".prog").click(function(){
+			$(".prog").removeClass("mudacor")
+			$(this).addClass("mudacor")
+		})
 
-	$(document).ready(function(){
-		$('#segundo').hide();
-		$('#terceiro').hide();
-	});
+		$(document).ready(function(){
+			$('#segundo').hide();
+			$('#terceiro').hide();
+		});
 
-	function programacao(div){
-		$('#primeiro').hide();
-		$('#segundo').hide();
-		$('#terceiro').hide();
+		function programacao(div){
+			$('#primeiro').hide();
+			$('#segundo').hide();
+			$('#terceiro').hide();
 
-		$(div).fadeIn('slow');
-	}
-</script>	
+			$(div).fadeIn('slow');
+		}
+	</script>	
 
-<?php require 'importacoes/footer.php'; ?>
+	<?php require 'importacoes/footer.php'; ?>

@@ -395,11 +395,14 @@ a.label:hover, a.label:focus {
   color: rgba(255, 255, 255, 0.75); }
 
 .panel-heading {
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 300;
   letter-spacing: 0.025em;
-  height: 60px;
-  line-height: 38px; }
+  line-height: 2rem; 
+  padding-top: 2%;
+  padding-bottom: 2%;
+  vertical-align:middle;
+  }
 
 .panel-default .panel-heading {
   background: #fff;

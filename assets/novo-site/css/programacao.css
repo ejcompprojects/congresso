@@ -78,6 +78,8 @@ body{
 
 
 /*TEXTOS*/
+
+
 .top_offset{
 	margin-top: 2%;
 }
@@ -107,10 +109,24 @@ a.brandon_t{
 	border-bottom: 1px #e60000 solid;
 }
 
+.prof_text{
+	float: left;
+	font-size: 14pt;
+}
+
 
 /*DIV*/
+
 .b_green{
 	border: solid green 1px;
+}
+
+.top_grey{
+	border-top: solid #666 1px;
+}
+
+.bottom_grey{
+	border-bottom: solid #666 1px;
 }
 
 .right_offset{
@@ -135,14 +151,34 @@ table.responsive-table tbody{
 	white-space: unset !important;
 }
 
+@media screen and (max-width: 992px){
+	tr.hide-responsive{
+		display: none !important;
+	}
+}
+
 
 /*LISTA*/
+
 ul.circular{
 	list-style: circle;
 }
 
 
+/*LINK*/
+.efeito1{
+	transition: all 0.5s ease;
+}
+
+.efeito1:hover{
+	/*font-size: 14pt;*/
+	transform: scale(1.2) !important;
+	transition: all 0.5s ease;
+}
+
+
 /*BOTÕES*/
+
 a.brandon_t{
 	font-size: 10.5pt;
 	text-align: left;
@@ -154,10 +190,10 @@ a.menu{
 }
 
 .bt_inscrever{
-	background-color: rgba(0,0,0,0) !important;
-	color: #ff6666 !important;
+	background-color: #e60000 !important;
+	color: white !important;
+	border: solid #e60000 1px !important;
 	border-radius: 0 0 0 0 !important;
-	border: solid #ff6666 1px !important;
 	width: 311px !important;
 	height: 50px;
 	padding: 1% !important;
@@ -169,10 +205,10 @@ a.menu{
 }
 
 .bt_inscrever:hover{
-	background-color: #e60000 !important;
-	color: white !important;
-	border: none !important;
-	transition: all 0.8s ease !important;
+	background-color: rgba(0,0,0,0) !important;
+	color: #ff6666 !important;
+	border: solid #ff6666 1px !important;
+	transition: all 0.5s ease !important;
 }
 
 .bt_date{
@@ -180,7 +216,7 @@ a.menu{
 	background-color: #ff6666 !important;
 	color: white !important;
 	border-radius: 0 0 0 0 !important;
-	width: 311px !important;
+	width: 300px !important;
 	height: 50px;
 	padding: 0 !important;
 	font-size: 14pt;
@@ -276,7 +312,47 @@ a.menu{
 }
 
 
+/*IMAGENS*/
+
+.info_profile{
+	list-style: none;
+	/*border: 1px solid #AAA;*/
+	float: left;
+	/*	top: 50%;
+	/*transform: translateY(-50%);*/
+	padding-right: 15px;
+}
+
+.info_profile li{
+	float: left;
+	position: relative;
+	display: block;
+	/*border-right: 1px solid #AAA;*/
+}
+
+.profile{
+	width: 75px;
+	height: 75px;
+	transition: 0.8s;
+	/*box-shadow: 0px 3px 3px #000;*/
+}
+
+.profile:hover{
+	transition: all 0.4s ease;
+	cursor: pointer;
+	transform: scale(1.1);
+	/*box-shadow: 5px 7px 3px #000;*/
+}
+
+@media screen and (max-width: 683px) and (min-width: 641px){
+	.prof_text{
+		font-size: 12pt;
+	}
+}
+
+
 /*FOOTER*/
+
 .ejcomp-footer:hover{
 	transform: scale(1.1) !important;
 	cursor: pointer !important;

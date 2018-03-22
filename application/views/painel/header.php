@@ -6,7 +6,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span></button>
-				<a class="navbar-brand" href="<?= base_url('Painel') ?>"><span>CONGRESSO:</span>PEDAGOGIA HISTÓRICO-CRÍTICA</a>
+				<a class="navbar-brand hide-on-small-only hidden-sm-down hidden-sm hidden-xs" href="<?= base_url('Painel') ?>"><span>CONGRESSO:</span>PEDAGOGIA HISTÓRICO-CRÍTICA</a>
 				
 				
 			</div>
