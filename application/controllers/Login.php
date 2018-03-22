@@ -61,7 +61,8 @@ public function esqueci_senha(){
             }
             else{ //devemos enviar e-mail e dar a mensagem
                 //enviador de e-mail
-
+                 $id = $resposta->id;
+ 
               
 
             	$date = strtotime(date("Y-m-d H:i:s"));
@@ -106,11 +107,11 @@ public function esqueci_senha(){
             	$resposta = $this->send_email_with_title($title,$message, $email);
 
             	if($resposta == 'true'){
-                $this->log_model->insert('Foi enviado o e-mail de esqueci minha senha para o participante.', $resposta->id);
+                $this->log_model->insert('Foi enviado o e-mail de esqueci minha senha para o participante.', $id);
             		$this->session->set_flashdata('success', 'Fique tranquilo é comum esquecer a senha!<br>Enviamos um e-mail para <strong>'.$email.'</strong> com a sua nova senha.');  
             	}
             	else{
-                $this->log_model->insert('Houve um erro no envio do e-mail para o participante.', $resposta->id);
+                $this->log_model->insert('Houve um erro no envio do e-mail para o participante.', $id);
             		$this->session->set_flashdata('danger', htmlspecialchars($resposta));  
 
             	}
@@ -192,6 +193,8 @@ public function esqueci_senha(){
             	$html.= '</html>';
 
             	$message = $html;
+
+              $title = 'Congresso PHC 2018';
 
             	$this->load->library('email', $config);
                 $this->email->from(EMAIL, $title);//your mail address and name
@@ -289,7 +292,10 @@ public function esqueci_senha(){
 	 			redirect(base_url('Painel'));
 	 		}else if($resposta == 'Administrador'){
 	 			redirect(base_url('Admin'));
-	 		}
+	 		}else if($resposta == 'Parecerista')
+      {
+        redirect(base_url('Parecerista'));
+      }
 
 	 		else{
 	 			$this->index();
@@ -337,6 +343,9 @@ public function esqueci_senha(){
       		if($email && password_verify($password, $passwordHash)){
       			$usuario = $this->model->getAdministrador($email);
       			$usuario->tipo_usuario = 'Administrador';
+
+            $this->log_model->insert_admin('O Administrador efetuou o login.', $usuario->id);
+
       			$this->session->set_userdata(
       				'usuario', 
       				$usuario
@@ -344,12 +353,35 @@ public function esqueci_senha(){
       			return 'Administrador';
       		}else{
 
-      			$this->session->sess_destroy();           
-      			$this->session->set_flashdata(
-      				'danger', 
-      				'E-mail ou Senha incorretos'
-      			);
-      			return FALSE;
+      			$passwordHash = $this->model->getPasswordHashFromParecerista($email);
+            if($email && password_verify($password, $passwordHash)){
+              $usuario = $this->model->getParecerista($email);
+              $usuario->tipo_usuario = 'Parecerista';
+
+              if($usuario->status_inscricao == 1)
+              {
+                $this->log_model->insert_parecerista('O parecerista efetuou o login.', $usuario->id);
+                $this->session->set_userdata(
+                  'usuario', 
+                  $usuario
+                );
+                return 'Parecerista';
+              }else if($usuario->status_inscricao == 2){
+                $this->session->set_flashdata('danger', 'Seu cadastro foi reprovado, entre em contato com a organização para mais informações');
+                return FALSE;
+              }else{
+                $this->session->set_flashdata('danger', 'Seu cadastro ainda não foi aprovado por um administrador');
+                return FALSE;
+              }
+              
+            }else{
+              $this->session->sess_destroy();           
+              $this->session->set_flashdata(
+                'danger', 
+                'E-mail ou Senha incorretos'
+              );
+              return FALSE;
+            }
       		}
       	}
       }

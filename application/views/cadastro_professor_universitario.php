@@ -86,11 +86,11 @@
                                </select>
                                </div>
 
-                                <div class="md-form">
+                                <!-- div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
                                     <input type="text" id="curso" name="curso" class="form-control"  required="true" minlength="3" maxlength="100">
                                     <label for="curso">Departamento</label>
-                                </div>
+                                </div> -->
 
                                 <!--INPUTS HIDDEN PARA O INSERT --> 
 

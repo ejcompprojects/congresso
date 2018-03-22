@@ -313,7 +313,7 @@ public function list_all($filtros = array(), $inicio = 0){
     return $this->db->get(self::DB_TABLE)->result();
 }
 
-public function update_dados($id, $status_inscricao, $eixo, $status, $ativo){
+public function update_dados($id, $status_inscricao, $eixo, $status, $ativo, $submeter_trabalho){
  
     if($status_inscricao != ''){
  
@@ -345,6 +345,12 @@ public function update_dados($id, $status_inscricao, $eixo, $status, $ativo){
         $this->db->update('participante', $dados2);
     }
 
+    if($submeter_trabalho != ''){
+        $this->db->where('id', $id);
+        $dados3['submeter_trabalho'] = $submeter_trabalho;
+
+        $this->db->update('participante', $dados3);
+    }
  
     $this->db->where('id', $id);
  

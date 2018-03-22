@@ -7,7 +7,8 @@ class Home extends CI_Controller {
 	public function index($dados = NULL){
 		// $this->load->view('novo-site/importacoes/header');
 		// $this->load->view('novo-site/importacoes/menu');
-		$this->load->view('novo-site/index');
+		//$this->load->view('novo-site/index');
+		$this->load->view('novo-site/general_info');
 		$this->load->view('novo-site/importacoes/footer');
 
 	}
@@ -17,6 +18,7 @@ class Home extends CI_Controller {
 		$this->load->view('index');
 		$this->load->view('html_footer');
 	}
+
 	public function inscricao_parecerista(){
 		//Mudar aqui ra pegar do Parecerista_model
 		$dados['eixos'] = $this->db->get('eixo')->result_array();
@@ -24,6 +26,25 @@ class Home extends CI_Controller {
 		$this->load->view('inscricao_parecerista', $dados);
 		$this->load->view('html_footer');
 	}
+
+
+	public function historico(){		
+		$this->load->view('novo-site/historico');
+	}
+
+	public function manutencao(){
+		$this->load->view('novo-site/manutencao');
+	}
+
+	public function general_info(){
+		$this->load->view('novo-site/general_info');
+	}
+
+	public function minicurso(){
+		$this->load->view('novo-site/minicurso');
+	}
+
+
 	public function eixos(){
 		// $this->load->view('novo-site/importacoes/header');
 		// $this->load->view('novo-site/importacoes/menu');
@@ -157,27 +178,27 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('cidade','cidade','required');
 
 
-		$dados['nome'] 				= $this->input->post('nome');
-		$dados['email'] 			= $this->input->post('email');
-		$dados['celular'] 			= $this->input->post('celular');
-		$dados['telefone'] 			= $this->input->post('telefone');
-		$dados['cpf'] 				= $this->input->post('cpf');
-		$dados['deficiencia'] 		= $this->input->post('deficiencia');
-		$email 						= $this->input->post('email');
-		$cpf 						= $this->input->post('cpf');
-		$senha 						= $this->input->post('senha');
-		$confirmacaoSenha 			= $this->input->post('confirma-senha');
-		$dados['deficiencia_desc'] 	= $this->input->post('deficiencia_desc') ?? '';
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$email = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['cpf'] = $this->input->post('cpf');
+		$cpf = $this->input->post('cpf');
 
+		$senha = $this->input->post('senha');
+		$confirmacaoSenha = $this->input->post('confirma-senha');
 
-		$dados['cep'] 				= $this->input->post('cep');
-		$dados['cidade'] 			= $this->input->post('cidade');
-		$dados['estado'] 			= $this->input->post('estado');
-		$dados['endereco'] 			= $this->input->post('rua');
-		$dados['bairro'] 			= $this->input->post('bairro');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['endereco'] = $this->input->post('rua');
+		$dados['bairro'] = $this->input->post('bairro');
 		$dados['id_tipo_inscricao'] = $this->input->post('tipo');
 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
-		$tipo_inscricao 			= $this->input->post('tipo');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$tipo_inscricao = $this->input->post('tipo');
 
 		if($this->modelParticipante->email_exists($email)){
 			$this->session->set_flashdata('emailCadastrado', TRUE);
@@ -190,10 +211,8 @@ class Home extends CI_Controller {
 
 
 		if ($this->form_validation->run() == FALSE){
-			print_r($this->input->post());
-			print_r($this->form_validation->error_array());
-			exit();
-			redirect(base_url('inscricao'));
+			// print_r($this->form_validation->error_array()); 
+      		$this->voltar_cadastro(); 
 		}else{
 
 			if (strcmp($senha,$confirmacaoSenha) == 0){
@@ -243,6 +262,7 @@ class Home extends CI_Controller {
 
 	public function voltar_cadastro(){
 		
+
 		$dados['nome'] 					= $this->input->post('nome');
 		$dados['deficiencia'] 			= $this->input->post('deficiencia');
 		$dados['email'] 				= $this->input->post('email');
@@ -259,6 +279,7 @@ class Home extends CI_Controller {
 		$dados['bairro'] 				= $this->input->post('bairro');
 		$dados['endereco'] 				= $this->input->post('endereco');
 		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
+
 
 		$this->load->view("html_header");
 		$this->load->view('index',$dados);
@@ -298,15 +319,16 @@ class Home extends CI_Controller {
 		$dados['endereco'] 				= $this->input->post('endereco');
 		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
 
+
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
 		if($id_participante != NULL){
-			$data['instituicao'] 		= $this->input->post('instituicao');
+			$data['instituicao'] = $this->input->post('instituicao');
 			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
 			$data['estado_instituicao'] = $this->input->post('uf');
-			$data['curso'] 				= $this->input->post('curso');
-			$data['semestre'] 			= $this->input->post('semestre');
-			$data['id_participante'] 	= $id_participante; 
+			$data['curso'] = $this->input->post('curso');
+			$data['semestre'] = $this->input->post('semestre');
+			$data['id_participante'] = $id_participante; 
 
 			if ($this->form_validation->run() != FALSE){
 				if($this->modelGraduacao->insert($data)){
@@ -342,6 +364,7 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('curso','curso','required');
 		$this->form_validation->set_rules('tematica_da_pesquisa','tematica_da_pesquisa','required');
 
+
 		$dados['nome'] 					= $this->input->post('nome');
 		$dados['deficiencia'] 			= $this->input->post('deficiencia');
 		$dados['email'] 				= $this->input->post('email');
@@ -359,15 +382,16 @@ class Home extends CI_Controller {
 		$dados['endereco'] 				= $this->input->post('endereco');
 		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
 
+
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
 		if($id_participante != NULL){
-			$data['instituicao'] 			= $this->input->post('instituicao');
-			$data['cidade_instituicao'] 	= $this->input->post('cidade_instituicao');
-			$data['estado_instituicao'] 	= $this->input->post('uf');
-			$data['curso'] 					= $this->input->post('curso');
-			$data['tematica_da_pesquisa'] 	= $this->input->post('tematica_da_pesquisa');
-			$data['id_participante']		= $id_participante; 
+			$data['instituicao'] = $this->input->post('instituicao');
+			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
+			$data['estado_instituicao'] = $this->input->post('uf');
+			$data['curso'] = $this->input->post('curso');
+			$data['tematica_da_pesquisa'] = $this->input->post('tematica_da_pesquisa');
+			$data['id_participante'] = $id_participante; 
 
 			if ($this->form_validation->run() != FALSE){
 				if($this->modelPos->insert($data)){
@@ -400,26 +424,25 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('instituicao','instituicao','required');
 		$this->form_validation->set_rules('cidade_instituicao','cidade_instituicao','required');
 		$this->form_validation->set_rules('uf','uf','required');
-		$this->form_validation->set_rules('curso','curso','required');
+		// $this->form_validation->set_rules('curso','curso','required');
 		$this->form_validation->set_rules('departamento','departamento','required');
 		$this->form_validation->set_rules('atua_na_pos_graduacao','atua_na_pos_graduacao','required');
 
-		$dados['nome'] 				= $this->input->post('nome');
-		$dados['deficiencia'] 		= $this->input->post('deficiencia');
-		$dados['email'] 			= $this->input->post('email');
-		$dados['celular'] 			= $this->input->post('celular');
-		$dados['telefone'] 			= $this->input->post('telefone');
-		$dados['senha'] 			= $this->input->post('senha');
-		$dados['deficiencia_desc'] 	= $this->input->post('deficiencia_desc') ?? '';
-
-		$dados['cidade']			= $this->input->post('cidade');
-		$dados['cep'] 				= $this->input->post('cep');
-		$dados['estado'] 			= $this->input->post('estado');
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
-		$dados['cpf'] 				= $this->input->post('cpf');
-		$dados['bairro'] 			= $this->input->post('bairro');
-		$dados['endereco'] 			= $this->input->post('endereco');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -427,7 +450,7 @@ class Home extends CI_Controller {
 			$data['instituicao'] = $this->input->post('instituicao');
 			$data['cidade_instituicao'] = $this->input->post('cidade_instituicao');
 			$data['estado_instituicao'] = $this->input->post('uf');
-			$data['curso'] = $this->input->post('curso');
+			// $data['curso'] = $this->input->post('curso');
 			$data['departamento'] = $this->input->post('departamento');
 			$data['atua_na_pos_graduacao'] = $this->input->post('atua_na_pos_graduacao');
 			$data['id_participante'] = $id_participante; 
@@ -462,22 +485,21 @@ class Home extends CI_Controller {
 
 		$this->form_validation->set_rules('escola','escola','required');
 
-		$dados['nome'] 				= $this->input->post('nome');
-		$dados['deficiencia'] 		= $this->input->post('deficiencia');
-		$dados['email'] 			= $this->input->post('email');
-		$dados['celular'] 			= $this->input->post('celular');
-		$dados['telefone'] 			= $this->input->post('telefone');
-		$dados['senha'] 			= $this->input->post('senha');
-		$dados['deficiencia_desc'] 	= $this->input->post('deficiencia_desc') ?? '';
-
-		$dados['cidade'] 			= $this->input->post('cidade');
-		$dados['cep'] 				= $this->input->post('cep');
-		$dados['estado'] 			= $this->input->post('estado');
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
 		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
-		$dados['cpf'] 				= $this->input->post('cpf');
-		$dados['bairro'] 			= $this->input->post('bairro');
-		$dados['endereco'] 			= $this->input->post('endereco');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -538,6 +560,7 @@ class Home extends CI_Controller {
 
 		$this->form_validation->set_rules('area_de_atuacao','area_de_atuacao','required');
 
+
 		$dados['nome'] 					= $this->input->post('nome');
 		$dados['deficiencia'] 			= $this->input->post('deficiencia');
 		$dados['email'] 				= $this->input->post('email');
@@ -554,6 +577,7 @@ class Home extends CI_Controller {
 		$dados['bairro'] 				= $this->input->post('bairro');
 		$dados['endereco'] 				= $this->input->post('endereco');
 		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
+
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -688,7 +712,7 @@ class Home extends CI_Controller {
 			$key_ativar = $usuario->key_ativar;
 
 
-			$subject = 'Confirme seu e-mail | Congresso:Pedagogia Histórico-Crítica';
+			$subject = 'Confirme seu e-mail';
 
 			$message = '<h1>MUITO OBRIGADO POR SE CADASTRAR NO CONGRESSO!<h1>
 			<h2>Clique no link abaixo para confirmar seu cadastro:</h2>
@@ -727,7 +751,7 @@ class Home extends CI_Controller {
 			$message = $html;
 
 			$this->load->library('email', $config);
-        $this->email->from(EMAIL, $subject);//your mail address and name
+        $this->email->from(EMAIL, 'Congresso PHC 2018');//your mail address and name
         //$this->email->set_newline('\r\n');
         //$this->email->crlf('\r\n');
 

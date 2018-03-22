@@ -52,7 +52,7 @@ $usuario = $_SESSION['usuario']; ?>
             <ul class="sub">
               <li><a  href="<?= base_url('Participante/listar_todos') ?>">Todos</a></li>
               <li><a  href="<?= base_url('Participante/listar_pagamento_analisar') ?>">Para Analisar o Pagamento</a></li>
-              <li><a  href="<?= base_url('Participante/listar_trabalho_analisar') ?>">Para Analisar o Trabalho</a></li>
+             <!--  <li><a  href="<?= base_url('Participante/listar_trabalho_analisar') ?>">Para Analisar o Trabalho</a></li> -->
             </ul>
           </li>
 
@@ -68,12 +68,12 @@ $usuario = $_SESSION['usuario']; ?>
             </ul>
           </li>
 
-          <li class="sub-menu">
+       <!--    <li class="sub-menu">
             <a href="<?= base_url('Interesse') ?>" >
               <i class="fa fa-info"></i>
               <span>Interesse Nos Minicursos</span>
             </a>
-          </li>
+          </li> -->
 
           <li class="sub-menu">
             <a href="<?= base_url('Admin/profile') ?>" >
