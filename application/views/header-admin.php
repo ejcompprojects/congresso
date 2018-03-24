@@ -58,6 +58,17 @@ $usuario = $_SESSION['usuario']; ?>
 
           <li class="sub-menu">
             <a href="javascript:;" >
+              <i class="fa fa-user"></i>
+              <span>Parecerista</span>
+            </a>  
+            <ul class="sub">
+              <li><a  href="<?= base_url('Parecerista/listar_todos') ?>">Todos</a></li>
+              <li><a  href="<?= base_url('Parecerista/listar_analisar') ?>">Para Analisar</a></li>
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="javascript:;" >
               <i class="fa fa-envelope"></i>
               <span>E-mail</span>
             </a>  
