@@ -160,14 +160,13 @@ class Home extends CI_Controller {
 
 		foreach ($dados_fields as $field)
 			$dados[$field] 	= $this->input->post($field);
-		
+
 		$confirma_senha 	= $this->input->post('confirma-senha');
 
 		$dados_validate = array_slice($dados_fields, 0, count($dados_fields)-3);
 		
 		foreach ($dados_validate as $field)
 			$this->form_validation->set_rules($field , $field, "required");
-
 		unset($dados_validate);
 
 		//Tratamento de erros
@@ -232,8 +231,6 @@ class Home extends CI_Controller {
 					redirect(base_url('inscricao'));
 			}
 		}
-
-		redirect(base_url('inscricao'));
 	}
 
 	public function voltar_cadastro(){
