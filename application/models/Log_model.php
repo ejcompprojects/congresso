@@ -44,7 +44,7 @@ class Log_model extends CI_Model{
 
     public function insert_parecerista($descricao, $id_administrador){
         $dados['ip'] = $this->get_client_ip_server();
-        $dados['id_parecerista'] = $id_parecerista;
+        $dados['id'] = $id_parecerista;
         $dados['descricao'] = $descricao;
 
         $this->db->insert('log_parecerista', $dados);

@@ -18,8 +18,9 @@
 									<select class="form-control round-form" name="email" id="email" required="true">
 										<option value="" selected="true" disabled="true">Selecione o destinatário</option>
 										<?php 
-										foreach($participantes as $participante){
-											echo '<option value="'.$participante->email.'">'.$participante->nome.' - '.$participante->tipo.' - '.$participante->estado.'</option>';
+										foreach($objects as $object){
+											//echo '<option value="'.$participante->email.'">'.$participante->nome.' - '.$participante->tipo.' - '.$participante->estado.'</option>';
+											echo '<option value="'.$object->value.'">'.$object->label.'</option>';
 										}
 										
 										?>
