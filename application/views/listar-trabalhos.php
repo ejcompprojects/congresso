@@ -164,8 +164,13 @@ echo modal("modal", "label", "", "form", $data_input_modal);
       modal.find('#id').show()
       modal.find('#form').attr("action", '<?= $url['aprovar'] ?>' + id)
 
-      modal.find('#nao_aceitar').text('Recusar')
-      modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>"+ id)
+      <?php if(isset($url['reprovar'])){ 
+      ?>
+        modal.find('#nao_aceitar').text('Recusar')
+        modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>"+ id)
+      <?php
+      }
+      ?>
 
 
 

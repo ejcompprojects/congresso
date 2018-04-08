@@ -88,7 +88,7 @@ class Trabalho extends Admin {
 
 		$dados['quantidade'] 		= $this->trabalho_model->num_rows_where_status($status);
 		$dados['mensagens'] 		= mensagens();
-		$dados['url'] = array('aprovar' => base_url('Trabalho/aprovar/'), 'reprovar' => base_url('Trabalho/reprovar/'));
+		$dados['url'] = array('aprovar' => base_url('Trabalho/enviar_para_parecerista/'));
 
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
@@ -97,7 +97,89 @@ class Trabalho extends Admin {
 	}
 
 
-	public function aprovar($id_participante){
+
+	public function listar_invalidos(){
+		$status = 2; //1 é status VÁLIDO
+
+
+		$table_header = array(
+			
+			array('icon' => 'fa fa-user', 'label' => 'Nome'),
+			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
+			array('icon' => 'fa fa-user', 'label' => 'Eixo'),
+			array('icon' => 'fa fa-user', 'label' => 'Tipo usuário'),
+			array('icon' => 'fa fa-user', 'label' => 'Data de Submissão')
+
+		);
+
+		$table_body = array('nome', 'titulo', 'eixo', 'tipo', 'data');
+
+
+		$data_input_modal = array(
+			//array('name' => 'justificativa', 'label' 	=> 'Justificativa', 'type' => 'input_text'),
+			array('name' => 'id_eixo', 'label' => '', 'type' => 'hidden'),
+			array('name' => 'id', 'label' => 'ID', 'type' => 'input_text'),
+			array('name' => 'nome', 'label' 	=> 'Nome','type' 	=> 'input_text'),
+			array('name' => 'email', 'label' 	=> 'E-mail', 'type' => 'input_text'),
+			array('name' => 'tipo', 'label' 	=> 'Tipo', 'type' => 'input_text'),
+			array('name' => 'titulo', 'label' 	=> 'Titulo', 'type' => 'input_text'),
+			array('name' => 'eixo', 'label' 	=> 'Eixo', 'type' => 'input_text'),
+			array('name' => 'data', 'label' 	=> 'Data', 'type' => 'input_text'),
+			array('name' => 'arquivo_sem_nome_autor', 'label' 	=> 'Arquivo Sem Nome Autor', 'type' => 'input_file'),
+			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file'),
+			
+			
+
+		);
+
+		
+
+		$objects = $this->trabalho_model->get_all_where_status($status);
+
+
+		//converter a data para PT-BR
+		for($i = 0 ; $i < count($objects); $i++){
+			$objects[$i]['data'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data']));
+			
+		}
+	
+
+		$dados['table_header'] 		= $table_header;
+		$dados['table_body']	 	= $table_body;
+		$dados['objects'] 			= $objects;
+		$dados['data_input_modal']  = $data_input_modal;
+
+
+		$dados['funcao'] 			= 'listar_invalidados';
+		$dados['titulo'] 			= 'Trabalhos Inválidos - Clique em "Aceitar" para que o trabalho seja Válido.';
+
+		$dados['quantidade'] 		= $this->trabalho_model->num_rows_where_status($status);
+		$dados['mensagens'] 		= mensagens();
+		$dados['url'] = array('aprovar' => base_url('Trabalho/aprovar_trabalho_invalido/'));
+
+		$this->load->view('html-header-admin');
+		$this->load->view('header-admin');
+		$this->load->view('listar-trabalhos', $dados);
+		$this->load->view('footer-admin');
+	}
+
+	public function aprovar_trabalho_invalido($id_trabalho){
+		$this->db->where('id_participante', $id_trabalho);
+		$dados['status'] = 1;
+		$this->db->update('trabalho', $dados);
+
+		$this->db->where('id_participante', $id_trabalho);
+		$trabalho = $this->db->get('trabalho')->row();
+		
+
+		$this->session->set_flashdata('success', 'O trabalho <b>"'.$trabalho->titulo.'"</b> foi alterado para <b>VÁLIDO</b>.');
+
+		redirect('Trabalho/listar_invalidos');
+
+	}
+
+
+	public function enviar_para_parecerista($id_participante){
 		
 		if($this->input->post('pareceristas') != ''){
 
