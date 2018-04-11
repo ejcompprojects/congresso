@@ -20,15 +20,80 @@ class Trabalho extends Admin {
 		$pareceristas = $this->db->get('parecerista')->result();
 
 		echo json_encode($pareceristas);
-		// $html = '';
-		// $html.= '<select name="parecerista" id="parecerista" class="form-control">';
-		// $html.='<option value="" disabled="true" readonly selected>Selecione um parecerista</option>';
-		// foreach($pareceristas as $parecerista){
-		// 	$html.= '<option value="'.$parecerista->id.'">'.$parecerista->nome.'</option>';
-		// }
-		// $html.= "</select>";
-		// echo $html;
 	}
+
+	public function listar_todos(){
+
+
+		$table_header = array(
+			
+			array('icon' => 'fa fa-user', 'label' => 'Nome'),
+			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
+			array('icon' => 'fa fa-user', 'label' => 'Eixo'),
+			array('icon' => 'fa fa-user', 'label' => 'Tipo usuário'),
+			array('icon' => 'fa fa-user', 'label' => 'Status'),
+			array('icon' => 'fa fa-user', 'label' => 'Data de Submissão')
+
+		);
+
+		$table_body = array('nome', 'titulo', 'eixo', 'tipo', 'status', 'data');
+
+
+		$data_input_modal = array(
+			//array('name' => 'justificativa', 'label' 	=> 'Justificativa', 'type' => 'input_text'),
+			array('name' => 'id_eixo', 'label' => '', 'type' => 'hidden'),
+			array('name' => 'id', 'label' => 'ID', 'type' => 'input_text'),
+			array('name' => 'nome', 'label' 	=> 'Nome','type' 	=> 'input_text'),
+			array('name' => 'email', 'label' 	=> 'E-mail', 'type' => 'input_text'),
+			array('name' => 'tipo', 'label' 	=> 'Tipo', 'type' => 'input_text'),
+			array('name' => 'titulo', 'label' 	=> 'Titulo', 'type' => 'input_text'),
+			array('name' => 'eixo', 'label' 	=> 'Eixo', 'type' => 'input_text'),
+			array('name' => 'data', 'label' 	=> 'Data', 'type' => 'input_text'),
+			array('name' => 'arquivo_sem_nome_autor', 'label' 	=> 'Arquivo Sem Nome Autor', 'type' => 'input_file'),
+			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file'),
+			array('name' => 'status', 'label' 	=> 'Status', 'type' => 'input_text')
+			
+
+		);
+
+		
+
+		$objects = $this->trabalho_model->get_all();
+
+
+		//converter a data para PT-BR
+		for($i = 0 ; $i < count($objects); $i++){
+			$objects[$i]['data'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data']));
+			switch($objects[$i]['status']){
+				case 0: $objects[$i]['status'] = 'Em Análise'; break;
+				case 1: $objects[$i]['status'] = 'Aprovado'; break;
+				case 2: $objects[$i]['status'] = 'Reprovado'; break;
+				case 3: $objects[$i]['status'] = 'Encaminhado para Parecerista'; break;
+
+			}
+			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
+		}
+		// print_r($objects); exit();
+
+		$dados['table_header'] 		= $table_header;
+		$dados['table_body']	 	= $table_body;
+		$dados['objects'] 			= $objects;
+		$dados['data_input_modal']  = $data_input_modal;
+
+
+		$dados['funcao'] 			= 'listar_todos';
+		$dados['titulo'] 			= 'TODOS os Trabalhos';
+
+		$dados['quantidade'] 		= $this->trabalho_model->num_rows();
+		$dados['mensagens'] 		= mensagens();
+		//$dados['url'] = array('aprovar' => base_url('Trabalho/enviar_para_parecerista/'));
+		$dados['url'] = array();
+		$this->load->view('html-header-admin');
+		$this->load->view('header-admin');
+		$this->load->view('listar-trabalhos', $dados);
+		$this->load->view('footer-admin');
+	}
+
 	
 
 	public function listar_validados(){
@@ -142,7 +207,7 @@ class Trabalho extends Admin {
 			$objects[$i]['data'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data']));
 			
 		}
-	
+
 
 		$dados['table_header'] 		= $table_header;
 		$dados['table_body']	 	= $table_body;
@@ -201,9 +266,9 @@ class Trabalho extends Admin {
 			$this->session->set_flashdata('success', 'Trabalho '.$trabalho->nome.' adicionado ao parecerista '.$parecerista->nome.'.');
 		}else{
 			$this->session->set_flashdata('danger', 'Selecione um parecerista.');
-		
+
 		}
-			redirect('Trabalho/listar_validados');
+		redirect('Trabalho/listar_validados');
 	}
 
 }

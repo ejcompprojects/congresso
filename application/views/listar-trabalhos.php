@@ -113,40 +113,40 @@ echo modal("modal", "label", "", "form", $data_input_modal);
           $.ajax({
             url: "'.$input['url'].'" + '.$input['id'].',
             success:function(response) {
-             
+
               var json = JSON.parse(response);
-          ';
-          
-          $html.= 'html+= \' <select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control" >\';';
-          $html.= '
-          html+= \'<option selected readonly disabled>'.$input['label'].'</option> \';';
-          $html.= '
-          for(var i = 0; i < json.length; i++){
-            ';
-          $html.= ' html+= \'<option value="\' + json[i].value + \'">\' + json[i].label + \'</option> \'';
-          $html.= '
-        }';
-          $html.=  '
+              ';
 
-          html +=\'</select>\'
+              $html.= 'html+= \' <select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control" >\';';
+              $html.= '
+              html+= \'<option selected readonly disabled>'.$input['label'].'</option> \';';
+              $html.= '
+              for(var i = 0; i < json.length; i++){
+                ';
+                $html.= ' html+= \'<option value="\' + json[i].value + \'">\' + json[i].label + \'</option> \'';
+                $html.= '
+              }';
+              $html.=  '
 
-           ';
-           $html.= '
+              html +=\'</select>\'
 
-          modal.find("#'.$input['name'].'").html(html);';
+              ';
+              $html.= '
 
-          $html.= 'console.log(html);';
-          $html.= 
-          '
+              modal.find("#'.$input['name'].'").html(html);';
 
-          }
+              $html.= 'console.log(html);';
+              $html.= 
+              '
+
+            }
 
           });';
           echo $html;
           // echo 'var html = $.ajax({
           //   method: "POST",
           //   url: "'.$input['url'].'" + '.$input['id'].',
-            
+
           // })
           // .done(function( result ) {
           //   alert( result );
@@ -160,22 +160,36 @@ echo modal("modal", "label", "", "form", $data_input_modal);
 
 
       modal.find('#label').text('<?= $titulo ?>')
-      modal.find('#mandabala').text("Aceitar")
       modal.find('#id').show()
-      modal.find('#form').attr("action", '<?= $url['aprovar'] ?>' + id)
 
-      <?php if(isset($url['reprovar'])){ 
-      ?>
-        modal.find('#nao_aceitar').text('Recusar')
-        modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>"+ id)
-      <?php
+      <?php if(isset($url['aprovar'])){ 
+        ?>
+        modal.find('#form').attr("action", '<?= $url['aprovar'] ?>' + id)
+        modal.find('#mandabala').text("Aceitar")
+        <?php }
+        else{
+          ?>
+          modal.find("#mandabala").hide()
+          <?php
+        }
+        ?>
+
+
+        <?php if(isset($url['reprovar'])){ 
+          ?>
+          modal.find('#nao_aceitar').text('Recusar')
+          modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>"+ id)
+          <?php
+        }else{ ?>
+          modal.find('#nao_aceitar').hide()
+          <?php
+        }
+        ?>
+
+
+
       }
-      ?>
-
-
-
-    }
-  })
+    })
 
 
   });

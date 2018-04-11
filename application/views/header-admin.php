@@ -75,6 +75,7 @@ $usuario = $_SESSION['usuario']; ?>
             <ul class="sub">
               <li><a  href="<?= base_url('Trabalho/listar_todos') ?>">Todos</a></li>
               <li><a  href="<?= base_url('Trabalho/listar_validados') ?>">Validados</a></li>
+              <li><a  href="<?= base_url('Trabalho/listar_invalidos') ?>">Inválidos</a></li>
             </ul>
           </li>
 

@@ -11,7 +11,7 @@ function modal($modal_id = "",
 
 	foreach($modal_inputs as $input){
 		if($input['name'] != 'id'){
-			$divini = "<div class=\"form-group\"><label class=\"form-control-label\">". $input['label'] . ":</label>";
+			$divini = "<div class=\"form-group\"><label class=\"form-control-label\">". $input['label'] . "</label>";
 			$divfim = "</div>";
 			$modal_htmlinputs.= $divini.modal_input($input).$divfim;
 			
