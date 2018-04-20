@@ -43,20 +43,11 @@ $usuario = $_SESSION['usuario']; ?>
           </li>
 
           <li class="sub-menu">
-            <a href="<?= base_url('Parecerista/Pareceres') ?>" >
+            <a href="<?= base_url('Parecerista/Pareceres') ?>">
               <i class="fa fa-edit"></i>
               <span>Meus Pareceres</span>
-            </a> 
-          </li>
-
-          <li class="sub-menu">
-            <a href="<?= base_url('Admin/profile') ?>" >
-              <i class="fa fa-file"></i>
-              <span>Alterar Meus Dados</span>
             </a>
           </li>
-
-          
 
           <li class="sub-menu">
             <a href="<?= base_url('Admin/logout') ?>" >
