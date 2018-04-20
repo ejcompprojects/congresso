@@ -168,14 +168,27 @@ public function list_filter_analisar($filtros = array(), $all, $inicio = 0){
     if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
         $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
     }
-    $this->db->select("parecerista.*, parecerista_eixo.*, eixo.nome as nome_eixo");
-    $this->db->join('parecerista', 'parecerista_eixo.id_parecerista = parecerista.id', 'inner');
-    $this->db->join('eixo', 'parecerista_eixo.id_eixo = eixo.id', 'inner');
+    // $this->db->select("parecerista.*, parecerista_eixo.*, eixo.nome as nome_eixo");
+    // $this->db->join('parecerista', 'parecerista_eixo.id_parecerista = parecerista.id', 'inner');
+    // $this->db->join('eixo', 'parecerista_eixo.id_eixo = eixo.id', 'inner');
+    // if(!$all){
+    //     $this->db->where('parecerista.status_inscricao', 0);
+    // }
+    // $results = $this->db->get('parecerista_eixo')->result();
     if(!$all){
         $this->db->where('parecerista.status_inscricao', 0);
     }
-    $results = $this->db->get('parecerista_eixo')->result();
+
+    $results = $this->db->get('parecerista')->result();
+
     return $results;
+}
+
+public function get_eixos_parecerista($id_parecerista){
+    $this->db->select('eixo.nome');
+    $this->db->where('id_parecerista', $id_parecerista);
+    $this->db->join('eixo', 'parecerista_eixo.id_eixo = eixo.id', 'inner');
+    return $this->db->get('parecerista_eixo')->result();
 }
 
 }
