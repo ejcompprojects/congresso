@@ -77,7 +77,7 @@ class Parecerista_model extends CI_Model{
             }
         }
     }
-    public function get(int $id){
+    /*public function get(int $id){
         $this->db->where(self::ID_COLUMN, $id);
         $row = $this->db->get(self::DB_TABLE)->row();
         return $row;
@@ -85,7 +85,7 @@ class Parecerista_model extends CI_Model{
 
         return true;
     }
-}
+}*/
 public function get(int $id){
     $this->db->where(self::ID_COLUMN, $id);
     $row = $this->db->get(self::DB_TABLE)->row();

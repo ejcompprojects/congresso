@@ -7,13 +7,17 @@ require_once(APPPATH.'controllers/Login.php');
  * Classe responsável por gerenciar as ações de um administrador
  */
 class Painel extends Login {
-	public function __construct(){
-		parent::__construct();
-		$this->load->helper('frontend_helper'); 
-		$this->load->model('Log_model', 'log_model');
-		$this->load->model('Painel_model', 'painel_model');
+    const DATALIMITE = "2018-07-10 23:59";
 
-	}
+    public function __construct(){
+      parent::__construct();
+      $this->load->helper('frontend_helper');
+      $this->load->model('Log_model', 'log_model');
+      $this->load->model('Painel_model', 'painel_model');
+      $this->load->helper('buscarMinicurso');
+      $this->load->model('Minicurso_model', 'minicurso_model');
+
+  }
 
     /**
      * Função que retorna o HTML padrão do controller
@@ -122,31 +126,31 @@ class Painel extends Login {
 
       // }
 
-      	$this->load->view('painel/html_header');
-      	$this->load->view('painel/header');
-      	$this->load->view('painel/widgets', $data);
-      	$this->load->view('painel/footer');
+        $this->load->view('painel/html_header');
+        $this->load->view('painel/header');
+        $this->load->view('painel/widgets', $data);
+        $this->load->view('painel/footer');
 
-  }
+    }
 
-  public function alterar_para_sem_submissao_de_trabalho(){
-  	$id = $this->session->userdata('usuario')->id;
+    public function alterar_para_sem_submissao_de_trabalho(){
+       $id = $this->session->userdata('usuario')->id;
 
-  	$this->db->where('id', $id);
-  	$dados['submeter_trabalho'] = 0;
-  	$this->db->update('participante', $dados);
+       $this->db->where('id', $id);
+       $dados['submeter_trabalho'] = 0;
+       $this->db->update('participante', $dados);
 
-  	$this->session->set_flashdata('success', '<strong>Seu cadastro foi alterado para "SEM SUBMISSÃO DE TRABALHO" com sucesso!</strong>');
-  	redirect('Painel');
-  }
+       $this->session->set_flashdata('success', '<strong>Seu cadastro foi alterado para "SEM SUBMISSÃO DE TRABALHO" com sucesso!</strong>');
+       redirect('Painel');
+   }
 
-  public function submeteu_trabalho(){
-  	$id = $this->session->userdata('usuario')->id;
-  	$this->db->where('id_participante', $id);
-  	$quantidade = $this->db->get('trabalho')->num_rows();
-  	if($quantidade == 0) return false;
-  	else if($quantidade == 1) return true;
-  }
+   public function submeteu_trabalho(){
+       $id = $this->session->userdata('usuario')->id;
+       $this->db->where('id_participante', $id);
+       $quantidade = $this->db->get('trabalho')->num_rows();
+       if($quantidade == 0) return false;
+       else if($quantidade == 1) return true;
+   }
 
 // public function nome_do_mes($mes){
 //     switch($mes){
@@ -170,8 +174,8 @@ class Painel extends Login {
 //     }
 // }
 
-  public function calcula_valor($mes, $tipo_inscricao){
-  	switch($tipo_inscricao){
+   public function calcula_valor($mes, $tipo_inscricao){
+       switch($tipo_inscricao){
             case 1: //graduando
             switch($mes){
             	case 2: return 20; break;
@@ -204,7 +208,7 @@ class Painel extends Login {
             } 
             break;
             
-       
+
             
 
         }
@@ -398,6 +402,7 @@ public function profile(){
 	$this->load->view('painel/header');
 	$this->load->view('painel/profile', $data);
 	$this->load->view('painel/footer');
+    print_r($usuario);
 }
 
     // public function dados_referentes_ao_tipo_de_inscricao(){
@@ -573,4 +578,62 @@ public function alterar_meus_dados(){
     	}
     }
 
-}
+
+    public function minicursos(){
+        $id = $this->session->userdata('usuario')->id;
+        $this->db->where('id', $id);
+        $usuario = $this->db->get('participante')->row();
+
+        $data['minicurso'] = $this->minicurso_model->getAll();
+        foreach ($data['minicurso'] as $minicurso) {
+            $minicurso->vagasRestantes = $this->minicurso_model->vagasRestantes($minicurso->id, $usuario->id_tipo_inscricao);
+            //echo $minicurso->id;
+        }
+        //exit();
+        $data['meusMinicursos'] = $this->minicurso_model->meusMinicursos($usuario->id);
+       // $data['minicurso']['vagasRestantes'] = 
+        $data['usuario'] = $usuario;
+        $data['mensagens'] = mensagens();
+        $this->load->view('painel/html_header');
+        $this->load->view('painel/header');
+        $this->load->view('painel/minicursos', $data);
+        $this->load->view('painel/footer');
+
+        //print_r($usuario);
+        //print_r($data['meusMinicursos']);
+
+
+    }
+
+    public function minicursoInscrever($idMinicurso){
+        if($this->minicurso_model->existsMinicurso($idMinicurso)){ //barra usuario troll
+            if($this->dataLimiteMinicurso()){ //verifica se ainda esta no prazo de se inscrever
+                $array = $this->minicurso_model->meusMinicursos($this->session->userdata('usuario')->id, "dia");
+                $dia =  $this->minicurso_model->getDia($idMinicurso);
+                $vagas = $this->minicurso_model->vagasRestantes($idMinicurso, $this->session->userdata('usuario')->id_tipo_inscricao);
+                if($vagas > 0){
+                    if(!(minicursoInArray($array, $dia->dia, "dia"))){
+                        $this->minicurso_model->inscreverMinicurso($this->session->userdata('usuario')->id, $idMinicurso);
+                        $this->session->set_flashdata('success', "Inscrito no minicurso com sucesso.");
+                    }
+                    else
+                        $this->session->set_flashdata('danger', "<b>Choque de horário. Você já está inscrito em outro minicurso neste mesmo horário. </b>");
+                }
+                else 
+                    $this->session->set_flashdata('danger', "<b>Sem Vagas. Esse minicurso não possui mais vagas.</b>");
+            }
+            else{
+                $this->session->set_flashdata('danger', "<b>O prazo para inscrição já foi encerrado.</b>");
+            }
+        }
+        redirect(base_url('Painel/minicursos'));
+    }
+    private function dataLimiteMinicurso(){
+        date_default_timezone_set('America/Sao_Paulo');
+        $data = date('Y-m-d H:i');
+        if(self::DATALIMITE > $data)
+            return true;
+            else
+                return false;
+        }
+    }
