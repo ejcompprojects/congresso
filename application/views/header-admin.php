@@ -69,12 +69,26 @@ $usuario = $_SESSION['usuario']; ?>
 
           <li class="sub-menu">
             <a href="javascript:;" >
+              <i class="fa fa-user"></i>
+              <span>Trabalho</span>
+            </a>  
+            <ul class="sub">
+              <li><a  href="<?= base_url('Trabalho/listar_todos') ?>">Todos</a></li>
+              <li><a  href="<?= base_url('Trabalho/listar_validados') ?>">Validados</a></li>
+              <li><a  href="<?= base_url('Trabalho/listar_invalidos') ?>">Inválidos</a></li>
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="javascript:;" >
               <i class="fa fa-envelope"></i>
               <span>E-mail</span>
             </a>  
             <ul class="sub">
-              <li><a  href="<?= base_url('Email/especifico') ?>">P/ um Part. Específico</a></li>
-              <li><a  href="<?= base_url('Email/grupo') ?>">P/ um grupo</a></li>
+              <li><a  href="<?= base_url('Email/especifico/participante') ?>">P/ um Participante</a></li>
+              <li><a  href="<?= base_url('Email/especifico/parecerista') ?>">P/ um Parecerista</a></li>
+              <li><a  href="<?= base_url('Email/grupo') ?>">P/ um grupo de Part.</a></li>
+              <li><a  href="<?= base_url('Email/pareceristas') ?>">P/ TODOS os pareceristas</a></li>
               
             </ul>
           </li>

@@ -135,7 +135,12 @@
                 data-celular      ="<?=$parecerista->celular?>"
                 data-telefone      ="<?=$parecerista->telefone?>"
                 data-instituicao     ="<?=$parecerista->instituicao?>"
-                data-eixo     ="<?=$parecerista->nome_eixo?>"
+                <?php 
+                for($i = 0 ;  $i < $parecerista->quantidade_eixos; $i ++){
+                  echo ' data-eixo['.$i.'] = "'.$parecerista->eixos[$i]->nome.'" ';
+                }
+                echo ' data-quantidade = "'.$parecerista->quantidade_eixos.'" ';
+                ?>
 
                 
                 <?php } ?>
@@ -240,14 +245,14 @@ if($funcao == 'listar_analisar'){
   'disabled'    => true,
   'class'       => 'form-control',); 
 
- $input[7]['type']  = "input_text";
+ $input[7]['type']  = "input_textarea";
 
- $input[7]['label'] = "Eixo";
+ $input[7]['label'] = "Eixos";
+
 
  $input[7]['attr']  = array(
-  'name'        => 'eixo',
-  'id'          => 'eixo',
-  'maxlength'   => 255,
+  'name'        => 'eixos',
+  'id'          => 'eixos',
   'disabled'    => true,
   'class'       => 'form-control',); 
 }
@@ -323,7 +328,19 @@ echo modalForm("modalParecista", "pareceristaLabel", "", "formParticipante", $in
           var celular   = button.data('celular')
           var telefone  = button.data('telefone')
           var instituicao = button.data('instituicao')
-          var eixo = button.data('eixo')
+          
+          var quantidade = button.data('quantidade')
+          //var eixos = button.data('eixo')
+          var eixos = new Array(quantidade)
+          var html_eixos = ''
+          for(i = 0 ; i < quantidade ; i++){
+            eixos[i] = button.data('eixo'+'['+i+']')
+            html_eixos += eixos[i]+'\n';
+          }
+
+          console.log(eixos);
+          
+
 
           modal.find('#id').val(id)
           modal.find('#registro').val(data_registro)
@@ -333,7 +350,7 @@ echo modalForm("modalParecista", "pareceristaLabel", "", "formParticipante", $in
           modal.find('#celular').val(celular)
           modal.find('#telefone').val(telefone)
           modal.find('#instituicao').val(instituicao)
-          modal.find('#eixo').val(eixo);
+          modal.find('#eixos').val(html_eixos);
         <?php } ?>
         <?php if($funcao == 'listar_trabalho_analisar'){ ?>
           var id      = button.data('id') // Extract info from data-* attributes

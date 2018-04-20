@@ -98,6 +98,15 @@ class Parecerista extends Admin {
         else
             $dados['titulo'] = 'Pareceristas a serem aprovados';
         $dados['parecerista'] = $this->parecerista_model->list_filter_analisar($filtros, $this->all,  $inicio); 
+        foreach($dados['parecerista'] as $parecerista){
+           
+            $parecerista->eixos = $this->parecerista_model->get_eixos_parecerista($parecerista->id);
+            $parecerista->quantidade_eixos = count($parecerista->eixos);
+        }
+
+        // echo '<pre>';
+        // print_r($dados['parecerista']);
+        // echo '</pre>'; exit();
         $dados['paginacao'] = $this->pagination->create_links();
         $dados['filtros'] = $filtros;
         $dados['filtros_verbose'] = $filtros_verbose;

@@ -63,3 +63,5 @@ $route['programacao'] = 'home/programacao';
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['Parecerista'] = 'PainelParecerista';
+$route['Parecerista/Pareceres'] = 'PainelParecerista/Pareceres';
