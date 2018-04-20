@@ -11,7 +11,7 @@ function modal($modal_id = "",
 
 	foreach($modal_inputs as $input){
 		if($input['name'] != 'id'){
-			$divini = "<div class=\"form-group\"><label class=\"form-control-label\">". $input['label'] . "</label>";
+			$divini = "<div class=\"form-group\"><label class=\"form-control-label\">". $input['label'] . ":</label>";
 			$divfim = "</div>";
 			$modal_htmlinputs.= $divini.modal_input($input).$divfim;
 			
@@ -96,11 +96,12 @@ function getInput($input = array())
 {
 	if($input['type'] == 'link') return ('<div class=""><a href="" target="_blank" id="'.$input['attr']['id'].'" class="btn btn-primary">CLIQUE AQUI PARA ABRIR O TRABALHO</a></div>');
 	if($input['type'] == "input_text") 		return(form_input($input['attr']));
+	if($input['type'] == "input_number")	return(form_input($input['attr']));
 	if($input['type'] == "input_file") 		return(form_upload($input['attr']));
 	if($input['type'] == "input_textarea") 	return(form_textarea($input['attr']));
 	if($input['type'] == "input_select") 	return(form_dropdown($input['attr'], $input['options'], $input['selected']));
-	if($input['type'] == "input_password") return(form_password($input['attr']));
-	if($input['type'] == "input_file") return(form_upload($input['attr']));
+	if($input['type'] == "input_password") 	return(form_password($input['attr']));
+	if($input['type'] == "input_file") 		return(form_upload($input['attr']));
 	if($input['type'] == 'image') return ("<div class='imageContainer'>
 		<div class='image'>
 		<img src='' width='350' heigth='350' id='".$input['attr']['id']."'>
@@ -195,5 +196,7 @@ function getInput($input = array())
 			return $html;
 			
 		}
+
+		if($input['type'] == 'file_down') return ("<div><a class='btn btn-primary btn-xs' id='".$input['id']."' href='".$input['src']."' download>Baixar</a></div>");
 		
 	}
