@@ -64,7 +64,7 @@ class Painel extends Login {
         		switch($status_trabalho){
         			case 0: $info[] = 'Seu trabalho está na fase de <strong>validação</strong>.<br> Fique atento em seu e-mail e no sistema, pois o prazo para correção do trabalho é de 3 dias úteis após o recebimento do aviso.'; $ponto += 20; if($estagio == 3) $estagio = 4; break;
         			case 1: $info[] = 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'; $ponto += 30; if($estagio == 4) $estagio = 7; break;
-        			case 2: $info[] = 'Infelimente seu trabalho <strong>não</strong> foi aprovado, mas você poderá ainda participar do Congresso.'; $ponto += 30; if($estagio == 4) $estagio = 7;   break;
+        			case 2: $info[] = 'Infelizmente seu trabalho <strong>não</strong> foi aprovado, mas você poderá ainda participar do Congresso.'; $ponto += 30; if($estagio == 4) $estagio = 7;   break;
         		}
         	}else{
         		// $ultimo_dia_mes = $this->ultimo_dia(date('m'));
@@ -291,7 +291,11 @@ class Painel extends Login {
     			switch($status_trabalho){
     				case 0: $status_trabalho = 'Seu trabalho está em <strong>análise</strong>.'; break;
     				case 1: $status_trabalho = 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'; break;
-    				case 2: $status_trabalho = 'Infelimente seu trabalho não foi aprovado, mas você poderá ainda participar do Congresso.'; break;
+    				case 2: $status_trabalho = 'Infelizmente seu trabalho não foi aprovado, mas você poderá ainda participar do Congresso.'; break;
+                    case 3: $status_trabalho = 'Seu trabalho está sendo analisado por um parecerista.'; break;
+                    case 4: $status_trabalho = 'Houve um problema com seu trabalho sem o nome de autor, portanto será preciso reenviá-lo.'; break;
+                    case 5: $status_trabalho = 'Houve um problema com seu trabalho com o nome de autor, portanto será preciso reenviá-lo.'; break;
+                    case 6: $status_trabalho = 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los'; break;
     			}
     		}else{
     			$status_trabalho = 'Você deve enviar seu artigo até fim do mês!'; 
@@ -305,6 +309,7 @@ class Painel extends Login {
     	$data['status_inscricao'] = $status_inscricao;
     	$data['status_trabalho']  = $status_trabalho;
     	$data['vai_submeter_trabalho'] = $vai_submeter_trabalho;
+        $data['dentro_do_prazo'] = $this->painel_model->get_diferenca_datas($id);
 
     	$data['mensagens'] = mensagens();
     	$this->load->view('painel/html_header');
@@ -379,6 +384,52 @@ class Painel extends Login {
 
 redirect(base_url('Painel/enviar_arquivos'));
 }
+
+public function resend_article(){
+        if($this->input->post('artigo_com_autor') !== false){
+            $resposta1 = $this->do_upload_article('artigo_com_autor');
+        }
+        else
+        {
+            $resposta1['deu_certo'] = false;
+        }
+
+        if($this->input->post('artigo_sem_autor') !== false){
+            $resposta2 = $this->do_upload_article('artigo_sem_autor');
+        }
+        else
+        {
+            $resposta2['deu_certo'] = false;
+        }
+
+        if($resposta1['deu_certo'] || $resposta2['deu_certo']){
+            if($resposta1['deu_certo'])
+            {
+                $data['arquivo_com_nome_autor'] = $resposta1['message'];
+            }
+            if($resposta2['deu_certo'])
+            {
+                $data['arquivo_sem_nome_autor'] = $resposta2['message'];
+            }
+            $id = $this->session->userdata('usuario')->id;
+            $data['status'] = 0;
+            $this->db->where('id_participante', $id);
+            $this->db->update('trabalho', $data);
+           
+
+            $this->log_model->insert('O participante reenviou o artigo.', $id);
+            $this->session->set_flashdata('success', 'Artigo reenviado para análise.<br>Em breve você receberá a resposta.');
+            echo "<br>Deu certo!";
+
+        }else{
+
+            if($resposta1['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta1['message']);
+            if($resposta2['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta2['message']);
+            echo "<br>Deu errado!";
+        }
+        
+        redirect(base_url('Painel/enviar_arquivos'));
+    }
 
 public function profile(){
 	$data['mensagens'] = mensagens();

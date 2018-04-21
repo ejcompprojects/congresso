@@ -10,6 +10,7 @@ class Trabalho extends Admin {
 		$this->load->helper('frontend_helper'); 
 		$this->load->helper('modalform_helper'); 
 		$this->load->model('Trabalho_model', 'trabalho_model');
+		$this->load->model('Log_model', 'log_model');
 
 	}
 
@@ -94,7 +95,71 @@ class Trabalho extends Admin {
 		$this->load->view('footer-admin');
 	}
 
-	
+	public function listar_para_validacao(){
+		$status = 0; //0 é status EM ANÁLISE
+
+
+		$table_header = array(
+			
+			array('icon' => 'fa fa-user', 'label' => 'Nome'),
+			array('icon' => 'fa fa-user', 'label' => 'Eixo'),
+			array('icon' => 'fa fa-user', 'label' => 'Data de Submissão')
+
+		);
+
+		$table_body = array('nome', 'eixo', 'data');
+
+
+		$data_input_modal = array(
+			//array('name' => 'justificativa', 'label' 	=> 'Justificativa', 'type' => 'input_text'),
+			array('name' => 'id_eixo', 'label' => '', 'type' => 'hidden'),
+			array('name' => 'id', 'label' => 'ID', 'type' => 'input_text'),
+			array('name' => 'nome', 'label' 	=> 'Nome','type' 	=> 'input_text'),
+			array('name' => 'email', 'label' 	=> 'E-mail', 'type' => 'input_text'),
+			array('name' => 'tipo', 'label' 	=> 'Tipo', 'type' => 'input_text'),
+			array('name' => 'titulo', 'label' 	=> 'Titulo', 'type' => 'input_text'),
+			array('name' => 'eixo', 'label' 	=> 'Eixo', 'type' => 'input_text'),
+			array('name' => 'data', 'label' 	=> 'Data', 'type' => 'input_text'),
+			array('name' => 'arquivo_sem_nome_autor', 'label' 	=> 'Arquivo Sem Nome Autor', 'type' => 'input_file'),
+			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file'),
+			array('name' => 'reenviar_trabalho_com_autor', 'label' 	=> '', 'type' => 'special_button'),
+			array('name' => 'reenviar_trabalho_sem_autor', 'label' 	=> '', 'type' => 'special_button'),
+			array('name' => 'reenviar_ambos_trabalhos', 'label' 	=> '', 'type' => 'special_button'),
+			array('name' => 'aceitar_trabalhos', 'label' 	=> '', 'type' => 'special_button'),
+			array('name' => 'mensagem', 'label' 	=> '', 'type' => 'textarea')
+
+		);
+
+		
+
+		$objects = $this->trabalho_model->get_all_where_status($status);
+
+
+		//converter a data para PT-BR
+		for($i = 0 ; $i < count($objects); $i++){
+			$objects[$i]['data'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data']));
+			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
+		}
+		// print_r($objects); exit();
+
+		$dados['table_header'] 		= $table_header;
+		$dados['table_body']	 	= $table_body;
+		$dados['objects'] 			= $objects;
+		$dados['data_input_modal']  = $data_input_modal;
+
+
+		$dados['funcao'] 			= 'listar_para_validacao';
+		$dados['titulo'] 			= 'Trabalhos Para Validação';
+
+		$dados['quantidade'] 		= $this->trabalho_model->num_rows_where_status($status);
+		$dados['mensagens'] 		= mensagens();
+		$dados['url'] = array('aprovar' => base_url('Trabalho/validar/'), 'reprovar' => base_url('Trabalho/enviar_email_participante/'));
+
+		$this->load->view('html-header-admin');
+		$this->load->view('header-admin');
+		$this->load->view('listar-trabalhos-para-validacao', $dados);
+		$this->load->view('footer-admin');
+	}
 
 	public function listar_validados(){
 		$status = 1; //1 é status VÁLIDO
@@ -243,6 +308,20 @@ class Trabalho extends Admin {
 
 	}
 
+	public function validar($id_participante){
+		$this->db->where('id_participante', $id_participante);
+		$dados['status'] = 1;
+		$this->db->update('trabalho', $dados);
+
+		$this->db->where('id_participante', $id_participante);
+		$trabalho = $this->db->get('trabalho')->row();
+		
+
+		$this->session->set_flashdata('success', 'O trabalho <b>"'.$trabalho->titulo.'"</b> foi validado com sucesso!');
+
+		redirect('Trabalho/listar_para_validacao');
+
+	}
 
 	public function enviar_para_parecerista($id_participante){
 		
@@ -271,6 +350,40 @@ class Trabalho extends Admin {
 		redirect('Trabalho/listar_validados');
 	}
 
+	public function enviar_email_participante()
+	{
+		$id_participante = $this->input->post('id');
+		$trabalho = $this->input->post('trabalhos');
+		if($trabalho == "reenviar_trabalho_com_autor")
+		{
+			$status = 5;
+		}	
+		else if($trabalho == "reenviar_trabalho_sem_autor")
+		{
+			$status = 4;
+		}
+		else if($trabalho == "reenviar_ambos_trabalhos")
+		{
+			$status = 6;
+		}
+
+		$this->trabalho_model->reenviar_trabalhos($id_participante, $status);
+		$titulo = "Trabalho reprovado";
+		$mensagem = "<h2>Olá Congressista! <br> Seu trabalho foi reprovado por um administrador. </h2> <br> Mensagem: <br>";
+		$mensagem .= $this->input->post('mensagem');
+		$mensagem .= "<h3> Atenção! Você tem até 3 dias para reenviar seu trabalho!";
+		$email = $this->input->post('email');
+		$resposta = $this->send_email_with_title($titulo, $mensagem, $email);
+		if($resposta){
+            $this->log_model->insert('Foi enviado o e-mail de reenvio de trabalho para o participante.', $id_participante);
+    		$this->session->set_flashdata('success', 'Email enviado com sucesso!');  
+    	}
+    	else{
+        $this->log_model->insert('Houve um erro no envio do e-mail para o participante.', $id_participante);
+    		$this->session->set_flashdata('danger', htmlspecialchars($resposta));  
+
+    	}
+	}
 }
 
 

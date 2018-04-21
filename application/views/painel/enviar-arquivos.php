@@ -203,6 +203,126 @@
 
 						</div>
 					</div>
+					<?php } ?>
+					<?php 
+					if(($status_trabalho == 'Houve um problema com seu trabalho sem o nome de autor, portanto será preciso reenviá-lo.' || $status_trabalho == 'Houve um problema com seu trabalho com o nome de autor, portanto será preciso reenviá-lo.' || $status_trabalho == 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los') && $dentro_do_prazo == false){
+								$title = 'Status do Trabalho: prazo de reenvio expirado.';
+								$panel = 'panel-warning';
+								$message = '<h2>Infelizmente o prazo de reenvio do seu trabalho foi expirado, mas você poderá ainda participar do Congresso.</h2>';
+							}
+					?>
+					<div class="col-md-12">
+						<div class="panel <?= $panel ?>">
+							<div class="panel-heading">
+								<p align="center" style="color:white;"><?= $title ?></p>
+
+
+								<span class="pull-right"></span>
+							</div>
+							<div class="panel-body">
+								<?= $message ?>
+							</div>
+
+						</div>
+					</div>
+					<?php
+
+					if($enviou_comprovante && $vai_submeter_trabalho && ($status_trabalho == 'Houve um problema com seu trabalho sem o nome de autor, portanto será preciso reenviá-lo.' || $status_trabalho == 'Houve um problema com seu trabalho com o nome de autor, portanto será preciso reenviá-lo.' || $status_trabalho == 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los')  && $status_inscricao == 'Aprovado' && $dentro_do_prazo){
+							
+							$title = 'Status do Trabalho: reenvio solicitado';
+							$panel = 'panel-warning';
+							$message = '<h2>'.$status_trabalho.'</h2>';
+							
+					 ?>
+			 	<div class="col-md-12">
+					<div class="panel <?= $panel ?>">
+						<div class="panel-heading">
+							<p align="center" style="color:white;"><?= $title ?></p>
+
+
+							<span class="pull-right"></span>
+						</div>
+						<div class="panel-body">
+							<?= $message ?>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<strong>Regras para Submissão do Trabalho</strong>
+							<span class="pull-right"></span>
+						</div>
+						<div class="panel-body">
+							<p>Serão aceitos os trabalhos de cunho acadêmico conforme os Eixos Temáticos do Congresso, sob a forma de duas modalidades: <strong>Resumo Expandido e Trabalho Completo.</strong></p>
+							<p>A apresentação dos trabalhos aprovados (<strong>Resumo Expandido e/ou Trabalho Completo</strong>) será no formato de <strong>comunicação oral</strong> (*não haverá modalidade de pôster).</p>
+							<p>Em qualquer uma das duas modalidades, os trabalhos inscritos deverão atender aos seguintes objetivos: </p>
+							<p><strong>a)</strong> ter a Pedagogia Histórico-Crítica como objeto de pesquisa e/ou fundamento teórico de investigações e de experiências que visem contribuições propositivas a ela; ou que a analisem criticamente à vista de seu aprimoramento; </p>
+							<p><strong>b)</strong> adotar os fundamentos epistemológicos, filosóficos e ontológicos que fundamentam a pedagogia histórico-crítica na análise da relação entre educação e desenvolvimento humano. </p>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading" id="duvida">
+							<strong>Instruções para anexar o seu <strong>trabalho:</strong></strong>
+
+
+							<span class="pull-right"></span></div>
+							<div class="panel-body">
+
+								<form class="form-horizontal" action="<?= base_url('Painel/resend_article') ?>" method="POST" enctype="multipart/form-data">
+									<fieldset>
+										<p><strong>OBS:</strong> O formato válido para o arquivo dos artigos são: <strong>.pdf, .doc, .docx.</strong> com a tamanho máximo de <strong>2 MB.</strong></p>
+										
+										<?php 
+											if($status_trabalho == 'Houve um problema com seu trabalho com o nome de autor, portanto será preciso reenviá-lo.' || $status_trabalho == 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los')
+											{ 
+										?>										
+										<p>Selecione abaixo o seu trabalho <strong>com</strong> seu nome de autor.</p>
+										<div class="form-group">
+											<div class="col-md-12">
+												<input required="true" type="file" name="artigo_com_autor" id="artigo_com_autor" class="form-control"  accept=".docx, .doc, .pdf">
+											</div>
+										</div>
+
+										<?php 
+											}
+											if($status_trabalho == 'Houve um problema com seu trabalho sem o nome de autor, portanto será preciso reenviá-lo.' || $status_trabalho == 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los')
+											{ 
+										?>
+
+										<p>Selecione abaixo o seu trabalho <strong>sem</strong> o seu nome de autor, somente com o conteúdo do artigo.</p>
+										<div class="form-group">
+											<div class="col-md-12">
+												<input required="true" type="file" name="artigo_sem_autor" id="artigo_sem_autor" class="form-control"  accept=".docx, .doc, .pdf">
+											</div>
+										</div>
+
+										<?php 
+											}
+										?>
+
+										<p>Clique sobre o botão <strong>"Enviar Trabalho"</strong></p>
+										<!-- Message body -->
+										<div class="form-group">
+											<div class="col-md-12">
+
+												<input type="submit" name="submit" id="submit" class="btn btn-primary" value="Enviar Trabalho" >
+											</div>
+
+										</div>
+
+
+									</fieldset>
+								</form>
+							</div>
+
+						</div>
+					</div>
 					<?php } 
 					else{
 
@@ -230,13 +350,14 @@
 									<p align="center" style="color:white;"><?= $title ?></p>
 
 
-									<span class="pull-right"></span></div>
-									<div class="panel-body">
-										<?= $message ?>
-									</div>
-
+									<span class="pull-right"></span>
 								</div>
+								<div class="panel-body">
+									<?= $message ?>
+								</div>
+
 							</div>
+						</div>
 							<?php } ?>
 
 							<?php } ?>
