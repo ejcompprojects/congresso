@@ -74,4 +74,13 @@ class Painel_model extends CI_Model{
  		return $this->db->insert('trabalho', $data);
 
  	}
+
+ 	public function get_diferenca_datas($id){
+ 		$this->db->where('id_participante', $id );
+ 		$trabalho = $this->db->get('trabalho')->row();
+		$data_resposta = $trabalho->data_resposta;
+		$data_limite =  date("Y-m-d H:i:s", strtotime("-3 day"));
+ 		if($data_resposta > $data_limite) return true;
+ 		else return false;
+ 	}
 }

@@ -11,7 +11,13 @@ function modal($modal_id = "",
 
 	foreach($modal_inputs as $input){
 		if($input['name'] != 'id'){
-			$divini = "<div class=\"form-group\"><label class=\"form-control-label\">". $input['label'] . ":</label>";
+			if($input['label'] != ''){
+				$divini = "<div class=\"form-group\"><label class=\"form-control-label\">". $input['label'] . ":</label>";
+			}
+			else
+			{
+				$divini = "<div class=\"form-group\">";
+			}
 			$divfim = "</div>";
 			$modal_htmlinputs.= $divini.modal_input($input).$divfim;
 			
@@ -39,12 +45,13 @@ function modal_input($input){
 
 	else if($input['type'] == 'input_file')
 		return '<div class=""><a href="" target="_blank" id="'.$input['name'].'" class="btn btn-primary">CLIQUE AQUI PARA ABRIR O TRABALHO</a></div>';
+	else if($input['type'] == 'special_button')
+		return '<input type="radio" name="trabalhos" id="r-'.$input['name'].'" value="'.$input['name'].'" required="required"><label for="r-'.$input['name'].'">'.strtoupper(str_replace('_', ' ', $input['name'])).'</label>';
 	else if($input['type'] == 'special_select')
 		return '<div class=""><select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control"></select></div>';
-	// else if($input['type'] == 'special_select')
-	// 	return 
+	else if($input['type'] == 'textarea')
+		return '<div class=""><textarea name="'.$input['name'].'" id="'.$input['name'].'" class="form-control mensagem" style="resize: none" rows="3" placeholder="Digite aqui a mensagem a ser enviada ao congressista, especificando o motivo da reprovação do trabalho" required="required"></textarea></div>';
 }
-
 
 function modalForm($modal_id = "",
 	$modal_title = "",

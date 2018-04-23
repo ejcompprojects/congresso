@@ -39,6 +39,11 @@ class Trabalho_model extends CI_Model{
         return $this->db->get('trabalho')->num_rows();
     }
 
-
-
+    public function reenviar_trabalhos($id_participante, $status)
+    {
+        $this->db->where('id_participante', $id_participante);
+        $data['status'] = $status;
+        $data['data_resposta'] = date("Y-m-d H:i:s");
+        return $this->db->update('trabalho', $data);
+    }
 }
