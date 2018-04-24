@@ -17,19 +17,23 @@
 	<div class="row">
 		<div class="col-md-12" >
 			<?php 
-			if($porcentagem == 60 || $porcentagem == 90){
+			if($porcentagem == 100){
+
+				echo '<div class="panel panel-success "><div class="panel-heading">
+				<strong>Sua inscrição está completa!</strong>';
+			}
+			else if($fase == 'ENVIAR_COMPROVANTE' || $fase == 'ENVIAR_TRABALHO'){
+				echo '<div class="panel panel-danger ">
+				<div class="panel-heading">
+				<strong>Sua inscrição ainda não está completa!</strong>';
+			}
+			else{
 				echo '<div class="panel panel-info ">
 				<div class="panel-heading">
 				<strong>Sua inscrição está em análise</strong>
 				';
 			}
-			else if($completo) echo '<div class="panel panel-success "><div class="panel-heading">
-				<strong>Sua inscrição está completa!</strong>';
-			else{
-				echo '<div class="panel panel-danger ">
-				<div class="panel-heading">
-				<strong>Sua inscrição ainda não está completa!</strong>';
-			}
+
 			
 			?>
 			<span class="pull-right clickable panel-toggle panel-button-tab-left" ><em class="fa fa-toggle-up"></em></span></div>
@@ -38,62 +42,58 @@
 					<div class="row progress-labels">
 						<!-- <div class="col-sm-6"> -->
 							<?php 
-							if(count($info) > 0){ 
+							
+							if(count($mensagens) > 0){ 
 										// echo '<p>Ainda resta você fazer:</p>';
 								echo '<ul>';
-								for($i = 0 ; $i < count($info); $i++){
-									echo '<li>'.$info[$i].'</li>';
+								for($i = 0 ; $i < count($mensagens); $i++){
+									echo '<li>'.$mensagens[$i].'</li>';
 								}
 								echo '</ul>';
 							}
 							?>
 
 
-								<!-- <ul>
-									<li>Você não anexou a foto de seu comprovante de pagamento ainda!</li>
-									<li>Você deve enviar seu artigo até fim do mês!</li>
-								</ul> -->
-							<!-- </div> -->
-							<div class="pull-right" style="margin-right:10px;"><?= $porcentagem ?>%</div>
-						</div>
-						<div class="progress">
-							<div data-percentage="0%" style="width: <?= $porcentagem ?>%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								<div class="pull-right" style="margin-right:10px;"><?= $porcentagem ?>%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: <?= $porcentagem ?>%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="content">
-				<div class="col-lg-12" style="padding-left: 0px; padding-right: 0px;">
-					<div class="panel">
-						<div class="panel-body">
-							<h2>INFORMAÇÕES IMPORTANTES:</h2>
-							<hr>
-							<ol style="font-size:12pt;">
-								<!-- <li>Caso você tenha marcado que irá <strong>submeter o trabalho, ENVIE-O ATÉ O FIM DESTE MÊS</strong>, caso contrário sua inscrição será cancelada e será necessário efetuar o pagamento novamente.</li> -->
-								<li>Faça o depósito e anexe o comprovante de pagamento neste mês, caso contrário irá pagar um valor a mais, o valor do próximo mês (a cada mês a inscrição será mais cara).</li>
-								<li>Acompanhe abaixo os passos necessários para se completar sua inscrição.</li>
-								<li>Em breve enviaremos um e-mail informando a data em que abriremos as inscrições das oficinas e minicursos.</li>
-							</ol>
+				<div class="content">
+					<div class="col-lg-12" style="padding-left: 0px; padding-right: 0px;">
+						<div class="panel">
+							<div class="panel-body">
+								<h2>INFORMAÇÕES IMPORTANTES:</h2>
+								<hr>
+								<ol style="font-size:12pt;">
+									<!-- <li>Caso você tenha marcado que irá <strong>submeter o trabalho, ENVIE-O ATÉ O FIM DESTE MÊS</strong>, caso contrário sua inscrição será cancelada e será necessário efetuar o pagamento novamente.</li> -->
+									<li>Faça o depósito e anexe o comprovante de pagamento neste mês, caso contrário irá pagar um valor a mais, o valor do próximo mês (a cada mês a inscrição será mais cara).</li>
+									<li>Acompanhe abaixo os passos necessários para se completar sua inscrição.</li>
+									<li>Em breve enviaremos um e-mail informando a data em que abriremos as inscrições das oficinas e minicursos.</li>
+								</ol>
 
 
+							</div>
 						</div>
 					</div>
 				</div>
+
+
 			</div>
-
-
 		</div>
-	</div>
 
-	<?php $indice = 1; ?>
+		<?php $indice = 1; ?>
 
 
-	<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<strong>Efetue os seguintes passos para se inscrever:</strong>
-			</div>
+		<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<strong>Efetue os seguintes passos para se inscrever:</strong>
+				</div>
 				<div class="panel-body timeline-container" style="padding-top: 0px;">
 					<ul class="timeline timeline-horizontal">
 						<li class="timeline-item">
@@ -189,7 +189,7 @@
 						</li>
 					</ul>
 				</div>
-		</div>
+			</div>
 
 
 

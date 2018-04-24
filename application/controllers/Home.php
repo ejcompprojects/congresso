@@ -110,8 +110,8 @@ class Home extends CI_Controller {
 		if($this->modelParecerista->cpf_exists($dados['cpf']))
 			$msg_error.="Este CPF já foi cadastrado!<br>";
 
-		if(!$this->modelParecerista->validaCPF($dados['cpf']))
-			$msg_error.="CPF inválido ou não existe!<br>";
+		// if(!$this->modelParecerista->validaCPF($dados['cpf']))
+		// 	$msg_error.="CPF inválido ou não existe!<br>";
 
 		if($this->modelParecerista->email_exists($dados['email']))
 			$msg_error.="Este e-mail já foi cadastrado!<br>";
@@ -131,10 +131,10 @@ class Home extends CI_Controller {
 		{
 			if($this->modelParecerista->cadastraParecerista($dados, $eixos))
 				 $this->session->set_flashdata(
-				 	'success', "Cadastro realizado com sucesso!"
+				 	'success', "Cadastro realizado com sucesso!<br>Espere até que a sua inscrição seja avaliada por nossa equipe."
 				 );
 			else $this->session->set_flashdata(
-					'danger', "Cadastro não realizado, tente novamente."
+					'danger', "Ocorreu um erro ao tentar cadastrar, por favor tente novamente."
 				);
 		}
 

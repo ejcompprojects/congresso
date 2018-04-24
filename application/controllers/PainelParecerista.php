@@ -63,7 +63,7 @@ public function insert()
             if($this->pModel->update($id_trabalho, $dados)){
                 $participante   = $this->pModel->get_email_participante_trabalho($id_trabalho);
 
-                 $this->log_model->insert_parecerista("Parecer realizado para " . $participante['nome'], $_SESSION['usuario']->id);
+                 $this->log_model->insert_parecerista("Parecer realizado para " . $participante['nome'], $this->session->userdata('usuario')->id;
                  $this->session->set_flashdata(
                     'success', "Parecer realizado com sucesso!"
                  );
@@ -74,7 +74,7 @@ public function insert()
                 $mensagem      .= "<br/><br/>Atenciosamente, Comissão Avaliadora Congresso Pedagogia Hitórico-Crítica";
 
                 if(parent::send_email_with_title('PHC - Avaliação do Trabalho', $mensagem, $participante['email'])){
-                    $this->log_model->insert_parecerista("Avaliação de trabalho enviada para " . $participante['email'], $_SESSION['usuario']->id);
+                    $this->log_model->insert_parecerista("Avaliação de trabalho enviada para " . $participante['email'], $this->session->userdata('usuario')->id);
                 }
 
             }
@@ -89,9 +89,9 @@ public function insert()
        if($this->pModel->update_trabalho($id_trabalho, $dados)){
             unset($dados);
             $dados['ativo'] = 0;
-            $dados['status'] = 0;
+            $dados['status_parecer'] = 0;
             $this->pModel->update($id_trabalho, $dados);
-            $this->log_model->insert_parecerista("Avaliação de trabalho revogada " . $id_trabalho, $_SESSION['usuario']->id);
+            $this->log_model->insert_parecerista("Avaliação de trabalho revogada " . $id_trabalho, $this->session->userdata('usuario')->id);
             $this->session->set_flashdata('success', "Parecer revogado com sucesso!");
        }
        else $this->session->set_flashdata('danger', "Não foi possível revogar o parecer!");

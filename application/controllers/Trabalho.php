@@ -70,6 +70,9 @@ class Trabalho extends Admin {
 				case 1: $objects[$i]['status'] = 'Aprovado'; break;
 				case 2: $objects[$i]['status'] = 'Reprovado'; break;
 				case 3: $objects[$i]['status'] = 'Encaminhado para Parecerista'; break;
+				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
+				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
+				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
 
 			}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
@@ -94,6 +97,91 @@ class Trabalho extends Admin {
 		$this->load->view('listar-trabalhos', $dados);
 		$this->load->view('footer-admin');
 	}
+
+	public function listar_trabalhos_que_foram_enviados_para_pareceristas(){
+
+
+		$table_header = array(
+			
+			array('icon' => 'fa fa-user', 'label' => 'Nome do Participante'),
+			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
+			array('icon' => 'fa fa-user', 'label' => 'Eixo'),
+			array('icon' => 'fa fa-user', 'label' => 'Tipo usuário'),
+			array('icon' => 'fa fa-user', 'label' => 'Status do Parecer'),
+			array('icon' => 'fa fa-user', 'label' => 'Nome do Parecerista'),
+			array('icon' => 'fa fa-user', 'label' => 'Data de Recebimento do Trabalho'),
+			array('icon' => 'fa fa-user', 'label' => 'Ativo'),
+			array('icon' => 'fa fa-user', 'label' => 'Justificativa')
+
+		);
+
+		$table_body = array('nome_participante', 'titulo', 'eixo', 'tipo', 'status', 'nome_parecerista', 'data', 'ativo', 'justificativa');
+
+
+		$data_input_modal = array(
+		
+			//array('name' => 'id', 'label' => 'ID', 'type' => 'input_text'),
+			array('name' => 'nome_participante', 'label' 	=> 'Nome do Participante','type' 	=> 'input_text'),
+			array('name' => 'email', 'label' 	=> 'E-mail do Participante', 'type' => 'input_text'),
+			array('name' => 'tipo', 'label' 	=> 'Tipo', 'type' => 'input_text'),
+			array('name' => 'titulo', 'label' 	=> 'Titulo', 'type' => 'input_text'),
+			array('name' => 'eixo', 'label' 	=> 'Eixo', 'type' => 'input_text'),
+			array('name' => 'data', 'label' 	=> 'Data do Envio do Trabalho para o Parecerista', 'type' => 'input_text'),
+			array('name' => 'status', 'label' 	=> 'Status do Parecer', 'type' => 'input_text'),
+			array('name' => 'ativo', 'label' 	=> 'Ativo', 'type' => 'input_text'),
+			array('name' => 'justificativa', 'label' 	=> 'Justificativa', 'type' => 'input_text'),
+			array('name' => 'nome_parecerista', 'label' 	=> 'Nome do Parecerista','type' 	=> 'input_text'),
+			
+			array('name' => 'arquivo_sem_nome_autor', 'label' 	=> 'Arquivo Sem Nome Autor', 'type' => 'input_file'),
+			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file')
+			
+
+		);
+
+		
+
+		$objects = $this->trabalho_model->get_all_trabalhos_que_foram_enviados_para_pareceristas();
+
+
+		//converter a data para PT-BR
+		for($i = 0 ; $i < count($objects); $i++){
+			$objects[$i]['data'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data']));
+			switch($objects[$i]['status']){
+				case 0: $objects[$i]['status'] = 'Em Análise'; break;
+				case 1: $objects[$i]['status'] = 'Aprovado'; break;
+				case 2: $objects[$i]['status'] = 'Reprovado'; break;
+
+
+			}
+
+			switch($objects[$i]['ativo']){
+				case 0: $objects[$i]['ativo'] = 'Não. Deve-se enviar este trabalho para outro Parecerista.'; break;
+				case 1: $objects[$i]['ativo'] = 'Sim'; break;
+			}
+			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
+		}
+		//echo '<pre>'; print_r($objects); echo '</pre>'; exit();
+		
+
+		$dados['table_header'] 		= $table_header;
+		$dados['table_body']	 	= $table_body;
+		$dados['objects'] 			= $objects;
+		$dados['data_input_modal']  = $data_input_modal;
+
+
+		$dados['funcao'] 			= 'listar_todos';
+		$dados['titulo'] 			= 'TODOS os Trabalhos';
+
+		$dados['quantidade'] 		= $this->trabalho_model->num_rows_enviados_para_pareceristas();
+		$dados['mensagens'] 		= mensagens();
+		//$dados['url'] = array('aprovar' => base_url('Trabalho/enviar_para_parecerista/'));
+		$dados['url'] = array();
+		$this->load->view('html-header-admin');
+		$this->load->view('header-admin');
+		$this->load->view('listar-trabalhos', $dados);
+		$this->load->view('footer-admin');
+	}
+
 
 	public function listar_para_validacao(){
 		$status = 0; //0 é status EM ANÁLISE
@@ -368,8 +456,8 @@ class Trabalho extends Admin {
 		}
 
 		$this->trabalho_model->reenviar_trabalhos($id_participante, $status);
-		$titulo = "Trabalho reprovado";
-		$mensagem = "<h2>Olá Congressista! <br> Seu trabalho foi reprovado por um administrador. </h2> <br> Mensagem: <br>";
+		$titulo = "Trabalho Reprovado Na Fase de Validação";
+		$mensagem = "<h2>Olá Congressista! <br> Seu trabalho não passou na Fase de Validação. </h2> <br> Mensagem: <br>";
 		$mensagem .= $this->input->post('mensagem');
 		$mensagem .= "<h3> Atenção! Você tem até 3 dias para reenviar seu trabalho!";
 		$email = $this->input->post('email');
@@ -377,6 +465,7 @@ class Trabalho extends Admin {
 		if($resposta){
             $this->log_model->insert('Foi enviado o e-mail de reenvio de trabalho para o participante.', $id_participante);
     		$this->session->set_flashdata('success', 'Email enviado com sucesso!');  
+    		 
     	}
     	else{
         $this->log_model->insert('Houve um erro no envio do e-mail para o participante.', $id_participante);

@@ -77,6 +77,8 @@ $usuario = $_SESSION['usuario']; ?>
               <li><a  href="<?= base_url('Trabalho/listar_para_validacao') ?>">Para Validação</a></li>
               <li><a  href="<?= base_url('Trabalho/listar_validados') ?>">Validados</a></li>
               <li><a  href="<?= base_url('Trabalho/listar_invalidos') ?>">Inválidos</a></li>
+              <li><a  href="<?= base_url('Trabalho/listar_trabalhos_que_foram_enviados_para_pareceristas') ?>">Enviados p/ Parecerista</a></li>
+
             </ul>
           </li>
 

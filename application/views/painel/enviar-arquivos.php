@@ -106,7 +106,7 @@
 				</div>
 
 				<?php } ?>
-				<?php if(($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == '' && $status_inscricao == 'Aprovado') || ($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == 'Você deve enviar seu artigo até fim do mês!'  && $status_inscricao == 'Aprovado')){ ?>
+				<?php if(($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == '' && $status_inscricao == 'Aprovado') || ($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == 'Você deve enviar seu artigo até fim do mês!'  && $status_inscricao == 'Aprovado') || ($enviou_comprovante && $vai_submeter_trabalho && $status_trabalho == 'Você deve enviar seu artigo até fim do mês!'  && $status_inscricao == 'Isento')){ ?>
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">

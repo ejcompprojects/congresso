@@ -14,6 +14,10 @@
 			<?=$mensagens?>
 		</div>
 	</div><!--/.row-->
+	<?php if(count($minicurso) == 0){
+		echo '<h2>Será liberado em breve a escolha para os minicursos.</h2>';
+	} ?>
+
 	<?php foreach ($minicurso as $minicurso) { ?>
 	<div class='content'>
 		<div class='col-lg-12'>

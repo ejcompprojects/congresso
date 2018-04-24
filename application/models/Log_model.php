@@ -50,6 +50,13 @@ class Log_model extends CI_Model{
         $this->db->insert('log_parecerista', $dados);
     }
 
+    public function insert_email($descricao, $email){
+        $dados['ip'] = $this->get_client_ip_server();
+        $dados['email'] = $email;
+        $dados['descricao'] = $descricao;
+
+        $this->db->insert('log_email', $dados);
+    }
 
 }
 

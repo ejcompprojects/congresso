@@ -19,163 +19,454 @@ class Painel extends Login {
 
   }
 
-    /**
-     * Função que retorna o HTML padrão do controller
-     */
-    public function index(){
+  public function get_trabalho($id_usuario){
+    $this->db->where('id_participante', $id_usuario);
+    return $this->db->get('trabalho')->row();
+}
 
-    	$id = $this->session->userdata('usuario')->id;
-        //$vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
+public function get_parecer($id_usuario){
+    $this->db->where('id_trabalho', $id_usuario);
+    return $this->db->get('trabalho_parecerista')->row();
+}
 
-        //$foto_comprovante = $this->session->userdata('usuario')->foto_comprovante;
-    	$usuario = $this->painel_model->get($id);
-    	$status_inscricao = $usuario->status_inscricao;
-    	$foto_comprovante = $usuario->foto_comprovante;
 
-    	$vai_submeter_trabalho = $usuario->submeter_trabalho;
+public function retorna_etapa_que_o_usuario_se_encontra(){
+    $id = $this->session->userdata('usuario')->id;
 
-    	$info = array();
-        // $success = array();
-        // $danger = array();
-        // $warning = array(); 
+    $usuario = $this->painel_model->get($id);
 
-        $ponto = 0; //para poder marcar o avanço do participante
-        $estagio = 2; //qual nível ele está.
+    if($usuario->foto_comprovante == ''){
+        $enviou_comprovante = 0;
+    }else{
+        $enviou_comprovante = 1;
+    }
 
-        if($foto_comprovante == ''){//porque ainda não enviou o comprovante
-        	$info[] = 'Você não anexou a foto de seu comprovante de pagamento!';
-        	$estagio =  2;
+    $status_comprovante = $usuario->status_inscricao;
+    
+
+    $vai_submeter_trabalho = $usuario->submeter_trabalho;    
+
+
+    $trabalho = $this->get_trabalho($id);
+
+    if(is_object($trabalho)) $enviou_trabalho = 1;
+    else $enviou_trabalho = 0;
+
+    $parecer = $this->get_parecer($id);
+
+    if(is_object($parecer)) $tem_parecer = 1;
+    else $tem_parecer = 0;
+
+    $array = array();
+    $array['vai_submeter_trabalho'] = $vai_submeter_trabalho;
+    $array['mensagens'] = array();
+
+
+    if( !$enviou_comprovante){ //todo mundo tem que enviar o comprovante, se não enviou:
+
+        //Informações relevantes para a página inicial:
+        $array['fase'] = 'ENVIAR_COMPROVANTE';
+        $array['etapa'] = 2;
+        $array['porcentagem'] = 40;
+
+        //Informações relevantes para a página de enviar arquivos:
+        $array['div_enviar_comprovante'] = TRUE;
+        $array['div_status_comprovante'] = FALSE;
+        $array['div_enviar_trabalho'] = FALSE;
+        $array['div_alerta_trabalho'] = TRUE;
+        $array['div_status_trabalho'] = FALSE;
+
+
+        array_push($array['mensagens'], 'Você não anexou a foto de seu comprovante de pagamento!');
+
+    }
+    else{ // se enviou
+
+        $array['div_enviar_comprovante'] = FALSE;
+        $array['div_status_comprovante'] = TRUE;
+        $array['div_alerta_trabalho'] = TRUE;
+
+
+
+        $array['fase'] = 'COMPROVANTE_ENVIADO';
+        $array['etapa'] = 3;
+        $array['porcentagem'] = 70;
+
+        switch($status_comprovante){
+
+            case 0:   //EM ANÁLISE:
+            $array['status_comprovante'] = array(
+                'title' => 'Seu comprovante de pagamento está em <b>análise.</b>', 
+                'panel' => 'panel-info', 
+                'label' => 'Em Análise'
+            );
+
+            break;
+
+            case 1:   //APROVADO:
+            $array['status_comprovante'] = array(
+                'title' => 'Seu comprovante de depósito foi <b>aprovado!</b>',
+                'panel'   => 'panel-success',
+                'label'   => 'Aprovado'
+            );
+            break;
+
+            case 2:  //REPROVADO:
+
+            $array['status_comprovante'] = array(
+                'title' => 'Seu comprovante de depósito foi <b>reprovado.</b>',
+                'subtitle' => '<p>Isto pode acontecer por você ter pago o valor que não corresponde à sua inscrição no respectivo mês.</p><p>O Comprovante de depósito pode não estar claro (estar embaçado).</p><br><p>Envie um novo comprovante:</p>',
+                'panel'   => 'panel-danger',
+                'label'   => 'Reprovado'
+            );
+            $array['div_enviar_comprovante'] = TRUE;
+            break;
+
+
+            case 3:  //ISENTO:
+
+            $array['status_comprovante'] = array(
+                'title' => 'Você está <strong>isento</strong> do pagamento.',
+                'panel'   => 'panel-success',
+                'label'   => 'Isento'
+            );
+            break;
+
         }
-        else{
 
-           // $status_inscricao = $this->session->userdata('usuario')->status_inscricao;
+    }
+    
+    if( $vai_submeter_trabalho ) {
+                if($enviou_trabalho){ //ele pode estar na fase de VALIDAÇÃO DO TRABALHO:
 
-        	switch($status_inscricao){
-        		case 0: $info[] = 'Seu pagamento está em análise.'; $ponto += 20; $estagio = 3; break;
-        		case 1: $info[] = 'Seu pagamento foi <strong>aprovado!</strong>'; $ponto += 30; if(!$vai_submeter_trabalho) $estagio =7; else $estagio = 4; break;
-        		case 2: $info[] = 'Seu comprovante foi reprovado por nossa equipe, por favor, envie um novo comprovante <a href="'.base_url('Painel/enviar_arquivos').'">clicando aqui</a>.'; break;
-        		case 3: $info[] = 'Você está <strong>isento</strong> do pagamento deste evento.'; $ponto +=30; if(!$vai_submeter_trabalho) $estagio =7; else $estagio = 4; break;
-        	}
-        }
+                    $array['div_enviar_trabalho'] = FALSE;
+                    $array['div_alerta_trabalho'] = FALSE;
+                    $array['div_status_trabalho'] = TRUE;
+                    //AQUI É A FASE DE VALIDAÇÃO:
 
-        if($vai_submeter_trabalho){ 
-        	if($this->painel_model->possui_trabalho_anexado($id)){
-        		$status_trabalho = $this->painel_model->status_trabalho($id);
-        		switch($status_trabalho){
-        			case 0: $info[] = 'Seu trabalho está na fase de <strong>validação</strong>.<br> Fique atento em seu e-mail e no sistema, pois o prazo para correção do trabalho é de 3 dias úteis após o recebimento do aviso.'; $ponto += 20; if($estagio == 3) $estagio = 4; break;
-        			case 1: $info[] = 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'; $ponto += 30; if($estagio == 4) $estagio = 7; break;
-        			case 2: $info[] = 'Infelizmente seu trabalho <strong>não</strong> foi aprovado, mas você poderá ainda participar do Congresso.'; $ponto += 30; if($estagio == 4) $estagio = 7;   break;
-        		}
-        	}else{
-        		// $ultimo_dia_mes = $this->ultimo_dia(date('m'));
-        		// $nome_do_mes = $this->nome_do_mes(date('m'));
-        		$info[] = 'O <span style="font-size:14pt;"><strong>PRAZO</strong></span> para envio do seu artigo é até <span style="font-size:14pt;"><strong>dia 30 de ABRIL!</strong></span>'; 
-        		if($estagio != 2) $estagio = 4;
+                    $array['fase'] = 'VALIDAÇÃO';
+                    $array['etapa'] = 5;
+                    $array['porcentagem'] = 100;
+
+                    switch($trabalho->status){ //se foi VALIDADO:
+                        case 0: //EM ANÁLISE:
+
+                        $array['status_trabalho'] = array(
+                            'title' => 'Seu trabalho foi enviado com sucesso e será <strong>validado</strong> por um membro de nossa equipe.<br> Fique atento em seu e-mail e no sistema, pois o prazo para correção e reenvio do trabalho é de 3 dias úteis após o recebimento do aviso.', 
+                            'panel' => 'panel-info', 
+                            'label' => 'Etapa de Validação'
+                        );
+                        break;
+
+                        case 1: //APROVADO:
+
+                        $array['status_trabalho'] = array(
+                            'title' => 'Seu trabalho foi validado e será encaminhado para um parecerista avaliar.<br>Dentro de alguns dias, enviaremos um e-mail para avisá-lo quanto ao parecer sobre seu trabalho.', 
+                            'panel' => 'panel-info', 
+                            'label' => 'Encaminhado Para Parecerista'
+                        );
+                        break;
+
+                        case 2: //REPROVADO:
+
+                        $array['status_trabalho'] = array(
+                            'title' => 'Foi encontrado erros em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho ATÉ o prazo especificado.', 
+                            'panel' => 'panel-danger', 
+                            'label' => 'Etapa de Validação'
+                        );
+                        break;
+
+                        case 3: //PARECERISTA ESTÁ ANALISANDO:
+                        $array['etapa'] = 6;
+
+                        $array['status_trabalho'] = array(
+                            'title' => 'Seu trabalho está sendo analisado por nossa equipe.', 
+                            'panel' => 'panel-info', 
+                            'label' => 'Etapa de Análise'
+                        );
+                        break;
+
+                        case 4: //REENVIAR TRABALHO SEM AUTOR:
+
+                        $array['status_trabalho'] = array(
+                            'title' => '<b>Foi encontrado erros em seu trabalho SEM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho ATÉ o prazo especificado.', 
+                            'panel' => 'panel-warning', 
+                            'label' => 'Etapa de Validação'
+                        );
+                        $array['div_reenviar_trabalho'] = 1;
+
+                        $array['status_reenvio'] = 'SEM';
+                        break;
+
+                        case 5: //REENVIAR TRABALHO COM AUTOR:
+
+                        $array['status_trabalho'] = array(
+                            'title' => '<b>Foi encontrado erros em seu trabalho COM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho ATÉ o prazo especificado.', 
+                            'panel' => 'panel-warning', 
+                            'label' => 'Etapa de Validação'
+                        );
+                        $array['div_reenviar_trabalho'] = 1;
 
 
-        	}
-        }
-        else{ //se ele n vai submeter trabalho
-            if($status_inscricao == 1) $ponto+= 30; //se a inscrição tá paga, tá tudo certo.
-        }
+                        $array['status_reenvio'] = 'COM';
+                        break;
+
+                        case 6: //REENVIAR AMBOS:
+
+                        $array['status_trabalho'] = array(
+                            'title' => '<b>Foi encontrado erros em seu trabalho COM autor e SEM autor.<b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho ATÉ o prazo especificado.', 
+                            'panel' => 'panel-warning', 
+                            'label' => 'Solicitado Reenvio'
+                        );
+                        $array['div_reenviar_trabalho'] = 1;
+                        
+
+                        $array['status_reenvio'] = 'AMBOS';
+
+                        break;
 
 
-        //calculo de porcentagem:
+                    }
 
-        $porcentagem = $ponto + 40;
-        if($porcentagem != 100){
-        	$data['completo'] = false;
-        }
-        else{
-        	$data['completo'] = true;
-        }
-        $data['info'] = $info;
-        // $data['success'] = $success;
-        // $data['danger'] = $danger;
-        // $data['warning'] = $warning;
-        $data['porcentagem'] = $porcentagem;
-        $data['estagio'] = $estagio;
-        $data['vai_submeter_trabalho'] = $vai_submeter_trabalho;
+                    if($trabalho->status == 3){ //analisado por parecerista:
+
+                        if($tem_parecer){
+                            $array['etapa'] = 7;
 
 
-        //relacionado ao VALOR que deverá ser pago:
+                            $array['div_enviar_trabalho'] = FALSE;
+                            $array['div_alerta_trabalho'] = FALSE;
+                            $array['div_status_trabalho'] = TRUE;
+                            $array['div_reenviar_trabalho'] = FALSE;
+
+
+                            switch($parecer->status_parecer){
+                                case 1: //APROVADO:
+
+
+
+                                $array['status_trabalho'] = array(
+                                  'title' => '<b>Parabéns!</b><br>Seu trabalho foi <b>APROVADO!</b>',
+                                  'subtitle' => '<h3>Nota:'.$parecer->nota.'</h3><br><p>Ver Formulário de avaliação:</p><br> <a class="btn btn-info" href="'.base_url('uploads/parecer/'.$parecer->arquivo_parecer).'">CLIQUE AQUI PARA VER O FORMULÁRIO</a>',
+                                  'panel' => 'panel-success',
+                                  'label' => 'Etapa de Avaliação'
+                              );
+
+                                break;
+
+                              case 2: //REPROVADO
+                              $array['status_trabalho'] = array(
+                                  'title' => 'Infelizmente, seu trabalho foi <b>reprovado</b>. Mas fique tranquilo, você ainda poderá participar do evento!',
+                                  'subtitle' => '<h3>Nota:'.$parecer->nota.'</h3><br><p>Ver Formulário de avaliação:</p><br> <a class="btn btn-info" href="'.base_url('uploads/parecer/'.$parecer->arquivo_parecer).'">CLIQUE AQUI PARA VER O FORMULÁRIO</a>',
+                                  'panel' => 'panel-danger',
+                                  'label' => 'Etapa de Avaliação');
+                          }
+                      }
+                  }
+
+                }else{ //se não enviou o trabalho:
+                    $array['fase'] = 'ENVIAR_TRABALHO';
+                    $array['etapa'] = 4;
+                    $array['porcentagem'] = 70;
+                    if($status_comprovante == 1){
+                        $array['div_enviar_trabalho'] = TRUE;
+                        $array['div_alerta_trabalho'] = FALSE;
+                        $array['div_status_trabalho'] = FALSE;
+                    }
+
+                    array_push($array['mensagens'], 'O <span style="font-size:14pt;"><strong>PRAZO</strong></span> para envio do seu artigo é até <span style="font-size:14pt;"><strong>dia 30 de ABRIL!</strong></span>');
+                }
+
+            }
+            else{  //e NÃO vai submeter trabalho:
+              $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
+              $array['etapa'] = 7;
+              $array['porcentagem'] = 100;
+
+              $array['div_enviar_comprovante'] = FALSE;
+              $array['div_status_comprovante'] = TRUE;
+              $array['div_enviar_trabalho'] = FALSE;
+              $array['div_alerta_trabalho'] = FALSE;
+              $array['div_status_trabalho'] = FALSE;
+          }
+
+
+
+
+
+
+
+          return $array;
+          //echo '<pre>'; print_r($array); echo '</pre>'; exit();
+
+
+
+
+
+      }
+
+      public function index(){
+
+
+        $data = $this->retorna_etapa_que_o_usuario_se_encontra();
+
         $valor = $this->calcula_valor(date('m'), $this->session->userdata('usuario')->id_tipo_inscricao);
         
         $data['valor'] = $valor;
+        $data['estagio'] = $data['etapa'];
 
 
-        // $data['nao_cumpriu_prazo'] = false;
+        $data['messages'] = mensagens();
 
-        // if(date('m') > date('m', strtotime($this->session->userdata('usuario')->data_registro))){ //se tiver virado 1 mês desde a inscrição:
-        //     if($vai_submeter_trabalho == 1){ //se vai submeter trabalho
-        //         if(!$this->submeteu_trabalho()){ //E NÃO submeteu trabalho
-        //         	$data['nao_cumpriu_prazo'] = true;
-        //         }
-        //     }
-        // }
-
-
-        $data['mensagens'] = mensagens();
-
-      // if($data['nao_cumpriu_prazo'] == true){ //se não cumpriu prazo, vou carregar a view de não-cumpriu-prazo.
-      // 	$this->load->view('painel/html_header');
-      // 	$this->load->view('painel/header');
-      // 	$this->load->view('painel/nao-cumpriu-prazo', $data);
-      // 	$this->load->view('painel/footer');
-      // }else{
-
-      // }
-
+        // echo '<pre>'; print_r($data); echo '</pre>'; exit();
         $this->load->view('painel/html_header');
         $this->load->view('painel/header');
-        $this->load->view('painel/widgets', $data);
+        $this->load->view('painel/index', $data);
         $this->load->view('painel/footer');
+
 
     }
 
+    public function enviar_arquivos(){
+     $id = $this->session->userdata('usuario')->id;
+
+     $data = $this->retorna_etapa_que_o_usuario_se_encontra();
+
+     $data['eixos'] = $this->painel_model->get_eixos();
+
+
+       //$data['dentro_do_prazo'] = $this->painel_model->get_diferenca_datas($id);
+
+     $data['messages'] = mensagens();
+
+       // echo '<pre>'; print_r($data); echo '</pre>'; exit();
+
+     $this->load->view('painel/html_header');
+     $this->load->view('painel/header');
+     $this->load->view('painel/send-files', $data);
+     $this->load->view('painel/footer');
+ }
+
+    /**
+     * Função que retorna o HTML padrão do controller
+     */
+    // public function index_antigo(){
+
+    // 	$id = $this->session->userdata('usuario')->id;
+    //     //$vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
+
+    //     //$foto_comprovante = $this->session->userdata('usuario')->foto_comprovante;
+    // 	$usuario = $this->painel_model->get($id);
+    // 	$status_inscricao = $usuario->status_inscricao;
+    // 	$foto_comprovante = $usuario->foto_comprovante;
+
+    // 	$vai_submeter_trabalho = $usuario->submeter_trabalho;
+
+    // 	$info = array();   
+    //     // $success = array();
+    //     // $danger = array();
+    //     // $warning = array(); 
+
+    //     $ponto = 0; //para poder marcar o avanço do participante
+    //     $estagio = 2; //qual nível ele está.
+
+    //     if($foto_comprovante == ''){//porque ainda não enviou o comprovante
+    //     	$info[] = 'Você não anexou a foto de seu comprovante de pagamento!';
+    //     	$estagio =  2;
+    //     }
+    //     else{
+
+    //        // $status_inscricao = $this->session->userdata('usuario')->status_inscricao;
+
+    //     	switch($status_inscricao){
+    //     		case 0: $info[] = 'Seu pagamento está em análise.'; $ponto += 20; $estagio = 3; break;
+    //     		case 1: $info[] = 'Seu pagamento foi <strong>aprovado!</strong>'; $ponto += 30; if(!$vai_submeter_trabalho) $estagio =7; else $estagio = 4; break;
+    //     		case 2: $info[] = 'Seu comprovante foi reprovado por nossa equipe, por favor, envie um novo comprovante <a href="'.base_url('Painel/enviar_arquivos').'">clicando aqui</a>.'; break;
+    //     		case 3: $info[] = 'Você está <strong>isento</strong> do pagamento deste evento.'; $ponto +=30; if(!$vai_submeter_trabalho) $estagio =7; else $estagio = 4; break;
+    //     	}
+    //     }
+
+    //     if($vai_submeter_trabalho){ 
+    //     	if($this->painel_model->possui_trabalho_anexado($id)){
+    //     		$status_trabalho = $this->painel_model->status_trabalho($id);
+    //     		switch($status_trabalho){
+    //     			case 0: $info[] = 'Seu trabalho está na fase de <strong>validação</strong>.<br> Fique atento em seu e-mail e no sistema, pois o prazo para correção do trabalho é de 3 dias úteis após o recebimento do aviso.'; $ponto += 20; if($estagio == 3) $estagio = 4; break;
+    //     			case 1: $info[] = 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'; $ponto += 30; if($estagio == 4) $estagio = 7; break;
+    //     			case 2: $info[] = 'Infelizmente seu trabalho <strong>não</strong> foi aprovado, mas você poderá ainda participar do Congresso.'; $ponto += 30; if($estagio == 4) $estagio = 7;   break;
+    //     		}
+    //     	}else{
+    //     		// $ultimo_dia_mes = $this->ultimo_dia(date('m'));
+    //     		// $nome_do_mes = $this->nome_do_mes(date('m'));
+    //     		$info[] = 'O <span style="font-size:14pt;"><strong>PRAZO</strong></span> para envio do seu artigo é até <span style="font-size:14pt;"><strong>dia 30 de ABRIL!</strong></span>'; 
+    //     		if($estagio != 2) $estagio = 4;
+
+
+    //     	}
+    //     }
+    //     else{ //se ele n vai submeter trabalho
+    //         if($status_inscricao == 1) $ponto+= 30; //se a inscrição tá paga, tá tudo certo.
+    //     }
+
+
+    //     //calculo de porcentagem:
+
+    //     $porcentagem = $ponto + 40;
+    //     if($porcentagem != 100){
+    //     	$data['completo'] = false;
+    //     }
+    //     else{
+    //     	$data['completo'] = true;
+    //     }
+    //     $data['info'] = $info;
+    //     // $data['success'] = $success;
+    //     // $data['danger'] = $danger;
+    //     // $data['warning'] = $warning;
+    //     $data['porcentagem'] = $porcentagem;
+    //     $data['estagio'] = $estagio;
+    //     $data['vai_submeter_trabalho'] = $vai_submeter_trabalho;
+
+
+    //     //relacionado ao VALOR que deverá ser pago:
+    //     $valor = $this->calcula_valor(date('m'), $this->session->userdata('usuario')->id_tipo_inscricao);
+
+    //     $data['valor'] = $valor;
+
+
+
+    //     $data['mensagens'] = mensagens();
+
+
+
+    //     $this->load->view('painel/html_header');
+    //     $this->load->view('painel/header');
+    //     $this->load->view('painel/widgets', $data);
+    //     $this->load->view('painel/footer');
+
+    // }
+
     public function alterar_para_sem_submissao_de_trabalho(){
-       $id = $this->session->userdata('usuario')->id;
+     $id = $this->session->userdata('usuario')->id;
 
-       $this->db->where('id', $id);
-       $dados['submeter_trabalho'] = 0;
-       $this->db->update('participante', $dados);
+     $this->db->where('id', $id);
+     $dados['submeter_trabalho'] = 0;
+     $this->db->update('participante', $dados);
 
-       $this->session->set_flashdata('success', '<strong>Seu cadastro foi alterado para "SEM SUBMISSÃO DE TRABALHO" com sucesso!</strong>');
-       redirect('Painel');
-   }
+     $this->session->set_flashdata('success', '<strong>Seu cadastro foi alterado para "SEM SUBMISSÃO DE TRABALHO" com sucesso!</strong>');
+     redirect('Painel');
+ }
 
-   public function submeteu_trabalho(){
-       $id = $this->session->userdata('usuario')->id;
-       $this->db->where('id_participante', $id);
-       $quantidade = $this->db->get('trabalho')->num_rows();
-       if($quantidade == 0) return false;
-       else if($quantidade == 1) return true;
-   }
+ public function submeteu_trabalho(){
+     $id = $this->session->userdata('usuario')->id;
+     $this->db->where('id_participante', $id);
+     $quantidade = $this->db->get('trabalho')->num_rows();
+     if($quantidade == 0) return false;
+     else if($quantidade == 1) return true;
+ }
 
-// public function nome_do_mes($mes){
-//     switch($mes){
-//         case 2: return 'Fevereiro'; break;
-//         case 3: return 'Março'; break;
-//         case 4: return 'Abril'; break;
-//         case 5: return 'Maio'; break;
-//         case 6: return 'Junho'; break;
-//         case 7: return 'Julho'; break;
-//     }
-// }
 
-// public function ultimo_dia($mes){
-//     switch($mes){
-//         case 2: return 28; break;
-//         case 3: return 31; break;
-//         case 4: return 30; break;
-//         case 5: return 31; break;
-//         case 6: return 30; break;
-//         case 7: return 31; break;
-//     }
-// }
 
-   public function calcula_valor($mes, $tipo_inscricao){
-       switch($tipo_inscricao){
+ public function calcula_valor($mes, $tipo_inscricao){
+     switch($tipo_inscricao){
             case 1: //graduando
             switch($mes){
             	case 2: return 20; break;
@@ -238,132 +529,113 @@ class Painel extends Login {
     	redirect(base_url('Painel#duvida'));
     }
 
- // public function nao_cumpriu_prazo_enviar_arquivos(){
- //    $id = $this->session->userdata('usuario')->id;
-
- //    $usuario = $this->painel_model->get($id);
- //    $vai_submeter_trabalho = $usuario->submeter_trabalho;
- //    $foto_comprovante = $usuario->foto_comprovante;
- //    if($foto_comprovante == ''){
- //        $enviou_comprovante = false;
- //    }
- //    else{
- //        $enviou_comprovante = true;
-
- //    $status_inscricao = $usuario->status_inscricao;
- //     switch($status_inscricao){
- //            case 0: $status_inscricao = 'Em análise'; break;
- //            case 1: $status_inscricao = 'Aprovado'; break;
- //            case 2: $status_inscricao = 'Reprovado'; break;
- //            case 3: $status_inscricao = 'Isento'; break;
- //        }
 
 
- // }
-
-    public function enviar_arquivos(){
-
-    	$id = $this->session->userdata('usuario')->id;
-    	$vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
-
-    	$usuario = $this->painel_model->get($id);
-    	$foto_comprovante = $usuario->foto_comprovante;
-    	$status_inscricao = 0;
-    	if($foto_comprovante == ''){
-    		$enviou_comprovante = false;
-    	}
-    	else{
-    		$enviou_comprovante = true;
-
-    		$status_inscricao = $usuario->status_inscricao;
-    		switch($status_inscricao){
-    			case 0: $status_inscricao = 'Em análise'; break;
-    			case 1: $status_inscricao = 'Aprovado'; break;
-    			case 2: $status_inscricao = 'Reprovado'; break;
-    			case 3: $status_inscricao = 'Isento'; break;
-    		}
-    	}
-    	$status_trabalho = '';
-
-    	if($vai_submeter_trabalho){ 
-    		if($this->painel_model->possui_trabalho_anexado($id)){
-    			$status_trabalho = $this->painel_model->status_trabalho($id);
-    			switch($status_trabalho){
-    				case 0: $status_trabalho = 'Seu trabalho está em <strong>análise</strong>.'; break;
-    				case 1: $status_trabalho = 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'; break;
-    				case 2: $status_trabalho = 'Infelizmente seu trabalho não foi aprovado, mas você poderá ainda participar do Congresso.'; break;
-                    case 3: $status_trabalho = 'Seu trabalho está sendo analisado por um parecerista.'; break;
-                    case 4: $status_trabalho = 'Houve um problema com seu trabalho sem o nome de autor, portanto será preciso reenviá-lo.'; break;
-                    case 5: $status_trabalho = 'Houve um problema com seu trabalho com o nome de autor, portanto será preciso reenviá-lo.'; break;
-                    case 6: $status_trabalho = 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los'; break;
-    			}
-    		}else{
-    			$status_trabalho = 'Você deve enviar seu artigo até fim do mês!'; 
-
-    		}
-    	}
-
-    	$data['eixos'] = $this->painel_model->get_eixos();
-
-    	$data['enviou_comprovante'] = $enviou_comprovante;
-    	$data['status_inscricao'] = $status_inscricao;
-    	$data['status_trabalho']  = $status_trabalho;
-    	$data['vai_submeter_trabalho'] = $vai_submeter_trabalho;
-        $data['dentro_do_prazo'] = $this->painel_model->get_diferenca_datas($id);
-
-    	$data['mensagens'] = mensagens();
-    	$this->load->view('painel/html_header');
-    	$this->load->view('painel/header');
-    	$this->load->view('painel/enviar-arquivos', $data);
-    	$this->load->view('painel/footer');
-    }
 
 
-    public function send_photo(){
+    public function enviar_arquivos_antigo(){
+
+     $id = $this->session->userdata('usuario')->id;
+     $vai_submeter_trabalho = $this->session->userdata('usuario')->submeter_trabalho;
+
+     $usuario = $this->painel_model->get($id);
+     $foto_comprovante = $usuario->foto_comprovante;
+     $status_inscricao = 0;
+     if($foto_comprovante == ''){
+      $enviou_comprovante = false;
+  }
+  else{
+      $enviou_comprovante = true;
+
+      $status_inscricao = $usuario->status_inscricao;
+      switch($status_inscricao){
+       case 0: $status_inscricao = 'Em análise'; break;
+       case 1: $status_inscricao = 'Aprovado'; break;
+       case 2: $status_inscricao = 'Reprovado'; break;
+       case 3: $status_inscricao = 'Isento'; break;
+   }
+}
+$status_trabalho = '';
+
+if($vai_submeter_trabalho){ 
+  if($this->painel_model->possui_trabalho_anexado($id)){
+   $status_trabalho = $this->painel_model->status_trabalho($id);
+   switch($status_trabalho){
+    case 0: $status_trabalho = 'Seu trabalho está em <strong>análise</strong>.'; break;
+    case 1: $status_trabalho = 'Parabéns! Seu trabalho foi <strong>APROVADO</strong>!'; break;
+    case 2: $status_trabalho = 'Infelizmente seu trabalho não foi aprovado, mas você poderá ainda participar do Congresso.'; break;
+    case 3: $status_trabalho = 'Seu trabalho está sendo analisado por um parecerista.'; break;
+    case 4: $status_trabalho = 'Houve um problema com seu trabalho sem o nome de autor, portanto será preciso reenviá-lo.'; break;
+    case 5: $status_trabalho = 'Houve um problema com seu trabalho com o nome de autor, portanto será preciso reenviá-lo.'; break;
+    case 6: $status_trabalho = 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los'; break;
+}
+}else{
+ $status_trabalho = 'Você deve enviar seu artigo até fim do mês!'; 
+
+}
+}
+
+$data['eixos'] = $this->painel_model->get_eixos();
+
+$data['enviou_comprovante'] = $enviou_comprovante;
+$data['status_inscricao'] = $status_inscricao;
+$data['status_trabalho']  = $status_trabalho;
+$data['vai_submeter_trabalho'] = $vai_submeter_trabalho;
+$data['dentro_do_prazo'] = $this->painel_model->get_diferenca_datas($id);
+
+$data['mensagens'] = mensagens();
+$this->load->view('painel/html_header');
+$this->load->view('painel/header');
+$this->load->view('painel/enviar-arquivos', $data);
+$this->load->view('painel/footer');
+}
+
+
+public function send_photo(){
 
     //verificar se já existia uma imagem lá:
-    	$id = $this->session->userdata('usuario')->id;
-    	$this->db->where('id', $id);
-    	$participante = $this->db->get('participante')->row();
-    	$foto_comprovante = $participante->foto_comprovante;
+   $id = $this->session->userdata('usuario')->id;
+   $this->db->where('id', $id);
+   $participante = $this->db->get('participante')->row();
+   $foto_comprovante = $participante->foto_comprovante;
 
-    	if($foto_comprovante != ''){
-    		unlink('uploads/comprovante/'.$foto_comprovante);
-    	}
+   if($foto_comprovante != ''){
+      unlink('uploads/comprovante/'.$foto_comprovante);
+  }
 
-    	$resposta = $this->do_upload_image('comprovante_deposito');
-
-
-    	if($resposta == true){
-    		$this->log_model->insert('O participante enviou o comprovante.', $id);
-    		$this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
-
-    	}else{
-    		$this->session->set_flashdata('danger', $resposta);
-    	}
-
-    	redirect(base_url('Painel/enviar_arquivos'));
-    }
-
-    public function send_article(){
-
-    	$resposta1 = $this->do_upload_article('artigo_com_autor');
-    	$resposta2 = $this->do_upload_article('artigo_sem_autor');
+  $resposta = $this->do_upload_image('comprovante_deposito');
 
 
-    	if($resposta1['deu_certo'] && $resposta2['deu_certo']){
-    		$data['arquivo_com_nome_autor'] = $resposta1['message'];
-    		$data['arquivo_sem_nome_autor'] = $resposta2['message'];
-    		$data['titulo'] = $this->input->post('titulo');
-    		$data['id_eixo'] = $this->input->post('eixo');
-    		$data['id_participante'] = $this->session->userdata('usuario')->id;
+  if($resposta == 'true'){
+      $this->log_model->insert('O participante enviou o comprovante.', $id);
+      $this->session->set_flashdata('success', 'Comprovante enviado com sucesso!<br>');
 
-    		$this->db->insert('trabalho', $data);
-    		$cdata['id_trabalho'] = $data['id_participante'];
+  }else{
+      $this->session->set_flashdata('danger', $resposta);
+  }
 
-    		$coautores = $this->input->post('coautoresCPF');
+  redirect(base_url('Painel/enviar_arquivos'));
+}
 
-    		foreach ($coautores as $cpf) {
+public function send_article(){
+
+   $resposta1 = $this->do_upload_article('artigo_com_autor');
+   $resposta2 = $this->do_upload_article('artigo_sem_autor');
+
+
+   if($resposta1['deu_certo'] && $resposta2['deu_certo']){
+      $data['arquivo_com_nome_autor'] = $resposta1['message'];
+      $data['arquivo_sem_nome_autor'] = $resposta2['message'];
+      $data['titulo'] = $this->input->post('titulo');
+      $data['id_eixo'] = $this->input->post('eixo');
+      $data['id_participante'] = $this->session->userdata('usuario')->id;
+
+      $this->db->insert('trabalho', $data);
+      $cdata['id_trabalho'] = $data['id_participante'];
+
+      $coautores = $this->input->post('coautoresCPF');
+
+      foreach ($coautores as $cpf) {
         if($cpf != $this->session->userdata('usuario')->cpf){ //se o cpf do coautor for diferente do CPF do usuário:
         	$qcoaut = $this->getcouator($cpf);
         	if($qcoaut->num_rows() == 1){
@@ -386,50 +658,50 @@ redirect(base_url('Painel/enviar_arquivos'));
 }
 
 public function resend_article(){
-        if($this->input->post('artigo_com_autor') !== false){
-            $resposta1 = $this->do_upload_article('artigo_com_autor');
-        }
-        else
-        {
-            $resposta1['deu_certo'] = false;
-        }
-
-        if($this->input->post('artigo_sem_autor') !== false){
-            $resposta2 = $this->do_upload_article('artigo_sem_autor');
-        }
-        else
-        {
-            $resposta2['deu_certo'] = false;
-        }
-
-        if($resposta1['deu_certo'] || $resposta2['deu_certo']){
-            if($resposta1['deu_certo'])
-            {
-                $data['arquivo_com_nome_autor'] = $resposta1['message'];
-            }
-            if($resposta2['deu_certo'])
-            {
-                $data['arquivo_sem_nome_autor'] = $resposta2['message'];
-            }
-            $id = $this->session->userdata('usuario')->id;
-            $data['status'] = 0;
-            $this->db->where('id_participante', $id);
-            $this->db->update('trabalho', $data);
-           
-
-            $this->log_model->insert('O participante reenviou o artigo.', $id);
-            $this->session->set_flashdata('success', 'Artigo reenviado para análise.<br>Em breve você receberá a resposta.');
-            echo "<br>Deu certo!";
-
-        }else{
-
-            if($resposta1['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta1['message']);
-            if($resposta2['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta2['message']);
-            echo "<br>Deu errado!";
-        }
-        
-        redirect(base_url('Painel/enviar_arquivos'));
+    if($this->input->post('artigo_com_autor') !== false){
+        $resposta1 = $this->do_upload_article('artigo_com_autor');
     }
+    else
+    {
+        $resposta1['deu_certo'] = false;
+    }
+
+    if($this->input->post('artigo_sem_autor') !== false){
+        $resposta2 = $this->do_upload_article('artigo_sem_autor');
+    }
+    else
+    {
+        $resposta2['deu_certo'] = false;
+    }
+
+    if($resposta1['deu_certo'] || $resposta2['deu_certo']){
+        if($resposta1['deu_certo'])
+        {
+            $data['arquivo_com_nome_autor'] = $resposta1['message'];
+        }
+        if($resposta2['deu_certo'])
+        {
+            $data['arquivo_sem_nome_autor'] = $resposta2['message'];
+        }
+        $id = $this->session->userdata('usuario')->id;
+        $data['status'] = 0;
+        $this->db->where('id_participante', $id);
+        $this->db->update('trabalho', $data);
+
+
+        $this->log_model->insert('O participante reenviou o artigo.', $id);
+        $this->session->set_flashdata('success', 'Artigo reenviado para análise.<br>Em breve você receberá a resposta.');
+        echo "<br>Deu certo!";
+
+    }else{
+
+        if($resposta1['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta1['message']);
+        if($resposta2['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta2['message']);
+        echo "<br>Deu errado!";
+    }
+
+    redirect(base_url('Painel/enviar_arquivos'));
+}
 
 public function profile(){
 	$data['mensagens'] = mensagens();
@@ -437,14 +709,6 @@ public function profile(){
 	$this->db->where('id', $id);
 	$usuario = $this->db->get('participante')->row();    
 
-    // $this->db->where('id_participante', $id);
-    // switch($usuario->id_tipo_inscricao){
-    //     case 1:  $usuario = $this->db->get('aluno_graduacao')->row(); break;
-    //     case 2:  $usuario = $this->db->get('aluno_pos_graduacao')->row(); break;
-    //     case 3:  $usuario = $this->db->get('professor_universitario')->row(); break;
-    //     case 4:  $usuario = $this->db->get('prof_ensino_publico')->row(); break;
-    //     case 5:  $usuario = $this->db->get('demais_profissionais')->row(); break;
-    // }
 
 
 
@@ -453,16 +717,9 @@ public function profile(){
 	$this->load->view('painel/header');
 	$this->load->view('painel/profile', $data);
 	$this->load->view('painel/footer');
-    print_r($usuario);
 }
 
-    // public function dados_referentes_ao_tipo_de_inscricao(){
-    //     $tipo_inscricao = $this->session->userdata('usuario')->id_tipo_inscricao;
 
-    //     switch($tipo_inscricao){
-    //         case 1: 
-    //     }
-    // }
 
 public function alterar_meus_dados(){
 	$id = $this->session->userdata('usuario')->id;
@@ -535,7 +792,7 @@ public function alterar_meus_dados(){
 
     	$config['upload_path']          = 'uploads/comprovante';
     	$config['allowed_types']        = 'pdf|gif|jpg|png|jpeg|bmp';
-    	$config['max_size']             = 2048;
+    	$config['max_size']             = 8192;
     	$config['encrypt_name']         = TRUE;
 
 
@@ -543,120 +800,110 @@ public function alterar_meus_dados(){
     	$this->upload->initialize($config);
     	if ( ! $this->upload->do_upload($name))
     	{
-        //$error = array('error' => $this->upload->display_errors());
+
 
     		return $this->upload->display_errors();
 
     	}
     	else
     	{
-        //$data = array('upload_data' => $this->upload->data());
+
         //inserir no banco
     		$foto = $this->upload->data('file_name');
     		$id = $this->session->userdata('usuario')->id;
-    		return $this->painel_model->update_image($foto, $id);
+    		$resposta =  $this->painel_model->update_image($foto, $id);
+            if($resposta) return 'true';
+            else return 'Ocorreu um problema no banco de dados. Por favor, tente mais tarde.';
 
-    	}
+        }
     }
 
     public function do_upload_article($name){
 
     	$upload_path = 'uploads/artigo';
-    // if($name == 'artigo_sem_autor') $upload_path = 'uploads/artigo';
-    // else $upload_path = 'uploads/artigo';
+
 
     	$config['upload_path']          = $upload_path;
     	$config['allowed_types']        = 'doc|docx|pdf';
-    //$config['max_size']             = 8192;
-    	$config['encrypt_name']         = TRUE;
+        $config['max_size']             = 10000;
+        $config['encrypt_name']         = TRUE;
 
-    	$this->load->library('upload', $config);
+        $this->load->library('upload', $config);
 
-    	if ( ! $this->upload->do_upload($name))
-    	{
-        //$error = array('error' => $this->upload->display_errors());
-        // print_r($this->upload->display_errors()); exit();
-    		$resposta['deu_certo'] = false;
-    		$resposta['message'] = $this->upload->display_errors();
+        if ( ! $this->upload->do_upload($name))
+        {
 
-    	}
-    	else
-    	{   
+          $resposta['deu_certo'] = false;
+          $resposta['message'] = $this->upload->display_errors();
 
-    		$resposta['deu_certo'] = true;
-    		$resposta['message'] = $this->upload->data('file_name');
+      }
+      else
+      {   
 
-    	}
-    	return $resposta;
-    }
+          $resposta['deu_certo'] = true;
+          $resposta['message'] = $this->upload->data('file_name');
 
-    public function save($article, $name, $id){
-    	$eixo = $this->input->post('eixo');
-    	$titulo  = $this->input->post('titulo');
+      }
+      return $resposta;
+  }
 
-    	if($this->painel_model->existe_trabalho($id)){
-    		$this->painel_model->update_trabalho($article, $name, $id, $titulo, $eixo);
-    	}else{
-    		$this->painel_model->insert_trabalho($article, $name, $id, $titulo, $eixo);
-    	}
-    }
+  public function save($article, $name, $id){
+   $eixo = $this->input->post('eixo');
+   $titulo  = $this->input->post('titulo');
 
-
-// public function coautores($text){
-
-// 	$this->db->like('nome', $text);
-// 	$this->db->or_where('cpf', $text);
-// 	$this->db->select('id, nome, cpf');
-// 	$participantes = $this->db->get('participante')->result();
-
-// 	$json = json_encode($participantes);
-// 	echo $json;
-// }
-    public function getcouator($cpf)
-    {
-    	if ($cpf!="") {
-    		$this->db->where('cpf', $cpf);
-    		$this->db->where('status_inscricao', 1);
-    		$this->db->select('id, nome');
-    		return $this->db->get('participante');
-    	}
-    	return "";
-    }
-    public function coautor($cpf=""){
-    	if ($cpf!="") {
-    		$participante = $this->getcouator($cpf)->row();
-    		echo json_encode($participante);
-    	}
-    }
+   if($this->painel_model->existe_trabalho($id)){
+      $this->painel_model->update_trabalho($article, $name, $id, $titulo, $eixo);
+  }else{
+      $this->painel_model->insert_trabalho($article, $name, $id, $titulo, $eixo);
+  }
+}
 
 
-    public function minicursos(){
-        $id = $this->session->userdata('usuario')->id;
-        $this->db->where('id', $id);
-        $usuario = $this->db->get('participante')->row();
 
-        $data['minicurso'] = $this->minicurso_model->getAll();
-        foreach ($data['minicurso'] as $minicurso) {
-            $minicurso->vagasRestantes = $this->minicurso_model->vagasRestantes($minicurso->id, $usuario->id_tipo_inscricao);
-            //echo $minicurso->id;
-        }
-        //exit();
-        $data['meusMinicursos'] = $this->minicurso_model->meusMinicursos($usuario->id);
-       // $data['minicurso']['vagasRestantes'] = 
-        $data['usuario'] = $usuario;
-        $data['mensagens'] = mensagens();
-        $this->load->view('painel/html_header');
-        $this->load->view('painel/header');
-        $this->load->view('painel/minicursos', $data);
-        $this->load->view('painel/footer');
+public function getcouator($cpf)
+{
+   if ($cpf!="") {
+      $this->db->where('cpf', $cpf);
+      $this->db->where('status_inscricao', 1);
+      $this->db->select('id, nome');
+      return $this->db->get('participante');
+  }
+  return "";
+}
+public function coautor($cpf=""){
+   if ($cpf!="") {
+      $participante = $this->getcouator($cpf)->row();
+      echo json_encode($participante);
+  }
+}
 
-        //print_r($usuario);
-        //print_r($data['meusMinicursos']);
 
+public function minicursos(){
+    $id = $this->session->userdata('usuario')->id;
+    $this->db->where('id', $id);
+    $usuario = $this->db->get('participante')->row();
+
+    $data['minicurso'] = $this->minicurso_model->getAll();
+    foreach ($data['minicurso'] as $minicurso) {
+        $minicurso->vagasRestantes = $this->minicurso_model->vagasRestantes($minicurso->id, $usuario->id_tipo_inscricao);
 
     }
 
-    public function minicursoInscrever($idMinicurso){
+    $data['meusMinicursos'] = $this->minicurso_model->meusMinicursos($usuario->id);
+
+    $data['usuario'] = $usuario;
+    $data['mensagens'] = mensagens();
+    $this->load->view('painel/html_header');
+    $this->load->view('painel/header');
+    $this->load->view('painel/minicursos', $data);
+    $this->load->view('painel/footer');
+
+
+
+
+}
+
+public function minicursoInscrever($idMinicurso){
         if($this->minicurso_model->existsMinicurso($idMinicurso)){ //barra usuario troll
             if($this->dataLimiteMinicurso()){ //verifica se ainda esta no prazo de se inscrever
                 $array = $this->minicurso_model->meusMinicursos($this->session->userdata('usuario')->id, "dia");
