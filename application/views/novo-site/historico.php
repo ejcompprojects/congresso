@@ -4,7 +4,6 @@ require 'importacoes/header.php';
 require 'importacoes/menu.php';
 
 ?>
-<h1 class="brandon_n animate fadeInLeft">PEDAGOGIA HISTÓRICO-CRÍTICA</h1>
 <div class="row animate fadeIn" id="ghistorico">
 	<div class="col m5 s12 orn" style="padding-bottom: -50%;">
 		<p class="intro brandon_r">HISTÓRICO DO EVENTO</p>
@@ -22,7 +21,7 @@ require 'importacoes/menu.php';
 	a ser realizado de <b>11 a 13.07.2018</b>, na F.C.T./UNESP de Presidente Prudente-S.P.
 </p>
 <p class="apresentacao">
-	Destacamos que o primeiro evento dessa teoria pedagógica ocorreu em 2019 na
+	Destacamos que o primeiro evento dessa teoria pedagógica ocorreu em 2009 na
 	FCL/UNESP de Araraquara, no formato de Seminário com o tema <b>“Pedagogia Histórico-Crítica:
 	30 anos”</b>. Um dos objetivos do Seminário foi comemorar e compartilhar os trinta anos de estudos
 	e produções coletivas da Pedagogia Histórico-crítica, uma teoria pedagógica contra hegemônica e
@@ -51,7 +50,7 @@ require 'importacoes/menu.php';
 	País e com a expressiva participação de professores da Educação Básica, estudantes de
 	graduação e pós-graduação, além de professores universitários.
 </p>
-<p class="apresentacao">
+<!-- <p class="apresentacao">
 	Outro evento de destaque ocorreu na UFES/E.S em 2016. O objetivo do Seminário
 	foi o de comemorar os cinquenta (50) anos de carreira do professor Dermeval Saviani. O tema do
 	Seminário foi <b>“Dermeval Saviani e a Educação Brasileira: Construção Coletiva da Pedagogia
@@ -61,7 +60,7 @@ require 'importacoes/menu.php';
 	propósitos que é a elaboração coletiva de seus princípios, haja vista a participação expressiva de
 	seu público-alvo: professores de sistemas públicos, estudantes de licenciaturas e de pós-
 	graduação, professores e pesquisadores de várias áreas que atuam no ensino público superior.
-</p>
+</p> -->
 <p class="apresentacao">
 	Os eventos realizados possibilitaram a publicação de artigos em periódicos e
 	publicação de livros. O livro referente ao primeiro congresso gerou demandas de reimpressão. Do

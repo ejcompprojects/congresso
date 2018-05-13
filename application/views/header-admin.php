@@ -53,6 +53,7 @@ $usuario = $_SESSION['usuario']; ?>
               <li><a  href="<?= base_url('Participante/listar_todos') ?>">Todos</a></li>
               <li><a  href="<?= base_url('Participante/listar_pagamento_analisar') ?>">Para Analisar o Pagamento</a></li>
              <!--  <li><a  href="<?= base_url('Participante/listar_trabalho_analisar') ?>">Para Analisar o Trabalho</a></li> -->
+             <li><a href="<?= base_url('Participante/setar_pagamento_manualmente') ?>">Anexar C. de Pgto</a></li>
             </ul>
           </li>
 
@@ -78,6 +79,9 @@ $usuario = $_SESSION['usuario']; ?>
               <li><a  href="<?= base_url('Trabalho/listar_validados') ?>">Validados</a></li>
               <li><a  href="<?= base_url('Trabalho/listar_invalidos') ?>">Inválidos</a></li>
               <li><a  href="<?= base_url('Trabalho/listar_trabalhos_que_foram_enviados_para_pareceristas') ?>">Enviados p/ Parecerista</a></li>
+              <li><a  href="<?= base_url('Trabalho/listar_aprovados') ?>">Aprovados</a></li>
+              <li><a  href="<?= base_url('Trabalho/listar_reprovados') ?>">Reprovados</a></li>
+
 
             </ul>
           </li>

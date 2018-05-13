@@ -51,6 +51,8 @@ function modal_input($input){
 		return '<div class=""><select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control"></select></div>';
 	else if($input['type'] == 'textarea')
 		return '<div class=""><textarea name="'.$input['name'].'" id="'.$input['name'].'" class="form-control mensagem" style="resize: none" rows="3" placeholder="Digite aqui a mensagem a ser enviada ao congressista, especificando o motivo da reprovação do trabalho" required="required"></textarea></div>';
+	else if($input['type'] == 'date')
+		return '<div class=""><label class="date form-control-label">Prazo para Reenvio:</label><input type="date" id="'.$input['name'].'" name="'.$input['name'].'" class="form-control date" required="required"></input></div>';
 }
 
 function modalForm($modal_id = "",

@@ -84,6 +84,8 @@ echo modal("modal", "label", "", "form", $data_input_modal);
     $("<label class=\"form-control-label mensagem\">Mensagem para o congressista:</label>").insertBefore('#mensagem');
     $('.mensagem').fadeOut('slow');
     $('#mensagem').attr('disabled', 'disabled');
+    $('.date').fadeOut('slow');
+    $('#data_limite').attr('disabled', 'disabled');
 
     function fechaDivMessage(){
       $('#message').fadeOut('slow');
@@ -200,6 +202,8 @@ echo modal("modal", "label", "", "form", $data_input_modal);
     {
       $('.mensagem').fadeIn('slow');
       $('#mensagem').removeAttr('disabled', 'disabled');
+      $('.date').fadeIn('slow');
+      $('#data_limite').removeAttr('disabled', 'disabled');
       $('#form').attr("action", '<?= $url['reprovar'] ?>')
       $('#mandabala').attr('class', 'btn btn-round btn-danger');
       $('#mandabala').text('Reprovar');
@@ -210,6 +214,9 @@ echo modal("modal", "label", "", "form", $data_input_modal);
       var id = $('#id').val();
       $('.mensagem').fadeOut('slow');
       $('#mensagem').attr('disabled', 'disabled');
+      $('.date').fadeOut('slow');
+      $('#data_limite').attr('disabled', 'disabled');
+
       $('#form').attr("action", '<?= $url['aprovar'] ?>'+id);
       $('#mandabala').attr('class', 'btn btn-round btn-theme');
       $('#mandabala').text('Aprovar');

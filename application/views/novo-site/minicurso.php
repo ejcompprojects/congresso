@@ -6,9 +6,9 @@ require 'importacoes/menu.php';
 ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-<div class="row">
+<div class="row" style="margin-bottom: 0px;">
 	<div class="col m12 s12 center animate fadeInLeft">
-		<p class="intro brandon_t">MINICURSOS</p>
+		<p class="intro brandon_t orn">MINICURSOS</p>
 	</div>
 </div>
 

@@ -8,7 +8,7 @@
    <script type="text/javascript" src="<?= base_url('assets/js/jquery.backstretch.min.js') ?>"></script>
    <script>
       //$.backstretch("<?= base_url('assets/img/login-bg.jpg') ?>", {speed: 500});
-   	$.backstretch("<?= base_url('assets/img/background2.jpg') ?>", {speed: 500});
+   	 //$.backstretch("<?= base_url('assets/img/bg_books2.jpg') ?>", {speed: 500});
    </script>
 
 

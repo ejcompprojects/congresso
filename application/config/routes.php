@@ -49,19 +49,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['Parecerista'] = 'PainelParecerista'; 
+$route['Parecerista/Pareceres'] = 'PainelParecerista/Pareceres';
+$route['inscricao_parecerista'] = 'home/inscricao_parecerista';
+$route['memoria'] = 'home/memoria';
+$route['comissao'] = 'home/comissao';
+$route['formatacao'] = 'home/formatacao';
+$route['criterios'] = 'home/criterios';
+$route['submissao'] = 'home/submissao';
 $route['contato'] = 'home/contato';
 $route['eixos'] = 'home/eixos';
+$route['obras_saviani'] = 'home/obras_saviani';
+$route['obras_phc'] = 'home/obras_phc';
 $route['inscricao'] = 'home/inscricao';
-$route['inscricao_parecerista'] = 'home/inscricao_parecerista';
 $route['historico'] = 'home/historico';
 $route['general_info'] = 'home/general_info';
 $route['minicurso'] = 'home/minicurso';
 $route['manutencao'] = 'home/manutencao';
 $route['informacoes_gerais'] = 'home/informacoes_gerais';
 $route['informacao_inscricao'] = 'home/informacao_inscricao';
+$route['informacao_inscricao_com_submissao'] = 'home/informacao_inscricao_com_submissao';
+$route['informacao_inscricao_sem_submissao'] = 'home/informacao_inscricao_sem_submissao';
 $route['programacao'] = 'home/programacao';
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['Parecerista'] = 'PainelParecerista';
-$route['Parecerista/Pareceres'] = 'PainelParecerista/Pareceres';

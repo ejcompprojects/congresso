@@ -120,6 +120,7 @@
 									<p><strong>Operação:</strong> 013 (poupança)</p>
 									<p><strong>Conta:</strong> 000.000.009.059-4. </p>
 									<p><strong>Nome:</strong> Milene Egea Semensato</p>
+									<p><strong>CPF:</strong> 421.016.248.50</p>
 								</div>
 							</div>
 						</li>

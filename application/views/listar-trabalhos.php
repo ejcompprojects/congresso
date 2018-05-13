@@ -99,7 +99,7 @@ echo modal("modal", "label", "", "form", $data_input_modal);
 
        foreach($data_input_modal as $input){
         if($input['type'] == 'input_file'){
-          echo 'modal.find("#'.$input['name'].'").attr(\'href\', "'.base_url('uploads/artigo/').' " + '.$input['name'].');';
+          echo 'modal.find("#'.$input['name'].'").attr(\'href\', "'.base_url('uploads/artigo/').'" + '.$input['name'].');';
         }else if($input['type'] == 'input_text') {
           echo 'modal.find("#'.$input['name'].'").val('.$input['name'].');';
 

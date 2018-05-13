@@ -418,5 +418,18 @@ public function update_dados($id, $status_inscricao, $eixo, $status, $ativo, $su
     return $this->db->get('participante')->result();
  }
 
+ public function get_all(){
+    $this->db->order_by('nome', 'ASC');
+    return $this->db->get('participante')->result();
+ }
+
+ public function update_image($foto, $id){
+        $data['foto_comprovante'] = $foto;
+        $data['status_inscricao'] = 1; //setamos como pago.
+        $this->db->where('id', $id);
+        return $this->db->update('participante', $data);
+    }
+
+
 
 }

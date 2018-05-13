@@ -93,7 +93,8 @@ body{
 }
 
 .intro{
-	margin-top: 10% !important;
+	margin-top: 1% !important;
+	margin-bottom: 2% !important;
 }
 
 a.brandon_t{
@@ -112,6 +113,12 @@ a.brandon_t{
 .prof_text{
 	float: left;
 	font-size: 14pt;
+}
+
+@media screen and (max-width: 860px){
+	.prof_text{
+		float: none;
+	}
 }
 
 
@@ -137,14 +144,55 @@ a.brandon_t{
 	background-color: #ff6666 !important;
 }
 
+.container2{
+	padding: 2%;
+}
+
+/*LISTA*/
+
+
+li ul{
+	position: absolute;
+	display: none !important;
+	left: 100%;
+	transition: all ease 0.5s !important;
+	top: 0;
+	z-index: 999;
+}
+
+ul li .submenu{
+	display: block;
+	background-color: rgba(0,81,155,1);
+	text-align: center;
+	/*float: right;*/
+	/*top: 0;*/
+}
+
+ul li{
+	position: relative;
+	transition: all ease 0.5s !important;
+}
+
+li:hover ul{
+	transition: all ease 0.5s !important;
+	background-color: rgba(15,96,170,1);
+	display: block !important;
+}
+
 
 /*TABELAS*/
+
+
 table.striped > tbody > tr:nth-child(odd){
 	background-color: #f2f2f2 !important;
 }
 
 tr{
 	width: 100% !important;
+}
+
+table {
+	margin-top: 10px;
 }
 
 table.responsive-table tbody{
@@ -185,8 +233,10 @@ a.brandon_t{
 }
 
 a.menu{
-	line-height: 40px !important;
-	/*vertical-align: middle !important;*/
+	line-height: 20px !important;
+	padding-top: 12px; 
+	padding-bottom: 12px; 
+	vertical-align: middle;
 }
 
 .bt_inscrever{
@@ -209,6 +259,14 @@ a.menu{
 	color: #ff6666 !important;
 	border: solid #ff6666 1px !important;
 	transition: all 0.5s ease !important;
+}
+
+@media screen and (max-width: 1017px){
+	.bt_responsive{
+		text-align: center !important;
+		width: 100px !important;
+		height: 10% !important;
+	}
 }
 
 .bt_date{
@@ -350,8 +408,12 @@ a.menu{
 	}
 }
 
+.saviani{
+	width: 100%;
+}
 
 /*FOOTER*/
+
 
 .ejcomp-footer:hover{
 	transform: scale(1.1) !important;

@@ -10,5 +10,13 @@ function mensagens(){
                 $_SESSION['success'].'</div>'; 
     }
 
-    return $html ?? '';
+
+    return isset($html) ? $html : '';
+}
+
+function printing($objects){
+	echo '<pre>';
+	print_r($objects);
+	echo '</pre>';
+	exit();
 }

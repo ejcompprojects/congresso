@@ -133,8 +133,8 @@ class Parecerista_Painel_model extends CI_Model{
     }
 
     public function update_trabalho($id, $dados){
-      $this->db->where("id_participante", $id);
-      return $this->db->update("trabalho", $dados);
+      $this->db->where("id_trabalho", $id);
+      return $this->db->update("trabalho_parecerista", $dados);
     }
 }
  

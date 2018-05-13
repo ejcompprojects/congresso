@@ -1,3 +1,4 @@
+
 <body style="background-image: url(<?php echo base_url('assets/img/background2.jpg');?>);" class="hm-gradient">
 
 	<script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.mask.js"></script>
@@ -12,17 +13,20 @@
 			<div class="col-md-9 col-centered">
 				<div class="card">
 					<div class="card-body">
-						<?= $mensagens;?>
-						<?php
-						if (($this->session->flashdata('dados')) != NULL){
-							$dados = $this->session->flashdata('dados');
-							echo "<script>$( document ).ready(function() {
-												pesquisacep('" . $dados['cep']. "');
-												$('#deficiencia option:eq(".$dados['deficiencia'].")').prop('selected', true);
-												$('#submeter_trabalho option:eq(".$dados['submeter_trabalho'].")').prop('selected', true);
-												$('#tipo option:eq(".$dados['id_tipo_inscricao'].")').prop('selected', true);
-											});</script>";
+						<?php 
+						if ($this->session->flashdata('senhasDiferentes') == TRUE){
+							echo '<div class="alert alert-danger"> Senhas digitadas são diferentes!</div>';
 						}
+						if ($this->session->flashdata('cadastrado') == TRUE){
+							echo '<div class="alert alert-success"> Você foi cadastrado com sucesso</div>';
+						}
+						if ($this->session->flashdata('emailCadastrado') == TRUE){
+							echo '<div class="alert alert-danger">Este e-mail ja foi cadastrado!</div>';
+						}
+						if ($this->session->flashdata('cpfCadastrado') == TRUE){
+							echo '<div class="alert alert-danger">Este CPF ja foi cadastrado!</div>';
+						}
+
 						?>
 						<!-- Form -->
 						<form method="POST" action="<?php echo base_url('home/cadastrar') ?>">
@@ -35,19 +39,19 @@
 
 								<div class="md-form">
 									<i class="fa fa-user prefix grey-text"></i>
-									<input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100" value="<?=$dados['nome'] ?? '';?>">
+									<input type="text" id="nome" name="nome" class="form-control" required="true" minlength="2" maxlength="100" <?php if(isset($nome)){ echo 'value="'.$nome.'"';}?>">
 									<label for="nome">Nome Completo*</label>
 								</div>
 
 								<div class="md-form">
 									<i class="fa fa-id-card prefix grey-text"></i>
-									<input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15" value="<?=$dados['cpf'] ?? '';?>">
+									<input type="text" id="cpf" name="cpf" class="form-control" required="true" minlength="2" maxlength="15" <?php if(isset($cpf)){ echo 'value="'.$cpf.'"';}?>>
 									<label for="cpf">CPF*</label>
 								</div>
 
 								<div class="md-form">
 									<i class="fa fa-envelope prefix grey-text"></i>
-									<input type="email" id="email" name="email" class="form-control"  required="true" minlenght="5" maxlength="100" value="<?=$dados['email'] ?? '';?>">
+									<input type="email" id="email" name="email" class="form-control"  required="true" minlenght="5" maxlength="100" <?php if(isset($email)){ echo 'value="'.$email.'"';}?>">
 									<label for="email">E-mail*</label>
 								</div>
 
@@ -66,22 +70,23 @@
 								<div class="md-form">
 
 									<i class="fa fa-mobile prefix grey-text"></i>
-									<input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15" value="<?=$dados['celular'] ?? '';?>">
+									<input type="text" id="celular" name="celular" class="form-control" required="true" maxlength="15" <?php if(isset($celular)){ echo 'value="'.$celular.'"';}?>>
 
 									<label for="celular">Celular*</label>
 								</div>
 
 								<div class="md-form">
 									<i class="fa fa-phone prefix grey-text"></i>
-									<input type="text" id="telefone" name="telefone" class="form-control" value="<?=$dados['telefone'] ?? '';?>">
+									<input type="text" id="telefone" name="telefone" class="form-control" <?php if(isset($telefone)){ echo 'value="'.$telefone.'"';}?>">
 									<label for="telefone">Telefone</label>
 								</div>
 
 								<div class="md-form"> 
 									<label class="mr-sm-2" for="deficiencia"></label> 
-									<select name="deficiencia" id="deficiencia" class="form-control" required="false" value="<?=$dados['deficiencia'] ?? '';?>">
-										<option disabled="">Possui Deficiência?</option> 
-										<option value="0">Não</option>
+									<select name="deficiencia" id="deficiencia" class="form-control" required="false"> 
+										<option disabled="" value="0" selected>Possui Deficiência?</option> 
+										<option value="0">Não</option> 
+										
 										<option value="1">Sim</option> 
 									</select> 
 									<script type="text/javascript"> 
@@ -95,7 +100,7 @@
 								<div class="md-form" id="txtdediciaencia" style="display: none;"> 
 									<i class="fa fa-id-card prefix grey-text"></i> 
 									<input type="text" id="deficiencia_desc" name="deficiencia_desc" class="form-control" maxlength="250" 
-									value="<?=$dados['deficiencia_desc'] ?? '';?>">
+									<?php if(isset($deficiencia_desc)){ echo 'value="'.$deficiencia_desc.'"';}?>> 
 									<label for="deficiencia_desc">Especifique sua deficiência</label> 
 								</div> 
 								
@@ -106,19 +111,19 @@
 								</div>
 								<div class="md-form">
 									<i class="fa fa-map-o prefix grey-text"></i>
-									<input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onfocusout="pesquisacep(this.value);" value="<?=$dados['cep'] ?? '';?>">
+									<input type="text" id="cep" name="cep" class="form-control" required="true" minlength="8" maxlength="9" onkeyup="pesquisacep(this.value);">
 									<label for="cep">CEP*</label>
 								</div>
 								<div id="div_escondida" hidden="true">
 									<div class="md-form">
 										<i class="fa fa-home prefix grey-text"></i>
-										<input type="text" id="rua" name="endereco" class="form-control" required="true" minlength="3" maxlength="50" value="<?=$dados['endereco'] ?? '';?>">
+										<input type="text" id="rua" name="rua" class="form-control" required="true" minlength="3" maxlength="50">
 										<label for="rua">Endereço*</label>
 									</div>
 
 									<div class="md-form">
 										<i class="fa fa-home prefix grey-text"></i>
-										<input type="text" id="bairro" name="bairro" class="form-control" required="true" minlength="3" maxlength="50" value="<?=$dados['bairro'] ?? '';?>">
+										<input type="text" id="bairro" name="bairro" class="form-control" required="true" minlength="3" maxlength="50">
 										<label for="bairro">Bairro*</label>
 									</div>
 
@@ -126,10 +131,10 @@
 										<i class="fa fa-map-marker prefix grey-text"></i>
 
 
-										<input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100"  value="<?=$dados['cidade'] ?? '';?>">
+										<input type="text" id="cidade" name="cidade" class="form-control" required="true" minlength="1" maxlength="100" >
 										<label for="cidade">Cidade*</label>
 									</div>
-									<select required="true" class="form-control" id="estado" name="estado" value="<?=$dados['estado'] ?? '';?>">
+									<select required="true" class="form-control" id="estado" name="estado">
 
 
 										<option value="">Selecione um Estado</option>
@@ -165,17 +170,42 @@
 
 
 
-									<label class="mr-sm-2" for="submeter_trabalho"></label>
-									<select class="form-control" id="submeter_trabalho" name="submeter_trabalho" required="" value="<?=$dados['submeter_trabalho'] ?? '';?>">
+									<label class="mr-sm-2" for="tipo"></label>
+									<select class="form-control" id="submeter_trabalho" name="submeter_trabalho" required="">
 										<option value="">Irá submeter Trabalho?*</option>
 										<option value="1">Sim</option>
 										<option value="0">Não</option>
 									</select>
 
+									<div class="md-form">  
+										
+										<label class="mr-sm-2" for="is_coautor"></label>  
+										<select name="is_coautor" id="is_coautor" class="form-control" required="true">  
+											<option disabled="" value="N" selected>Será co-autor de algum trabalho?</option>  
+											<option value="N">Não</option>  
+
+											<option value="S">Sim</option>  
+										</select>  
+										<script type="text/javascript">  
+											$("#is_coautor").change(function(){  
+												if($(this).val() == "S") $("#coautor_presenca").show();  
+												else $("#coautor_presenca").hide();  
+											});  
+										</script>  
+									</div>  
+
+									<div class="md-form" id="coautor_presenca" style="display: none;">  
+										<select name="coautor_presenca" id="coautor_presenca" class="form-control" required="false">  
+											<option disabled="" value="N" selected>Como co-autor, comparecerá ao evento?</option>  
+											<option value="N">Não</option>  
+
+											<option value="S">Sim</option>  
+										</select>  
+									</div> 
 
 
 									<label class="mr-sm-2" for="tipo"></label>
-									<select class="form-control" id="tipo" name="id_tipo_inscricao" required="" value="<?=$dados['id_tipo_inscricao'] ?? '';?>">
+									<select class="form-control" id="tipo" name="tipo" required="">
 										<option value="">Tipo da Inscrição*</option>
 										<option value="1">Aluno Graduação</option>
 										<option value="2">Aluno Pós-Graduação</option>

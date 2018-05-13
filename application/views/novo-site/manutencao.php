@@ -14,7 +14,7 @@ require 'importacoes/menu.php';
 <div class="row">
 	<div class="col m12 s12 center">
 		<i class="large material-icons">warning</i>
-		<h3>Esta página está em manutenção</h3>
+		<h3 class="brandon_t">Esta página está em manutenção</h3>
 	</div>
 </div>
 

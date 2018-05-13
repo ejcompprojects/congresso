@@ -10,6 +10,7 @@ class Admin extends Login {
     public function __construct(){
         parent::__construct();
         if($this->session->userdata('usuario')->tipo_usuario == 'Participante') redirect(base_url('Painel'));
+        else if($this->session->userdata('usuario')->tipo_usuario == 'Parecerista') redirect(base_url('Parecerista'));
         $this->load->helper('frontend_helper'); 
 
     }

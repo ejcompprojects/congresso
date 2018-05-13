@@ -514,7 +514,7 @@
           modal.find('#tipo_inscricao').val(tipo_inscricao)
           modal.find('#data_registro').val(data_registro)
           modal.find('#link').attr('href', '<?= base_url('uploads/artigo/') ?>'+arquivo_sem_nome_autor)
-
+          console.log(arquivo_sem_nome_autor);
           <?php } ?>
 
           

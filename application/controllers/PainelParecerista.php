@@ -10,11 +10,13 @@ class PainelParecerista extends Login {
     private $all = false;
     public function __construct(){
         parent::__construct();
+        if($this->session->userdata('usuario')->tipo_usuario == 'Participante') redirect(base_url('Painel'));
+        else if($this->session->userdata('usuario')->tipo_usuario == 'Administrador') redirect(base_url('Admin'));
         $this->load->helper('date');
         $this->load->helper('frontend_helper'); 
         $this->load->helper('modalform_helper');
         $this->load->library('ListMaker');
-        $this->load->model('Parecerista_Painel_model'      , 'pModel');
+        $this->load->model('Parecerista_Painel_model', 'pModel');
     }
     public function index(){
 
@@ -29,7 +31,7 @@ public function Pareceres()
 }
 public function insert()
 {
-    $justificativa = $this->input->post('justificativa') ?? false;
+    $justificativa = (null !== $this->input->post('justificativa')) ? $this->input->post('justificativa') : false;
     $id_trabalho    = $this->input->post('id');
     if(!$justificativa)
     {
@@ -63,7 +65,7 @@ public function insert()
             if($this->pModel->update($id_trabalho, $dados)){
                 $participante   = $this->pModel->get_email_participante_trabalho($id_trabalho);
 
-                 $this->log_model->insert_parecerista("Parecer realizado para " . $participante['nome'], $this->session->userdata('usuario')->id;
+                 $this->log_model->insert_parecerista("Parecer realizado para " . $participante['nome'], $this->session->userdata('usuario')->id);
                  $this->session->set_flashdata(
                     'success', "Parecer realizado com sucesso!"
                  );
@@ -85,7 +87,7 @@ public function insert()
     }
     else
     {
-        $dados['justificativa'] = $justificativa;
+        $dados['justificativa_parecerista'] = $justificativa;
        if($this->pModel->update_trabalho($id_trabalho, $dados)){
             unset($dados);
             $dados['ativo'] = 0;
@@ -100,7 +102,7 @@ public function insert()
 }
 public function visualizar()
     {
-        $dados['eixo_selected'] = $this->input->post('eixo') ?? 0;
+        $dados['eixo_selected'] = (null !== $this->input->post('eixo')) ? $this->input->post('eixo') : 0;
         $dados['pareceres']     = $this->pModel->get_where_parecerista_eixo($_SESSION['usuario']->id, $dados['eixo_selected']);
         $dados['eixos']         = $this->pModel->get_all_where_eixo_paracer($_SESSION['usuario']->id);
         $dados['mensagens']     = mensagens();

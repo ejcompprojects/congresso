@@ -4,255 +4,244 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home extends CI_Controller {
 
 
-	public function index($dados = NULL)
-	{
+	public function index($dados = NULL){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		//$this->load->view('novo-site/index');
 		$this->load->view('novo-site/general_info');
-		$this->load->view('novo-site/importacoes/footer');
+		// $this->load->view('novo-site/importacoes/footer');
+		//Esta importação está gerando um footer duplicado
 
 	}
 
-	public function inscricao()
-	{
-		$this->load->helper('frontend_helper');
+	public function memoria(){
+		$this->load->view('novo-site/memoria');
+	}
 
-		$dados['mensagens'] = mensagens();
-
+	public function inscricao(){
+		// echo 'Em Manutenção.<br> Voltará às 31/03/2018 às 02:00.';
+		// exit();
 		$this->load->view('html_header');
-		$this->load->view('index', $dados);
+		$this->load->view('index');
 		$this->load->view('html_footer');
 	}
 
-	public function inscricao_parecerista()
-	{
-		$this->load->helper('frontend_helper');
-		$this->load->model('Eixos_model', 'modelEixos');
-		
-		$dados['mensagens'] = mensagens();
-		$dados['eixos'] 	= $this->modelEixos->get_all();
-
-		$this->load->view('html_header');
-		$this->load->view('inscricao_parecerista', $dados);
-		$this->load->view('html_footer');
-	}
-
-
-	public function historico()
-	{		
+	public function historico(){		
 		$this->load->view('novo-site/historico');
 	}
 
-	public function manutencao()
-	{
+	public function manutencao(){
 		$this->load->view('novo-site/manutencao');
 	}
 
-	public function general_info()
-	{
+	public function general_info(){
 		$this->load->view('novo-site/general_info');
 	}
 
-	public function minicurso()
-	{
+	public function minicurso(){
 		$this->load->view('novo-site/minicurso');
 	}
 
+	public function submissao(){
+		$this->load->view('novo-site/submissao-trabalhos');
+	}
 
-	public function eixos()
-	{
+	public function formatacao(){
+		$this->load->view('novo-site/formatacao');
+	}
+
+	public function criterios(){
+		$this->load->view('novo-site/criterios');
+	}
+
+	public function comissao(){
+		$this->load->view('novo-site/comissao');
+	}
+
+	public function obras_phc(){
+		$this->load->view('novo-site/obras_phc');
+	}
+
+	public function obras_saviani(){
+		$this->load->view('novo-site/obras_saviani');
+	}
+
+	public function eixos(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
 		$this->load->view('novo-site/eixos-tematicos');
+		// $this->load->view('novo-site/importacoes/footer');
 	}
 
-	public function contato()
-	{
-		$this->load->view('novo-site/contato');	
+	// public function historico(){
+	// 	$this->load->view('novo-site/importacoes/header');
+	// 	$this->load->view('novo-site/importacoes/menu');
+	// 	$this->load->view('novo-site/index');
+	// 	$this->load->view('novo-site/importacoes/footer');
+	// }
+
+		public function contato(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/contato');
+		// $this->load->view('novo-site/importacoes/footer');	
 	}
 
-	public function informacoes_gerais()
-	{
-		$this->load->view('novo-site/informacoes-gerais');	
+	public function informacoes_gerais(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/informacoes-gerais');
+		// $this->load->view('novo-site/importacoes/footer');	
 	}
 
-	public function informacao_inscricao()
-	{
+	public function informacao_inscricao(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
 		$this->load->view('novo-site/inscricoes');
+		// $this->load->view('novo-site/importacoes/footer');
+	}
+
+	public function informacao_inscricao_com_submissao(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/informacao_inscricao_com_submissao');
+		// $this->load->view('novo-site/importacoes/footer');
+	}
+
+	public function informacao_inscricao_sem_submissao(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/informacao_inscricao_sem_submissao');
+		// $this->load->view('novo-site/importacoes/footer');
 	}
 
 
-	public function programacao()
-	{
+	public function programacao(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
 		$this->load->view('novo-site/programacao');
+		// $this->load->view('novo-site/importacoes/footer');
 	}
 
-	public function cadastrar_parecerista()
-	{
-		$this->load->helper(array('form'));
-		$this->load->library('form_validation');
-		$this->load->model('Parecerista_model','modelParecerista');
+	public function cadastrar(){
 
-		$dados_fields 	= array( 'nome'		, 'cpf'		, 'senha', 
-								 'email'	, 'celular'	, 'instituicao' );
-
-		foreach ($dados_fields as $field)
-			$dados[$field] 	= $this->input->post($field);
-
-		$eixos 			= $this->input->post('eixos[]');
-		$confirma_senha = $this->input->post('confirma-senha');
-
-		foreach ($dados_fields as $field)
-			$this->form_validation->set_rules($field , $field, "required");
-
-		$msg_success 	= "";
-		$msg_error	 	= "";
-
-		if(count($eixos) < 1)
-			$msg_error.="Selecione pelo menos um eixo!<br>";
-
-		if($this->modelParecerista->cpf_exists($dados['cpf']))
-			$msg_error.="Este CPF já foi cadastrado!<br>";
-
-		// if(!$this->modelParecerista->validaCPF($dados['cpf']))
-		// 	$msg_error.="CPF inválido ou não existe!<br>";
-
-		if($this->modelParecerista->email_exists($dados['email']))
-			$msg_error.="Este e-mail já foi cadastrado!<br>";
-
-		if($dados['senha'] != $confirma_senha)
-			$msg_error.="Senhas digitadas são diferentes!<br>";
-		else
-			$dados['senha'] = $this->crypt($dados['senha']);
-
-		if ($this->form_validation->run() == FALSE || $msg_error != "")
-		{
-			unset($dados['senha']);
-			$this->session->set_flashdata('dados', $dados);
-			$this->session->set_flashdata('danger', $msg_error);
-		}
-		else
-		{
-			if($this->modelParecerista->cadastraParecerista($dados, $eixos))
-				 $this->session->set_flashdata(
-				 	'success', "Cadastro realizado com sucesso!<br>Espere até que a sua inscrição seja avaliada por nossa equipe."
-				 );
-			else $this->session->set_flashdata(
-					'danger', "Ocorreu um erro ao tentar cadastrar, por favor tente novamente."
-				);
-		}
-
-		redirect(base_url('inscricao_parecerista'));
-
-	}
-	public function cadastrar()
-	{
 		$this->load->helper(array('form'));
 		$this->load->library('form_validation');
 		$this->load->model('Participante_model','modelParticipante');
 
-		//Salva dados do post
-		$dados_fields = array( 	'nome'				, 'email',
-								'senha'				, 'celular',
-								'estado'			, 'cep',
-								'endereco'			, 'bairro',
-								'cpf'				, 'cidade' , 
-								'id_tipo_inscricao'	, 'submeter_trabalho', 
-								'telefone'			, 'deficiencia', 
-								'deficiencia_desc'
-							);
+		$this->form_validation->set_rules('nome','nome','required');
+		$this->form_validation->set_rules('email','email','required');
+		$this->form_validation->set_rules('senha','senha','required');
+		$this->form_validation->set_rules('celular','celular','required');
+		$this->form_validation->set_rules('cpf','cpf','required');
+		$this->form_validation->set_rules('estado','estado','required');
+		$this->form_validation->set_rules('cep','cep','required');
+		$this->form_validation->set_rules('cidade','cidade','required');
 
-		foreach ($dados_fields as $field)
-			$dados[$field] 	= $this->input->post($field);
 
-		$confirma_senha 	= $this->input->post('confirma-senha');
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$email = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['cpf'] = $this->input->post('cpf');
+		$cpf = $this->input->post('cpf');
 
-		$dados_validate = array_slice($dados_fields, 0, count($dados_fields)-3);
-		
-		foreach ($dados_validate as $field)
-			$this->form_validation->set_rules($field , $field, "required");
-		unset($dados_validate);
+		$senha = $this->input->post('senha');
+		$confirmacaoSenha = $this->input->post('confirma-senha');
 
-		//Tratamento de erros
-		$msg_error = "";
+		$dados['cep'] = $this->input->post('cep');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['endereco'] = $this->input->post('rua');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['id_tipo_inscricao'] = $this->input->post('tipo');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$dados['is_coautor'] = $this->input->post('is_coautor'); 
+    	$dados['coautor_presenca'] = $this->input->post('coautor_presenca'); 
+		$tipo_inscricao = $this->input->post('tipo');
 
-		if($this->modelParticipante->cpf_exists($dados['cpf']))
-			$msg_error.="Este CPF já foi cadastrado!<br>";
-
-		if(!$this->modelParticipante->validaCPF($dados['cpf']))
-			$msg_error.="CPF inválido ou não existe!<br>";
-
-		if($this->modelParticipante->email_exists($dados['email']))
-			$msg_error.="Este e-mail já foi cadastrado!<br>";
-		
-		if($dados['senha'] != $confirma_senha)
-			$msg_error.="Senhas digitadas são diferentes!<br>";
-		else
-			$dados['senha'] = $this->crypt($dados['senha']);
-
-		//Roda validacao e verifica se tem erros
-		if ($this->form_validation->run() == FALSE || $msg_error != "")
-		{
-			unset($dados['senha']);
-			$this->session->set_flashdata('dados', $dados);
-			$this->session->set_flashdata('danger', $msg_error);
+		if($this->modelParticipante->email_exists($email)){
+			$this->session->set_flashdata('emailCadastrado', TRUE);
+			redirect(base_url('inscricao'));
 		}
-		else
-		{
-			//Escolhe qual o tipo de inscricao para continuar
-			switch($dados['id_tipo_inscricao'])
-			{
-				case 1: 
+		if($this->modelParticipante->cpf_exists($cpf)){
+			$this->session->set_flashdata('cpfCadastrado', TRUE);
+			redirect(base_url('inscricao'));
+		}
+
+
+		if ($this->form_validation->run() == FALSE){
+			// print_r($this->form_validation->error_array()); 
+      		$this->voltar_cadastro(); 
+		}else{
+
+			if (strcmp($senha,$confirmacaoSenha) == 0){
+				$dados['senha'] = $this->crypt($senha);
+
+				switch($tipo_inscricao){
+
+					case 1: 
 					$this->load->view('html_header');
 					$this->load->view('cadastro_aluno_graduacao',$dados);
 					$this->load->view('html_footer');
 					break; 
 
-				case 2: 
+					case 2: 
 					$this->load->view('html_header');
 					$this->load->view('cadastro_aluno_pos',$dados);
 					$this->load->view('html_footer');
 					break;
 
-				case 3: 
+					case 3: 
 					$this->load->view('html_header');
 					$this->load->view('cadastro_professor_universitario',$dados);
 					$this->load->view('html_footer');
 					break;		
 
-				case 4: 
+					case 4: 
 					$this->load->view('html_header');
 					$this->load->view('cadastro_professor_publica',$dados);
 					$this->load->view('html_footer');
 					break; 	
 
-				case 5:
+					case 5:
 					$this->load->view('html_header');
 					$this->load->view('cadastro_demais_profissionais',$dados);
 					$this->load->view('html_footer'); 	
 					break;
-				default: 
+					default: 
 					redirect(base_url('inscricao'));
+				}
+
+			}else{
+				$this->session->set_flashdata('senhasDiferentes', TRUE);
+				redirect(base_url('inscricao'));
 			}
 		}
 	}
 
 	public function voltar_cadastro(){
 		
-
-		$dados['nome'] 					= $this->input->post('nome');
-		$dados['deficiencia'] 			= $this->input->post('deficiencia');
-		$dados['email'] 				= $this->input->post('email');
-		$dados['celular'] 				= $this->input->post('celular');
-		$dados['telefone'] 				= $this->input->post('telefone');
-		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
-
-		$dados['cidade'] 				= $this->input->post('cidade');
-		$dados['cep'] 					= $this->input->post('cep');
-		$dados['estado'] 				= $this->input->post('estado');
-		$dados['id_tipo_inscricao'] 	= $this->input->post('id_tipo_inscricao');
-		$dados['cpf'] 					= $this->input->post('cpf');
-		$dados['bairro'] 				= $this->input->post('bairro');
-		$dados['endereco'] 				= $this->input->post('endereco');
-		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
-
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$dados['is_coautor'] = $this->input->post('is_coautor'); 
+    	$dados['coautor_presenca'] = $this->input->post('coautor_presenca'); 
 
 		$this->load->view("html_header");
 		$this->load->view('index',$dados);
@@ -275,23 +264,23 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('curso','curso','required');
 		$this->form_validation->set_rules('semestre','semestre','required');
 
-		$dados['nome'] 					= $this->input->post('nome');
-		$dados['deficiencia'] 			= $this->input->post('deficiencia');
-		$dados['email'] 				= $this->input->post('email');
-		$dados['celular'] 				= $this->input->post('celular');
-		$dados['telefone'] 				= $this->input->post('telefone');
-		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
-
-		$dados['cidade'] 				= $this->input->post('cidade');
-		$dados['cep'] 					= $this->input->post('cep');
-		$dados['estado'] 				= $this->input->post('estado');
-		$dados['id_tipo_inscricao'] 	= $this->input->post('id_tipo_inscricao');
-		$dados['cpf'] 					= $this->input->post('cpf');
-		$dados['bairro'] 				= $this->input->post('bairro');
-		$dados['endereco'] 				= $this->input->post('endereco');
-		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
-
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$dados['is_coautor'] = $this->input->post('is_coautor'); 
+    	$dados['coautor_presenca'] = $this->input->post('coautor_presenca'); 
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -337,24 +326,23 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('curso','curso','required');
 		$this->form_validation->set_rules('tematica_da_pesquisa','tematica_da_pesquisa','required');
 
-
-		$dados['nome'] 					= $this->input->post('nome');
-		$dados['deficiencia'] 			= $this->input->post('deficiencia');
-		$dados['email'] 				= $this->input->post('email');
-		$dados['celular'] 				= $this->input->post('celular');
-		$dados['telefone'] 				= $this->input->post('telefone');
-		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
-
-		$dados['cidade'] 				= $this->input->post('cidade');
-		$dados['cep'] 					= $this->input->post('cep');
-		$dados['estado'] 				= $this->input->post('estado');
-		$dados['id_tipo_inscricao'] 	= $this->input->post('id_tipo_inscricao');
-		$dados['cpf'] 					= $this->input->post('cpf');
-		$dados['bairro'] 				= $this->input->post('bairro');
-		$dados['endereco'] 				= $this->input->post('endereco');
-		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
-
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$dados['is_coautor'] = $this->input->post('is_coautor'); 
+   		$dados['coautor_presenca'] = $this->input->post('coautor_presenca'); 
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -416,6 +404,8 @@ class Home extends CI_Controller {
 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 		$dados['deficiencia'] = $this->input->post('deficiencia');
 		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$dados['is_coautor'] = $this->input->post('is_coautor'); 
+    	$dados['coautor_presenca'] = $this->input->post('coautor_presenca'); 
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -473,6 +463,8 @@ class Home extends CI_Controller {
 		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
 		$dados['deficiencia'] = $this->input->post('deficiencia');
 		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$dados['is_coautor'] = $this->input->post('is_coautor'); 
+    	$dados['coautor_presenca'] = $this->input->post('coautor_presenca'); 
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -533,24 +525,23 @@ class Home extends CI_Controller {
 
 		$this->form_validation->set_rules('area_de_atuacao','area_de_atuacao','required');
 
-
-		$dados['nome'] 					= $this->input->post('nome');
-		$dados['deficiencia'] 			= $this->input->post('deficiencia');
-		$dados['email'] 				= $this->input->post('email');
-		$dados['celular'] 				= $this->input->post('celular');
-		$dados['telefone'] 				= $this->input->post('telefone');
-		$dados['senha'] 				= $this->input->post('senha');
-		$dados['deficiencia_desc'] 		= $this->input->post('deficiencia_desc') ?? '';
-
-		$dados['cidade'] 				= $this->input->post('cidade');
-		$dados['cep'] 					= $this->input->post('cep');
-		$dados['estado'] 				= $this->input->post('estado');
-		$dados['id_tipo_inscricao'] 	= $this->input->post('id_tipo_inscricao');
-		$dados['cpf'] 					= $this->input->post('cpf');
-		$dados['bairro'] 				= $this->input->post('bairro');
-		$dados['endereco'] 				= $this->input->post('endereco');
-		$dados['submeter_trabalho'] 	= $this->input->post('submeter_trabalho');
-
+		$dados['nome'] = $this->input->post('nome');
+		$dados['email'] = $this->input->post('email');
+		$dados['celular'] = $this->input->post('celular');
+		$dados['telefone'] = $this->input->post('telefone');
+		$dados['senha'] = $this->input->post('senha');
+		$dados['cidade'] = $this->input->post('cidade');
+		$dados['cep'] = $this->input->post('cep');
+		$dados['estado'] = $this->input->post('estado');
+		$dados['id_tipo_inscricao'] = $this->input->post('id_tipo_inscricao');
+		$dados['cpf'] = $this->input->post('cpf');
+		$dados['bairro'] = $this->input->post('bairro');
+		$dados['endereco'] = $this->input->post('endereco');
+		$dados['submeter_trabalho'] = $this->input->post('submeter_trabalho');
+		$dados['deficiencia'] = $this->input->post('deficiencia');
+		$dados['deficiencia_desc'] = $this->input->post('deficiencia_desc');
+		$dados['is_coautor'] = $this->input->post('is_coautor'); 
+    	$dados['coautor_presenca'] = $this->input->post('coautor_presenca'); 
 
 		$id_participante = $this->modelParticipante->cadastraParticipante($dados);
 
@@ -753,4 +744,80 @@ class Home extends CI_Controller {
 
     	redirect('Login');
     }
+
+
+
+    	public function inscricao_parecerista()
+	{
+		$this->load->helper('frontend_helper');
+		$this->load->model('Eixos_model', 'modelEixos');
+		
+		$dados['mensagens'] = mensagens();
+		$dados['eixos'] 	= $this->modelEixos->get_all();
+
+		$this->load->view('html_header');
+		$this->load->view('inscricao_parecerista', $dados);
+		$this->load->view('html_footer');
+	}
+
+
+		public function cadastrar_parecerista()
+	{
+		$this->load->helper(array('form'));
+		$this->load->library('form_validation');
+		$this->load->model('Parecerista_model','modelParecerista');
+
+		$dados_fields 	= array( 'nome'		, 'cpf'		, 'senha', 
+								 'email'	, 'celular'	, 'instituicao' );
+
+		foreach ($dados_fields as $field)
+			$dados[$field] 	= $this->input->post($field);
+
+		$eixos 			= $this->input->post('eixos[]');
+		$confirma_senha = $this->input->post('confirma-senha');
+
+		foreach ($dados_fields as $field)
+			$this->form_validation->set_rules($field , $field, "required");
+
+		$msg_success 	= "";
+		$msg_error	 	= "";
+
+		if(count($eixos) < 1)
+			$msg_error.="Selecione pelo menos um eixo!<br>";
+
+		if($this->modelParecerista->cpf_exists($dados['cpf']))
+			$msg_error.="Este CPF já foi cadastrado!<br>";
+
+		// if(!$this->modelParecerista->validaCPF($dados['cpf']))
+		// 	$msg_error.="CPF inválido ou não existe!<br>";
+
+		if($this->modelParecerista->email_exists($dados['email']))
+			$msg_error.="Este e-mail já foi cadastrado!<br>";
+
+		if($dados['senha'] != $confirma_senha)
+			$msg_error.="Senhas digitadas são diferentes!<br>";
+		else
+			$dados['senha'] = $this->crypt($dados['senha']);
+
+		if ($this->form_validation->run() == FALSE || $msg_error != "")
+		{
+			unset($dados['senha']);
+			$this->session->set_flashdata('dados', $dados);
+			$this->session->set_flashdata('danger', $msg_error);
+		}
+		else
+		{
+			if($this->modelParecerista->cadastraParecerista($dados, $eixos))
+				 $this->session->set_flashdata(
+				 	'success', "Cadastro realizado com sucesso!<br>Espere até que a sua inscrição seja avaliada por nossa equipe."
+				 );
+			else $this->session->set_flashdata(
+					'danger', "Ocorreu um erro ao tentar cadastrar, por favor tente novamente."
+				);
+		}
+
+		redirect(base_url('inscricao_parecerista'));
+
+	}
+
 }

@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <title>Pedagogia Histórico-Crítica</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <!--[if gt IE 8]><!--><link rel="stylesheet" href="<?= base_url('').'assets/novo-site/css/materialize.min.css' ?>"><!--<![endif]-->
+  <link rel="shortcut icon"  href="<?= base_url('').'favicon.ico' ?>"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--[if lte IE 8]><link rel="stylesheet" href="<?= 'assets/novo-site/css/responsive-nav.css' ?>"><![endif]-->
-  <!--[if gt IE 8]><!--><link rel="stylesheet" href="<?= base_url('').'assets/novo-site/css/styles.css' ?>"><!--<![endif]-->
-  <!--[if gt IE 8]><!--><link rel="stylesheet" href="<?= base_url('').'assets/novo-site/css/programacao.css' ?>"><!--<![endif]-->
-  <script src="<?= base_url('').'assets/novo-site/js/responsive-nav.js' ?>"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link rel="stylesheet" href="<?= 'assets/novo-site/css/responsive-nav.css' ?>">
+  <link rel="stylesheet" href="<?= base_url('').'assets/novo-site/css/styles.css' ?>">
+  <link rel="stylesheet" href="<?= base_url('').'assets/novo-site/css/programacao.css' ?>">
 </head>
 <body>

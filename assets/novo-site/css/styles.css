@@ -79,7 +79,7 @@ a {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
-    padding: 3em 4em;
+    padding: 5px 1em;
     position: fixed;
     overflow: hidden;
     overflow-y: scroll;
@@ -254,7 +254,6 @@ p {
 }
 
 tbody {
-    display: inline !important;
     overflow-x: visible;
 }
 
@@ -282,4 +281,37 @@ tbody {
 
 .red:hover{
 	background: rgb(209, 84, 75) !important
+}
+
+.obra{
+    width: 200px;
+    height: auto;
+    margin: auto;
+    margin-bottom: 20px;
+    -webkit-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+}
+
+.obra:hover{
+    transform: scale(1.2);
+}
+
+.map-responsive{
+    overflow:hidden;
+    padding-bottom: 35%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+.card.small {
+    height: 180px;
 }

@@ -6,89 +6,98 @@ require 'importacoes/menu.php';
 ?>
 
 <div class="row animate fadeIn">
-	<div class="col m5 s12 orn" style="padding-bottom: -50%;">
-		<p class="intro brandon_r">INSCRIÇÃO</p>
+	<div class="row">
+		<div class="col m5 s12 orn" style="padding-bottom: -50%;">
+			<p class="intro brandon_r ">INSCRIÇÃO</p>
+		</div>
+		<div style="margin-top: 2%; margin-bottom: 1.5%;" class="col m6 offset-m1 s12 center">
+			<a class="bt_inscrever brandon_t pulse" href="http://pedagogiahistoricocritica.com.br/inscricao" target="_blank" style="font-size: 22px;">INSCREVA-SE AGORA</a>
+		</div>
+		<div>
+			<p class="intro brandon_r">IMPORTANTE</p>
+			<p style="text-indent: 0 !important;"><b>a)</b> Interessados em enviar trabalhos: o <b>prazo final dia 18/05</b>;<br>
+			<b>b)</b> A Comissão Organizadora <b>NÃO</b> se responsabiliza por erros na compensação de depósitos/pagamento inscrição;<br>
+			<b>c)</b> Autor e co-autor de trabalhos: pagar inscrições <b>antes de 18/05</b> (autor principal: anexar os comprovantes ao submeter o trabalho).</p>
+		</div>
 	</div>
-</div>
-<br>
-<p class="apresentacao">Considerando que haverá submissão de trabalhos e que a avaliação dos trabalhos ocorrerá por pareceristas ad hoc, a Comissão Organizadora elaborou prazos de submissão diferenciados visando agilizar o processo de retorno aos autores (prevendo revisões solicitadas pelos pareceristas).
-	<div class="12u">		
-	<table class="responsive-table striped tw_cent animate fadeIn" >
-		<tr class="tr-hide hide-on-med-and-down">
-			<th style="width: 20%;" class="align_center">MÊS</th>
-			<th class="align_center">DESCRIÇÃO</th>
-			<th style="width: 40%;" class="align_center">VALOR DA INSCRIÇÃO</th>
-		</tr>
-		<tr>
-			<th class="align_center"><b>FEVEREIRO</b></th>
-			<td style="font-weight: normal !important; padding: 2% !important;">
-				Até 28/02 (data limite para inscrições nos valores de FEVEREIRO e, consequentemente, envio do trabalho é até o dia 28/02).
-			</td>
-			<td style="padding-right: 1% !important;">
-				<ul>
-					<li><b>Graduandos:</b> 						<span style="float: right !important;">R$ 20,00;</span></li>
-					<li><b>Pós-graduandos:</b> 					<span style="float: right !important;">R$ 35,00;</span></li>
-					<li><b>Professores da Rede de<br>Ensino Público - E.I.; E.F. I e II; Ensino Médio:</b> 	<span style="float: right !important;">R$ 35,00;</span></li>
-					<li><b>Professores do Ensino Superior:</b> 	<span style="float: right !important;">R$ 80,00;</span></li>
-					<li><b>Demais profissionais:</b> 			<span style="float: right !important;">R$ 80,00.</span></li>
-				</ul>
-			</td>
-		</tr>
-
-		<tr>
-			<th class="align_center"><b>MARÇO</b></th>
-			<td style="font-weight: normal !important; padding: 2% !important;">
-				Até 31/03 (data limite para inscrições nos valores de MARÇO e, consequentemente, envio do trabalho é até o dia 31/03).
-			</td>
-			<td style="padding-right: 1% !important;">
-				<ul>
-					<li><b>Graduandos:</b> 						<span style="float: right !important;">R$ 25,00;</span></li>
-					<li><b>Pós-graduandos:</b> 					<span style="float: right !important;">R$ 40,00;</span></li>
-					<li><b>Professores da Rede de<br>Ensino Público - E.I.; E.F. I e II; Ensino Médio:</b> 	<span style="float: right !important;">R$ 40,00;</span></li>
-					<li><b>Professores do Ensino Superior:</b> 	<span style="float: right !important;">R$ 90,00;</span></li>
-					<li><b>Demais profissionais:</b> 			<span style="float: right !important;">R$ 90,00.</span></li>
-				</ul>
-			</td>
-		</tr>
-
-		<tr>
-			<th class="align_center"><b>ABRIL</b></th>
-			<td style="font-weight: normal !important; padding: 2% !important;">
-				Até 30/04 (data limite para inscrições nos valores de ABRIL e, consequentemente, envio do trabalho é até o dia 30/04).
-			</td>
-			<td style="padding-right: 1% !important;">
-				<ul>
-					<li><b>Graduandos:</b> 													<span style="float: right !important;">R$ 35,00;</span></li>
-					<li><b>Pós-graduandos:</b> 												<span style="float: right !important;">R$ 60,00;</span></li>
-					<li><b>Professores da Rede de<br>Ensino Público - E.I.; E.F. I e II; Ensino Médio:</b><span style="float: right !important;">R$ 60,00;</span></li>
-					<li><b>Professores do Ensino Superior:</b> 								<span style="float: right !important;">R$ 110,00;</span></li>
-					<li><b>Demais profissionais:</b> 											<span style="float: right !important;">R$ 110,00.</span></li>
-				</ul>
-			</th>
-		</tr>
-
-		<tr>
-			<th class="align_center"><b>MAIO/JUNHO/JULHO</b></th>
-			<td style="font-weight: normal !important; padding: 2% !important;">
-				SEM submissão de trabalho. Serão aceitas Inscrições se houver disponibilidade de vagas.
-			</td>
-			<td style="padding-right: 1% !important;">
-				<ul>
-					<li><b>Graduandos:</b> 													<span style="float: right !important;">R$ 35,00;</span></li>
-					<li><b>Pós-graduandos:</b> 												<span style="float: right !important;">R$ 60,00;</span></li>
-					<li><b>Professores da Rede de<br>Ensino Público - E.I.; E.F. I e II; Ensino Médio:</b><span style="float: right !important;">R$ 60,00;</span></li>
-					<li><b>Professores do Ensino Superior:</b> 								<span style="float: right !important;">R$ 110,00;</span></li>
-					<li><b>Demais profissionais:</b> 											<span style="float: right !important;">R$ 110,00.</span></li>
-				</ul>
-			</td>
-		</tr>
-	</table>
+	
+	<div class="row center-align">		
+		<table class="responsive-table striped tw_cent animate fadeIn ">
+			<tr class="" style="background-color:rgb(224, 61, 61) !important;">
+				<th style="width:100%;  padding-top: 5px; padding-bottom: 5px;"><h6 style="width:100%; color: white; font-size: 1.5rem;" class="center-align">Estudante de Graduação<h6></th>
+			</tr>
+			<tr>
+				<td style="padding-right: 1% !important; padding-top: 5px; padding-bottom: 5px;">
+					<ul>
+						<li style="border-bottom: solid 1px #CCC !important;">Até dia <b>31/03/2018</b> 						<span style="float: right !important;">R$ 20,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>31/03/2018</b> até dia <b>30/06/2018</b> 						<span style="float: right !important;">R$ 35,00</span></li>
+					</ul>
+					<hr>
+				</td>
+			</tr>
+		</table>
+		<table class="responsive-table striped tw_cent animate fadeIn ">
+			<tr class="" style="background-color:rgb(224, 61, 61) !important;">
+				<th style="width:100%; ; padding-top: 5px; padding-bottom: 5px;"><h6 style="width:100%; color: white; font-size: 1.5rem;" class="center-align">Estudante de Pós-graduação:<h6></th>
+			</tr>
+			<tr>
+				<td style="padding-right: 1% !important; padding-top: 5px; padding-bottom: 5px;">
+					<ul>
+						<li style="border-bottom: solid 1px #CCC !important;">Até dia <b>31/03/2018</b> 						<span style="float: right !important;">R$ 40,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>31/03/2018</b> até dia <b>30/04/2018</b> 						<span style="float: right !important;">R$ 55,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>30/04/2018</b> até dia <b>30/06/2018</b> 						<span style="float: right !important;">R$ 60,00</span></li>
+					</ul>
+					<hr>
+				</td>
+			</tr>
+		</table>
+		<table class="responsive-table striped tw_cent animate fadeIn ">
+			<tr class="" style="background-color:rgb(224, 61, 61) !important;">
+				<th style="width:100%;  padding-top: 5px; padding-bottom: 5px;"><h6 style="width:100%; color: white; font-size: 1.5rem;" class="center-align">Professores de Redes Públicas de Ensino<br> (Municipais/Estaduais)<h6></th>
+			</tr>
+			<tr>
+				<td style="padding-right: 1% !important; padding-top: 5px; padding-bottom: 5px;">
+					<ul>
+						<li style="border-bottom: solid 1px #CCC !important;">Até dia <b>31/03/2018</b> 						<span style="float: right !important;">R$ 40,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>31/03/2018</b> até dia <b>30/04/2018</b> 						<span style="float: right !important;">R$ 55,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>30/04/2018</b> até dia <b>30/06/2018</b> 						<span style="float: right !important;">R$ 60,00</span></li>
+					</ul>
+					<hr>
+				</td>
+			</tr>
+		</table>
+		<table class="responsive-table striped tw_cent animate fadeIn ">
+			<tr class="" style="background-color:rgb(224, 61, 61) !important;">
+				<th style="width:100%;  padding-top: 5px; padding-bottom: 5px;"><h6 style="width:100%; color: white; font-size: 1.5rem;" class="center-align">Professores do Ensino Superior<br>(Público/Particular)<h6></th>
+			</tr>
+			<tr>
+				<td style="padding-right: 1% !important; padding-top: 5px; padding-bottom: 5px;">
+					<ul>
+						<li style="border-bottom: solid 1px #CCC !important;">Até dia <b>31/03/2018</b> 						<span style="float: right !important;">R$ 90,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>31/03/2018</b> até dia <b>30/04/2018</b> 						<span style="float: right !important;">R$ 120,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>30/04/2018</b> até dia <b>31/06/2018</b> 						<span style="float: right !important;">R$ 140,00</span></li>
+					</ul>
+					<hr>
+				</td>
+			</tr>
+		</table>
+		<table class="responsive-table striped tw_cent animate fadeIn ">
+			<tr class="" style="background-color:rgb(224, 61, 61) !important;">
+				<th style="width:100%;  padding-top: 5px; padding-bottom: 5px;"><h6 style="width:100%; color: white; font-size: 1.5rem;" class="center-align">Demais Profissionais<h6></th>
+			</tr>
+			<tr>
+				<td style="padding-right: 1% !important; padding-top: 5px; padding-bottom: 5px;">
+					<ul>
+						<li style="border-bottom: solid 1px #CCC !important;">Até dia <b>31/03/2018</b> 						<span style="float: right !important;">R$ 90,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>31/03/2018</b> até dia <b>30/04/2018</b> 						<span style="float: right !important;">R$ 120,00</span></li>
+						<li style="border-bottom: solid 1px #CCC !important;">De <b>30/04/2018</b> até dia <b>31/06/2018</b> 						<span style="float: right !important;">R$ 140,00</span></li>
+					</ul>
+					<hr>
+				</td>
+			</tr>
+		</table>
 	</div>		
-</p>
-<div class="row">
-	<div style="margin-top: 5%; margin-bottom: 5%;" class="col m12 s12 center">
-		<a class="bt_inscrever brandon_t" href="http://pedagogiahistoricocritica.com.br/inscricao" target="_blank" style="font-size: 22px;">INSCREVA-SE AGORA</a>
-	</div>
-</div>
 
 <?php require 'importacoes/footer.php'; ?>
+
+

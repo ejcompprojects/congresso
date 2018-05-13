@@ -28,19 +28,19 @@
 								<!-- <h3 class="text-center font-bold deep-black-text py-4">Dados Pessoais</h3> -->
 								<div class="md-form">
 									<i class="fa fa-user prefix grey-text"></i>
-									<input type="text" id="nome" name="nome" class="form-control" value="<?=$dados['nome'] ?? ''?>" required="true" minlength="2" maxlength="100">
+									<input type="text" id="nome" name="nome" class="form-control" value="<?php if(isset($dados['nome'])) echo $dados['nome'];  else echo ''; ?>" required="true" minlength="2" maxlength="100">
 									<label for="nome">Nome Completo*</label>
 								</div>
 
 								<div class="md-form">
 									<i class="fa fa-id-card prefix grey-text"></i>
-									<input type="text" id="cpf" name="cpf" class="form-control" value="<?=$dados['cpf'] ?? ''?>" required="true" minlength="2" maxlength="15">
+									<input type="text" id="cpf" name="cpf" class="form-control" value="<?php if(isset($dados['cpf'])) echo $dados['cpf'];  else echo ''; ?>" required="true" minlength="2" maxlength="15">
 									<label for="cpf">CPF*</label>
 								</div>
 
 								<div class="md-form">
 									<i class="fa fa-envelope prefix grey-text"></i>
-									<input type="email" id="email" name="email" class="form-control" value="<?=$dados['email'] ?? ''?>" required="true" minlenght="5" maxlength="100">
+									<input type="email" id="email" name="email" class="form-control" value="<?php if(isset($dados['email'])) echo $dados['email'];  else echo ''; ?>" required="true" minlenght="5" maxlength="100">
 									<label for="email">E-mail*</label>
 								</div>
 
@@ -59,20 +59,20 @@
 								<div class="md-form">
 
 									<i class="fa fa-mobile prefix grey-text"></i>
-									<input type="text" id="celular" name="celular" class="form-control" value="<?=$dados['celular'] ?? ''?>" required="true" maxlength="15" >
+									<input type="text" id="celular" name="celular" class="form-control" value="<?php if(isset($dados['celular'])) echo $dados['celular'];  else echo ''; ?>" required="true" maxlength="15" >
 
 									<label for="celular">Celular*</label>
 								</div>
 
 								<div class="md-form">
 									<i class="fa fa-phone prefix grey-text"></i>
-									<input type="text" id="telefone" name="telefone" class="form-control" value="<?=$dados['telefone'] ?? ''?>">
+									<input type="text" id="telefone" name="telefone" class="form-control" value="<?php if(isset($dados['telefone'])) echo $dados['telefone'];  else echo ''; ?>">
 									<label for="telefone">Telefone</label>
 								</div>
 
 								<div class="md-form">
 									<i class="fa fa-university prefix grey-text"></i>
-									<input type="text" id="instituicao" name="instituicao" class="form-control" value="<?=$dados['instituicao'] ?? ''?>">
+									<input type="text" id="instituicao" name="instituicao" class="form-control" value="<?php if(isset($dados['instituicao'])) echo $dados['instituicao'];  else echo ''; ?>">
 									<label for="instituicao">Instituição de atuação</label>
 								</div>
 

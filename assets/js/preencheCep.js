@@ -14,6 +14,11 @@ function limpa_formulário_cep() {
             document.getElementById('bairro').value=(conteudo.bairro);
             document.getElementById('cidade').value=(conteudo.localidade);
             document.getElementById('estado').value=(conteudo.uf);
+            $(function(){
+                $('#rua').focus();
+                $('#bairro').focus();
+                $('#cidade').focus();
+            });
         } //end if.
         else {
             //CEP não Encontrado.

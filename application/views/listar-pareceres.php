@@ -74,7 +74,7 @@
 
               $input[0]['id']    = "modelo_parecer";
 
-              $input[0]['src']  = base_url('uploads/modelo_parecer.pdf');
+              $input[0]['src']  = base_url('uploads/modelo_parecer.doc');
 
 
               $input[1]['type']  = "file_down";

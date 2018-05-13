@@ -101,6 +101,8 @@
                                 
                                 <?php echo '<input id="deficiencia" name="deficiencia" type="hidden"  value="'.$deficiencia.'"' ?>>
                                 <?php echo '<input id="deficiencia_desc" name="deficiencia_desc" type="hidden"  value="'.$deficiencia_desc.'"' ?>>
+                                <?php echo '<input id="is_coautor" name="is_coautor" type="hidden"  value="'.$is_coautor.'"' ?>>
+                                <?php echo '<input id="coautor_presenca" name="coautor_presenca" type="hidden"  value="'.$coautor_presenca.'"' ?>>
                                 <?php echo '<input id="senha" name="senha" type="hidden"  value="'.$senha.'"' ?>>
                                 <?php echo '<input id="cidade" name="cidade" type="hidden"  value="'.$cidade.'"' ?>>
                                 <?php echo '<input id="cep" name="cep" type="hidden"  value="'.$cep.'"' ?>>
