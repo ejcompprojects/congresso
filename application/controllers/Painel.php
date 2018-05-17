@@ -18,7 +18,7 @@ class Painel extends Login {
         $this->load->model('Painel_model', 'painel_model');
         $this->load->helper('buscarMinicurso');
         $this->load->model('Minicurso_model', 'minicurso_model');
-
+        $this->load->model('participante_model', 'participante_model');
     }
 
     public function get_trabalho($id_usuario){
@@ -65,21 +65,35 @@ class Painel extends Login {
 
 
     if( !$enviou_comprovante && $status_comprovante != 3){ //todo mundo tem que enviar o comprovante, se não enviou:
+        if($this->participante_model->inscricoesPagas() >= 300){
+            $array['fase'] = 'ENVIAR_COMPROVANTE';
+            $array['etapa'] = 2;
+            $array['porcentagem'] = 0;    
 
-        //Informações relevantes para a página inicial:
-    	$array['fase'] = 'ENVIAR_COMPROVANTE';
-    	$array['etapa'] = 2;
-    	$array['porcentagem'] = 40;
+            $array['div_enviar_comprovante'] = FALSE;
+            $array['div_status_comprovante'] = FALSE;
+            $array['div_enviar_trabalho'] = FALSE;
+            $array['div_alerta_trabalho'] = FALSE;
+            $array['div_status_trabalho'] = FALSE;
+            $array['div_sem_vagas'] = TRUE;
 
-        //Informações relevantes para a página de enviar arquivos:
-    	$array['div_enviar_comprovante'] = TRUE;
-    	$array['div_status_comprovante'] = FALSE;
-    	$array['div_enviar_trabalho'] = FALSE;
-    	$array['div_alerta_trabalho'] = TRUE;
-    	$array['div_status_trabalho'] = FALSE;
+            array_push($array['mensagens'], 'As vagas do evento acabaram!');
+        }else{
+            //Informações relevantes para a página inicial:
+        	$array['fase'] = 'ENVIAR_COMPROVANTE';
+        	$array['etapa'] = 2;
+        	$array['porcentagem'] = 40;
+
+            //Informações relevantes para a página de enviar arquivos:
+        	$array['div_enviar_comprovante'] = TRUE;
+        	$array['div_status_comprovante'] = FALSE;
+        	$array['div_enviar_trabalho'] = FALSE;
+        	$array['div_alerta_trabalho'] = TRUE;
+        	$array['div_status_trabalho'] = FALSE;
 
 
-    	array_push($array['mensagens'], 'Você não anexou a foto de seu comprovante de pagamento!');
+        	array_push($array['mensagens'], 'Você não anexou a foto de seu comprovante de pagamento!');
+        }
 
     }
     else{ // se enviou

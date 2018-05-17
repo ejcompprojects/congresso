@@ -91,10 +91,15 @@ class Participante_model extends CI_Model{
 
       if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
        $this->db->like(self::DB_TABLE.'.'.self::NOME_COLUMN, $filtros[self::NOME_COLUMN]);
-   }
+      }
 
-   return $this->db->get(self::DB_TABLE)->num_rows();
-}
+       return $this->db->get(self::DB_TABLE)->num_rows();
+    }
+
+    public function inscricoesPagas(){
+        $this->db->where("foto_comprovante != ''");
+        return $this->db->get("participante")->num_rows();
+    }
 
 public function cadastraParticipante($dados){
     $this->db->insert('participante',$dados);
