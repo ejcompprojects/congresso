@@ -57,7 +57,7 @@
                 'id'    => 'quantidade',
                 'class' =>'form-control round-form',);
 
-              $Qntd['options'] = array(10 => 10, 20 => 20, 50 => 50, 100 => 100);
+              $Qntd['options'] = array(10 => 10, 20 => 20, 50 => 50, 100 => 100, 500 => 500, 1000 => 1000);
 
               $Qntd['selected']= $filtros['quantidade'];
 
@@ -87,7 +87,8 @@
                 <option value="0">Em Análise</option>
                 <option value="1">Pagamento Aprovado</option>
                 <option value="2">Pagamento Recusado</option>
-                <option value="3">Não Enviou Comprovante</option>
+                <option value="3">Isento</option>
+                <option value="4">Não Enviou Comprovante</option>
               </select>
             </div>
             <div class="col-sm-4">
@@ -130,7 +131,7 @@
           ?>
           <?= $mensagens; ?>
         </div>
-        
+
           <table class="table table-striped table-advance table-hover">
             <thead>
 
@@ -151,7 +152,7 @@
             </thead>
             <!-- tbody -->
 
-              <?php 
+              <?php
 
               foreach ($participantes as $participante) :
 
@@ -183,7 +184,7 @@
               else $participante->enviou_comprovante = 'Sim';
 
               if($participante->submeter_trabalho == 0) $participante->verbose_submeter_trabalho = 'Não';
-              else $participante->verbose_submeter_trabalho = 'Sim'; 
+              else $participante->verbose_submeter_trabalho = 'Sim';
               ?>
               <tr>
                 <td><?=$participante->id ?></td>
@@ -197,13 +198,13 @@
 
 
                 <td>
-                  <button class           ="btn btn-primary btn-xs" 
-                  data-toggle     ="modal" 
-                  data-target     ="#modalParticipante" 
+                  <button class           ="btn btn-primary btn-xs"
+                  data-toggle     ="modal"
+                  data-target     ="#modalParticipante"
                   data-type       ="update"
 
-                  data-id         ="<?=$participante->id?>" 
-                  data-nome       ="<?=$participante->nome?>" 
+                  data-id         ="<?=$participante->id?>"
+                  data-nome       ="<?=$participante->nome?>"
                   data-email      ="<?=$participante->email?>"
                   data-cpf      ="<?=$participante->cpf?>"
                   data-celular      ="<?=$participante->celular?>"
@@ -245,7 +246,7 @@
                                       ?>
                                     <!-- </tbody> -->
                                   </table>
-                        
+
                                 <?php echo $paginacao; ?>
                               </div>
                             </div>
@@ -494,7 +495,7 @@
 
 
 
-                          echo modalForm("modalParticipante", "participanteLabel", "", "formParticipante", $input); 
+                          echo modalForm("modalParticipante", "participanteLabel", "", "formParticipante", $input);
 
                           ?>
 
@@ -643,13 +644,13 @@
             modal.find('#status').val(status)
             modal.find('#data_registro').val(data_registro)
 
-            
+
           }
 
 
           <?php //} ?>
 
-          
+
         }
       })
 

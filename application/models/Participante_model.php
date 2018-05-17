@@ -35,10 +35,10 @@ class Participante_model extends CI_Model{
         }
     }
     public function validaCPF($cpf = '') {
-     
+
         // Extrai somente os números
         $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
-         
+
         // Verifica se foi informado todos os digitos corretamente
         if (strlen($cpf) != 11) {
             return false;
@@ -86,7 +86,7 @@ class Participante_model extends CI_Model{
     //     return $this->db->get(self::DB_TABLE)->result();
 
     // }
-    
+
     public function num_rows($filtros = array()){
 
       if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
@@ -110,7 +110,7 @@ public function cadastraParticipante($dados){
 public function list_filter($filtros = array(), $inicio = 0){
   if(!isset($filtros['attribute'])){
    $filtros['attribute'] = 'nome';
-} 
+}
 if(!isset($filtros['order_by'])){
    $filtros['order_by'] = 'ASC';
 }
@@ -135,7 +135,7 @@ return $this->db->get(self::DB_TABLE)->result();
 public function list_filter_pagamento_analisar($filtros = array(), $inicio = 0){
     if(!isset($filtros['attribute'])){
         $filtros['attribute'] = 'nome';
-    } 
+    }
     if(!isset($filtros['order_by'])){
         $filtros['order_by'] = 'ASC';
     }
@@ -161,7 +161,7 @@ public function list_filter_pagamento_analisar($filtros = array(), $inicio = 0){
 public function num_rows_listar_pagamento_analisar($filtros = array(), $inicio = 0){
  if(!isset($filtros['attribute'])){
     $filtros['attribute'] = 'nome';
-} 
+}
 if(!isset($filtros['order_by'])){
     $filtros['order_by'] = 'ASC';
 }
@@ -186,7 +186,7 @@ return $this->db->get(self::DB_TABLE)->num_rows();
 public function list_filter_trabalho_analisar($filtros = array(), $inicio = 0){
     if(!isset($filtros['attribute'])){
         $filtros['attribute'] = 'nome';
-    } 
+    }
     if(!isset($filtros['order_by'])){
         $filtros['order_by'] = 'ASC';
     }
@@ -202,7 +202,7 @@ public function list_filter_trabalho_analisar($filtros = array(), $inicio = 0){
     }
     $this->db->join('tipo_inscricao', 'tipo_inscricao.id = participante.id_tipo_inscricao', 'INNER');
     $this->db->join('trabalho', 'trabalho.id_participante = participante.id', 'INNER');
-    $this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER'); 
+    $this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER');
     $this->db->select('tipo_inscricao.tipo as tipo_inscricao, eixo.nome as eixo, trabalho.*, '.self::DB_TABLE . '.*');
     $this->db->where('trabalho.status', 0);
     $this->db->order_by('trabalho.data_registro', 'ASC');
@@ -214,7 +214,7 @@ public function list_filter_trabalho_analisar($filtros = array(), $inicio = 0){
 public function num_rows_listar_trabalho_analisar($filtros = array(), $inicio = 0){
  if(!isset($filtros['attribute'])){
     $filtros['attribute'] = 'nome';
-} 
+}
 if(!isset($filtros['order_by'])){
     $filtros['order_by'] = 'ASC';
 }
@@ -230,7 +230,7 @@ if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
 }
 $this->db->join('tipo_inscricao', 'tipo_inscricao.id = participante.id_tipo_inscricao', 'INNER');
 $this->db->join('trabalho', 'trabalho.id_participante = participante.id', 'INNER');
-$this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER'); 
+$this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER');
 $this->db->select('tipo_inscricao.tipo as tipo_inscricao, eixo.nome as eixo, trabalho.*, '.self::DB_TABLE . '.*');
 $this->db->where('trabalho.status', 0);
 $this->db->order_by('trabalho.data_registro', 'ASC');
@@ -241,7 +241,7 @@ public function num_rows_todos($filtros = array(), $inicio = 0){
     return count($this->list_all($filtros, $inicio));
     // if(!isset($filtros['attribute'])){
     //     $filtros['attribute'] = 'nome';
-    // } 
+    // }
     // if(!isset($filtros['order_by'])){
     //     $filtros['order_by'] = 'ASC';
     // }
@@ -271,7 +271,7 @@ public function num_rows_todos($filtros = array(), $inicio = 0){
     // if(isset($filtros['tipo_inscricao']) && $filtros['tipo_inscricao'] != ''){
     //     $this->db->where('id_tipo_inscricao', $filtros['tipo_inscricao']);
     // }
-    
+
     // if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 3){
     //     $this->db->where('status_inscricao', $filtros['status_inscricao']);
     // }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 3){
@@ -293,7 +293,7 @@ public function num_rows_todos($filtros = array(), $inicio = 0){
 public function list_all($filtros = array(), $inicio = 0){
     if(!isset($filtros['attribute'])){
         $filtros['attribute'] = 'nome';
-    } 
+    }
     if(!isset($filtros['order_by'])){
         $filtros['order_by'] = 'ASC';
     }
@@ -308,7 +308,7 @@ public function list_all($filtros = array(), $inicio = 0){
         $this->db->where('submeter_trabalho', 0);
         $filtros['attribute'] = 'nome';
     }
-    
+
     if($filtros['attribute'] == 'data_registro'){
         $filtros['attribute'] = 'participante.data_registro';
     }
@@ -323,10 +323,10 @@ public function list_all($filtros = array(), $inicio = 0){
     if(isset($filtros['tipo_inscricao']) && $filtros['tipo_inscricao'] != ''){
         $this->db->where('id_tipo_inscricao', $filtros['tipo_inscricao']);
     }
-    
-    if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 3){
+
+    if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 4){
         $this->db->where('status_inscricao', $filtros['status_inscricao']);
-    }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 3){
+    }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 4){
         $this->db->where('foto_comprovante', '');
     }
 
@@ -342,29 +342,29 @@ public function list_all($filtros = array(), $inicio = 0){
 }
 
 public function update_dados($id, $status_inscricao, $eixo, $status, $ativo, $submeter_trabalho){
- 
+
     if($status_inscricao != ''){
- 
+
         $this->db->where('id', $id);
- 
+
         $dados['status_inscricao'] = $status_inscricao;
- 
+
         $this->db->update('participante', $dados);
- 
+
     }
- 
+
     if($eixo != '' || $status != ''){
- 
+
         $this->db->where('id_participante', $id);
- 
+
         if($eixo != '') $dados1['id_eixo'] = $eixo;
- 
+
         if($eixo != '') $dados1['status'] = $status;
- 
+
         $this->db->update('trabalho', $dados1);
- 
+
     }
- 
+
 
     if($ativo != ''){
         $this->db->where('id',$id);
@@ -379,17 +379,17 @@ public function update_dados($id, $status_inscricao, $eixo, $status, $ativo, $su
 
         $this->db->update('participante', $dados3);
     }
- 
-    $this->db->where('id', $id);
- 
-    $this->db->select('nome');
- 
-    return $this->db->get('participante')->row();
- 
 
- 
+    $this->db->where('id', $id);
+
+    $this->db->select('nome');
+
+    return $this->db->get('participante')->row();
+
+
+
 }
- 
+
 
  public function select_participantes($pagamento, $trabalho, $tipo_inscricao){
 
