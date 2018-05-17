@@ -57,7 +57,7 @@
                 'id'    => 'quantidade',
                 'class' =>'form-control round-form',);
 
-              $Qntd['options'] = array(10 => 10, 20 => 20, 50 => 50, 100 => 100);
+              $Qntd['options'] = array(10 => 10, 20 => 20, 50 => 50, 100 => 100, 500 => 500, 1000 => 1000);
 
               $Qntd['selected']= $filtros['quantidade'];
 
