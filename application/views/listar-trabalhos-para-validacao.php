@@ -163,6 +163,9 @@
         url: '<?=base_url('Trabalho/getCoautoresTrabalho/')?>'+id,
         success: function(e){
           modal.find("#coautores").html(e);
+        },
+        error: function(e){
+          modal.find("#coautores").html("Não foi possível buscar os coautores, tente novamente!");
         }
       })
     }
