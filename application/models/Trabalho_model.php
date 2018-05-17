@@ -118,4 +118,11 @@ class Trabalho_model extends CI_Model{
         $dados['status'] = $status;
         return $this->db->update('trabalho', $dados);
     }
+
+    public function getCoautoresTrabalho($id_trabalho){
+        $this->db->from("participante");
+        $this->db->join("coautor", "coautor.id_participante = participante.id");
+        $this->db->where("coautor.id_trabalho", $id_trabalho);
+        return $this->db->get()->result_array();
+    }
 }
