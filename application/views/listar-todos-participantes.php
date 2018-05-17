@@ -141,8 +141,9 @@
                 <th><i class="fa fa-font"></i> Nome</th>
                 <th><i class="fa fa-toggle-on"></i> Ativo</th>
                 <th><i class="fa fa-book"></i> Tipo Inscrição</th>
+                <th><i class="fa fa-edit"></i> Coautor</th>
                 <th><i class="fa fa-file"></i> Enviou Comprovante</th>
-                <th><i class="fa fa-file"></i> Status Pagamento</th>
+                <th><i class="fa fa-money"></i> Status Pagamento</th>
                 <th><i class="fa fa-file"></i> Submeter Trabalho</th>
                 <th class="hidden-phone"><i class="fa fa-question-circle"></i> Estado</th>
                 <th></th>
@@ -173,6 +174,11 @@
                 case 1: $participante->ativo_label = 'Sim'; break;
               }
 
+              switch($participante->is_coautor){
+                case 'S': $participante->coautor_label = 'Sim'; break;
+                default: $participante->coautor_label = 'Não'; break;
+              }
+
              // switch($participante->status){
              //  case 0: $participante->status = 'Em Análise'; break;
              //  case 1: $participante->status = 'Aprovado'; break;
@@ -191,6 +197,7 @@
                 <td><?=$participante->nome ?></td>
                 <td><?=$participante->ativo_label ?></td>
                 <td><?=$participante->tipo_inscricao ?></td>
+                <td><?=$participante->coautor_label ?></td>
                 <td><?=$participante->enviou_comprovante ?></td>
                 <td><?= $participante->status_inscricao_label ?></td>
                 <td><?= $participante->verbose_submeter_trabalho ?></td>
