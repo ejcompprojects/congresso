@@ -46,6 +46,22 @@
 			<?php
 		}
 
+		if(isset($div_sem_vagas)){
+			?>
+				<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>As vagas acabaram! Não é mais possível realizar o pagamento.</strong>
+						<span class="pull-right"></span>
+					</div>
+					<div class="panel-body">
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<?php	
+		}
+
 		if(isset($div_enviar_comprovante) && $div_enviar_comprovante){
 			?>
 			<div class="col-md-12">
