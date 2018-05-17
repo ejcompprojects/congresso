@@ -435,7 +435,6 @@ class Trabalho extends Admin {
 		$dados['objects'] 			= $objects;
 		$dados['data_input_modal']  = $data_input_modal;
 
-
 		$dados['funcao'] 			= 'listar_para_validacao';
 		$dados['titulo'] 			= 'Trabalhos Para Validação';
 
@@ -445,8 +444,22 @@ class Trabalho extends Admin {
 
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
+		$this->load->view('modal/modal_listar_trabalhos');
 		$this->load->view('listar-trabalhos-para-validacao', $dados);
 		$this->load->view('footer-admin');
+	}
+
+	public function getCoautoresTrabalho($id_trabalho){
+		$coautores = $this->trabalho_model->getCoautoresTrabalho($id_trabalho);
+		$html = "";
+		?><ul id="coautores"><?php
+		if(count($coautores) == 0){
+			?><li style="list-style: initial">Não há coautores</li><?php			
+		}
+		foreach ($coautores as $key => $value) {			 
+      ?><li style="list-style: initial"><?=$value['nome']?></li><?php
+		}
+		?></ul><?php
 	}
 
 	public function listar_validados(){

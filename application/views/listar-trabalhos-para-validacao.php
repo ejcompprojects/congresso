@@ -17,29 +17,20 @@
 
         <table class="table table-striped table-advance table-hover">
           <thead>
-
-
-
             <tr>
               <?php 
               foreach($table_header as $object){
                 echo '<th><i class="'.$object['icon'].'"></i> '.$object['label'].'</th>';  
               }
-
               ?>
-
             </tr>
-
           </thead>
           <tbody>
-
             <?php 
-
             foreach($objects as $object){
               echo '<tr>';
               for($i = 0 ; $i < count($table_body); $i++){
                 echo '<td>'.$object[$table_body[$i]].'</td>';
-
               }
               echo '<td>
               <button class="btn btn-primary btn-xs"
@@ -53,22 +44,17 @@
                 }else echo ' data-'.$key.'="'.$object[$key].'" ';
               }
               echo '> <i class="fa fa-eye"></i></button></td></tr>';
-
             }
-
             ?>
-
           </tr>
-
         </tbody>
       </table>
-      
     </div>
   </div>
 </div>
 
 <?php 
-echo modal("modal", "label", "", "form", $data_input_modal); 
+//echo modal("modal", "label", "", "form", $data_input_modal); 
 ?>
 
 
@@ -122,46 +108,36 @@ echo modal("modal", "label", "", "form", $data_input_modal);
           $.ajax({
             url: "'.$input['url'].'" + '.$input['id'].',
             success:function(response) {
-             
+
               var json = JSON.parse(response);
-          ';
-          
-          $html.= 'html+= \' <select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control" >\';';
-          $html.= '
-          html+= \'<option selected readonly disabled>'.$input['label'].'</option> \';';
-          $html.= '
-          for(var i = 0; i < json.length; i++){
-            ';
-          $html.= ' html+= \'<option value="\' + json[i].value + \'">\' + json[i].label + \'</option> \'';
-          $html.= '
-        }';
-          $html.=  '
+              ';
 
-          html +=\'</select>\'
+              $html.= 'html+= \' <select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control" >\';';
+              $html.= '
+              html+= \'<option selected readonly disabled>'.$input['label'].'</option> \';';
+              $html.= '
+              for(var i = 0; i < json.length; i++){
+                ';
+                $html.= ' html+= \'<option value="\' + json[i].value + \'">\' + json[i].label + \'</option> \'';
+                $html.= '
+              }';
+              $html.=  '
 
-           ';
-           $html.= '
+              html +=\'</select>\'
 
-          modal.find("#'.$input['name'].'").html(html);';
+              ';
+              $html.= '
 
-          $html.= 'console.log(html);';
-          $html.= 
-          '
+              modal.find("#'.$input['name'].'").html(html);';
 
-          }
+              $html.= 'console.log(html);';
+              $html.= 
+              '
+
+            }
 
           });';
           echo $html;
-          // echo 'var html = $.ajax({
-          //   method: "POST",
-          //   url: "'.$input['url'].'" + '.$input['id'].',
-            
-          // })
-          // .done(function( result ) {
-          //   alert( result );
-          // });';
-          //echo $input['name'].' = html;';
-          
         }
         else if($input['type'] == 'special_input_file'){
           echo 'modal.find("#'.$input['name'].'").val('.$input['name'].');';          
@@ -169,8 +145,6 @@ echo modal("modal", "label", "", "form", $data_input_modal);
       }
 
       ?>
-
-
       modal.find('#label').text('<?= $titulo ?>')
       modal.find('#mandabala').text("Aprovar")
       modal.find('#nao_aceitar').html('')
@@ -178,25 +152,27 @@ echo modal("modal", "label", "", "form", $data_input_modal);
       modal.find('#form').attr("action", '<?= $url['aprovar'] ?>'+id)
 
       <?php if(isset($url['reprovar'])){ 
-      ?>
+        ?>
         modal.find('#nao_aceitar').text('Reprovar')
         modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>")
-      <?php
+        <?php
       }
       ?>
 
-
-
+      $.ajax({
+        url: '<?=base_url('Trabalho/getCoautoresTrabalho/')?>'+id,
+        success: function(e){
+          modal.find("#coautores").html(e);
+        }
+      })
     }
   })
 
 
   });
 
-    $("input[type=radio][name=trabalhos]" ).click(function() {
+  $("input[type=radio][name=trabalhos]" ).click(function() {
     var n = $( "input[type=radio][name=trabalhos]:checked" ).val();
-    
-    //console.log(n);
     
     if(n == 'reenviar_trabalho_com_autor' || n == 'reenviar_trabalho_sem_autor' || n == 'reenviar_ambos_trabalhos')
     {
