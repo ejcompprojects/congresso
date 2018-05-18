@@ -33,8 +33,6 @@ class Participante extends Admin {
     $this->load->view('setar-comprovante', $data);
     $this->load->view('footer-admin');
 
-
-
   }
 
     //Função duplicada!!! Pegada lá do Painel
@@ -608,7 +606,4 @@ public function do_upload_image($name, $id)
         redirect(base_url('Participante/listar_todos'));
 
       }
-
-
-
     }

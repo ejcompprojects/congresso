@@ -38,30 +38,30 @@ class Painel extends Login {
       $usuario = $this->painel_model->get($id);
 
       if($usuario->foto_comprovante == ''){
-         $enviou_comprovante = 0;
-     }else{
-         $enviou_comprovante = 1;
-     }
+       $enviou_comprovante = 0;
+   }else{
+       $enviou_comprovante = 1;
+   }
 
-     $status_comprovante = $usuario->status_inscricao;
-
-
-     $vai_submeter_trabalho = $usuario->submeter_trabalho;    
+   $status_comprovante = $usuario->status_inscricao;
 
 
-     $trabalho = $this->get_trabalho($id);
+   $vai_submeter_trabalho = $usuario->submeter_trabalho;    
 
-     if(is_object($trabalho)) $enviou_trabalho = 1;
-     else $enviou_trabalho = 0;
 
-     $parecer = $this->get_parecer($id);
+   $trabalho = $this->get_trabalho($id);
 
-     if(is_object($parecer)) $tem_parecer = 1;
-     else $tem_parecer = 0;
+   if(is_object($trabalho)) $enviou_trabalho = 1;
+   else $enviou_trabalho = 0;
 
-     $array = array();
-     $array['vai_submeter_trabalho'] = $vai_submeter_trabalho;
-     $array['mensagens'] = array();
+   $parecer = $this->get_parecer($id);
+
+   if(is_object($parecer)) $tem_parecer = 1;
+   else $tem_parecer = 0;
+
+   $array = array();
+   $array['vai_submeter_trabalho'] = $vai_submeter_trabalho;
+   $array['mensagens'] = array();
 
 
     if( !$enviou_comprovante && $status_comprovante != 3){ //todo mundo tem que enviar o comprovante, se não enviou:
@@ -345,33 +345,33 @@ class Painel extends Login {
             }
             else{  //e NÃO vai submeter trabalho:
                 if($enviou_comprovante){
-                      $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
-                    $array['etapa'] = 7;
-                    $array['porcentagem'] = 100;
+                  $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
+                  $array['etapa'] = 7;
+                  $array['porcentagem'] = 100;
 
-                    array_push($array['mensagens'], 'Inscrição completa com sucesso!');
+                  array_push($array['mensagens'], 'Inscrição completa com sucesso!');
 
-                    $array['div_enviar_comprovante'] = FALSE;
-                    $array['div_status_comprovante'] = TRUE;
-                    $array['div_enviar_trabalho'] = FALSE;
-                    $array['div_alerta_trabalho'] = FALSE;
-                    $array['div_status_trabalho'] = FALSE;
-                }
-                else{
-                    $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
-                    $array['etapa'] = 7;
-                    $array['porcentagem'] = 100;
+                  $array['div_enviar_comprovante'] = FALSE;
+                  $array['div_status_comprovante'] = TRUE;
+                  $array['div_enviar_trabalho'] = FALSE;
+                  $array['div_alerta_trabalho'] = FALSE;
+                  $array['div_status_trabalho'] = FALSE;
+              }
+              else{
+                $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
+                $array['etapa'] = 7;
+                $array['porcentagem'] = 100;
 
-                    array_push($array['mensagens'], 'Inscrição completa com sucesso!');
+                array_push($array['mensagens'], 'Inscrição completa com sucesso!');
 
-                    $array['div_enviar_comprovante'] = TRUE;
-                    $array['div_status_comprovante'] = FALSE;
-                    $array['div_enviar_trabalho'] = FALSE;
-                    $array['div_alerta_trabalho'] = FALSE;
-                    $array['div_status_trabalho'] = FALSE;
-                    
-                }
+                $array['div_enviar_comprovante'] = TRUE;
+                $array['div_status_comprovante'] = FALSE;
+                $array['div_enviar_trabalho'] = FALSE;
+                $array['div_alerta_trabalho'] = FALSE;
+                $array['div_status_trabalho'] = FALSE;
+
             }
+        }
 
 
 
@@ -379,56 +379,56 @@ class Painel extends Login {
 
 
 
-            return $array;
+        return $array;
           //echo '<pre>'; print_r($array); echo '</pre>'; exit();
 
 
 
 
 
-        }
+    }
 
-        public function index(){
-
-
-        	$data = $this->retorna_etapa_que_o_usuario_se_encontra();
-
-        	$valor = $this->calcula_valor(date('m'), $this->session->userdata('usuario')->id_tipo_inscricao);
-
-        	$data['valor'] = $valor;
-        	$data['estagio'] = $data['etapa'];
+    public function index(){
 
 
-        	$data['messages'] = mensagens();
+       $data = $this->retorna_etapa_que_o_usuario_se_encontra();
+
+       $valor = $this->calcula_valor(date('m'), $this->session->userdata('usuario')->id_tipo_inscricao);
+
+       $data['valor'] = $valor;
+       $data['estagio'] = $data['etapa'];
+
+
+       $data['messages'] = mensagens();
 
         // echo '<pre>'; print_r($data); echo '</pre>'; exit();
-        	$this->load->view('painel/html_header');
-        	$this->load->view('painel/header');
-        	$this->load->view('painel/index', $data);
-        	$this->load->view('painel/footer');
+       $this->load->view('painel/html_header');
+       $this->load->view('painel/header');
+       $this->load->view('painel/index', $data);
+       $this->load->view('painel/footer');
 
 
-        }
+   }
 
-        public function enviar_arquivos(){
-        	$id = $this->session->userdata('usuario')->id;
+   public function enviar_arquivos(){
+       $id = $this->session->userdata('usuario')->id;
 
-        	$data = $this->retorna_etapa_que_o_usuario_se_encontra();
+       $data = $this->retorna_etapa_que_o_usuario_se_encontra();
 
-        	$data['eixos'] = $this->painel_model->get_eixos();
+       $data['eixos'] = $this->painel_model->get_eixos();
 
 
        //$data['dentro_do_prazo'] = $this->painel_model->get_diferenca_datas($id);
 
-        	$data['messages'] = mensagens();
+       $data['messages'] = mensagens();
 
        // echo '<pre>'; print_r($data); echo '</pre>'; exit();
 
-        	$this->load->view('painel/html_header');
-        	$this->load->view('painel/header');
-        	$this->load->view('painel/send-files', $data);
-        	$this->load->view('painel/footer');
-        }
+       $this->load->view('painel/html_header');
+       $this->load->view('painel/header');
+       $this->load->view('painel/send-files', $data);
+       $this->load->view('painel/footer');
+   }
 
     /**
      * Função que retorna o HTML padrão do controller
@@ -951,14 +951,14 @@ public function alterar_meus_dados(){
     		$this->db->where('cpf', $cpf);
     		$this->db->where('(status_inscricao = 1 OR status_inscricao = 3)');
     		$this->db->select('id, nome');
-    		return $this->db->get('participante');
+    		return $this->db->get('participante')->row();
     	}
     	return "";
     }
 
     public function coautor($cpf=""){
     	if ($cpf!="") {
-    		$participante = $this->getcouator($cpf)->row();
+    		$participante = $this->getcouator($cpf);
     		echo json_encode($participante);
     	}
     }
@@ -1022,7 +1022,7 @@ public function alterar_meus_dados(){
     	$data = date('Y-m-d H:i');
     	if(self::DATALIMITE > $data)
     		return true;
-    		else
-    			return false;
-    	}
-    }
+      else
+         return false;
+ }
+}

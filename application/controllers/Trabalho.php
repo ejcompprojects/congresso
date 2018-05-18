@@ -11,7 +11,7 @@ class Trabalho extends Admin {
 		$this->load->helper('modalform_helper'); 
 		$this->load->model('Trabalho_model', 'trabalho_model');
 		$this->load->model('Log_model', 'log_model');
-
+		$this->load->model('Participante_model', 'participante_model');
 	}
 
 	public function get_pareceristas($id_eixo){
@@ -704,6 +704,143 @@ class Trabalho extends Admin {
 			$this->session->set_flashdata('danger', htmlspecialchars($resposta));  
 
 		}
+	}
+
+	public function setar_trabalho_manualmente(){
+
+		$objects = $this->participante_model->participantes_submeter_trabalho();
+		$data = array();
+		//print_r($objects);
+		foreach($objects as $object){
+            //$data[] = new stdClass(); 
+			$aux = (object) array('value' => $object->id,'cpf'=> $object->cpf, 'label' => $object->nome." - ".$object->email);
+			$data[] = $aux;
+		}
+
+		$data['objects'] = $data;
+		$data['mensagens'] = mensagens();
+		$data['eixos'] = $this->trabalho_model->get_eixos_trabalhos();
+
+
+		$this->load->view('html-header-admin');
+		$this->load->view('header-admin');
+		$this->load->view('setar-trabalho', $data);
+		$this->load->view('footer-admin');
+	}
+
+	public function do_upload_article($name){
+
+		$upload_path = 'uploads/artigo';
+
+		$config['upload_path']          = $upload_path;
+		$config['allowed_types']        = 'doc|docx|pdf';
+		$config['max_size']             = 10000;
+		$config['encrypt_name']         = TRUE;
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload($name))
+		{
+			$resposta['deu_certo'] = false;
+			$resposta['message'] = $this->upload->display_errors();
+		}
+		else
+		{   
+			$resposta['deu_certo'] = true;
+			$resposta['message'] = $this->upload->data('file_name');
+		}
+		return $resposta;
+	}
+	public function getcouator($cpf)
+	{
+		if ($cpf!="") {
+			$this->db->where('cpf', $cpf);
+			$this->db->where('(status_inscricao = 1 OR status_inscricao = 3)');
+			$this->db->select('id, nome');
+			return $this->db->get('participante')->row();
+		}
+		return "";
+	}
+
+	public function coautor($cpf=""){
+		if ($cpf!="") {
+			$participante = $this->getcouator($cpf);
+			echo json_encode($participante);
+		}
+	}
+	public function exists_coautores($coautores){
+		foreach ($coautores as $cpf) {
+			$qcoaut = $this->getcouator($cpf);
+			if(!$qcoaut)
+				return false;
+		}
+		return true;
+	}
+	public function cpf_diferente($coautores, $cpf_participante){
+		foreach ($coautores as $cpf) {
+			if($cpf ==  $cpf_participante->cpf){
+				return false;
+			}		
+		}
+		return true;
+	}
+
+	public function enviar_trabalho_participante(){
+		$resposta1 = $this->do_upload_article('artigo_com_autor');
+		$resposta2 = $this->do_upload_article('artigo_sem_autor');
+
+
+		if($resposta1['deu_certo'] && $resposta2['deu_certo']){
+			$data['arquivo_com_nome_autor'] = $resposta1['message'];
+			$data['arquivo_sem_nome_autor'] = $resposta2['message'];
+			$data['titulo'] = $this->input->post('titulo');
+			$data['id_eixo'] = $this->input->post('eixo');
+			$coautores = $this->input->post('coautoresCPF');
+			$data['id_participante'] = $this->input->post('participante');
+			if($this->cpf_diferente($coautores, $this->participante_model->get_cpf($data['id_participante']))){ //cpf do participante diferente do coautor
+				if($this->exists_coautores($coautores)){ //se o coautor existe como pago
+					if(!$this->trabalho_model->get_trabalho($data['id_participante'])){
+						
+						$this->db->where("id_participante", $data['id_participante']);
+						$this->db->insert('trabalho', $data);
+
+					}
+					else{
+						$this->db->where("id_participante",$data['id_participante']);
+						$this->db->set("arquivo_com_nome_autor",$data['arquivo_com_nome_autor']);
+						$this->db->set("arquivo_sem_nome_autor",$data['arquivo_sem_nome_autor']);
+						$this->db->set("titulo",$data['titulo']);
+						$this->db->set("id_eixo",$data['id_eixo']);
+						$this->db->update('trabalho');
+					}
+					$cdata['id_trabalho'] = $data['id_participante'];
+
+					$cpf_participante = $this->participante_model->get_cpf($data['id_participante']);
+					foreach ($coautores as $cpf) {
+			        	if($cpf != $cpf_participante){ //se o cpf do coautor for diferente do CPF do usuário:
+			        		$qcoaut = $this->getcouator($cpf);
+			        		if($qcoaut){
+			        			$cdata['id_participante'] = $qcoaut->id;
+			        			$this->db->insert('coautor', $cdata);
+			        		}
+			        	}
+			        }
+
+			        $this->log_model->insert('O participante enviou o artigo.', $data['id_participante']);
+			        $this->session->set_flashdata('success', 'Artigo enviado para análise.');
+			    }else{
+			    	$this->session->set_flashdata('danger', "Não foi possível enviar o arquivo, pois o coautor não teve o pagamento confirmado");
+			    }
+			}else{
+				$this->session->set_flashdata('danger', "O participante não pode ser coautor do seu próprio trabalho!");
+			}
+		}else{
+
+			if($resposta1['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta1['message']);
+			if($resposta2['deu_certo'] != true) $this->session->set_flashdata('danger', $resposta2['message']);
+		}
+
+		redirect(base_url('Trabalho/setar_trabalho_manualmente'));
 	}
 }
 
