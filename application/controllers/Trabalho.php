@@ -83,7 +83,12 @@ class Trabalho extends Admin {
 				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
-
+				case 7: $objects[$i]['status'] = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
+				else $objects[$i]['status'] .= ' - Alterar coautores'; 
+				break;
 			}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
@@ -172,7 +177,12 @@ class Trabalho extends Admin {
 				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
-
+				case 7: $objects[$i]['status'] = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
+				else $objects[$i]['status'] .= ' - Alterar coautores'; 
+				break;
 			}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
@@ -252,7 +262,12 @@ class Trabalho extends Admin {
 				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
-
+				case 7: $objects[$i]['status'] = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
+				else $objects[$i]['status'] .= ' - Alterar coautores'; 
+				break;
 			}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
@@ -592,7 +607,12 @@ class Trabalho extends Admin {
 				case 4: $status = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $status = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $status = 'Reenviar Ambos'; break;
-
+				case 7: $status = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($status == '') $status = 'Alterar coautores';
+				else $status .= ' - Alterar coautores'; 
+				break;
 			}
 			$objects[$i]['status'] = $status;
 
@@ -685,24 +705,14 @@ class Trabalho extends Admin {
 	public function enviar_email_participante()
 	{
 		$id_participante = $this->input->post('id');
-		$trabalho = $this->input->post('trabalhos');
-		if($trabalho == "reenviar_trabalho_com_autor")
-		{
-			$status = 5;
-		}
-		else if($trabalho == "reenviar_trabalho_sem_autor")
-		{
-			$status = 4;
-		}
-		else if($trabalho == "reenviar_ambos_trabalhos")
-		{
-			$status = 6;
-		}
+		$status = $this->input->post('status');
+		$status_coautores = $this->input->post('status_coautores');
+		
 		$justificativa = $this->input->post('mensagem');
 
 		$data_limite = $this->input->post('data_limite'); //prazo
 
-		$this->trabalho_model->reenviar_trabalhos($id_participante, $status, $data_limite, $justificativa);
+		$this->trabalho_model->reenviar_trabalhos($id_participante, $status, $status_coautores, $data_limite, $justificativa);
 		$titulo = "Trabalho Reprovado Na Fase de Validação";
 		$mensagem = "<h2>Olá Congressista! <br> Seu trabalho não passou na Fase de Validação. </h2> <br> Mensagem: <br>";
 		$mensagem .= $this->input->post('mensagem');

@@ -243,8 +243,29 @@
 					<?php
 				}
 				?>
+				<?php if (isset($status_coautores) && $status_coautores) { ?>
+						<div class="col-md-12">
+						<div class="panel panel-default">
+						<div class="panel-heading">
+							<strong><p>Alterar os <strong>co-autores:</strong></p></strong>
+							<span class="pull-right"></span>
+						</div>
+							<div class="panel-body">
+								<p>Adicione abaixo, preenchendo o CPF dos co-autores. Preste atenção, pois o co-autor deve: <strong>ter efetuado o cadastro no sistema e ter o pagamento aceito por nossa equipe.</strong> Caso informe o CPF e apareça logo abaixo o nome do co-autor,<strong> ele já foi adicionado </strong> e você pode dar seguimento na submissão do trabalho. Para retirar um co-autor, apenas apague o CPF digitado.</p>
+								
+								<div class="form-group">
+									<div class="col-md-12">
+										<div id="coautores"></div>
+										<a id="adicionar" class="btn btn-info"><i class="fa fa-plus"></i> Adicionar</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+				<?php } ?>
+				<?php if(isset($div_reenviar_trabalho) && $div_reenviar_trabalho){ 
 
-				<?php if(isset($div_reenviar_trabalho) && $div_reenviar_trabalho){ ?>
+					?>
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">

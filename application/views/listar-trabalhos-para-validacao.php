@@ -67,7 +67,7 @@
   $(document).ready(function () {
     var id = $('id').val();
     $('#nao_aceitar').remove();
-    $("<label class=\"form-control-label mensagem\">Mensagem para o congressista:</label>").insertBefore('#mensagem');
+    //$("<label class=\"form-control-label mensagem\">Mensagem para o congressista:</label>").insertBefore('#mensagem');
     $('.mensagem').fadeOut('slow');
     $('#mensagem').attr('disabled', 'disabled');
     $('.date').fadeOut('slow');
@@ -174,33 +174,74 @@
 
   });
 
-  $("input[type=radio][name=trabalhos]" ).click(function() {
-    var n = $( "input[type=radio][name=trabalhos]:checked" ).val();
+  $("input[type=checkbox][name='trabalhos[]']" ).click(function() {
+    campos = new Array();
+    $("input[type=checkbox][name='trabalhos[]']").each(function(){
+      if($(this).is(':checked')){
+        campos.push(true);
+      }
+      else{
+        campos.push(false);
+      }
+    });
     
-    if(n == 'reenviar_trabalho_com_autor' || n == 'reenviar_trabalho_sem_autor' || n == 'reenviar_ambos_trabalhos')
-    {
-      $('.mensagem').fadeIn('slow');
-      $('#mensagem').removeAttr('disabled', 'disabled');
-      $('.date').fadeIn('slow');
-      $('#data_limite').removeAttr('disabled', 'disabled');
-      $('#form').attr("action", '<?= $url['reprovar'] ?>')
-      $('#mandabala').attr('class', 'btn btn-round btn-danger');
-      $('#mandabala').text('Reprovar');
-      //$('#mandabala').fadeOut('slow', function (){ $('#nao_aceitar').fadeIn('slow'); });
-    }
-    else
-    {
-      var id = $('#id').val();
-      $('.mensagem').fadeOut('slow');
-      $('#mensagem').attr('disabled', 'disabled');
-      $('.date').fadeOut('slow');
-      $('#data_limite').attr('disabled', 'disabled');
+      if(campos[0] || campos[1] || campos[2])
+      {
+        if(campos[0] && campos[1])
+        {
+          $("#status").val(6);
+        }
+        else
+        {
+          if(campos[0])
+          {
+            $("#status").val(5);
+          }
+          else if(campos[1])
+          {
+            $("#status").val(4);
+          }
+          else
+          {
+            $("#status").val(1);
+          }
+        }
+        if(campos[2])
+        {
+          $("#status_coautores").val(1);
+          if($("#status").val() == 1)
+          {
+            $("#status").val(7);
+          }
+        }
+        else
+        {
+          $("#status_coautores").val(0);
+        }
+        $('.mensagem').fadeIn('slow');
+        $('#mensagem').removeAttr('disabled', 'disabled');
+        $('.date').fadeIn('slow');
+        $('#data_limite').removeAttr('disabled', 'disabled');
+        $('#form').attr("action", '<?= $url['reprovar'] ?>')
+        $('#mandabala').attr('class', 'btn btn-round btn-danger');
+        $('#mandabala').text('Reprovar');
+      }
+      else
+      {
+        $("#status_coautores").val(0);
+        $("#status").val(1);
+        var id = $('#id').val();
+        $('.mensagem').fadeOut('slow');
+        $('#mensagem').attr('disabled', 'disabled');
+        $('.date').fadeOut('slow');
+        $('#data_limite').attr('disabled', 'disabled');
 
-      $('#form').attr("action", '<?= $url['aprovar'] ?>'+id);
-      $('#mandabala').attr('class', 'btn btn-round btn-theme');
-      $('#mandabala').text('Aprovar');
-
-    }
+        $('#form').attr("action", '<?= $url['aprovar'] ?>'+id);
+        $('#mandabala').attr('class', 'btn btn-round btn-theme');
+        $('#mandabala').text('Aprovar');
+      }
+      console.log( campos[0] + ' ' + campos[1] + ' ' + campos[2] );
+      console.log("Coautores: "+ $("#status_coautores").val() +", status: " + $("#status").val());
   });
 
 </script>

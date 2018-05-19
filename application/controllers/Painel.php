@@ -187,7 +187,12 @@ class Painel extends Login {
 
                 	}
 
-
+                    $e_coautores = '';
+                    $label_coautores = '';
+                    if($trabalho->status_coautores){
+                        $e_coautores = ' e também nos coautores vinculados';
+                        $label_coautores = ' e Correção de Coautores';
+                    }
 
                     switch($trabalho->status){ //se foi VALIDADO:
                         case 0: //EM ANÁLISE:
@@ -236,9 +241,9 @@ class Painel extends Login {
                         case 4: //REENVIAR TRABALHO SEM AUTOR:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foi encontrado erros em seu trabalho SEM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                        	'title' => '<b>Foi encontrado erros em seu trabalho SEM autor'.$e_coautores.'.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
                         	'panel' => 'panel-warning', 
-                        	'label' => 'Etapa de Validação'
+                        	'label' => 'Solicitado Reenvio'.$label_coautores
                         );
                         $array['div_reenviar_trabalho'] = 1;
 
@@ -251,9 +256,9 @@ class Painel extends Login {
                         case 5: //REENVIAR TRABALHO COM AUTOR:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foi encontrado erros em seu trabalho COM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                        	'title' => '<b>Foi encontrado erros em seu trabalho COM autor'.$e_coautores.'.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
                         	'panel' => 'panel-warning', 
-                        	'label' => 'Etapa de Validação'
+                        	'label' => 'Solicitado Reenvio'.$label_coautores
                         );
                         $array['div_reenviar_trabalho'] = 1;
 
@@ -267,9 +272,9 @@ class Painel extends Login {
                         case 6: //REENVIAR AMBOS:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foi encontrado erros em seu trabalho COM autor e SEM autor.<b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                        	'title' => '<b>Foi encontrado erros em seu trabalho COM autor e SEM autor'.$e_coautores.'.<b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
                         	'panel' => 'panel-warning', 
-                        	'label' => 'Solicitado Reenvio'
+                        	'label' => 'Solicitado Reenvio'.$label_coautores
                         );
                         $array['div_reenviar_trabalho'] = 1;
                         
@@ -277,6 +282,19 @@ class Painel extends Login {
                         $array['status_reenvio'] = 'AMBOS';
 
                         array_push($array['mensagens'], 'Entre em "Enviar Arquivos" para anexar seu trabalho.');
+
+                        break;
+
+                        case 7: //ALTERAR COAUTORES:
+
+                        $array['status_trabalho'] = array(
+                            'title' => '<b>Foi encontrado erros referente aos coautores do seu trabalho.<b><br><br>Veja o que a nossa equipe escreveu sobre o que está errado:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                            'panel' => 'panel-warning', 
+                            'label' => 'Solicitado Correção de Coautores'
+                        );
+                        $array['div_reenviar_trabalho'] = 0;
+                        
+                        array_push($array['mensagens'], 'Entre em "Enviar Arquivos" para corrigir os coautores.');
 
                         break;
 
@@ -387,10 +405,10 @@ class Painel extends Login {
                 }
             }
 
-
-
-
-
+            if ($trabalho->status_coautores == 1) {
+                
+                $array['status_coautores'] = TRUE;
+            }
 
 
             return $array;
