@@ -61,25 +61,21 @@
           </div>
 
           <div class="form-group">
-            <input type="radio" name="trabalhos" id="reenviar_trabalho_com_autor" value="reenviar_trabalho_com_autor" required="">
+            <input type="checkbox" name="trabalhos[]" id="reenviar_trabalho_com_autor" value="reenviar_trabalho_com_autor">
             <label for="reenviar_trabalho_com_autor">REENVIAR TRABALHO COM AUTOR</label>
           </div>
 
           <div class="form-group">
-            <input type="radio" name="trabalhos" id="reenviar_trabalho_sem_autor" value="reenviar_trabalho_sem_autor" required="">
+            <input type="checkbox" name="trabalhos[]" id="reenviar_trabalho_sem_autor" value="reenviar_trabalho_sem_autor">
             <label for="reenviar_trabalho_sem_autor">REENVIAR TRABALHO SEM AUTOR</label>
           </div>
 
           <div class="form-group">
-            <input type="radio" name="trabalhos" id="reenviar_ambos_trabalhos" value="reenviar_ambos_trabalhos" required="">
-            <label for="reenviar_ambos_trabalhos">REENVIAR AMBOS OS TRABALHOS</label>
+            <input type="checkbox" name="trabalhos[]" id="alterar_coautores" value="alterar_coautores">
+            <label for="alterar_coautores">ALTERAR COAUTORES</label>
           </div>
-
-          <div class="form-group">
-            <input type="radio" name="trabalhos" id="aceitar_trabalhos" value="aceitar_trabalhos" required="">
-            <label for="aceitar_trabalhos">ACEITAR TRABALHOS</label>
-          </div>
-
+          <input type="hidden" name="status" id="status">
+          <input type="hidden" name="status_coautores" id="status_coautores">
           <div class="form-group">
             <div>
               <label class="form-control-label mensagem" style="display: none;">Mensagem para o congressista:</label>
