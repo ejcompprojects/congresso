@@ -7,8 +7,8 @@ require_once(APPPATH.'controllers/Admin.php');
 class Trabalho extends Admin {
 	public function __construct(){
 		parent::__construct();
-		$this->load->helper('frontend_helper'); 
-		$this->load->helper('modalform_helper'); 
+		$this->load->helper('frontend_helper');
+		$this->load->helper('modalform_helper');
 		$this->load->model('Trabalho_model', 'trabalho_model');
 		$this->load->model('Log_model', 'log_model');
 		$this->load->model('Participante_model', 'participante_model');
@@ -28,7 +28,7 @@ class Trabalho extends Admin {
 		$status_parecer = 0;
 
 		$table_header = array(
-			
+
 			array('icon' => '', 'label' => 'Nome'),
 			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
 			array('icon' => '', 'label' => 'Eixo'),
@@ -62,11 +62,11 @@ class Trabalho extends Admin {
 			array('name' => 'data_parecer', 'label' 	=> 'Data Parecer', 'type' => 'input_text'),
 			array('name' => 'parecerista', 'label' 	=> 'Parecerista', 'type' => 'input_text'),
 
-			
+
 
 		);
 
-		
+
 
 		$objects = $this->trabalho_model->get_where_status_parecer($status_parecer);
 
@@ -83,7 +83,12 @@ class Trabalho extends Admin {
 				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
-
+				case 7: $objects[$i]['status'] = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
+				else $objects[$i]['status'] .= ' - Alterar coautores'; 
+				break;
 			}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
@@ -117,7 +122,7 @@ class Trabalho extends Admin {
 		$status_parecer = 1;
 
 		$table_header = array(
-			
+
 			array('icon' => '', 'label' => 'Nome'),
 			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
 			array('icon' => '', 'label' => 'Eixo'),
@@ -151,11 +156,11 @@ class Trabalho extends Admin {
 			array('name' => 'data_parecer', 'label' 	=> 'Data Parecer', 'type' => 'input_text'),
 			array('name' => 'parecerista', 'label' 	=> 'Parecerista', 'type' => 'input_text'),
 
-			
+
 
 		);
 
-		
+
 
 		$objects = $this->trabalho_model->get_where_status_parecer($status_parecer);
 
@@ -172,7 +177,12 @@ class Trabalho extends Admin {
 				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
-
+				case 7: $objects[$i]['status'] = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
+				else $objects[$i]['status'] .= ' - Alterar coautores'; 
+				break;
 			}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
@@ -206,7 +216,7 @@ class Trabalho extends Admin {
 
 
 		$table_header = array(
-			
+
 			array('icon' => '', 'label' => 'Nome'),
 			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
 			array('icon' => '', 'label' => 'Eixo'),
@@ -232,11 +242,11 @@ class Trabalho extends Admin {
 			array('name' => 'arquivo_sem_nome_autor', 'label' 	=> 'Arquivo Sem Nome Autor', 'type' => 'input_file'),
 			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file'),
 			array('name' => 'status', 'label' 	=> 'Status', 'type' => 'input_text')
-			
+
 
 		);
 
-		
+
 
 		$objects = $this->trabalho_model->get_all();
 
@@ -252,7 +262,12 @@ class Trabalho extends Admin {
 				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
-
+				case 7: $objects[$i]['status'] = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
+				else $objects[$i]['status'] .= ' - Alterar coautores'; 
+				break;
 			}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
@@ -295,7 +310,7 @@ class Trabalho extends Admin {
 
 
 		$table_header = array(
-			
+
 			array('icon' => '', 'label' => 'Nome do Participante'),
 			array('icon' => '', 'label' => 'Título Trabalho'),
 			array('icon' => '', 'label' => 'Eixo'),
@@ -324,25 +339,25 @@ class Trabalho extends Admin {
 			array('name' => 'ativo', 'label' 	=> 'Ativo', 'type' => 'input_text'),
 			array('name' => 'justificativa', 'label' 	=> 'Justificativa', 'type' => 'input_text'),
 			array('name' => 'nome_parecerista', 'label' 	=> 'Nome do Parecerista','type' 	=> 'input_text'),
-			
+
 			array('name' => 'arquivo_sem_nome_autor', 'label' 	=> 'Arquivo Sem Nome Autor', 'type' => 'input_file'),
 			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file')
-			
+
 
 		);
 
-		
+
 
 		$objects = $this->trabalho_model->get_all_trabalhos_que_foram_enviados_para_pareceristas();
 
 		$date = date('Y-m-d');
 
-		
+
 		//converter a data para PT-BR
 		for($i = 0 ; $i < count($objects); $i++){
 			$diferenca = strtotime($date) - strtotime($objects[$i]['data']);
 
-			
+
 			$quantidade_de_dias = 1+floor($diferenca / (60 * 60 * 24));
 			$objects[$i]['data'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data'])).'<br>(há '.$quantidade_de_dias.' dias)';
 			switch($objects[$i]['status']){
@@ -360,7 +375,7 @@ class Trabalho extends Admin {
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
 		//echo '<pre>'; print_r($objects); echo '</pre>'; exit();
-		
+
 
 		$dados['table_header'] 		= $table_header;
 		$dados['table_body']	 	= $table_body;
@@ -387,7 +402,7 @@ class Trabalho extends Admin {
 
 
 		$table_header = array(
-			
+
 			array('icon' => '', 'label' => 'Nome'),
 			array('icon' => '', 'label' => 'Eixo'),
 			array('icon' => '', 'label' => 'Data de Submissão')
@@ -418,7 +433,7 @@ class Trabalho extends Admin {
 
 		);
 
-		
+
 
 		$objects = $this->trabalho_model->get_all_where_status($status);
 
@@ -435,7 +450,6 @@ class Trabalho extends Admin {
 		$dados['objects'] 			= $objects;
 		$dados['data_input_modal']  = $data_input_modal;
 
-
 		$dados['funcao'] 			= 'listar_para_validacao';
 		$dados['titulo'] 			= 'Trabalhos Para Validação';
 
@@ -445,8 +459,22 @@ class Trabalho extends Admin {
 
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
+		$this->load->view('modal/modal_listar_trabalhos');
 		$this->load->view('listar-trabalhos-para-validacao', $dados);
 		$this->load->view('footer-admin');
+	}
+
+	public function getCoautoresTrabalho($id_trabalho){
+		$coautores = $this->trabalho_model->getCoautoresTrabalho($id_trabalho);
+		$html = "";
+		?><ul id="coautores"><?php
+		if(count($coautores) == 0){
+			?><li style="list-style: initial">Não há coautores</li><?php			
+		}
+		foreach ($coautores as $key => $value) {			 
+      ?><li style="list-style: initial"><?=$value['nome']?></li><?php
+		}
+		?></ul><?php
 	}
 
 	public function listar_validados(){
@@ -454,7 +482,7 @@ class Trabalho extends Admin {
 
 
 		$table_header = array(
-			
+
 			array('icon' => '', 'label' => 'Nome'),
 			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
 			array('icon' => '', 'label' => 'Eixo'),
@@ -479,11 +507,11 @@ class Trabalho extends Admin {
 			array('name' => 'arquivo_sem_nome_autor', 'label' 	=> 'Arquivo Sem Nome Autor', 'type' => 'input_file'),
 			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file'),
 			array('name' => 'pareceristas', 'label' => 'Selecione o parecerista', 'type' => 'special_select', 'url' => ''.base_url('Trabalho/get_pareceristas/'), 'id' => 'id_eixo')
-			
+
 
 		);
 
-		
+
 
 		$objects = $this->trabalho_model->get_all_where_status($status);
 
@@ -521,7 +549,7 @@ class Trabalho extends Admin {
 
 
 		$table_header = array(
-			
+
 			array('icon' => '', 'label' => 'Nome'),
 			array('icon' => 'fa fa-book', 'label' => 'Título Trabalho'),
 			array('icon' => '', 'label' => 'Eixo'),
@@ -552,12 +580,12 @@ class Trabalho extends Admin {
 			array('name' => 'arquivo_com_nome_autor', 'label' 	=> 'Arquivo Com Nome Autor', 'type' => 'input_file'),
 			array('name' => 'prazo', 'label' => 'Prazo', 'type' => 'input_text'),
 			array('name' => 'justificativa', 'label' => 'justificativa', 'type' => 'input_text')
-			
-			
+
+
 
 		);
 
-		
+
 
 		$objects = $this->trabalho_model->get_all_where_refused();
 
@@ -568,7 +596,7 @@ class Trabalho extends Admin {
 			$objects[$i]['data'] = date('d/m/Y', strtotime($objects[$i]['data']));
 			$diferenca = strtotime($objects[$i]['prazo']) - strtotime($date) ;
 
-			
+
 			$quantidade_de_dias = 1+ floor($diferenca / (60 * 60 * 24));
 			$objects[$i]['prazo'] = date('d/m/Y', strtotime($objects[$i]['prazo'])).'<br>(faltam '.$quantidade_de_dias.' dias)';
 
@@ -579,10 +607,15 @@ class Trabalho extends Admin {
 				case 4: $status = 'Reenviar Trabalho Sem Autor'; break;
 				case 5: $status = 'Reenviar Trabalho Com Autor'; break;
 				case 6: $status = 'Reenviar Ambos'; break;
-
+				case 7: $status = ''; break;
+			}
+			switch($objects[$i]['status_coautores']){
+				case 1: if ($status == '') $status = 'Alterar coautores';
+				else $status .= ' - Alterar coautores'; 
+				break;
 			}
 			$objects[$i]['status'] = $status;
-			
+
 		}
 
 
@@ -612,7 +645,7 @@ class Trabalho extends Admin {
 
 		$this->db->where('id_participante', $id_trabalho);
 		$trabalho = $this->db->get('trabalho')->row();
-		
+
 
 		$this->session->set_flashdata('success', 'O trabalho <b>"'.$trabalho->titulo.'"</b> foi alterado para <b>VÁLIDO</b>.');
 		$this->log_model->insert_admin('Trabalho :', $id_participante.' alterado para valido.');
@@ -629,7 +662,7 @@ class Trabalho extends Admin {
 
 		$this->db->where('id_participante', $id_participante);
 		$trabalho = $this->db->get('trabalho')->row();
-		
+
 
 		$this->session->set_flashdata('success', 'O trabalho <b>"'.$trabalho->titulo.'"</b> foi validado com sucesso!');
 		$this->log_model->insert_admin('Validado o trabalho de :', $id_participante);
@@ -639,10 +672,10 @@ class Trabalho extends Admin {
 	}
 
 	public function enviar_para_parecerista($id_participante){
-		
+
 		if($this->input->post('pareceristas') != ''){
 
-			$update['status'] = 3;
+			$update['status'] = '3';//Status enviado para o parecerista
 			$this->db->where('id_participante', $id_participante);
 			$this->db->update('trabalho', $update);
 
@@ -657,6 +690,10 @@ class Trabalho extends Admin {
 
 			$this->db->where('id',$this->input->post('pareceristas'));
 			$parecerista = $this->db->get('parecerista')->row();
+
+			$this->enviar_email_parecerista($parecerista, $trabalho);
+
+
 			$this->session->set_flashdata('success', 'Trabalho '.$trabalho->nome.' adicionado ao parecerista '.$parecerista->nome.'.');
 		}else{
 			$this->session->set_flashdata('danger', 'Selecione um parecerista.');
@@ -668,26 +705,14 @@ class Trabalho extends Admin {
 	public function enviar_email_participante()
 	{
 		$id_participante = $this->input->post('id');
-		$trabalho = $this->input->post('trabalhos');
-		if($trabalho == "reenviar_trabalho_com_autor")
-		{
-			$status = 5;
-		}	
-		else if($trabalho == "reenviar_trabalho_sem_autor")
-		{
-			$status = 4;
-		}
-		else if($trabalho == "reenviar_ambos_trabalhos")
-		{
-			$status = 6;
-		}
+		$status = $this->input->post('status');
+		$status_coautores = $this->input->post('status_coautores');
+		
 		$justificativa = $this->input->post('mensagem');
-
-		// printing($this->input->post());
 
 		$data_limite = $this->input->post('data_limite'); //prazo
 
-		$this->trabalho_model->reenviar_trabalhos($id_participante, $status, $data_limite, $justificativa);
+		$this->trabalho_model->reenviar_trabalhos($id_participante, $status, $status_coautores, $data_limite, $justificativa);
 		$titulo = "Trabalho Reprovado Na Fase de Validação";
 		$mensagem = "<h2>Olá Congressista! <br> Seu trabalho não passou na Fase de Validação. </h2> <br> Mensagem: <br>";
 		$mensagem .= $this->input->post('mensagem');
@@ -696,12 +721,35 @@ class Trabalho extends Admin {
 		$resposta = $this->send_email_with_title($titulo, $mensagem, $email);
 		if($resposta){
 			$this->log_model->insert_admin('Foi enviado o e-mail de reenvio de trabalho para o participante.', $id_participante);
-			$this->session->set_flashdata('success', 'Email enviado com sucesso!');  
+			$this->session->set_flashdata('success', 'Email enviado com sucesso!');
 
 		}
 		else{
 			$this->log_model->insert_admin('Houve um erro no envio do e-mail para o participante.', $id_participante);
-			$this->session->set_flashdata('danger', htmlspecialchars($resposta));  
+			$this->session->set_flashdata('danger', htmlspecialchars($resposta));
+
+		}
+	}
+
+	public function enviar_email_parecerista($parecerista, $trabalho)
+	{
+		//Envia e-mail para parecerista, avisando que um novo trabalho necessita de seu parecer
+		$titulo = "Novo Trabalho para Parecer";
+		$mensagem  = "<h2>Olá " . $parecerista->nome . "!</h2>";
+		$mensagem .= "<p>O trabalho <strong>\"" . $trabalho->titulo . "\"</strong> necessita do seu parecer.</p>";
+		$mensagem .= "<br><br><br>";
+		$mensagem .= "<p>Atensiosamente, <strong>COORDENAÇÃO GERAL DO CONGRESSO PEDAGOGIA HISTÓRICO-CRÍTICA</strong>.<p>";
+		echo $mensagem;
+		$email = $parecerista->email;
+		$resposta = $this->send_email_with_title($titulo, $mensagem, $email);
+		if($resposta){
+			$this->log_model->insert_admin('Foi enviado o e-mail notificação de trabalho para parecer.', $parecerista->id);
+			$this->session->set_flashdata('success', 'Email enviado com sucesso!');
+
+		}
+		else{
+			$this->log_model->insert_admin('Houve um erro no envio do e-mail de notificação de trabalho para parecer.', $id_participante);
+			$this->session->set_flashdata('danger', htmlspecialchars($resposta));
 
 		}
 	}

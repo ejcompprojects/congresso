@@ -17,29 +17,20 @@
 
         <table class="table table-striped table-advance table-hover">
           <thead>
-
-
-
             <tr>
               <?php 
               foreach($table_header as $object){
                 echo '<th><i class="'.$object['icon'].'"></i> '.$object['label'].'</th>';  
               }
-
               ?>
-
             </tr>
-
           </thead>
           <tbody>
-
             <?php 
-
             foreach($objects as $object){
               echo '<tr>';
               for($i = 0 ; $i < count($table_body); $i++){
                 echo '<td>'.$object[$table_body[$i]].'</td>';
-
               }
               echo '<td>
               <button class="btn btn-primary btn-xs"
@@ -53,22 +44,17 @@
                 }else echo ' data-'.$key.'="'.$object[$key].'" ';
               }
               echo '> <i class="fa fa-eye"></i></button></td></tr>';
-
             }
-
             ?>
-
           </tr>
-
         </tbody>
       </table>
-      
     </div>
   </div>
 </div>
 
 <?php 
-echo modal("modal", "label", "", "form", $data_input_modal); 
+//echo modal("modal", "label", "", "form", $data_input_modal); 
 ?>
 
 
@@ -81,7 +67,7 @@ echo modal("modal", "label", "", "form", $data_input_modal);
   $(document).ready(function () {
     var id = $('id').val();
     $('#nao_aceitar').remove();
-    $("<label class=\"form-control-label mensagem\">Mensagem para o congressista:</label>").insertBefore('#mensagem');
+    //$("<label class=\"form-control-label mensagem\">Mensagem para o congressista:</label>").insertBefore('#mensagem');
     $('.mensagem').fadeOut('slow');
     $('#mensagem').attr('disabled', 'disabled');
     $('.date').fadeOut('slow');
@@ -122,46 +108,36 @@ echo modal("modal", "label", "", "form", $data_input_modal);
           $.ajax({
             url: "'.$input['url'].'" + '.$input['id'].',
             success:function(response) {
-             
+
               var json = JSON.parse(response);
-          ';
-          
-          $html.= 'html+= \' <select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control" >\';';
-          $html.= '
-          html+= \'<option selected readonly disabled>'.$input['label'].'</option> \';';
-          $html.= '
-          for(var i = 0; i < json.length; i++){
-            ';
-          $html.= ' html+= \'<option value="\' + json[i].value + \'">\' + json[i].label + \'</option> \'';
-          $html.= '
-        }';
-          $html.=  '
+              ';
 
-          html +=\'</select>\'
+              $html.= 'html+= \' <select name="'.$input['name'].'" id="'.$input['name'].'" class="form-control" >\';';
+              $html.= '
+              html+= \'<option selected readonly disabled>'.$input['label'].'</option> \';';
+              $html.= '
+              for(var i = 0; i < json.length; i++){
+                ';
+                $html.= ' html+= \'<option value="\' + json[i].value + \'">\' + json[i].label + \'</option> \'';
+                $html.= '
+              }';
+              $html.=  '
 
-           ';
-           $html.= '
+              html +=\'</select>\'
 
-          modal.find("#'.$input['name'].'").html(html);';
+              ';
+              $html.= '
 
-          $html.= 'console.log(html);';
-          $html.= 
-          '
+              modal.find("#'.$input['name'].'").html(html);';
 
-          }
+              $html.= 'console.log(html);';
+              $html.= 
+              '
+
+            }
 
           });';
           echo $html;
-          // echo 'var html = $.ajax({
-          //   method: "POST",
-          //   url: "'.$input['url'].'" + '.$input['id'].',
-            
-          // })
-          // .done(function( result ) {
-          //   alert( result );
-          // });';
-          //echo $input['name'].' = html;';
-          
         }
         else if($input['type'] == 'special_input_file'){
           echo 'modal.find("#'.$input['name'].'").val('.$input['name'].');';          
@@ -169,8 +145,6 @@ echo modal("modal", "label", "", "form", $data_input_modal);
       }
 
       ?>
-
-
       modal.find('#label').text('<?= $titulo ?>')
       modal.find('#mandabala').text("Aprovar")
       modal.find('#nao_aceitar').html('')
@@ -178,50 +152,96 @@ echo modal("modal", "label", "", "form", $data_input_modal);
       modal.find('#form').attr("action", '<?= $url['aprovar'] ?>'+id)
 
       <?php if(isset($url['reprovar'])){ 
-      ?>
+        ?>
         modal.find('#nao_aceitar').text('Reprovar')
         modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>")
-      <?php
+        <?php
       }
       ?>
 
-
-
+      $.ajax({
+        url: '<?=base_url('Trabalho/getCoautoresTrabalho/')?>'+id,
+        success: function(e){
+          modal.find("#coautores").html(e);
+        },
+        error: function(e){
+          modal.find("#coautores").html("Não foi possível buscar os coautores, tente novamente!");
+        }
+      })
     }
   })
 
 
   });
 
-    $("input[type=radio][name=trabalhos]" ).click(function() {
-    var n = $( "input[type=radio][name=trabalhos]:checked" ).val();
+  $("input[type=checkbox][name='trabalhos[]']" ).click(function() {
+    campos = new Array();
+    $("input[type=checkbox][name='trabalhos[]']").each(function(){
+      if($(this).is(':checked')){
+        campos.push(true);
+      }
+      else{
+        campos.push(false);
+      }
+    });
     
-    //console.log(n);
-    
-    if(n == 'reenviar_trabalho_com_autor' || n == 'reenviar_trabalho_sem_autor' || n == 'reenviar_ambos_trabalhos')
-    {
-      $('.mensagem').fadeIn('slow');
-      $('#mensagem').removeAttr('disabled', 'disabled');
-      $('.date').fadeIn('slow');
-      $('#data_limite').removeAttr('disabled', 'disabled');
-      $('#form').attr("action", '<?= $url['reprovar'] ?>')
-      $('#mandabala').attr('class', 'btn btn-round btn-danger');
-      $('#mandabala').text('Reprovar');
-      //$('#mandabala').fadeOut('slow', function (){ $('#nao_aceitar').fadeIn('slow'); });
-    }
-    else
-    {
-      var id = $('#id').val();
-      $('.mensagem').fadeOut('slow');
-      $('#mensagem').attr('disabled', 'disabled');
-      $('.date').fadeOut('slow');
-      $('#data_limite').attr('disabled', 'disabled');
+      if(campos[0] || campos[1] || campos[2])
+      {
+        if(campos[0] && campos[1])
+        {
+          $("#status").val(6);
+        }
+        else
+        {
+          if(campos[0])
+          {
+            $("#status").val(5);
+          }
+          else if(campos[1])
+          {
+            $("#status").val(4);
+          }
+          else
+          {
+            $("#status").val(1);
+          }
+        }
+        if(campos[2])
+        {
+          $("#status_coautores").val(1);
+          if($("#status").val() == 1)
+          {
+            $("#status").val(7);
+          }
+        }
+        else
+        {
+          $("#status_coautores").val(0);
+        }
+        $('.mensagem').fadeIn('slow');
+        $('#mensagem').removeAttr('disabled', 'disabled');
+        $('.date').fadeIn('slow');
+        $('#data_limite').removeAttr('disabled', 'disabled');
+        $('#form').attr("action", '<?= $url['reprovar'] ?>')
+        $('#mandabala').attr('class', 'btn btn-round btn-danger');
+        $('#mandabala').text('Reprovar');
+      }
+      else
+      {
+        $("#status_coautores").val(0);
+        $("#status").val(1);
+        var id = $('#id').val();
+        $('.mensagem').fadeOut('slow');
+        $('#mensagem').attr('disabled', 'disabled');
+        $('.date').fadeOut('slow');
+        $('#data_limite').attr('disabled', 'disabled');
 
-      $('#form').attr("action", '<?= $url['aprovar'] ?>'+id);
-      $('#mandabala').attr('class', 'btn btn-round btn-theme');
-      $('#mandabala').text('Aprovar');
-
-    }
+        $('#form').attr("action", '<?= $url['aprovar'] ?>'+id);
+        $('#mandabala').attr('class', 'btn btn-round btn-theme');
+        $('#mandabala').text('Aprovar');
+      }
+      console.log( campos[0] + ' ' + campos[1] + ' ' + campos[2] );
+      console.log("Coautores: "+ $("#status_coautores").val() +", status: " + $("#status").val());
   });
 
 </script>

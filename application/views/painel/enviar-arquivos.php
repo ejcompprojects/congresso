@@ -21,6 +21,8 @@
 	</div>
 	<?php } ?>
 
+
+
 	<?php if($enviou_comprovante){
 		$panel = '';
 		$message = '';
@@ -57,7 +59,7 @@
 				</div>
 			</div>
 
-			<?php }
+			<?php }			
 			if(!$enviou_comprovante || $status_inscricao == 'Reprovado'){ ?>
 
 			<div class="col-md-12">

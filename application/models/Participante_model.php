@@ -86,15 +86,20 @@ class Participante_model extends CI_Model{
     //     return $this->db->get(self::DB_TABLE)->result();
 
     // }
-    
+
     public function num_rows($filtros = array()){
 
       if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
-         $this->db->like(self::DB_TABLE.'.'.self::NOME_COLUMN, $filtros[self::NOME_COLUMN]);
-     }
+        $this->db->like(self::DB_TABLE.'.'.self::NOME_COLUMN, $filtros[self::NOME_COLUMN]);
+      }
+      
+       return $this->db->get(self::DB_TABLE)->num_rows();
+    }
 
-     return $this->db->get(self::DB_TABLE)->num_rows();
- }
+    public function inscricoesPagas(){
+        $this->db->where("foto_comprovante != ''");
+        return $this->db->get("participante")->num_rows();
+    }
 
  public function cadastraParticipante($dados){
     $this->db->insert('participante',$dados);
@@ -105,32 +110,30 @@ class Participante_model extends CI_Model{
 public function list_filter($filtros = array(), $inicio = 0){
   if(!isset($filtros['attribute'])){
      $filtros['attribute'] = 'nome';
- } 
- if(!isset($filtros['order_by'])){
+  } 
+  if(!isset($filtros['order_by'])){
      $filtros['order_by'] = 'ASC';
- }
- if(!isset($filtros['quantidade'])){
+  }
+  if(!isset($filtros['quantidade'])){
      $filtros['quantidade'] = 10;
- }
+  }
 
- $this->db->order_by($filtros['attribute'], $filtros['order_by']);
- $this->db->limit($filtros['quantidade'], $inicio);
+  $this->db->order_by($filtros['attribute'], $filtros['order_by']);
+  $this->db->limit($filtros['quantidade'], $inicio);
 
- if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
+  if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
      $this->db->like(self::DB_TABLE.".".self::NOME_COLUMN, $filtros['nome']);
- }
+  }
 
- $this->db->select(self::DB_TABLE . '.*');
+  $this->db->select(self::DB_TABLE . '.*');
 
- return $this->db->get(self::DB_TABLE)->result();
-
-
+  return $this->db->get(self::DB_TABLE)->result();
 }
 
 public function list_filter_pagamento_analisar($filtros = array(), $inicio = 0){
     if(!isset($filtros['attribute'])){
         $filtros['attribute'] = 'nome';
-    } 
+    }
     if(!isset($filtros['order_by'])){
         $filtros['order_by'] = 'ASC';
     }
@@ -156,7 +159,7 @@ public function list_filter_pagamento_analisar($filtros = array(), $inicio = 0){
 public function num_rows_listar_pagamento_analisar($filtros = array(), $inicio = 0){
    if(!isset($filtros['attribute'])){
     $filtros['attribute'] = 'nome';
-} 
+}
 if(!isset($filtros['order_by'])){
     $filtros['order_by'] = 'ASC';
 }
@@ -181,7 +184,7 @@ return $this->db->get(self::DB_TABLE)->num_rows();
 public function list_filter_trabalho_analisar($filtros = array(), $inicio = 0){
     if(!isset($filtros['attribute'])){
         $filtros['attribute'] = 'nome';
-    } 
+    }
     if(!isset($filtros['order_by'])){
         $filtros['order_by'] = 'ASC';
     }
@@ -197,7 +200,7 @@ public function list_filter_trabalho_analisar($filtros = array(), $inicio = 0){
     }
     $this->db->join('tipo_inscricao', 'tipo_inscricao.id = participante.id_tipo_inscricao', 'INNER');
     $this->db->join('trabalho', 'trabalho.id_participante = participante.id', 'INNER');
-    $this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER'); 
+    $this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER');
     $this->db->select('tipo_inscricao.tipo as tipo_inscricao, eixo.nome as eixo, trabalho.*, '.self::DB_TABLE . '.*');
     $this->db->where('trabalho.status', 0);
     $this->db->order_by('trabalho.data_registro', 'ASC');
@@ -209,7 +212,7 @@ public function list_filter_trabalho_analisar($filtros = array(), $inicio = 0){
 public function num_rows_listar_trabalho_analisar($filtros = array(), $inicio = 0){
    if(!isset($filtros['attribute'])){
     $filtros['attribute'] = 'nome';
-} 
+}
 if(!isset($filtros['order_by'])){
     $filtros['order_by'] = 'ASC';
 }
@@ -225,7 +228,7 @@ if(isset($filtros[self::NOME_COLUMN]) && $filtros[self::NOME_COLUMN] != ''){
 }
 $this->db->join('tipo_inscricao', 'tipo_inscricao.id = participante.id_tipo_inscricao', 'INNER');
 $this->db->join('trabalho', 'trabalho.id_participante = participante.id', 'INNER');
-$this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER'); 
+$this->db->join('eixo', 'eixo.id = trabalho.id_eixo', 'INNER');
 $this->db->select('tipo_inscricao.tipo as tipo_inscricao, eixo.nome as eixo, trabalho.*, '.self::DB_TABLE . '.*');
 $this->db->where('trabalho.status', 0);
 $this->db->order_by('trabalho.data_registro', 'ASC');
@@ -236,7 +239,7 @@ public function num_rows_todos($filtros = array(), $inicio = 0){
     return count($this->list_all($filtros, $inicio));
     // if(!isset($filtros['attribute'])){
     //     $filtros['attribute'] = 'nome';
-    // } 
+    // }
     // if(!isset($filtros['order_by'])){
     //     $filtros['order_by'] = 'ASC';
     // }
@@ -266,7 +269,7 @@ public function num_rows_todos($filtros = array(), $inicio = 0){
     // if(isset($filtros['tipo_inscricao']) && $filtros['tipo_inscricao'] != ''){
     //     $this->db->where('id_tipo_inscricao', $filtros['tipo_inscricao']);
     // }
-    
+
     // if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 3){
     //     $this->db->where('status_inscricao', $filtros['status_inscricao']);
     // }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 3){
@@ -288,7 +291,7 @@ public function num_rows_todos($filtros = array(), $inicio = 0){
 public function list_all($filtros = array(), $inicio = 0){
     if(!isset($filtros['attribute'])){
         $filtros['attribute'] = 'nome';
-    } 
+    }
     if(!isset($filtros['order_by'])){
         $filtros['order_by'] = 'ASC';
     }
@@ -303,7 +306,7 @@ public function list_all($filtros = array(), $inicio = 0){
         $this->db->where('submeter_trabalho', 0);
         $filtros['attribute'] = 'nome';
     }
-    
+
     if($filtros['attribute'] == 'data_registro'){
         $filtros['attribute'] = 'participante.data_registro';
     }
@@ -318,10 +321,10 @@ public function list_all($filtros = array(), $inicio = 0){
     if(isset($filtros['tipo_inscricao']) && $filtros['tipo_inscricao'] != ''){
         $this->db->where('id_tipo_inscricao', $filtros['tipo_inscricao']);
     }
-    
-    if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 3){
+
+    if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 4){
         $this->db->where('status_inscricao', $filtros['status_inscricao']);
-    }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 3){
+    }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 4){
         $this->db->where('foto_comprovante', '');
     }
 

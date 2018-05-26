@@ -7,8 +7,8 @@ require_once(APPPATH.'controllers/Admin.php');
 class Participante extends Admin {
   public function __construct(){
     parent::__construct();
-    $this->load->helper('frontend_helper'); 
-    $this->load->helper('modalform_helper'); 
+    $this->load->helper('frontend_helper');
+    $this->load->helper('modalform_helper');
     $this->load->model('Participante_model', 'participante_model');
 
   }
@@ -19,7 +19,7 @@ class Participante extends Admin {
     $objects = $this->participante_model->get_all();
     $data = array();
     foreach($objects as $object){
-            //$data[] = new stdClass(); 
+            //$data[] = new stdClass();
       $aux = (object) array('value' => $object->id, 'label' => $object->nome." - ".$object->email);
       $data[] = $aux;
     }
@@ -85,7 +85,7 @@ class Participante extends Admin {
 
     $email = $participante->email;
 
-    $response_email = $this->send_email_with_title($title,$message,$email);  
+    $response_email = $this->send_email_with_title($title,$message,$email);
     $this->session->set_flashdata('success', $response_email);
 
     $this->log_model->insert_admin('O Administrador inseriu o comprovante de pagamento do usuário com ID:'.$id, $id_administrador);
@@ -171,12 +171,12 @@ public function do_upload_image($name, $id)
         $num_rows = $this->participante_model->num_rows_listar_pagamento_analisar($filtros);
 
         $config['base_url'] = base_url('Participante/'.$funcao.'/'.$attribute.'/'.$order_by.'/'.$quantidade.'/'.$nome.'/');
-        $config['total_rows'] = $num_rows; 
-        $config['per_page'] = $filtros['quantidade']; 
+        $config['total_rows'] = $num_rows;
+        $config['per_page'] = $filtros['quantidade'];
         $config['full_tag_open'] = "<ul class='pagination'>";
         $config['full_tag_close'] = "</ul>";
-        $config['first_link'] = FALSE; 
-        $config['last_link'] = FALSE; 
+        $config['first_link'] = FALSE;
+        $config['last_link'] = FALSE;
         $config['first_tag_open'] = "<li>";
         $config['first_tar_close'] = "</li>";
         $config['prev_link'] = "Anterior";
@@ -191,15 +191,15 @@ public function do_upload_image($name, $id)
         $config['cur_tag_close'] = "</a></li>";
         $config['num_tag_open'] = "<li>";
         $config['num_tag_close'] = "</li>";
-        $config['num_links'] = 3; 
+        $config['num_links'] = 3;
 
         $qtde = $config['per_page'];
-        //($this->uri->segment(3) != '') ? $inicio = $this->uri->segment(3) : $inicio = 0; 
+        //($this->uri->segment(3) != '') ? $inicio = $this->uri->segment(3) : $inicio = 0;
 
         $this->pagination->initialize($config);
 
-        
-        //$dados['noticias'] = $this->modelnoticias->listar_noticias_paginadas($qtde, $inicio)->result(); 
+
+        //$dados['noticias'] = $this->modelnoticias->listar_noticias_paginadas($qtde, $inicio)->result();
 
 
         if(isset($filtros['attribute'])){
@@ -213,7 +213,7 @@ public function do_upload_image($name, $id)
         }
         $dados['funcao'] = 'listar_pagamento_analisar';
         $dados['titulo'] = 'Participantes Para Analisar o Pagamento';
-        $dados['participantes'] = $this->participante_model->list_filter_pagamento_analisar($filtros, $inicio); 
+        $dados['participantes'] = $this->participante_model->list_filter_pagamento_analisar($filtros, $inicio);
         $dados['paginacao'] = $this->pagination->create_links();
         $dados['filtros'] = $filtros;
         $dados['filtros_verbose'] = $filtros_verbose;
@@ -308,12 +308,12 @@ public function do_upload_image($name, $id)
         $num_rows = $this->participante_model->num_rows_listar_trabalho_analisar($filtros);
 
         $config['base_url'] = base_url('Participante/'.$funcao.'/'.$attribute.'/'.$order_by.'/'.$quantidade.'/'.$nome.'/');
-        $config['total_rows'] = $num_rows; 
-        $config['per_page'] = $filtros['quantidade']; 
+        $config['total_rows'] = $num_rows;
+        $config['per_page'] = $filtros['quantidade'];
         $config['full_tag_open'] = "<ul class='pagination'>";
         $config['full_tag_close'] = "</ul>";
-        $config['first_link'] = FALSE; 
-        $config['last_link'] = FALSE; 
+        $config['first_link'] = FALSE;
+        $config['last_link'] = FALSE;
         $config['first_tag_open'] = "<li>";
         $config['first_tar_close'] = "</li>";
         $config['prev_link'] = "Anterior";
@@ -328,15 +328,15 @@ public function do_upload_image($name, $id)
         $config['cur_tag_close'] = "</a></li>";
         $config['num_tag_open'] = "<li>";
         $config['num_tag_close'] = "</li>";
-        $config['num_links'] = 3; 
+        $config['num_links'] = 3;
 
         $qtde = $config['per_page'];
-        //($this->uri->segment(3) != '') ? $inicio = $this->uri->segment(3) : $inicio = 0; 
+        //($this->uri->segment(3) != '') ? $inicio = $this->uri->segment(3) : $inicio = 0;
 
         $this->pagination->initialize($config);
 
-        
-        //$dados['noticias'] = $this->modelnoticias->listar_noticias_paginadas($qtde, $inicio)->result(); 
+
+        //$dados['noticias'] = $this->modelnoticias->listar_noticias_paginadas($qtde, $inicio)->result();
 
 
         if(isset($filtros['attribute'])){
@@ -350,7 +350,7 @@ public function do_upload_image($name, $id)
         }
 
         $dados['titulo'] = 'Participantes Para Analisar o Trabalho';
-        $dados['participantes'] = $this->participante_model->list_filter_trabalho_analisar($filtros, $inicio); 
+        $dados['participantes'] = $this->participante_model->list_filter_trabalho_analisar($filtros, $inicio);
         $dados['paginacao'] = $this->pagination->create_links();
         $dados['funcao'] = $funcao;
         $dados['filtros'] = $filtros;
@@ -453,12 +453,12 @@ public function do_upload_image($name, $id)
         $num_rows = $this->participante_model->num_rows_todos($filtros);
 
         $config['base_url'] = base_url('Participante/'.$funcao.'/'.$attribute.'/'.$order_by.'/'.$quantidade.'/'.$nome.'/');
-        $config['total_rows'] = $num_rows; 
-        $config['per_page'] = $filtros['quantidade']; 
+        $config['total_rows'] = $num_rows;
+        $config['per_page'] = $filtros['quantidade'];
         $config['full_tag_open'] = "<ul class='pagination'>";
         $config['full_tag_close'] = "</ul>";
-        $config['first_link'] = FALSE; 
-        $config['last_link'] = FALSE; 
+        $config['first_link'] = FALSE;
+        $config['last_link'] = FALSE;
         $config['first_tag_open'] = "<li>";
         $config['first_tar_close'] = "</li>";
         $config['prev_link'] = "Anterior";
@@ -473,15 +473,15 @@ public function do_upload_image($name, $id)
         $config['cur_tag_close'] = "</a></li>";
         $config['num_tag_open'] = "<li>";
         $config['num_tag_close'] = "</li>";
-        $config['num_links'] = 3; 
+        $config['num_links'] = 3;
 
         $qtde = $config['per_page'];
-        //($this->uri->segment(3) != '') ? $inicio = $this->uri->segment(3) : $inicio = 0; 
+        //($this->uri->segment(3) != '') ? $inicio = $this->uri->segment(3) : $inicio = 0;
 
         $this->pagination->initialize($config);
 
-        
-        //$dados['noticias'] = $this->modelnoticias->listar_noticias_paginadas($qtde, $inicio)->result(); 
+
+        //$dados['noticias'] = $this->modelnoticias->listar_noticias_paginadas($qtde, $inicio)->result();
 
 
         if(isset($filtros['attribute'])){
@@ -519,7 +519,7 @@ public function do_upload_image($name, $id)
         $dados['eixos'] = $this->db->get('eixo')->result();
 
         $dados['titulo'] = 'Listar Participantes';
-        $dados['participantes'] = $this->participante_model->list_all($filtros, $inicio); 
+        $dados['participantes'] = $this->participante_model->list_all($filtros, $inicio);
         $dados['paginacao'] = $this->pagination->create_links();
         $dados['funcao'] = $funcao;
         $dados['filtros'] = $filtros;
@@ -565,7 +565,7 @@ public function do_upload_image($name, $id)
 
         // if(isset($status_inscricao) && $status_inscricao == ''){
 
-        //     $status_inscricao = $this->input->post('status_inscricao'); 
+        //     $status_inscricao = $this->input->post('status_inscricao');
 
         // }else{
 
@@ -575,7 +575,7 @@ public function do_upload_image($name, $id)
 
         // if(isset($this->input->post('eixo')) && $this->input->post('eixo') == ''){
 
-        //     $eixo = $this->input->post('eixo'); 
+        //     $eixo = $this->input->post('eixo');
 
         // }else{
 
@@ -585,7 +585,7 @@ public function do_upload_image($name, $id)
 
         // if(isset($this->input->post('status')) && $this->input->post('status') == ''){
 
-        //     $status = $this->input->post('status'); 
+        //     $status = $this->input->post('status');
 
         // }else{
 
