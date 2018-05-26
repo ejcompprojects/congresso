@@ -81,6 +81,7 @@ $usuario = $_SESSION['usuario']; ?>
               <li><a  href="<?= base_url('Trabalho/listar_trabalhos_que_foram_enviados_para_pareceristas') ?>">Enviados p/ Parecerista</a></li>
               <li><a  href="<?= base_url('Trabalho/listar_aprovados') ?>">Aprovados</a></li>
               <li><a  href="<?= base_url('Trabalho/listar_reprovados') ?>">Reprovados</a></li>
+              <li><a  href="<?= base_url('Trabalho/setar_trabalho_manualmente') ?>">Enviar p/ um participante</a></li>
 
 
             </ul>

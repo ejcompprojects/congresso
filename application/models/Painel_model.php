@@ -83,4 +83,6 @@ class Painel_model extends CI_Model{
  		if($data_resposta > $data_limite) return true;
  		else return false;
  	}
+
+ 	
 }

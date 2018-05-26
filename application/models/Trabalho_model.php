@@ -113,11 +113,18 @@ class Trabalho_model extends CI_Model{
         return $this->db->delete('trabalho_parecerista');
 
     }
+    public function get_eixos_trabalhos(){
+        return $this->db->get('eixo')->result();
+    }
 
     public function set_trabalho_status($id_trabalho, $status){
         $this->db->where('id_participante', $id_trabalho);
         $dados['status'] = $status;
         return $this->db->update('trabalho', $dados);
+    }
+    public function get_trabalho($id){
+        $this->db->where("id_participante", $id);
+        return $this->db->get("trabalho")->row();
     }
 
     public function getCoautoresTrabalho($id_trabalho){
