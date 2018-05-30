@@ -47,7 +47,7 @@ public function insert()
         $dados['id_parecerista']    = $this->session->userdata('usuario')->id;
         $dados['data_parecer']      = date("Y-m-d H:i:s");
         $dados['nota']              = $this->input->post('nota');
-        $dados['status_parecer']    = ($dados['nota']>4.9) ? 1 : 2;
+        $dados['status_parecer']    = ($dados['nota']>4.9) ? 1 : 3;
         $dados['arquivo_parecer']   = $parecer_file['message'];
         $dados['ja_deu_parecer']    = 1;
 
@@ -70,10 +70,10 @@ public function insert()
                     'success', "Parecer realizado com sucesso!"
                  );
                 $mensagem       = "Prezado(a) " . $participante['nome'] . ", seu trabalho foi avaliado!<br/>";
-                $mensagem      .= "<b>Situação: </b>";
-                $mensagem      .= ($dados['status_parecer']==1) ? "Aprovado" : "Reprovado";
-                $mensagem      .= "<br/><b>Nota: </b>" . $dados['nota'];
-                $mensagem      .= "<br/><br/>Atenciosamente, Comissão Avaliadora Congresso Pedagogia Hitórico-Crítica";
+                //$mensagem      .= "<br/><b>Nota: </b>" . $dados['nota'];
+                $mensagem      .= "<b>Informamos que o trabalho submetido ao Congresso Pedagogia Histórico-crítica foi APROVADO para apresentação. Em breve receberá orientações sobre o envio da versão final do texto e sobre a apresentação do trabalho no Congresso. Atenciosamente, Comissão Científica do Congresso Pedagogia Hitórico-Crítica</b>";
+                //$mensagem      .= ($dados['status_parecer']==1) ? "Aprovado" : "Reprovado";
+                //$mensagem      .= "<br/><br/>Atenciosamente, Comissão Avaliadora Congresso Pedagogia Hitórico-Crítica";
 
                 if(parent::send_email_with_title('PHC - Avaliação do Trabalho', $mensagem, $participante['email'])){
                     $this->log_model->insert_parecerista("Avaliação de trabalho enviada para " . $participante['email'], $this->session->userdata('usuario')->id);

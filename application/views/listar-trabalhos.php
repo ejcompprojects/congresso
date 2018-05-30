@@ -68,7 +68,7 @@
 </div>
 
 <?php 
-echo modal("modal", "label", "", "form", $data_input_modal); 
+//echo modal("modal", "label", "", "form", $data_input_modal); 
 ?>
 
 
@@ -161,6 +161,16 @@ echo modal("modal", "label", "", "form", $data_input_modal);
 
       modal.find('#label').text('<?= $titulo ?>')
       modal.find('#id').show()
+
+      $.ajax({
+        url: '<?=base_url('Trabalho/getCoautoresTrabalho/')?>'+id,
+        success: function(e){
+          modal.find("#coautores").html(e);
+        },
+        error: function(e){
+          modal.find("#coautores").html("Não foi possível buscar os coautores, tente novamente!");
+        }
+      })
 
       <?php if(isset($url['aprovar'])){ 
         ?>

@@ -11,6 +11,12 @@ class Login extends CI_Controller {
 		$this->load->helper('frontend_helper'); 
 		$this->load->model('Login_model', 'model');
     $this->load->model('Log_model', 'log_model');
+    $date = strtotime(date("Y-m-d H:i:s"));
+     $date = md5($date);
+     $date = substr($date, 0, 8);
+     $senha = $this->crypt($date);
+
+     echo $date, "<br>", $senha;
     if(!$this->isLogged() && 
      get_class($this) != get_class()){
      redirect(base_url('Login'));
@@ -65,10 +71,10 @@ public function esqueci_senha(){
 
 
 
+
              $date = strtotime(date("Y-m-d H:i:s"));
              $date = md5($date);
              $date = substr($date, 0, 8);
-
              $senha = $this->crypt($date);
 
              $this->model->atualizaSenha($resposta->id, $senha);

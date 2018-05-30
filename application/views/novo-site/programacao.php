@@ -38,7 +38,7 @@ require 'importacoes/menu.php';
 						<b>Apresentação de Expressão Artística<br>
 						Mesa redonda:</b> “Educação Inclusiva e Pedagogia Histórico-crítica”<br>
 						<b>Convidados:</b> Régis Henrique dos Reis Silva (UNICAMP); Anna Maria Lunardi Padilha.<br>
-						<b>Coordenação da Mesa:</b> a definir
+						<b>Coordenação da Mesa:</b> Jorge Luís Mazzeo Mariano
 					</td>
 					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 				</tr>
@@ -54,7 +54,7 @@ require 'importacoes/menu.php';
 					<th class="align_center brandon_n">NOITE<br>
 					(19h00 - 19h30)</th>
 					<td>
-						<b>Apresentação de Expressão Artística</b><br>
+						<b>Apresentação de Expressão Artística: Orquestra de Cordas da UNOESTE.</b><br>
 						<b>Abertura do Congresso – Comissão Organizadora</b>
 					</td>
 					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
@@ -63,10 +63,9 @@ require 'importacoes/menu.php';
 					<th class="align_center brandon_n">NOITE<br>
 					(19h30 - 22h30)</th>
 					<td>
-						<b>Apresentação de Expressão Artística<br>
 						Mesa Redonda:</b> “Fundamentos Filosóficos da Pedagogia Histórico-crítica e Políticas educacionais Contemporâneas”<br>
 						<b>Convidados:</b> Marise N. Ramos (LATEPS/EPSJV-Fiocruz; PPFH/Uerj); Tiago Nicola Lavoura (UESC-Ilhéus/Bahia)<br>
-						<b>Coordenação da Mesa:</b> a definir<br>
+						<b>Coordenação da Mesa:</b> Marcos Vinícius Francisco<br>
 						<b>300 vagas</b> 
 					</td>
 					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
@@ -146,7 +145,7 @@ require 'importacoes/menu.php';
 							<b>Apresentação de Expressão Artística<br>
 							Mesa redonda:</b> “Relações entre os Fundamentos Psicológicos da Pedagogia Histórico-crítica e Currículo”<br>
 							<b>Convidadas:</b> Lígia Márcia Martins (UNESP/Araraquara); Juliana Pasqualini (UNESP/Bauru)<br>
-							<b>Coordenação da mesa:</b> a definir<br>
+							<b>Coordenação da mesa:</b> Érika Porceli Alaniz<br>
 							<b>300 vagas</b>
 						</td>
 						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>

@@ -11,7 +11,7 @@ class Trabalho_model extends CI_Model{
 
     public function get_all_where_refused(){
 
-        $this->db->select('trabalho.status, trabalho.status_coautores, trabalho.data_limite as prazo, trabalho.justificativa as justificativa, trabalho.id_eixo as id_eixo, participante.email,trabalho.id_participante as id, trabalho.arquivo_sem_nome_autor, trabalho.arquivo_com_nome_autor, trabalho.justificativa, participante.nome, trabalho.titulo, eixo.nome as eixo, trabalho.data_registro as data, tipo_inscricao.tipo');
+        $this->db->select('trabalho.status, trabalho.data_limite as prazo, trabalho.justificativa as justificativa, trabalho.id_eixo as id_eixo, participante.email,trabalho.id_participante as id, trabalho.arquivo_sem_nome_autor, trabalho.arquivo_com_nome_autor, trabalho.justificativa, participante.nome, trabalho.titulo, eixo.nome as eixo, trabalho.data_registro as data, tipo_inscricao.tipo');
         $this->db->order_by('trabalho.data_registro', 'ASC');
         $this->db->where('trabalho.status > 1');
         $this->db->where('trabalho.status != 3');

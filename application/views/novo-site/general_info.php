@@ -163,8 +163,9 @@ require 'importacoes/menu.php';
 
 <div id="modalat" class="modal white-text cyan tw_cent">
     <div class="modal-content">
-      <h4>ATENÇÃO</h4>
-      <h5>O prazo para submissão de trabalhos foi prorrogado até dia 18/05.</h5>
+      <h4>COMUNICADO I</h4>
+      <h5> Os trabalhos submetidos estão na fase de avaliação (pareceristas externos analisam conforme os critérios do Congresso que constam publicados no site).
+Ao encerrar a avaliação, os autores receberão o parecer final (via sistema) e a Comissão Organizadora publicará os trabahos aprovados por Eixos (diariamente)</h5>
       <a href="#!" class="modal-close waves-effect waves-green btn-flat float-right white-text right-align right"><i class="material-icons">close</i></a>
     </div>	
   </div>

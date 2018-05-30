@@ -38,34 +38,34 @@ class Painel extends Login {
       $usuario = $this->painel_model->get($id);
 
       if($usuario->foto_comprovante == ''){
-       $enviou_comprovante = 0;
-   }else{
-       $enviou_comprovante = 1;
-   }
+         $enviou_comprovante = 0;
+     }else{
+         $enviou_comprovante = 1;
+     }
 
-   $status_comprovante = $usuario->status_inscricao;
-
-
-   $vai_submeter_trabalho = $usuario->submeter_trabalho;    
+     $status_comprovante = $usuario->status_inscricao;
 
 
-   $trabalho = $this->get_trabalho($id);
+     $vai_submeter_trabalho = $usuario->submeter_trabalho;    
 
-   if(is_object($trabalho)) $enviou_trabalho = 1;
-   else $enviou_trabalho = 0;
 
-   $parecer = $this->get_parecer($id);
+     $trabalho = $this->get_trabalho($id);
 
-   if(is_object($parecer)) $tem_parecer = 1;
-   else $tem_parecer = 0;
+     if(is_object($trabalho)) $enviou_trabalho = 1;
+     else $enviou_trabalho = 0;
 
-   $array = array();
-   $array['vai_submeter_trabalho'] = $vai_submeter_trabalho;
-   $array['mensagens'] = array();
+     $parecer = $this->get_parecer($id);
+
+     if(is_object($parecer)) $tem_parecer = 1;
+     else $tem_parecer = 0;
+
+     $array = array();
+     $array['vai_submeter_trabalho'] = $vai_submeter_trabalho;
+     $array['mensagens'] = array();
 
 
     if( !$enviou_comprovante && $status_comprovante != 3){ //todo mundo tem que enviar o comprovante, se não enviou:
-        if($this->participante_model->inscricoesPagas() >= 300){
+        if($this->participante_model->inscricoesPagas() >= 350){
             $array['fase'] = 'ENVIAR_COMPROVANTE';
             $array['etapa'] = 2;
             $array['porcentagem'] = 0;    
@@ -187,12 +187,7 @@ class Painel extends Login {
 
                 	}
 
-                    $e_coautores = '';
-                    $label_coautores = '';
-                    if($trabalho->status_coautores){
-                        $e_coautores = ' e também nos coautores vinculados';
-                        $label_coautores = ' e Correção de Coautores';
-                    }
+
 
                     switch($trabalho->status){ //se foi VALIDADO:
                         case 0: //EM ANÁLISE:
@@ -220,7 +215,7 @@ class Painel extends Login {
                         case 2: //REPROVADO:
 
                         $array['status_trabalho'] = array(
-                        	'title' => 'Foi encontrado erros em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                        	'title' => 'Foram encontrados erros em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
                         	'panel' => 'panel-danger', 
                         	'label' => 'Etapa de Validação'
                         );
@@ -241,9 +236,9 @@ class Painel extends Login {
                         case 4: //REENVIAR TRABALHO SEM AUTOR:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foi encontrado erros em seu trabalho SEM autor'.$e_coautores.'.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                        	'title' => '<b>Foram encontrados erros em seu trabalho SEM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
                         	'panel' => 'panel-warning', 
-                        	'label' => 'Solicitado Reenvio'.$label_coautores
+                        	'label' => 'Etapa de Validação'
                         );
                         $array['div_reenviar_trabalho'] = 1;
 
@@ -256,9 +251,9 @@ class Painel extends Login {
                         case 5: //REENVIAR TRABALHO COM AUTOR:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foi encontrado erros em seu trabalho COM autor'.$e_coautores.'.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                        	'title' => '<b>Foram encontrados erros em seu trabalho COM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
                         	'panel' => 'panel-warning', 
-                        	'label' => 'Solicitado Reenvio'.$label_coautores
+                        	'label' => 'Etapa de Validação'
                         );
                         $array['div_reenviar_trabalho'] = 1;
 
@@ -272,9 +267,9 @@ class Painel extends Login {
                         case 6: //REENVIAR AMBOS:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foi encontrado erros em seu trabalho COM autor e SEM autor'.$e_coautores.'.<b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
+                        	'title' => '<b>Foram encontrados erros em seu trabalho COM autor e SEM autor.<b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
                         	'panel' => 'panel-warning', 
-                        	'label' => 'Solicitado Reenvio'.$label_coautores
+                        	'label' => 'Solicitado Reenvio'
                         );
                         $array['div_reenviar_trabalho'] = 1;
                         
@@ -282,19 +277,6 @@ class Painel extends Login {
                         $array['status_reenvio'] = 'AMBOS';
 
                         array_push($array['mensagens'], 'Entre em "Enviar Arquivos" para anexar seu trabalho.');
-
-                        break;
-
-                        case 7: //ALTERAR COAUTORES:
-
-                        $array['status_trabalho'] = array(
-                            'title' => '<b>Foi encontrado erros referente aos coautores do seu trabalho.<b><br><br>Veja o que a nossa equipe escreveu sobre o que está errado:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
-                            'panel' => 'panel-warning', 
-                            'label' => 'Solicitado Correção de Coautores'
-                        );
-                        $array['div_reenviar_trabalho'] = 0;
-                        
-                        array_push($array['mensagens'], 'Entre em "Enviar Arquivos" para corrigir os coautores.');
 
                         break;
 
@@ -320,7 +302,7 @@ class Painel extends Login {
 
                                 $array['status_trabalho'] = array(
                                 	'title' => '<b>Parabéns!</b><br>Seu trabalho foi <b>APROVADO!</b>',
-                                	'subtitle' => '<h3>Nota:'.$parecer->nota.'</h3><br><p>Ver Formulário de avaliação:</p><br> <a class="btn btn-info" href="'.base_url('uploads/parecer/'.$parecer->arquivo_parecer).'">CLIQUE AQUI PARA VER O FORMULÁRIO</a>',
+                                	'subtitle' => '<h3>Nota:'.$parecer->nota.'</h3>',
                                 	'panel' => 'panel-success',
                                 	'label' => 'Etapa de Avaliação'
                                 );
@@ -332,7 +314,7 @@ class Painel extends Login {
                               case 2: //REPROVADO
                               $array['status_trabalho'] = array(
                               	'title' => 'Infelizmente, seu trabalho foi <b>reprovado</b>. Mas fique tranquilo, você ainda poderá participar do evento!',
-                              	'subtitle' => '<h3>Nota:'.$parecer->nota.'</h3><br><p>Ver Formulário de avaliação:</p><br> <a class="btn btn-info" href="'.base_url('uploads/parecer/'.$parecer->arquivo_parecer).'">CLIQUE AQUI PARA VER O FORMULÁRIO</a>',
+                              	'subtitle' => '<h3>Nota:'.$parecer->nota.'</h3>',
                               	'panel' => 'panel-danger',
                               	'label' => 'Etapa de Avaliação');
                               array_push($array['mensagens'], 'Infelizmente, seu trabalho foi <b>reprovado</b>. Mas fique tranquilo, você ainda poderá participar do evento!');
@@ -377,90 +359,90 @@ class Painel extends Login {
             }
             else{  //e NÃO vai submeter trabalho:
                 if($enviou_comprovante){
-                  $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
-                  $array['etapa'] = 7;
-                  $array['porcentagem'] = 100;
+                      $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
+                    $array['etapa'] = 7;
+                    $array['porcentagem'] = 100;
 
-                  array_push($array['mensagens'], 'Inscrição completa com sucesso!');
+                    array_push($array['mensagens'], 'Inscrição completa com sucesso!');
 
-                  $array['div_enviar_comprovante'] = FALSE;
-                  $array['div_status_comprovante'] = TRUE;
-                  $array['div_enviar_trabalho'] = FALSE;
-                  $array['div_alerta_trabalho'] = FALSE;
-                  $array['div_status_trabalho'] = FALSE;
-              }
-              else{
-                $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
-                $array['etapa'] = 7;
-                $array['porcentagem'] = 100;
+                    $array['div_enviar_comprovante'] = FALSE;
+                    $array['div_status_comprovante'] = TRUE;
+                    $array['div_enviar_trabalho'] = FALSE;
+                    $array['div_alerta_trabalho'] = FALSE;
+                    $array['div_status_trabalho'] = FALSE;
+                }
+                else{
+                    $array['fase'] = 'JA_ENVIOU_COMPROVANTE_E_NAO_SUBMETERA_TRABALHO';
+                    $array['etapa'] = 7;
+                    $array['porcentagem'] = 100;
 
-                array_push($array['mensagens'], 'Inscrição completa com sucesso!');
+                    array_push($array['mensagens'], 'Inscrição completa com sucesso!');
 
-                $array['div_enviar_comprovante'] = TRUE;
-                $array['div_status_comprovante'] = FALSE;
-                $array['div_enviar_trabalho'] = FALSE;
-                $array['div_alerta_trabalho'] = FALSE;
-                $array['div_status_trabalho'] = FALSE;
-
-            }
-        }
-
-            if ($trabalho->status_coautores == 1) {
-                
-                $array['status_coautores'] = TRUE;
+                    $array['div_enviar_comprovante'] = TRUE;
+                    $array['div_status_comprovante'] = FALSE;
+                    $array['div_enviar_trabalho'] = FALSE;
+                    $array['div_alerta_trabalho'] = FALSE;
+                    $array['div_status_trabalho'] = FALSE;
+                    
+                }
             }
 
 
-        return $array;
+
+
+
+
+
+            return $array;
           //echo '<pre>'; print_r($array); echo '</pre>'; exit();
 
 
 
 
 
-    }
+        }
 
-    public function index(){
-
-
-       $data = $this->retorna_etapa_que_o_usuario_se_encontra();
-
-       $valor = $this->calcula_valor(date('m'), $this->session->userdata('usuario')->id_tipo_inscricao);
-
-       $data['valor'] = $valor;
-       $data['estagio'] = $data['etapa'];
+        public function index(){
 
 
-       $data['messages'] = mensagens();
+        	$data = $this->retorna_etapa_que_o_usuario_se_encontra();
+
+        	$valor = $this->calcula_valor(date('m'), $this->session->userdata('usuario')->id_tipo_inscricao);
+
+        	$data['valor'] = $valor;
+        	$data['estagio'] = $data['etapa'];
+
+
+        	$data['messages'] = mensagens();
 
         // echo '<pre>'; print_r($data); echo '</pre>'; exit();
-       $this->load->view('painel/html_header');
-       $this->load->view('painel/header');
-       $this->load->view('painel/index', $data);
-       $this->load->view('painel/footer');
+        	$this->load->view('painel/html_header');
+        	$this->load->view('painel/header');
+        	$this->load->view('painel/index', $data);
+        	$this->load->view('painel/footer');
 
 
-   }
+        }
 
-   public function enviar_arquivos(){
-       $id = $this->session->userdata('usuario')->id;
+        public function enviar_arquivos(){
+        	$id = $this->session->userdata('usuario')->id;
 
-       $data = $this->retorna_etapa_que_o_usuario_se_encontra();
+        	$data = $this->retorna_etapa_que_o_usuario_se_encontra();
 
-       $data['eixos'] = $this->painel_model->get_eixos();
+        	$data['eixos'] = $this->painel_model->get_eixos();
 
 
        //$data['dentro_do_prazo'] = $this->painel_model->get_diferenca_datas($id);
 
-       $data['messages'] = mensagens();
+        	$data['messages'] = mensagens();
 
        // echo '<pre>'; print_r($data); echo '</pre>'; exit();
 
-       $this->load->view('painel/html_header');
-       $this->load->view('painel/header');
-       $this->load->view('painel/send-files', $data);
-       $this->load->view('painel/footer');
-   }
+        	$this->load->view('painel/html_header');
+        	$this->load->view('painel/header');
+        	$this->load->view('painel/send-files', $data);
+        	$this->load->view('painel/footer');
+        }
 
     /**
      * Função que retorna o HTML padrão do controller
@@ -806,6 +788,19 @@ public function resend_article(){
 		$this->db->update('trabalho', $data);
 
 
+        $coautores = $this->input->post('coautoresCPF');
+
+        foreach ($coautores as $cpf) {
+            if($cpf != $this->session->userdata('usuario')->cpf){ //se o cpf do coautor for diferente do CPF do usuário:
+                $qcoaut = $this->getcouator($cpf);            
+                if($qcoaut->num_rows() == 1){
+                    $cdata['id_participante'] = $qcoaut->row()->id;
+                    $cdata['id_trabalho'] = $this->session->userdata('usuario')->id;
+                    $this->db->insert('coautor', $cdata);
+                }
+            }
+        }
+
 		$this->log_model->insert('O participante reenviou o artigo.', $id);
 		$this->session->set_flashdata('success', 'Artigo reenviado para análise.<br>Em breve você receberá a resposta.');
 		echo "<br>Deu certo!";
@@ -983,14 +978,14 @@ public function alterar_meus_dados(){
     		$this->db->where('cpf', $cpf);
     		$this->db->where('(status_inscricao = 1 OR status_inscricao = 3)');
     		$this->db->select('id, nome');
-    		return $this->db->get('participante')->row();
+    		return $this->db->get('participante');
     	}
     	return "";
     }
 
     public function coautor($cpf=""){
     	if ($cpf!="") {
-    		$participante = $this->getcouator($cpf);
+    		$participante = $this->getcouator($cpf)->row();
     		echo json_encode($participante);
     	}
     }
@@ -1054,7 +1049,7 @@ public function alterar_meus_dados(){
     	$data = date('Y-m-d H:i');
     	if(self::DATALIMITE > $data)
     		return true;
-      else
-         return false;
- }
-}
+    		else
+    			return false;
+    	}
+    }

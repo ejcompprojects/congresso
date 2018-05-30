@@ -236,6 +236,7 @@ return $this->db->get(self::DB_TABLE)->num_rows();
 }
 
 public function num_rows_todos($filtros = array(), $inicio = 0){
+    $filtros['quantidade'] = 1000;
     return count($this->list_all($filtros, $inicio));
     // if(!isset($filtros['attribute'])){
     //     $filtros['attribute'] = 'nome';
@@ -324,7 +325,10 @@ public function list_all($filtros = array(), $inicio = 0){
 
     if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] != '' && $filtros['status_inscricao'] != 4){
         $this->db->where('status_inscricao', $filtros['status_inscricao']);
+        if($filtros['status_inscricao'] != 0 && $filtros['status_inscricao'] != 3)
+          $this->db->where("foto_comprovante !=''");
     }else if(isset($filtros['status_inscricao']) && $filtros['status_inscricao'] == 4){
+        $this->db->where('status_inscricao', '0');
         $this->db->where('foto_comprovante', '');
     }
 

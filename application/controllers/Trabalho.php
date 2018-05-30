@@ -85,11 +85,11 @@ class Trabalho extends Admin {
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
 				case 7: $objects[$i]['status'] = ''; break;
 			}
-			switch($objects[$i]['status_coautores']){
+			/*switch($objects[$i]['status_coautores']){
 				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
 				else $objects[$i]['status'] .= ' - Alterar coautores'; 
 				break;
-			}
+			}*/
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
 		// print_r($objects); exit();
@@ -113,6 +113,7 @@ class Trabalho extends Admin {
 		$dados['url'] = array();
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
+		$this->load->view('modal/modal_listar_reprovados');
 		$this->load->view('listar-trabalhos', $dados);
 		$this->load->view('footer-admin');
 	}
@@ -179,11 +180,11 @@ class Trabalho extends Admin {
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
 				case 7: $objects[$i]['status'] = ''; break;
 			}
-			switch($objects[$i]['status_coautores']){
+			/*switch($objects[$i]['status_coautores']){
 				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
 				else $objects[$i]['status'] .= ' - Alterar coautores'; 
 				break;
-			}
+			}*/
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
 		// print_r($objects); exit();
@@ -207,6 +208,7 @@ class Trabalho extends Admin {
 		$dados['url'] = array();
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
+		$this->load->view('modal/modal_listar_aprovados');
 		$this->load->view('listar-trabalhos', $dados);
 		$this->load->view('footer-admin');
 	}
@@ -264,11 +266,12 @@ class Trabalho extends Admin {
 				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
 				case 7: $objects[$i]['status'] = ''; break;
 			}
-			switch($objects[$i]['status_coautores']){
-				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
-				else $objects[$i]['status'] .= ' - Alterar coautores'; 
-				break;
-			}
+
+			//switch($objects[$i]['status_coautores']){
+			//	case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
+			//	else $objects[$i]['status'] .= ' - Alterar coautores'; 
+			//	break;
+			//}
 			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
 		}
 		// print_r($objects); exit();
@@ -291,7 +294,8 @@ class Trabalho extends Admin {
 		//$dados['url'] = array('aprovar' => base_url('Trabalho/enviar_para_parecerista/'));
 		$dados['url'] = array();
 		$this->load->view('html-header-admin');
-		$this->load->view('header-admin');
+		$this->load->view('header-admin');		
+		$this->load->view('modal/modal_listar_todos');
 		$this->load->view('listar-trabalhos', $dados);
 		$this->load->view('footer-admin');
 	}
@@ -538,6 +542,7 @@ class Trabalho extends Admin {
 
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
+		$this->load->view('modal/modal_listar_validados');
 		$this->load->view('listar-trabalhos', $dados);
 		$this->load->view('footer-admin');
 	}
@@ -609,11 +614,11 @@ class Trabalho extends Admin {
 				case 6: $status = 'Reenviar Ambos'; break;
 				case 7: $status = ''; break;
 			}
-			switch($objects[$i]['status_coautores']){
+			/*switch($objects[$i]['status_coautores']){
 				case 1: if ($status == '') $status = 'Alterar coautores';
 				else $status .= ' - Alterar coautores'; 
 				break;
-			}
+			}*/
 			$objects[$i]['status'] = $status;
 
 		}
@@ -634,6 +639,7 @@ class Trabalho extends Admin {
 
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
+		$this->load->view('modal/modal_listar_invalidos');
 		$this->load->view('listar-trabalhos', $dados);
 		$this->load->view('footer-admin');
 	}
@@ -737,6 +743,7 @@ class Trabalho extends Admin {
 		$titulo = "Novo Trabalho para Parecer";
 		$mensagem  = "<h2>Olá " . $parecerista->nome . "!</h2>";
 		$mensagem .= "<p>O trabalho <strong>\"" . $trabalho->titulo . "\"</strong> necessita do seu parecer.</p>";
+		$mensagem .= "<p>Acesse o painel do parecerista clicando <a href='http://pedagogiahistoricocritica.com.br/Login/'>aqui</a></p>";
 		$mensagem .= "<br><br><br>";
 		$mensagem .= "<p>Atensiosamente, <strong>COORDENAÇÃO GERAL DO CONGRESSO PEDAGOGIA HISTÓRICO-CRÍTICA</strong>.<p>";
 		echo $mensagem;
