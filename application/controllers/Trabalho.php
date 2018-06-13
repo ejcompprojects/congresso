@@ -25,7 +25,7 @@ class Trabalho extends Admin {
 
 
 	public function listar_reprovados(){
-		$status_parecer = 0;
+		$status_parecer = 3;
 
 		$table_header = array(
 
@@ -68,31 +68,8 @@ class Trabalho extends Admin {
 
 
 
-		$objects = $this->trabalho_model->get_where_status_parecer($status_parecer);
-
-
-		//converter a data para PT-BR
-		for($i = 0 ; $i < count($objects); $i++){
-			$objects[$i]['data_parecer'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data_parecer']));
-			$objects[$i]['data_submissao'] = date('d/m/Y H:i:s', strtotime($objects[$i]['data_submissao']));
-			switch($objects[$i]['status']){
-				case 0: $objects[$i]['status'] = 'Em Análise'; break;
-				case 1: $objects[$i]['status'] = 'Válido'; break;
-				case 2: $objects[$i]['status'] = 'Inválido'; break;
-				case 3: $objects[$i]['status'] = 'Encaminhado para Parecerista'; break;
-				case 4: $objects[$i]['status'] = 'Reenviar Trabalho Sem Autor'; break;
-				case 5: $objects[$i]['status'] = 'Reenviar Trabalho Com Autor'; break;
-				case 6: $objects[$i]['status'] = 'Reenviar Ambos os Trabalhos'; break;
-				case 7: $objects[$i]['status'] = ''; break;
-			}
-			/*switch($objects[$i]['status_coautores']){
-				case 1: if ($objects[$i]['status'] == '') $objects[$i]['status'] = 'Alterar coautores';
-				else $objects[$i]['status'] .= ' - Alterar coautores'; 
-				break;
-			}*/
-			//$objects[$i]['pareceristas'] = $this->get_pareceristas($objects[$i]['id_eixo']);
-		}
-		// print_r($objects); exit();
+		$objects = $this->trabalho_model->get_where_status_parecer(2);
+		$objects = array_merge($objects, $this->trabalho_model->get_where_status_parecer($status_parecer));
 
 		$dados['table_header'] 		= $table_header;
 		$dados['table_body']	 	= $table_body;
@@ -107,13 +84,12 @@ class Trabalho extends Admin {
 		$dados['mensagens'] 		= mensagens();
 
 
-
-
 		//$dados['url'] = array('aprovar' => base_url('Trabalho/enviar_para_parecerista/'));
-		$dados['url'] = array();
+		$dados['url'] = array("parecer" => true, "aprovar" => base_url("PainelParecerista/novo_parecer/"), "reprovar" => base_url("PainelParecerista/recusar_final/"));
 		$this->load->view('html-header-admin');
 		$this->load->view('header-admin');
 		$this->load->view('modal/modal_listar_reprovados');
+		$this->load->view('modal/modal_reavaliar_parecer');
 		$this->load->view('listar-trabalhos', $dados);
 		$this->load->view('footer-admin');
 	}
@@ -896,6 +872,14 @@ class Trabalho extends Admin {
 		}
 
 		redirect(base_url('Trabalho/setar_trabalho_manualmente'));
+	}
+
+	public function listar_pareceres_aprovados(){
+		$this->load->view('html-header-admin');
+		$this->load->view('header-admin');
+		$this->load->view('modal/modal_listar_pareceres');
+		$this->load->view('listar-pareceres');
+		$this->load->view('footer-admin');
 	}
 }
 

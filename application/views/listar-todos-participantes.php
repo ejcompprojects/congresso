@@ -76,6 +76,7 @@
                 <option value="2">Aluno Pós-Graduação</option>
                 <option value="3">Professor Universitário</option>
                 <option value="4">Professor Ensino Público</option>
+                <option value="6">SEDUC</option>
                 <option value="5">Demais Profissionais</option>
               </select>
             </div>

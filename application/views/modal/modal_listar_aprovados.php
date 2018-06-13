@@ -68,7 +68,7 @@
           <div class="form-group">
             <label class="form-control-label">Arquivo Parecer:</label>
             <div>
-              <a href="" target="_blank" id="arquivo_sem_nome_autor" class="btn btn-primary">CLIQUE AQUI PARA ABRIR O PARECER</a>
+              <a href="" target="_blank" id="arquivo_parecer" class="btn btn-primary">CLIQUE AQUI PARA ABRIR O PARECER</a>
             </div>
           </div>
 

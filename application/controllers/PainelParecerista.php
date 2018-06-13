@@ -11,7 +11,7 @@ class PainelParecerista extends Login {
     public function __construct(){
         parent::__construct();
         if($this->session->userdata('usuario')->tipo_usuario == 'Participante') redirect(base_url('Painel'));
-        else if($this->session->userdata('usuario')->tipo_usuario == 'Administrador') redirect(base_url('Admin'));
+        else if($this->session->userdata('usuario')->tipo_usuario == 'Administrador' && $this->router->method != "novo_parecer" && $this->router->method != "recusar_final") redirect(base_url('Admin'));
         $this->load->helper('date');
         $this->load->helper('frontend_helper'); 
         $this->load->helper('modalform_helper');
@@ -100,6 +100,72 @@ public function insert()
     }
     redirect(base_url('Parecerista/Pareceres'));
 }
+
+public function novo_parecer($id){
+    $msg_success    = "";
+    $msg_error      = "";
+
+    $parecer_file = $this->do_upload_parecer("arquivo_parecer");
+    if(!$parecer_file['deu_certo']) $msg_error .= $parecer_file['message'];
+
+    $dados['data_parecer'] = date("Y-m-d H:i:s");
+    $dados['nota']              = $this->input->post('nota');
+    $dados['status_parecer']    = ($dados['nota']>4.9) ? 1 : 2;
+    $dados['arquivo_parecer']   = $parecer_file['message'];
+
+    if($this->pModel->update($id, $dados)){
+        $participante   = $this->pModel->get_email_participante_trabalho($id);
+        $this->session->set_flashdata(
+            'success', "Parecer realizado com sucesso!"
+        );
+
+        $mensagem = "Prezado(a) " . $participante['nome'] . ", seu trabalho foi avaliado!<br/>";
+        if($dados['status_parecer'] == 1){
+            $mensagem .= "<b>Informamos que o trabalho submetido ao Congresso Pedagogia Histórico-crítica foi APROVADO para apresentação. Em breve receberá orientações sobre o envio da versão final do texto e sobre a apresentação do trabalho no Congresso. Atenciosamente, Comissão Científica do Congresso Pedagogia Hitórico-Crítica</b>";
+        }else{
+            $mensagem .= "<b>Informamos que o trabalho submetido ao Congresso Pedagogia Histórico-crítica foi RECUSADO para apresentação. Atenciosamente, Comissão Científica do Congresso Pedagogia Hitórico-Crítica</b>";
+        }
+
+        if(!parent::send_email_with_title('PHC - Avaliação do Trabalho', $mensagem, $participante['email'])){
+            $this->session->set_flashdata(
+                'danger', "Falha no envio de email para o participante!"
+            );
+        }
+    }else{
+        $this->session->set_flashdata(
+            'danger', "Falha no envio de parecer!"
+        );
+    }
+
+    redirect(base_url('Trabalho/listar_reprovados'));
+}
+
+public function recusar_final($id){
+    $dados['data_parecer'] = date("Y-m-d H:i:s");
+    if($this->pModel->update($id, $dados)){
+        $participante   = $this->pModel->get_email_participante_trabalho($id);
+        $this->session->set_flashdata(
+            'success', "Parecer realizado com sucesso!"
+        );
+
+        $mensagem = "Prezado(a) " . $participante['nome'] . ", seu trabalho foi avaliado!<br/>";
+        $mensagem .= "<b>Informamos que o trabalho submetido ao Congresso Pedagogia Histórico-crítica foi RECUSADO para apresentação. Atenciosamente, Comissão Científica do Congresso Pedagogia Hitórico-Crítica</b>";
+
+        if(!parent::send_email_with_title('PHC - Avaliação do Trabalho', $mensagem, $participante['email'])){
+            $this->session->set_flashdata(
+                'danger', "Falha no envio de email para o participante!"
+            );
+        }
+    }else{
+        $this->session->set_flashdata(
+            'danger', "Falha no envio de parecer!"
+        );
+    }
+
+    redirect(base_url('Trabalho/listar_reprovados'));
+}
+
+
 public function visualizar()
     {
         $dados['eixo_selected'] = (null !== $this->input->post('eixo')) ? $this->input->post('eixo') : 0;

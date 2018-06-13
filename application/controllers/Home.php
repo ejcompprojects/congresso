@@ -26,6 +26,14 @@ class Home extends CI_Controller {
 		$this->load->view('html_footer');
 	}
 
+	public function inscricao_seduc(){
+		// echo 'Em Manutenção.<br> Voltará às 31/03/2018 às 02:00.';
+		// exit();
+		$this->load->view('html_header');
+		$this->load->view('inscricao_seduc');
+		$this->load->view('html_footer');
+	}
+
 	public function historico(){		
 		$this->load->view('novo-site/historico');
 	}
@@ -210,7 +218,12 @@ class Home extends CI_Controller {
 					case 5:
 					$this->load->view('html_header');
 					$this->load->view('cadastro_demais_profissionais',$dados);
-					$this->load->view('html_footer'); 	
+					$this->load->view('html_footer');
+
+					case 6:
+					$this->load->view('html_header');
+					$this->load->view('cadastro_professor_seduc',$dados);
+					$this->load->view('html_footer');
 					break;
 					default: 
 					redirect(base_url('inscricao'));

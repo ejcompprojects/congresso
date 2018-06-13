@@ -62,6 +62,7 @@ $route['eixos'] = 'home/eixos';
 $route['obras_saviani'] = 'home/obras_saviani';
 $route['obras_phc'] = 'home/obras_phc';
 $route['inscricao'] = 'home/inscricao';
+$route['inscricao_seduc'] = 'home/inscricao_seduc';
 $route['historico'] = 'home/historico';
 $route['general_info'] = 'home/general_info';
 $route['minicurso'] = 'home/minicurso';

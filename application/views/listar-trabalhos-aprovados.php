@@ -99,11 +99,7 @@
 
        foreach($data_input_modal as $input){
         if($input['type'] == 'input_file'){
-          if($input['name'] == "arquivo_parecer"){
-            echo 'modal.find("#'.$input['name'].'").attr(\'href\', "'.base_url('uploads/parecer/').'" + '.$input['name'].');';
-          }else{            
-            echo 'modal.find("#'.$input['name'].'").attr(\'href\', "'.base_url('uploads/artigo/').'" + '.$input['name'].');';
-          }
+          echo 'modal.find("#'.$input['name'].'").attr(\'href\', "'.base_url('uploads/artigo/').'" + '.$input['name'].');';
         }else if($input['type'] == 'input_text') {
           echo 'modal.find("#'.$input['name'].'").val('.$input['name'].');';
 
@@ -176,41 +172,31 @@
         }
       })
 
-      <?php if(isset($url['aprovar'])){ ?>
+      <?php if(isset($url['aprovar'])){ 
+        ?>
         modal.find('#form').attr("action", '<?= $url['aprovar'] ?>' + id)
         modal.find('#mandabala').text("Aceitar")
-      <?php } else { ?>
-        modal.find("#mandabala").hide()
-      <?php } ?>
+        <?php }
+        else{
+          ?>
+          modal.find("#mandabala").hide()
+          <?php
+        }
+        ?>
 
 
-      <?php if(isset($url['reprovar'])){ ?>
-        modal.find('#nao_aceitar').text('Recusar')
-        modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>"+ id)
-      <?php }else{ ?>
-        modal.find('#nao_aceitar').hide()
-      <?php } ?>
+        <?php if(isset($url['reprovar'])){ 
+          ?>
+          modal.find('#nao_aceitar').text('Recusar')
+          modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>"+ id)
+          <?php
+        }else{ ?>
+          modal.find('#nao_aceitar').hide()
+          <?php
+        }
+        ?>
 
-      <?php if(isset($url['parecer'])){ ?>
-        modal.find('#form').attr("action", '<?= $url['aprovar'] ?>' + id)
-        modal.find('#mandabala').text("Novo parecer");
-        $("#mandabala").click(function(e){
-          var modal_parecer = $("#modal_parecer");
-          e.preventDefault();
-          modal.modal('hide');
-          modal_parecer.modal('show');
 
-          modal_parecer.find("#tipo").val(button.data('tipo'));
-          modal_parecer.find("#titulo").val(button.data('titulo'));
-          modal_parecer.find("#eixo").val(button.data('eixo'));
-          modal_parecer.find("#nota").val(button.data('nota'));
-          modal_parecer.find("#form").attr("action", '<?= $url['aprovar'] ?>' + id);
-        });
-        modal.find('#nao_aceitar').text('Recusar')
-        modal.find('#nao_aceitar').attr('href', "<?= $url['reprovar'] ?>"+ id)
-      <?php }else{ ?>
-        modal.find('#nao_aceitar').hide()
-      <?php } ?>
 
       }
     })
