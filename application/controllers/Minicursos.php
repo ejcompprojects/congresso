@@ -69,4 +69,9 @@ class Minicursos extends Admin {
 
     redirect(base_url('Minicursos/listar')); 
   }
+
+  public function remover($id){
+    $this->minicurso_model->deleteMinicurso($id);
+    redirect(base_url('Minicursos/listar'));  
+  }
 }

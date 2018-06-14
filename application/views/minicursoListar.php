@@ -29,6 +29,7 @@
                   <td><?=$minicurso['limite_vagas']. "/". $minicurso['limite_vagas_seduc']?></td>
                   <td>
                     <a class="btn btn-primary btn-xs" href="<?=base_url('Minicursos/alterar/'.$minicurso['id'])?>">EDITAR</a>
+                    <a class="btn btn-danger btn-xs" href="<?=base_url('Minicursos/remover/'.$minicurso['id'])?>">REMOVER</a>
                   </button>
                 </td>
               </tr>
