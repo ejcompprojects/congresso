@@ -79,6 +79,26 @@ class Minicurso_model extends CI_Model{
 		return ($this->db->count_all_results());
 	}
 
+	public function adicionarMinicurso($data){
+		$this->db->insert(self::DB_TABLE, $data);
+	}
+
+	public function updateMinicurso($id, $data){
+		$this->db->set($data);
+		$this->db->where("id", $id);
+		$this->db->update(self::DB_TABLE);
+	}
+
+	public function deleteMinicurso($id){
+		$this->db->where('id', $id);
+		$this->db->delete(self::DB_TABLE);
+	}
+
+	public function searchMinicurso($id){
+		$this->db->where('id', $id);
+		return $this->db->get(self::DB_TABLE)->result();
+	}
+
 	/*public function desinscreverMinicurso($id_participante, $id_minicurso){
 		$data = array(
 			'id_participante' => $id_participante,
