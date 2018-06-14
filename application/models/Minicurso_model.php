@@ -19,8 +19,8 @@ class Minicurso_model extends CI_Model{
 		parent::__construct();
 	}
 	public function getAll(){
-		$this->db->select(self::ID_COLUMN.", ".self::NOME_COLUMN.", ".self::DIA_COLUMN.", ".self::HORA_INI_COLUMN.", ".self::HORA_FIM_COLUMN.", ".self::LIM_VAGAS_COLUMN.", ".self::DESCRICAO_COLUMN.", ".self::CONVIDADO_COLUMN);
-		return $this->db->get(self::DB_TABLE)->result();
+		$this->db->select(self::ID_COLUMN.", ".self::NOME_COLUMN.", ".self::DIA_COLUMN.", ".self::HORA_INI_COLUMN.", ".self::HORA_FIM_COLUMN.", ".self::LIM_VAGAS_COLUMN.", ".self::DESCRICAO_COLUMN.", ".self::CONVIDADO_COLUMN.", ".self::LIM_VAGAS_SEDUC_COLUMN);
+		return $this->db->get(self::DB_TABLE)->result_array();
 		/*return $this->db->query("SELECT * FROM ".self::DB_TABLE)->result();*/
 	}
 	public function vagasRestantes($id_minicurso, $paga){
@@ -96,7 +96,7 @@ class Minicurso_model extends CI_Model{
 
 	public function searchMinicurso($id){
 		$this->db->where('id', $id);
-		return $this->db->get(self::DB_TABLE)->result();
+		return $this->db->get(self::DB_TABLE)->row_array();
 	}
 
 	/*public function desinscreverMinicurso($id_participante, $id_minicurso){
