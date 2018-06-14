@@ -89,6 +89,17 @@ $usuario = $_SESSION['usuario']; ?>
 
           <li class="sub-menu">
             <a href="javascript:;" >
+              <i class="fa fa-user"></i>
+              <span>Minicursos</span>
+            </a>  
+            <ul class="sub">
+              <li><a  href="<?= base_url('Minicursos/adicionar') ?>">Adicionar</a></li>
+              <li><a  href="<?= base_url('Minicursos/listar') ?>">Listar/Alterar</a></li>
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="javascript:;" >
               <i class="fa fa-envelope"></i>
               <span>E-mail</span>
             </a>  
