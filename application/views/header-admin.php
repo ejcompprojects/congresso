@@ -46,7 +46,7 @@ $usuario = $_SESSION['usuario']; ?>
 
           <li class="sub-menu">
             <a href="javascript:;" >
-              <i class="fa fa-user"></i>
+              <i class="fa fa-users"></i>
               <span>Participantes</span>
             </a>  
             <ul class="sub">
@@ -70,7 +70,7 @@ $usuario = $_SESSION['usuario']; ?>
 
           <li class="sub-menu">
             <a href="javascript:;" >
-              <i class="fa fa-user"></i>
+              <i class="fa fa-book"></i>
               <span>Trabalho</span>
             </a>  
             <ul class="sub">
@@ -89,7 +89,7 @@ $usuario = $_SESSION['usuario']; ?>
 
           <li class="sub-menu">
             <a href="javascript:;" >
-              <i class="fa fa-user"></i>
+              <i class="fa fa-calendar"></i>
               <span>Minicursos</span>
             </a>  
             <ul class="sub">
