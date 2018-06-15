@@ -66,6 +66,10 @@ class Home extends CI_Controller {
 		$this->load->view('novo-site/comissao');
 	}
 
+	public function comissao_cientifica(){
+		$this->load->view('novo-site/comissao_cientifica');
+	}
+
 	public function obras_phc(){
 		$this->load->view('novo-site/obras_phc');
 	}

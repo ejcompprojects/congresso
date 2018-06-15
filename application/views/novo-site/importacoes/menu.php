@@ -28,7 +28,7 @@
             <li><a class="brandon_t menu txt_white" href="#">COMISSÃO</a>
                 <ul>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('comissao') ?>">COMISSÃO ORGANIZADORA</a></li>
-                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('manutencao') ?>">COMISSÃO CIENTÍFICA</a></li>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('comissao_cientifica') ?>">COMISSÃO CIENTÍFICA</a></li>
                 </ul>
             </li>
             <li><a class="brandon_t menu txt_white" href="#">HISTÓRICO</a>
@@ -104,7 +104,7 @@
                     <div class="collapsible-body">
                         <ol style="background-color: rgb(0, 65, 126);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('comissao') ?>">COMISSÃO ORGANIZADORA</a></li>
-                            <li><a class="brandon_r txt_white" href="<?= base_url('manutencao') ?>">COMISSÃO CIENTÍFICA</a></li>
+                            <li><a class="brandon_r txt_white" href="<?= base_url('comissao_cientifica') ?>">COMISSÃO CIENTÍFICA</a></li>
                         </ol>
                     </div>
                 </li>

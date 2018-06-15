@@ -54,6 +54,7 @@ $route['Parecerista/Pareceres'] = 'PainelParecerista/Pareceres';
 $route['inscricao_parecerista'] = 'home/inscricao_parecerista';
 $route['memoria'] = 'home/memoria';
 $route['comissao'] = 'home/comissao';
+$route['comissao_cientifica'] = 'home/comissao_cientifica';
 $route['formatacao'] = 'home/formatacao';
 $route['criterios'] = 'home/criterios';
 $route['submissao'] = 'home/submissao';
