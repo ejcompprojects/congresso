@@ -2,36 +2,48 @@
           <section class="wrapper site-min-height">
             <h2><i class="fa fa-angle-right"></i>Meus Pareceres
             </h2>
-            <div class="row mt">
-                  <div class="col-md-12">
-                      <div class="content-panel">
-
-                          <div class="col-sm-12 message">
-                           <!-- <?=$mensagens;?>-->
-                          </div>
-                          <div class="col-sm-8 message">
-                            <form method="POST" action="<?=base_url('Minicursos/atualizar/'.$minicurso['id'])?>">
-                              <label>Nome para minicurso: </label>
-                              <input type="text" name="nome" value="<?=$minicurso['nome']?>"><br>
-                              <label>Dia:</label>
-                              <input type="date" name="dia" value="<?=$minicurso['dia']?>"><br>
-                              <label>Horario de inicio:</label>
-                              <input type="time" name="horario_ini" value="<?=$minicurso['horario_inicio']?>"><br>
-                              <label>Horario de termino:</label>
-                              <input type="time" name="horario_enc" value="<?=$minicurso['horario_fim']?>"><br>
-                              <label>Vagas Normais:</label>
-                              <input type="number" name="vagas_norm" value="<?=$minicurso['limite_vagas']?>"><br>
-                              <label>Vagas SEDUC:</label>
-                              <input type="number" name="vagas_seduc" value="<?=$minicurso['limite_vagas_seduc']?>"><br>
-                              <label>Descrição:</label>
-                              <input type="text" name="descricao" value="<?=$minicurso['descricao']?>"><br>
-                              <label>Palestrante:</label>
-                              <input type="text" name="palestrante" value="<?=$minicurso['convidado']?>"><br>
-                              <input type="submit" name="">
-                            </form>
-                          </div>
-                      </div>
-                  </div>
+            <div class="row mt" style="margin-top: 0px;">
+                    <!--
+                    <div class="col-sm-12 message">
+                    <?=$mensagens;?>
+                    </div>-->
+                    <div class="form-panel">
+                        <form method="POST" action="<?=base_url('Minicursos/atualizar/'.$minicurso['id'])?>">
+                            <div class="form-group">
+                                <label>Nome para minicurso: </label>
+                                <input type="text" name="nome" class="form-control" value="<?=$minicurso['nome']?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Dia:</label>
+                                <input type="date" name="dia" class="form-control" value="<?=$minicurso['dia']?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Horario de inicio:</label>
+                                <input type="time" name="horario_ini" class="form-control" value="<?=$minicurso['horario_inicio']?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Horario de termino:</label>
+                                <input type="time" name="horario_enc" class="form-control" value="<?=$minicurso['horario_fim']?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Vagas Normais:</label>
+                                <input type="number" name="vagas_norm" class="form-control" value="<?=$minicurso['limite_vagas']?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Vagas SEDUC:</label>
+                                <input type="number" name="vagas_seduc" class="form-control" value="<?=$minicurso['limite_vagas_seduc']?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição:</label>
+                                <input type="text" name="descricao" class="form-control" value="<?=$minicurso['descricao']?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Palestrante:</label>
+                                <input type="text" name="palestrante" class="form-control" value="<?=$minicurso['convidado']?>">
+                            </div>
+                            <input type="submit" name="" class="btn btn-theme" value="Alterar Minicurso">
+                        </form>
+                    </div>
               </div>
               <?php
               $input[0]['type']  = "file_down";

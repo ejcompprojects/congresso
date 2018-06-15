@@ -1,38 +1,52 @@
 <section id="main-content">
           <section class="wrapper site-min-height">
-            <h2><i class="fa fa-angle-right"></i>Meus Pareceres
-            </h2>
-            <div class="row mt">
-                  <div class="col-md-12">
-                      <div class="content-panel">
-
-                          <div class="col-sm-12 message">
-                           <!-- <?=$mensagens;?>-->
-                          </div>
-                          <div class="col-sm-8 message">
-                            <form method="POST" action="<?=base_url('Minicursos/Inserir')?>">
-                              <label>Nome para minicurso: </label>
-                              <input type="text" name="nome"><br>
-                              <label>Dia:</label>
-                              <input type="date" name="dia"><br>
-                              <label>Horario de inicio:</label>
-                              <input type="time" name="horario_ini"><br>
-                              <label>Horario de termino:</label>
-                              <input type="time" name="horario_enc"><br>
-                              <label>Vagas Normais:</label>
-                              <input type="number" name="vagas_norm"><br>
-                              <label>Vagas SEDUC:</label>
-                              <input type="number" name="vagas_seduc"><br>
-                              <label>Descrição:</label>
-                              <input type="text" name="descricao"><br>
-                              <label>Palestrante:</label>
-                              <input type="text" name="palestrante"><br>
-                              <input type="submit" name="">
-                            </form>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+            <h2><i class="fa fa-angle-right"></i>Adicionar Minicurso</h2>
+            <!--
+            <div class="content-panel">
+                    <div class="col-sm-12 message">
+                             <?=$mensagens;?>
+                    </div>
+            </div>
+            -->
+            <div class="row mt" style="margin-top: 0px;">
+                <div class="form-panel">
+                    <form method="POST" action="<?=base_url('Minicursos/Inserir')?>">
+                        <div class="form-group">
+                            <label>Nome para minicurso: </label>
+                            <input type="text" name="nome" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Dia:</label>
+                            <input type="date" name="dia" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Horario de inicio:</label>
+                            <input type="time" name="horario_ini" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Horario de termino:</label>
+                            <input type="time" name="horario_enc" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Vagas Normais:</label>
+                            <input type="number" name="vagas_norm" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Vagas SEDUC:</label>
+                            <input type="number" name="vagas_seduc" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição:</label>
+                            <input type="text" name="descricao" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Palestrante:</label>
+                            <input type="text" name="palestrante" class="form-control">
+                        </div>
+                        <input type="submit" name="" class="btn btn-theme" value="Adicionar Minicurso">
+                    </form>
+                </div>
+            </div>
               <?php
               $input[0]['type']  = "file_down";
 
@@ -98,7 +112,6 @@
                     </div>
                 </div>
               </div>
-
     </section>
   </section>
 
