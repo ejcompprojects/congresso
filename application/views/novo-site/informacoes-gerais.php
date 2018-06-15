@@ -10,7 +10,7 @@ require 'importacoes/menu.php';
 		<p class="intro brandon_r">INFORMAÇÕES GERAIS</p>
 	</div>
 </div>
-<div class="row">
+<div class="row" id="local">
 	<div class="col m12 s12 center smooth_red">
 		<h5 class="brandon_r txt_white">LOCAIS DO EVENTO</h5>
 	</div>
@@ -49,7 +49,7 @@ require 'importacoes/menu.php';
        </div>
 	</div>
 </div>
-<div class="row">
+<div class="row" id="alimentacao">
 	<div class="col m12 s12 center smooth_red">
 		<h5 class="brandon_r txt_white">ALIMENTAÇÃO</h5>
 	</div>
@@ -90,7 +90,7 @@ require 'importacoes/menu.php';
        </div>
 	</div>
 </div>
-<div class="row">
+<div class="row" id="hospedagem">
 	<div class="col m12 s12 center smooth_red">
 		<h5 class="brandon_r txt_white">HOSPEDAGEM</h5>
 	</div>
@@ -114,7 +114,7 @@ require 'importacoes/menu.php';
        </div>
     </div>
 </div>
-<div class="row">
+<div class="row" id="transporte">
 	<div class="col m12 s12 center smooth_red">
 		<h5 class="brandon_r txt_white">TRANSPORTE</h5>
 	</div>

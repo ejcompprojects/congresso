@@ -1,4 +1,4 @@
-    <div role="navigation" id="nav" class="nav-collapse hide-on-small-only">
+<div role="navigation" id="nav" class="nav-collapse hide-on-small-only">
         <div class="row" style="margin: 0;">
             <!-- <div class="col-xl-12 center"> -->
                <!--  <img src="<?= base_url('').'assets/img/ICONE.png' ?>" style="max-width: 120px;"> -->
@@ -44,8 +44,15 @@
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('obras_phc') ?>">AUTORES PHC</a></li>
                 </ul>
             </li>
+            <li><a class="brandon_t menu txt_white" href="#">INFORMAÇÕES GERAIS</a>
+                <ul>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#local">LOCAIS DO EVENTO</a></li>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#hospedagem">HOSPEDAGEM</a></li>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
+                </ul>
+            </li>
             <li><a class="brandon_t menu txt_white" href="<?= base_url('contato') ?>">CONTATO</a></li>
-            <li><a class="brandon_t menu txt_white" href="<?= base_url('informacoes_gerais') ?>">INFORMAÇÕES GERAIS</a></li>
 
         <!--<li><a class="brandon_t menu txt_white" href="<?= base_url('manutencao') ?>">LANÇAMENTO DE LIVROS</a></li>
             <li><a class="brandon_t menu txt_white" href="<?= base_url('manutencao') ?>">OBRAS SAVIANI</a></li>
@@ -70,7 +77,7 @@
         </li>
         <li><a class="brandon_r txt_white cyan center" href="http://pedagogiahistoricocritica.com.br/login" target="_blank">ÁREA DO PARTICIPANTE</a></li>
         <li><a class="brandon_r txt_white red center" href="<?= base_url('informacao_inscricao') ?>">INSCRIÇÃO</a></li>
-        <li><a class="brandon_r txt_white" href="<?= base_url('general_info') ?>">INFORMAÇÕES GERAIS</a></li>
+        <li><a class="brandon_r txt_white" href="<?= base_url('general_info') ?>">INFORMAÇÕES DO CONGRESSO</a></li>
         <ul class="collapsible brandon_r ">
                 <li>
                     <div class="collapsible-header txt_white"><i class="material-icons">description</i>SUBMISSÃO DE TRABALHOS</div>
@@ -119,9 +126,20 @@
                         </ol>
                     </div>
                 </li>
+                <li>
+                    <div class="collapsible-header txt_white"><i class="material-icons">info</i>INFORMAÇÕES GERAIS</div>
+                    <div class="collapsible-body">
+                        <ol style="background-color: rgb(0, 65, 126);">
+                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#local">LOCAIS DO EVENTO</a></li>
+                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
+                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#hospedagem">HOSPEDAGEM</a></li>
+                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
+                        </ol>
+                    </div>
+                </li>
             </ul>
         <li><a class="brandon_r txt_white" href="<?= base_url('contato') ?>">CONTATO</a></li>
-        <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>">LOCAL DO EVENTO</a></li>
+       
     </ul>
     <div role="main" class="main">
         <div class="hide-on-med-and-up container right-align" style="margin-bottom: 10px; position:fixed; z-index: 9109">
