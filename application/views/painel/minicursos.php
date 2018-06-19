@@ -23,19 +23,19 @@
 		<div class='col-lg-12'>
 			<div class='panel'>
 				<div class='panel-body'>
-					<h3>Minicurso: "<?=$minicurso->nome?>"</h3>
-					<h4><?=date('d/m/Y ', strtotime($minicurso->dia));echo $minicurso->horario_inicio = date('H:i', strtotime($minicurso->horario_inicio));
-					echo "-".$minicurso->horario_fim = date('H:i', strtotime($minicurso->horario_fim))?></h4>
+					<h3>Minicurso: "<?=$minicurso['nome']?>"</h3>
+					<h4><?=date('d/m/Y ', strtotime($minicurso['dia']));echo $minicurso['horario_inicio'] = date('H:i', strtotime($minicurso['horario_inicio']));
+					echo "-".$minicurso['horario_fim'] = date('H:i', strtotime($minicurso['horario_fim']))?></h4>
 					<br><br>
 					<div class='col-lg-6'>
-						<label>Convidado: <?=$minicurso->convidado?></label>
+						<label>Convidado: <?=$minicurso['convidado']?></label>
 					</div>
 					<div class='col-lg-6'>
-						<label for='nome'>Vagas Restantes: <?=$minicurso->vagasRestantes?></label> 
+						<label for='nome'>Vagas Restantes: <?=$minicurso['vagasRestantes']?></label> 
 					</div>
 					<div class='col-lg-12'><br></div>
 					<div class='col-lg-12'>
-						<label for='celular'>Descrição: <?=$minicurso->descricao?></label>
+						<label for='celular'>Descrição: <?=$minicurso['descricao']?></label>
 					</div>
 					<div class='form-group'>
 
@@ -43,20 +43,24 @@
 					<div class='col-lg-12'><br></div>
 					<div class='col-lg-12'>
 						<button 
-						<?php if(minicursoInArray($meusMinicursos, $minicurso->id)){
+						<?php if(minicursoInArray($meusMinicursos, $minicurso['id'])){
 							$buttonName = "Inscrito";
 							$target = "";
 							$disable = "disabled";
 						}
-						else{
+						else if(count($meusMinicursos) >= LIMITE_INSCRICOES){
+							$buttonName = "Limite de inscrições excedido";
+							$target = "";
+							$disable = "disabled";
+						} else {
 							$buttonName = "Inscrever-se";
 							$target = "#modalInscrever";
 							$disable = "";
 						}
 						?>
 						data-toggle     ="modal"
-						data-id         ="<?=$minicurso->id?>"
-						data-dia        ="<?=str_replace('/','-',$minicurso->dia)?>"
+						data-id         ="<?=$minicurso['id']?>"
+						data-dia        ="<?=str_replace('/','-',$minicurso['dia'])?>"
 						class           ="btn btn-primary <?=$disable?>"
 						data-target     = "<?=$target?>"
 

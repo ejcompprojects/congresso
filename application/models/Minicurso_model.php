@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+define("LIMITE_INSCRICOES", 2);
+
 class Minicurso_model extends CI_Model{
 	const DB_TABLE               = "minicurso";
 	const DB_RELATION            = "participante_minicurso";
@@ -23,8 +25,8 @@ class Minicurso_model extends CI_Model{
 		return $this->db->get(self::DB_TABLE)->result_array();
 		/*return $this->db->query("SELECT * FROM ".self::DB_TABLE)->result();*/
 	}
-	public function vagasRestantes($id_minicurso, $paga){
-		if(!($paga==self::NAO_PAGA)){
+	public function vagasRestantes($id_minicurso, $tipo_inscricao){
+		if($tipo_inscricao != 6){
 			$this->db->select(self::LIM_VAGAS_COLUMN." as limite");
 			$this->db->where("id", $id_minicurso);
 			$not = "NOT";
@@ -37,7 +39,7 @@ class Minicurso_model extends CI_Model{
 		$lim = $this->db->get(self::DB_TABLE)->result();
 		
 		$preenchidas = $this->db->query("SELECT id_tipo_inscricao FROM participante_minicurso 
-			INNER JOIN participante ON participante.id = participante_minicurso.id_participante WHERE ".$not." id_tipo_inscricao  = ".self::NAO_PAGA." AND id_minicurso = ".$id_minicurso)->num_rows();
+			INNER JOIN participante ON participante.id = participante_minicurso.id_participante WHERE ".$not." id_tipo_inscricao  = 6 AND id_minicurso = ".$id_minicurso)->num_rows();
 			/*$this->db->select("id_tipo_inscricao");
 			$this->db->from("participante_minicurso");
 			$this->db->join("participante", "participante.id = participante_minicurso");
@@ -53,7 +55,7 @@ class Minicurso_model extends CI_Model{
 		return $this->db->get(self::DB_RELATION)->result();
 	}
 	public function getDia($id_minicurso){
-		$this->db->select("dia");
+		$this->db->select("dia, horario_inicio, horario_fim");
 		$this->db->where("id", $id_minicurso);
 		return $this->db->get(self::DB_TABLE)->row();
 	}

@@ -997,9 +997,9 @@ public function alterar_meus_dados(){
     	$usuario = $this->db->get('participante')->row();
 
     	$data['minicurso'] = $this->minicurso_model->getAll();
-    	foreach ($data['minicurso'] as $minicurso) {
-    		$minicurso->vagasRestantes = $this->minicurso_model->vagasRestantes($minicurso->id, $usuario->status_inscricao);
 
+    	foreach ($data['minicurso'] as $key => $minicurso) {
+    		$data['minicurso'][$key]['vagasRestantes'] = $this->minicurso_model->vagasRestantes($minicurso['id'], $usuario->id_tipo_inscricao);
     	}
 
     	$data['meusMinicursos'] = $this->minicurso_model->meusMinicursos($usuario->id);
@@ -1018,15 +1018,33 @@ public function alterar_meus_dados(){
 
     public function minicursoInscrever($idMinicurso){
         if($this->minicurso_model->existsMinicurso($idMinicurso)){ //barra usuario troll
-        	if(($this->session->userdata('usuario')->status_inscricao == 1) || ($this->session->userdata('usuario')->status_inscricao == 3)){
-            	if($this->dataLimiteMinicurso()){ //verifica se ainda esta no prazo de se inscrever
-            		$array = $this->minicurso_model->meusMinicursos($this->session->userdata('usuario')->id, "dia");
-            		$dia =  $this->minicurso_model->getDia($idMinicurso);
-            		$vagas = $this->minicurso_model->vagasRestantes($idMinicurso, $this->session->userdata('usuario')->status_inscricao);
-            		if($vagas > 0){
-            			if(!(minicursoInArray($array, $dia->dia, "dia"))){
-            				$this->minicurso_model->inscreverMinicurso($this->session->userdata('usuario')->id, $idMinicurso);
-            				$this->session->set_flashdata('success', "Inscrito no minicurso com sucesso.");
+            if(($this->session->userdata('usuario')->status_inscricao == 1) || ($this->session->userdata('usuario')->status_inscricao == 3)){
+                if($this->dataLimiteMinicurso()){ //verifica se ainda esta no prazo de se inscrever
+                    $array = $this->minicurso_model->meusMinicursos($this->session->userdata('usuario')->id, "dia, horario_inicio, horario_fim");
+                    if(count($array) >=  LIMITE_INSCRICOES){
+                        $this->session->set_flashdata('danger', "<b>Limite de minicursos. Você já está inscrito em 1 minicurso. </b>");
+                        redirect(base_url('Painel/minicursos'));
+                    }
+                    $dia =  $this->minicurso_model->getDia($idMinicurso);
+                    $vagas = $this->minicurso_model->vagasRestantes($idMinicurso, $this->session->usuario->id_tipo_inscricao);
+                    if($vagas > 0){
+                        if(1){                            
+                            $pode = true;
+                            foreach ($array as $key => $min) {
+                                if((strtotime($dia->horario_inicio) < strtotime($min->horario_fim) &&
+                                    strtotime($dia->horario_inicio) > strtotime($min->horario_inicio) ||
+                                   (strtotime($dia->horario_fim) > strtotime($min->horario_inicio) && 
+                                    strtotime($dia->horario_fim) < strtotime($min->horario_fim)) ) && 
+                                   ($dia->dia == $min->dia)){                                    
+                                    $pode = false;
+                                }
+                            }
+                            if(!$pode){
+                                $this->session->set_flashdata('danger', "<b>Choque de horário. Você já está inscrito em outro minicurso neste mesmo horário. </b>");
+                            }else{
+                				$this->minicurso_model->inscreverMinicurso($this->session->userdata('usuario')->id, $idMinicurso);
+                				$this->session->set_flashdata('success', "Inscrito no minicurso com sucesso.");
+                            }
             			}
             			else
             				$this->session->set_flashdata('danger', "<b>Choque de horário. Você já está inscrito em outro minicurso neste mesmo horário. </b>");

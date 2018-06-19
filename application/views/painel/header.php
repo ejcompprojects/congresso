@@ -29,7 +29,9 @@
 			<li><a href="<?= base_url('Painel') ?>"><em class="fa fa-home">&nbsp;</em> Página Inicial </a></li>
 			<li><a href="<?= base_url('Painel/profile') ?>"><em class="fa fa-user-circle">&nbsp;</em> Alterar Meus Dados</a></li>
 			<li><a href="<?= base_url('Painel/enviar_arquivos') ?>"><em class="fa fa-file">&nbsp;</em> Enviar Arquivos</a></li>
-			 <!--<li><a  href="<?= base_url('Painel/minicursos') ?>"><em class="fa fa-file">&nbsp;</em> Minicursos</a></li>-->
+			<?php if($_SESSION['usuario']->id_tipo_inscricao == 6){ ?>
+				<li><a  href="<?= base_url('Painel/minicursos') ?>"><em class="fa fa-file">&nbsp;</em> Minicursos</a></li>
+			<?php } ?>
 			
 			<li><a href="<?= base_url('Painel/logout') ?>"><em class="fa fa-power-off">&nbsp;</em> Sair</a></li>
 		</ul>
