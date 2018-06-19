@@ -16,7 +16,7 @@ class Login extends CI_Controller {
      $date = substr($date, 0, 8);
      $senha = $this->crypt($date);
 
-     echo $date, "<br>", $senha;
+     //echo $date, "<br>", $senha;
     if(!$this->isLogged() && 
      get_class($this) != get_class()){
      redirect(base_url('Login'));

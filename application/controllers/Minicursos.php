@@ -55,7 +55,6 @@ class Minicursos extends Admin {
   }
 
   public function atualizar($id){
-    $data['id'] = $id;
     $data['nome'] = $this->input->post('nome');
     $data['dia'] = $this->input->post('dia');
     $data['horario_inicio'] = $this->input->post('horario_ini');
@@ -65,7 +64,7 @@ class Minicursos extends Admin {
     $data['descricao'] = $this->input->post('descricao');
     $data['convidado'] = $this->input->post('palestrante');
 
-    $this->minicurso_model->adicionarMinicurso($data);
+    $this->minicurso_model->updateMinicurso($id, $data);
 
     redirect(base_url('Minicursos/listar')); 
   }
