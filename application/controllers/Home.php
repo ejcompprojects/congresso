@@ -66,6 +66,10 @@ class Home extends CI_Controller {
 		$this->load->view('novo-site/comissao');
 	}
 
+	public function comissao_cientifica(){
+		$this->load->view('novo-site/comissao_cientifica');
+	}
+
 	public function obras_phc(){
 		$this->load->view('novo-site/obras_phc');
 	}
@@ -99,6 +103,20 @@ class Home extends CI_Controller {
 		// $this->load->view('novo-site/importacoes/header');
 		// $this->load->view('novo-site/importacoes/menu');
 		$this->load->view('novo-site/informacoes-gerais');
+		// $this->load->view('novo-site/importacoes/footer');	
+	}
+
+	public function hospedagem_solidaria(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/hospedagem_solidaria');
+		// $this->load->view('novo-site/importacoes/footer');	
+	}
+
+	public function hoteis_parceiros(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/hoteis_parceiros');
 		// $this->load->view('novo-site/importacoes/footer');	
 	}
 
