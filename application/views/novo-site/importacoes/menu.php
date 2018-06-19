@@ -28,7 +28,7 @@
             <li><a class="brandon_t menu txt_white" href="#">COMISSÃO</a>
                 <ul>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('comissao') ?>">COMISSÃO ORGANIZADORA</a></li>
-                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('manutencao') ?>">COMISSÃO CIENTÍFICA</a></li>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('comissao_cientifica') ?>">COMISSÃO CIENTÍFICA</a></li>
                 </ul>
             </li>
             <li><a class="brandon_t menu txt_white" href="#">HISTÓRICO</a>
@@ -44,11 +44,15 @@
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('obras_phc') ?>">AUTORES PHC</a></li>
                 </ul>
             </li>
-            <li><a class="brandon_t menu txt_white" href="#">INFORMAÇÕES GERAIS</a>
+            <li><a class="brandon_t menu txt_white" href="#">HOSPEDAGEM</a>
                 <ul>
-                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#local">LOCAIS DO EVENTO</a></li>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('hoteis_parceiros') ?>">HOTÉIS PARCEIROS</a></li>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('hospedagem_solidaria') ?>">HOSPEDAGEM SOLIDÁRIA</a></li>
+                </ul>
+            </li>
+            <li><a class="brandon_t menu txt_white"  href="<?= base_url('informacoes_gerais') ?>">OUTRAS INFORMAÇÕES</a>
+                <ul>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
-                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#hospedagem">HOSPEDAGEM</a></li>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
                 </ul>
             </li>
@@ -104,7 +108,7 @@
                     <div class="collapsible-body">
                         <ol style="background-color: rgb(0, 65, 126);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('comissao') ?>">COMISSÃO ORGANIZADORA</a></li>
-                            <li><a class="brandon_r txt_white" href="<?= base_url('manutencao') ?>">COMISSÃO CIENTÍFICA</a></li>
+                            <li><a class="brandon_r txt_white" href="<?= base_url('comissao_cientifica') ?>">COMISSÃO CIENTÍFICA</a></li>
                         </ol>
                     </div>
                 </li>
@@ -127,12 +131,19 @@
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header txt_white"><i class="material-icons">info</i>INFORMAÇÕES GERAIS</div>
+                    <div class="collapsible-header txt_white"><i class="material-icons">business</i>HOSPEDAGEM</div>
                     <div class="collapsible-body">
                         <ol style="background-color: rgb(0, 65, 126);">
-                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#local">LOCAIS DO EVENTO</a></li>
+                            <li><a class="brandon_r txt_white" href="<?= base_url('hoteis_parceiros') ?>">HOTÉIS PARCEIROS</a></li>
+                            <li><a class="brandon_r txt_white" href="<?= base_url('hospedagem_solidaria') ?>">HOSPEDAGEM SOLIDÁRIA</a></li>
+                        </ol>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header txt_white"><i class="material-icons">info</i>OUTRAS INFORMAÇÕES</div>
+                    <div class="collapsible-body">
+                        <ol style="background-color: rgb(0, 65, 126);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
-                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#hospedagem">HOSPEDAGEM</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
                         </ol>
                     </div>
