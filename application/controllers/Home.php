@@ -106,6 +106,20 @@ class Home extends CI_Controller {
 		// $this->load->view('novo-site/importacoes/footer');	
 	}
 
+	public function hospedagem_solidaria(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/hospedagem_solidaria');
+		// $this->load->view('novo-site/importacoes/footer');	
+	}
+
+	public function hoteis_parceiros(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/hoteis_parceiros');
+		// $this->load->view('novo-site/importacoes/footer');	
+	}
+
 	public function informacao_inscricao(){
 		// $this->load->view('novo-site/importacoes/header');
 		// $this->load->view('novo-site/importacoes/menu');
