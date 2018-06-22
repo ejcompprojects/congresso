@@ -39,7 +39,7 @@ require 'importacoes/menu.php';
 			<h5 class="tw_cent">De <b>11 a 13</b> de Julho na cidade de <b>Presidente Prudente</b></h5>
 			<h5 class="tw_cent"><a href="<?= base_url('informacoes_gerais') ?>" class="grey-text text-darken-2" style="cursor:pointer;"><b>Local do Evento:</b></a>
 				<a href="<?= base_url('informacoes_gerais') ?>" class="grey-text text-darken-2" style="cursor:pointer;">
-					FCT-Unesp e Teatro Centro Cultural Matarazzo </a>
+					Toledo Prudente Centro Universitário e Teatro Centro Cultural Matarazzo </a>
 			</h5>
 		</div>
 	</div>

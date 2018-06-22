@@ -52,6 +52,7 @@
             </li>
             <li><a class="brandon_t menu txt_white"  href="<?= base_url('informacoes_gerais') ?>">OUTRAS INFORMAÇÕES</a>
                 <ul>
+                <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>">LOCAIS DO EVENTO</a></li>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
                 </ul>
@@ -143,6 +144,7 @@
                     <div class="collapsible-header txt_white"><i class="material-icons">info</i>OUTRAS INFORMAÇÕES</div>
                     <div class="collapsible-body">
                         <ol style="background-color: rgb(0, 65, 126);">
+                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>">LOCAIS DO EVENTO</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
                         </ol>
