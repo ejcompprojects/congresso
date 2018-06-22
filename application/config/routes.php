@@ -62,6 +62,7 @@ $route['contato'] = 'home/contato';
 $route['eixos'] = 'home/eixos';
 $route['obras_saviani'] = 'home/obras_saviani';
 $route['obras_phc'] = 'home/obras_phc';
+$route['novas_obras'] = 'home/novas_obras';
 $route['hospedagem_solidaria'] = 'home/hospedagem_solidaria';
 $route['hoteis_parceiros'] = 'home/hoteis_parceiros';
 $route['inscricao'] = 'home/inscricao';

@@ -44,32 +44,6 @@ require 'importacoes/menu.php';
 		</div>
 	</div>
 
-	<div class="modal" id="info">
-		<div class="modal-content">
-			<p style="text-align: justify;">
-				Via depósito bancário e/ou transferência bancária da "Caixa Econômica Federal" conforme os dados:
-			</p>
-			<table>
-				<tr>
-					<td>Agência:</td>
-					<td>4232</td>
-				</tr>
-				<tr>
-					<td>Operação:</td>
-					<td>013 (conta poupança)</td>
-				</tr>
-				<tr>
-					<td>Conta:</td>
-					<td>000.000.009.059-4</td>
-				</tr>
-				<tr>
-					<td>Correntista:</td>
-					<td>Milene Egea Semensato</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-
 	<!-- <p class="apresentacao"> Prof. Dra. Rosiane de Fátima Ponce (FCT/UNESP)</p><br> -->
 	<!-- <p class="apresentacao">Prof. Dra Lígia Márcia Martins (FCL/UNESP)</p><br> -->
 
@@ -100,7 +74,7 @@ require 'importacoes/menu.php';
 		</tr>
 		<tr>
 			<th>Prazo Final de Inscrições</th>
-			<td><h5>Até 18/05/2018</h5></td>
+			<td><h5>Até 18/05/2018</h5> - Inscrições Encerradas</td>
 			<td>Havendo vagas disponíveis, até 30/06/2018<br>
 				<b>(no evento não serão realizadas inscrições)</b></td>
 			</tr>
@@ -163,9 +137,8 @@ require 'importacoes/menu.php';
 
 <div id="modalat" class="modal white-text cyan tw_cent">
     <div class="modal-content">
-      <h4>COMUNICADO I</h4>
-      <h5> Os trabalhos submetidos estão na fase de avaliação (pareceristas externos analisam conforme os critérios do Congresso que constam publicados no site).
-Ao encerrar a avaliação, os autores receberão o parecer final (via sistema) e a Comissão Organizadora publicará os trabahos aprovados por Eixos (diariamente)</h5>
+      <h4>COMUNICADO III</h4>
+      <h5> Informamos que esgotaram as inscrições para o Congresso. Agradecemos o apoio de todas e todos. Comissão Organizadora do Congresso.</h5>
       <a href="#!" class="modal-close waves-effect waves-green btn-flat float-right white-text right-align right"><i class="material-icons">close</i></a>
     </div>	
   </div>

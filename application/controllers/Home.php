@@ -113,6 +113,13 @@ class Home extends CI_Controller {
 		// $this->load->view('novo-site/importacoes/footer');	
 	}
 
+	public function novas_obras(){
+		// $this->load->view('novo-site/importacoes/header');
+		// $this->load->view('novo-site/importacoes/menu');
+		$this->load->view('novo-site/novas_obras');
+		// $this->load->view('novo-site/importacoes/footer');	
+	}
+
 	public function hoteis_parceiros(){
 		// $this->load->view('novo-site/importacoes/header');
 		// $this->load->view('novo-site/importacoes/menu');

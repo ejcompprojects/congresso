@@ -114,12 +114,7 @@
 									<h4 class="timeline-title"><strong><?= $indice++ ?> - Efetue o depósito</strong></h4>
 								</div>
 								<div class="timeline-body">
-									<p>Efetue o <strong>depósito</strong> de <strong>R$ <?= $valor ?>,00</strong> na conta do evento:</p>
-									<p><strong>Banco:</strong> Caixa Econômica</p>
-									<p><strong>Agência:</strong> 4232</p>
-									<p><strong>Operação:</strong> 013 (poupança)</p>
-									<p><strong>Conta:</strong> 000.000.009.059-4. </p>
-									<p><strong>Nome:</strong> Milene Egea Semensato</p>
+									<p><strike>Efetue o <strong>depósito</strong> de <strong>R$ <?= $valor ?>,00</strong> na conta do evento.</strike> - Inscrições encerradas.</p>
 								</div>
 							</div>
 						</li>
@@ -130,7 +125,7 @@
 									<h4 class="timeline-title"><strong><?= $indice++ ?> - Envie-nos o comprovante de depósito</strong></h4>
 								</div>
 								<div class="timeline-body">
-									<p>Tire uma foto ou scaneie o comprovante de depósito e nos envie <a href="<?= base_url('Painel/enviar_arquivos') ?>">clicando aqui!</a></p>
+								<p><strike>Tire uma foto ou scaneie o comprovante de depósito e nos envie.</strike> - Inscrições encerradas.</p>
 								</div>
 							</div>
 						</li>

@@ -13,6 +13,16 @@ require 'importacoes/menu.php';
 </div>
 
 <div class="row animate fadeInLeft">
+	<p><small>*Clique na imagem para ampliar. <a class="blue-text" href="<?= base_url('assets/img/foldercompleto.jpg') ?>" target="_blank">CLIQUE AQUI para visualizar na íntegra.</a> </p>
+	<div class="col m6 s12 center">
+		<img class="folder materialboxed" src="<?= base_url('assets/img/folder1.jpg') ?>">
+	</div>
+	<div class="col m6 s12 center">
+		<img class="folder materialboxed" src="<?= base_url('assets/img/folder2.jpg') ?>">
+	</div>
+</div>
+
+<div class="row animate fadeInLeft">
 	<div class="col m12 s12 center">
 		<button class="prog mudacor bt_date brandon_t responsive" style="padding: 5px 10px; border-radius: 3px;" onclick="programacao('#primeiro')">11/07</button>
 		<button class="prog bt_date brandon_t responsive" style="padding: 5px 10px; border-radius: 3px;" onclick="programacao('#segundo')">12/07</button>
@@ -295,6 +305,10 @@ require 'importacoes/menu.php';
 
 			$(div).fadeIn('slow');
 		}
+
+		$(document).ready(function(){
+			$('.materialboxed').materialbox();
+		});
 	</script>	
 
 	<?php require 'importacoes/footer.php'; ?>

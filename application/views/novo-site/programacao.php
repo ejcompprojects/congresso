@@ -12,6 +12,18 @@ require 'importacoes/menu.php';
 	</div>
 </div>
 
+
+<div class="row animate fadeInLeft">
+<p><small>*Clique na imagem para ampliar. <a class="blue-text" href="<?= base_url('assets/img/foldercompleto.jpg') ?>" target="_blank">CLIQUE AQUI para visualizar na íntegra.</a> </p>
+	
+	<div class="col m6 s12 center">
+		<img class="folder materialboxed" src="<?= base_url('assets/img/folder2.jpg') ?>">
+	</div>
+	<div class="col m6 s12 center">
+		<img class="folder materialboxed" src="<?= base_url('assets/img/folder1.jpg') ?>">
+	</div>
+</div>
+
 <div class="row animate fadeInLeft">
 	<div class="col m12 s12 center">
 		<button class="prog mudacor bt_date brandon_t responsive" style="padding: 5px 10px; border-radius: 3px;" onclick="programacao('#primeiro')">11/07</button>
@@ -32,21 +44,41 @@ require 'importacoes/menu.php';
 				</tr>
 				<tr>
 					<th class="align_center brandon_n">TARDE<br>
-						(14h00 - 16h30)
+						(12h40 - 13h50)
 					</th>
 					<td>
-						<b>Apresentação de Expressão Artística<br>
-						Mesa redonda:</b> “Educação Inclusiva e Pedagogia Histórico-crítica”<br>
-						<b>Convidados:</b> Régis Henrique dos Reis Silva (UNICAMP); Anna Maria Lunardi Padilha.<br>
-						<b>Coordenação da Mesa:</b> Jorge Luís Mazzeo Mariano
+						<b>Credenciamento e retirada do material do congresso<br>
+					</td>
+				</tr>
+				<tr>
+					<th class="align_center brandon_n">TARDE<br>
+					(14h00 - 14h20)</th>
+					<td>
+						<b>Apresentação Capoeira</b>
 					</td>
 					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 				</tr>
 				<tr>
 					<th class="align_center brandon_n">TARDE<br>
-					(17h00 - 18h30)</th>
+					(14h30 - 16h30)</th>
 					<td>
-						<b>Lançamento de livros</b>
+						<b>Mesa: "Educação Inclusiva e Pedagogia Histórico-Crítica</b>
+					</td>
+					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
+				</tr>
+				<tr>
+					<th class="align_center brandon_n">TARDE<br>
+					(14h50 - 18h30)</th>
+					<td>
+						<b>Exibição do Filme: "A escola toma partido"</b>
+					</td>
+					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
+				</tr>
+				<tr>
+					<th class="align_center brandon_n">NOITE<br>
+					(18h50 - 19h30)</th>
+					<td>
+						<b>Orquestra de Cordas da Unoeste</b>
 					</td>
 					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 				</tr>
@@ -54,19 +86,15 @@ require 'importacoes/menu.php';
 					<th class="align_center brandon_n">NOITE<br>
 					(19h00 - 19h30)</th>
 					<td>
-						<b>Apresentação de Expressão Artística: Orquestra de Cordas da UNOESTE.</b><br>
-						<b>Abertura do Congresso – Comissão Organizadora</b>
+						<b>Apresentação de Expressão Artística: Orquestra de Cordas da UNOESTE.</b>
 					</td>
 					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 				</tr>
 				<tr>
 					<th class="align_center brandon_n">NOITE<br>
-					(19h30 - 22h30)</th>
+					(19h50 - 22h30)</th>
 					<td>
-						Mesa Redonda:</b> “Fundamentos Filosóficos da Pedagogia Histórico-crítica e Políticas educacionais Contemporâneas”<br>
-						<b>Convidados:</b> Marise N. Ramos (LATEPS/EPSJV-Fiocruz; PPFH/Uerj); Tiago Nicola Lavoura (UESC-Ilhéus/Bahia)<br>
-						<b>Coordenação da Mesa:</b> Marcos Vinícius Francisco<br>
-						<b>300 vagas</b> 
+						<b>Mesa: "Fundamentos Filosóficos da Pedagogia.</b>
 					</td>
 					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 				</tr>
@@ -74,50 +102,6 @@ require 'importacoes/menu.php';
 		</table>
 	</div>
 </div>
-
-<!-- <div class="divider 12u"></div> -->
-<!-- 		<div class="12u">
-			Mesa Redonda: <strong>"Educação Inclusiva e Pedagogia Histórico-crítica"</strong>
-		</div>
-		<div class="divider 12u"></div>
-
-		<div class="12u">
-			Objetiva-se apresentar estudos e reflexões sobre a educação inclusiva na perspectiva da Pedagogia Histórico-crítica.
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong>Data:</strong> 11/07/2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Inicio:</strong> 13:30 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Término: </strong> 16:00
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong> Convidados: </strong><br>Anna Maria Lunardi Padilha<br>Régis Henrique dos Reis Silva
-			<div class="divider 12u"></div>
-		</div>
-
-
-
-		<br><br><br><br>
-
-		<div>
-			<div class="12u">
-				Mesa Redonda: <strong> “Fundamentos Filosóficos da Pedagogia Histórico-crítica e Políticas educacionais Contemporâneas”</strong>
-			</div>
-			<div class="divider 12u"></div>
-
-			<div class="12u">
-				Apresentar fundamentos filosóficos da Pedagogia Histórico-crítica e as políticas públicas implantadas nos últimos anos, as quais desvalorizam o trabalho educativo e o processo de ensino e aprendizagem
-				<div class="divider 12u"></div>
-			</div>
-			<div class="12u">
-				<strong>Data:</strong> 11/07/2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Inicio:</strong> 19:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Término: </strong> 22:30
-				<div class="divider 12u"></div>
-			</div>
-			<div class="12u">
-				<strong> Convidados: </strong> Marise N. Ramos <br> Tiago Nicola Lavoura
-				<div class="divider 12u"></div>
-			</div>
-		</div>
-	-->
 
 	<!-- Segunda tabela -->
 	<div id="segundo" class="animate fadeInLeft">
@@ -131,22 +115,48 @@ require 'importacoes/menu.php';
 					</tr>
 					<tr>
 						<th class="align_center brandon_n">MANHÃ<br> 
-						(08h00 - 11h30)</th>
+						(07h40 - 8h00)</th>
 						<td>
-							<b>Apresentação de Expressão Artística</b><br>
-							Apresentação de trabalhos (Eixos Temáticos I; II; III)
+							<b>Registro presença; localização das salas.</b>
 						</td>
-						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">FCT-UNESP</span></th>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">MANHÃ<br>
+						(07h00 - 12h00)</th>
+						<td>
+							<b>Apresentação e Comunicação de Trabalhos<br>
+						</td>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">CENTRO UNIVERSITÁRIO<br>(TOLEDO PRUDENTE)</span></th>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">TARDE<br>
+						(14h00 - 14h20)</th>
+						<td>
+							<b>Apresentação de Balé Livre<br>
+						</td>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">TARDE<br>
+						(14h30 - 16h30)</th>
+						<td>
+							<b>Mesa: "Medicalização da Infância: avanço ou retrocesso"<br>
+						</td>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">TARDE<br>
+						(16h50 - 18h30)</th>
+						<td>
+							<b>Exibição e Debate do filme: "A língua das mariposas"<br>
+						</td>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">SALA DE CINEMA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 					</tr>
 					<tr>
 						<th class="align_center brandon_n">NOITE<br>
 						(19h00 - 22h30)</th>
 						<td>
-							<b>Apresentação de Expressão Artística<br>
-							Mesa redonda:</b> “Relações entre os Fundamentos Psicológicos da Pedagogia Histórico-crítica e Currículo”<br>
-							<b>Convidadas:</b> Lígia Márcia Martins (UNESP/Araraquara); Juliana Pasqualini (UNESP/Bauru)<br>
-							<b>Coordenação da mesa:</b> Érika Porceli Alaniz<br>
-							<b>300 vagas</b>
+							<b>Mesa: "Relações entre os Fundamentos Psicólogos da Pedagogia Histórico-crítica e Currículo"<br>
 						</td>
 						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 					</tr>
@@ -154,98 +164,6 @@ require 'importacoes/menu.php';
 			</table>
 		</div>
 	</div>
-
-	<!-- <div>
-		<div class="12u">
-			Minicurso: <strong> Contribuições da Neuropsicologia para a compreensão do desenvolvimento das Funções Psicológicas Superiores e dos problemas de escolarização</strong>
-		</div>
-		<div class="divider 12u"></div>
-
-		<div class="12u">
-			Apresentar pressupostos da neuropsicologia e as relações com o desenvolvimento das funções psicológicas superiores na compreensão de queixas e problemas escolares
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong>Data:</strong> 12/07/2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Inicio:</strong> 08:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Término: </strong> 17:00
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong> Professor: </strong> &nbsp;&nbsp;&nbsp;&nbsp;Silvana Calvo Tuleski<br>
-			<div class="divider 12u"></div>
-		</div>
-
-
-	</div>	
-	<br><br><br>
-
-	<div>
-		<div class="12u">
-			Minicurso: <strong> Literatura infantil e a Pedagogia Histórico-crítica</strong>
-		</div>
-		<div class="divider 12u"></div>
-
-		<div class="12u">
-			Apresentar a literatura infantil como elemento fundamental do desenvolvimento humano a partir dos pressupostos da Pedagogia Histórico-crítica
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong>Data:</strong> 12/07/2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Inicio:</strong> 08:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Término: </strong> 17:00
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong> Professor: </strong> &nbsp;&nbsp;&nbsp;&nbsp;Angelo Antonio Abrantes<br>
-			<div class="divider 12u"></div>
-		</div>
-
-
-	</div>	
-	<br><br><br>
-
-	<div>
-		<div class="12u">
-			Minicurso: <strong> O ensino escolar na primeira infância</strong>
-		</div>
-		<div class="divider 12u"></div>
-
-		<div class="12u">
-			Apresentar elementos teórico-filosóficos do ensino na primeira infância a partir da Psicologia Histórico-cultural
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong>Data:</strong> 12/07/2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Inicio:</strong> 13:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Término: </strong> 17:00
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong> Professor: </strong> &nbsp;&nbsp;&nbsp;&nbsp;Giselle Modé Magalhães<br>
-			<div class="divider 12u"></div>
-		</div>
-
-
-	</div>
-	<br><br><br>
-
-	<div>
-		<div class="12u">
-			Mesa Redonda: <strong>“Relações entre os Fundamentos Psicológicos da Pedagogia Histórico-crítica e Currículo”</strong>
-		</div>
-		<div class="divider 12u"></div>
-
-		<div class="12u">
-			Apresentar as relações entre os fundamentos psicológicos da Pedagogia Histórico-crítica e as ações de formação docente na elaboração e implantação de currículo escolar na rede municipal de Bauru/S.P.
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong>Data:</strong> 12/07/2018 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Inicio:</strong> 19:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Término: </strong> 22:30
-			<div class="divider 12u"></div>
-		</div>
-		<div class="12u">
-			<strong> Convidados: </strong> <br>Ligia Marcia Martins <br> Juliana Campregher Pasqualini
-			<div class="divider 12u"></div>
-		</div>
-
-	</div> -->
-
-	<!-- </div> -->
 
 	<!-- Terceira tabela -->
 	<div id="terceiro" class="animate fadeInLeft">
@@ -258,26 +176,50 @@ require 'importacoes/menu.php';
 						<th style="width: 20%;" class="align_center">LOCAL</th>
 					</tr>
 					<tr>
-						<th class="align_center brandon_n">TARDE<br>
-						(13h00 - 17h00)</th>
+						<th class="align_center brandon_n">MANHÃ<br>
+						(07h40 - 08h00)</th>
 						<td>
-							<b>Apresentação de trabalhos (Eixos Temáticos IV; V; VI)</b>
+							<b>Registro de Presença; localização das salas</b>
 						</td>
-						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">FCT-UNESP</span></th>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">CENTRO UNIVERSITÁRIO<br>(TOLEDO PRUDENTE)</span></th>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">MANHÃ E TARDE<br>
+						<td>
+							<b>MINICURSOS</b>
+						</td>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">TARDE<br>
+						(14h00 - 16h00)</th>
+						<td>
+							<b>Mesa BNCC: "Algumas reflexões a partir da Pedagogia Histórico-crítica"</b>
+						</td>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">TARDE<br>
+						(16h30 - 18h00)</th>
+						<td>
+							<b>Lançamento de Livros - Sessão de Autógrafos</b>
+						</td>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
 					</tr>
 					<tr>
 						<th class="align_center brandon_n">NOITE<br>
-						(19h00 - 22h30)</th>
+						(19h15 - 19h50)</th>
 						<td>
-							<b>Apresentação de Expressão Artística<br>
-							Conferência (encerramento):</b> “A defesa da escola pública na perspectiva histórico-crítica em tempos de suicídio democrático”<br>
-							<b>Conferencista:</b> Dermeval Saviani (UNICAMP)<br>
-							<b>Coordenação:</b> Rosiane de Fátima Ponce<br>
-							<b>300 vagas</b>
-						</b>
-					</td>
-					<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
-				</tr>
+							<b>Avaliação e Balanço do Congresso</b>
+						</td>
+					</tr>
+					<tr>
+						<th class="align_center brandon_n">NOITE<br>
+						(20h00 - 22h30)</th>
+						<td>
+							<b>Conferência de Encerramento: "A defesa da escola pública na perspectiva histórico-crítica em tempos de suícidio democrático"</b>
+						</td>
+						<th class="align_center"><span style="font-size: 10pt;" class="right_offset">TEATRO PAULO ROBERTO LISBOA<br>(CENTRO CULTURAL MATARAZZO)</span></th>
+					</tr>
 			</tbody>
 		</table>
 	</div>
@@ -302,6 +244,10 @@ require 'importacoes/menu.php';
 
 		$(div).fadeIn('slow');
 	}
+
+	$(document).ready(function(){
+    $('.materialboxed').materialbox();
+  	});
 </script>	
 
 <?php require 'importacoes/footer.php'; ?>
