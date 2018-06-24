@@ -15,9 +15,9 @@ require 'importacoes/menu.php';
 			<h5 class="brandon_r txt_white">LOCAIS DO EVENTO</h5>
 		</div>
 		<div class="col s12 m6">
-			<h5 id="fct_unesp" class="brandon_r">FCT/UNESP - PRES. PRUDENTE<small> - R. Roberto Símonsen, 305 - Centro Educacional, Pres. Prudente - SP</small></h5>
+			<h5 id="fct_unesp" class="brandon_r">TOLEDO PRUDENTE<small> -  Praça Raul Furquim 09 - Parque Furquim, Pres. Prudente - SP</small></h5>
 			<div class="map-responsive">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3696.1082484114895!2d-51.40857789290563!3d-22.121848101304497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9493f438cb8e3f7b%3A0xa80a71acc7947ffc!2sUnesp+-+C%C3%A2mpus+de+Presidente+Prudente+-+Uep2-S.3%2C+Pres.+Prudente+-+SP!5e0!3m2!1spt-BR!2sbr!4v1521034146960" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3696.3086683339493!2d-51.37820668504859!3d-22.114203985420474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9493f5b87acfef97%3A0xbe26026b6f48163e!2sToledo+Prudente+Centro+Universit%C3%A1rio!5e0!3m2!1spt-BR!2sbr!4v1529687621508" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 			</div>
 		</div>
 		<div class="col s12 m6">

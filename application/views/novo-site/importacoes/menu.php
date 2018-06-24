@@ -8,7 +8,6 @@
     	<ul class="center">
             <!--     		<li><a class="brandon_t menu txt_white" href="<?= base_url('') ?>">PÁGINA INICIAL</a></li> -->
             <li><a class="brandon_t menu txt_white cyan" href="http://pedagogiahistoricocritica.com.br/login" target="_blank">ÁREA DO PARTICIPANTE</a></li>
-            <li><a class="brandon_t menu txt_white red" href="<?= base_url('informacao_inscricao') ?>">INSCRIÇÃO</a></li>
             <li><a class="brandon_t menu txt_white" href="<?= base_url('general_info') ?>">INFORMAÇÕES DO CONGRESSO</a></li>
             <li><a class="brandon_t menu txt_white" href="#">SUBMISSÃO DE TRABALHOS</a>
                 <ul>
@@ -40,6 +39,7 @@
 
             <li><a class="brandon_t menu txt_white" href="#">OBRAS</a>
                 <ul>
+                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('novas_obras') ?>">LANÇAMENTOS</a></li>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('obras_saviani') ?>">SAVIANI</a></li>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('obras_phc') ?>">AUTORES PHC</a></li>
                 </ul>
@@ -52,6 +52,7 @@
             </li>
             <li><a class="brandon_t menu txt_white"  href="<?= base_url('informacoes_gerais') ?>">OUTRAS INFORMAÇÕES</a>
                 <ul>
+                <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>">LOCAIS DO EVENTO</a></li>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
                     <li><a class="brandon_t submenu txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
                 </ul>
@@ -80,7 +81,6 @@
             
         </li>
         <li><a class="brandon_r txt_white cyan center" href="http://pedagogiahistoricocritica.com.br/login" target="_blank">ÁREA DO PARTICIPANTE</a></li>
-        <li><a class="brandon_r txt_white red center" href="<?= base_url('informacao_inscricao') ?>">INSCRIÇÃO</a></li>
         <li><a class="brandon_r txt_white" href="<?= base_url('general_info') ?>">INFORMAÇÕES DO CONGRESSO</a></li>
         <ul class="collapsible brandon_r ">
                 <li>
@@ -125,6 +125,7 @@
                     <div class="collapsible-header txt_white"><i class="material-icons">class</i>OBRAS</div>
                     <div class="collapsible-body">
                         <ol style="background-color: rgb(0, 65, 126);">
+                            <li><a class="brandon_r txt_white" href="<?= base_url('obras_saviani') ?>">LANÇAMENTOS</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('obras_saviani') ?>">SAVIANI</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('obras_phc') ?>">AUTORES PHC</a></li>
                         </ol>
@@ -143,6 +144,7 @@
                     <div class="collapsible-header txt_white"><i class="material-icons">info</i>OUTRAS INFORMAÇÕES</div>
                     <div class="collapsible-body">
                         <ol style="background-color: rgb(0, 65, 126);">
+                            <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>">LOCAIS DO EVENTO</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>
                         </ol>

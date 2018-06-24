@@ -12,6 +12,7 @@ require 'importacoes/menu.php';
 	</div>
 
 	<div class="container-fluid" style="margin: auto; max-width: 80vw;">
+		<p><small>*Clique na imagem para ser levado ao livro na AutoresAssociados.com.br</small></p>
 		<div class="row center-align " style="margin: auto; max-width: 80vw;" >
 			<div class="col l3 m6 s12">
 				<a href="https://www.autoresassociados.com.br/periodizac-o-historico-cultural-do-desenvolvimento-psiquico-do-nascimento-a-velhice.html" target="_blank"><img class="obra" src="<?= base_url('assets/obras/capa_periodiza_o_9788574963709-min.png') ?>"></a>
