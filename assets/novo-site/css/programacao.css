@@ -1,6 +1,6 @@
 body{
 	background-image: none;
-	background-color: #00519B;
+	background-color: #3F4D45;
 }
 
 /*FONTES*/
@@ -107,7 +107,7 @@ a.brandon_t{
 }
 
 .orn{
-	border-bottom: 1px #e60000 solid;
+	border-bottom: 1px #469b6d solid;
 }
 
 .prof_text{
@@ -141,11 +141,12 @@ a.brandon_t{
 }
 
 .smooth_red{
-	background-color: #ff6666 !important;
+	background-color: #469b6d !important;
 }
 
 .container2{
 	padding: 2%;
+	padding-top:0;
 }
 
 /*LISTA*/
@@ -162,7 +163,7 @@ li ul{
 
 ul li .submenu{
 	display: block;
-	background-color: rgba(0,81,155,1);
+	background-color: #3F4D45;
 	text-align: center;
 	/*float: right;*/
 	/*top: 0;*/
@@ -175,7 +176,7 @@ ul li{
 
 li:hover ul{
 	transition: all ease 0.5s !important;
-	background-color: rgba(15,96,170,1);
+	background-color: #596c62;
 	display: block !important;
 }
 
@@ -240,9 +241,9 @@ a.menu{
 }
 
 .bt_inscrever{
-	background-color: #e60000 !important;
+	background-color: #469b6d !important;
 	color: white !important;
-	border: solid #e60000 1px !important;
+	border: solid #469b6d 1px !important;
 	border-radius: 0 0 0 0 !important;
 	width: 311px !important;
 	height: 50px;
@@ -271,7 +272,7 @@ a.menu{
 
 .bt_date{
 
-	background-color: #ff6666 !important;
+	background-color: #469b6e85 !important;
 	color: white !important;
 	border-radius: 0 0 0 0 !important;
 	width: 300px !important;
@@ -284,7 +285,7 @@ a.menu{
 }
 
 .bt_date:hover,.mudacor{
-	background-color: #e60000 !important;
+	background-color:#469b6d !important;
 	border: none !important;
 	transition: all 0.8s ease !important;
 }
@@ -325,7 +326,7 @@ a.menu{
 }
 
 .back{
-	background-color: #ff6666 !important;
+	background-color: #4eb67f  !important;
 }
 
 

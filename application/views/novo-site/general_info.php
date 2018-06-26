@@ -10,7 +10,7 @@ require 'importacoes/menu.php';
 }
 </style>
 <div>
-	<img class="saviani" src="<?= base_url('').'assets/novo-site/imagens/logo_saviani-tamanhooriginal2.png'?>" style="margin-bottom: 10px; border-radius: 5px 0 0 0;">
+	<img class="saviani" src="<?= base_url('').'assets/novo-site/imagens/logo_saviani-tamanhooriginal2.jpg'?>" style="margin-bottom: 0px; border-radius: 0px 0 0 0;">
 	<br>
 </div>
 
@@ -39,7 +39,7 @@ require 'importacoes/menu.php';
 			<h5 class="tw_cent">De <b>11 a 13</b> de Julho na cidade de <b>Presidente Prudente</b></h5>
 			<h5 class="tw_cent"><a href="<?= base_url('informacoes_gerais') ?>" class="grey-text text-darken-2" style="cursor:pointer;"><b>Local do Evento:</b></a>
 				<a href="<?= base_url('informacoes_gerais') ?>" class="grey-text text-darken-2" style="cursor:pointer;">
-					Toledo Prudente Centro Universitário e Teatro Centro Cultural Matarazzo </a>
+				Centro Cultural Matarazzo e Toledo Prudente Centro Universitário  </a>
 			</h5>
 		</div>
 	</div>
@@ -67,7 +67,7 @@ require 'importacoes/menu.php';
 
 <div class="container-fluid">
 	<table class="tw_cent">
-		<tr style="background-color: #F44336; color: white;">
+		<tr style="background-color: #469b6d; color: white;">
 			<th style="width: 31%"><b>INSCRIÇÕES</b></th>
 			<th style="width: 31%">COM SUBMISSÃO DE TRABALHOS</th>
 			<th style="width: 32%">SEM SUBMISSÃO DE TRABALHOS</th>
