@@ -17,11 +17,7 @@
                      <li><a class="brandon_t submenu txt_white" href="<?= base_url('eixos') ?>">EIXOS TEMÁTICOS</a></li>
                 </ul>
             </li>
-            <li><a class="brandon_t menu txt_white" href="#">PROGRAMAÇÃO</a>
-                <ul>
-                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('programacao') ?>">PROGRAMAÇÃO GERAL</a></li>
-                    <li><a class="brandon_t submenu txt_white" href="<?= base_url('minicurso') ?>">MINICURSOS</a></li>
-                </ul>
+            <li><a class="brandon_t menu txt_white" href="<?= base_url('programacao') ?>">PROGRAMAÇÃO</a>
             </li>
            
             <li><a class="brandon_t menu txt_white" href="#">COMISSÃO</a>
@@ -74,7 +70,7 @@
 
         </ul>
     </div>
-    <ul id="slide-out" class="sidenav hide-on-med-and-up" style="background-color: #00519B;">
+    <ul id="slide-out" class="sidenav hide-on-med-and-up" style="background-color: #3F4D45">
         <li>
             <div class="user-view">
             </div>
@@ -82,11 +78,12 @@
         </li>
         <li><a class="brandon_r txt_white cyan center" href="http://pedagogiahistoricocritica.com.br/login" target="_blank">ÁREA DO PARTICIPANTE</a></li>
         <li><a class="brandon_r txt_white" href="<?= base_url('general_info') ?>">INFORMAÇÕES DO CONGRESSO</a></li>
+        <li><a class="brandon_r txt_white" href="<?= base_url('programacao') ?>"><i class="material-icons txt_white">event_note</i>PROGRAMAÇÃO</a></li>
         <ul class="collapsible brandon_r ">
                 <li>
                     <div class="collapsible-header txt_white"><i class="material-icons">description</i>SUBMISSÃO DE TRABALHOS</div>
                     <div class="collapsible-body">
-                        <ol style="background-color: rgb(0, 65, 126);">
+                        <ol style="background-color:  rgb(85, 104, 93);">
                             <li><a class="brandon_r  txt_white" href="<?= base_url('submissao') ?>">ORIENTAÇÕES GERAIS</a></li>
                             <li><a class="brandon_r  txt_white" href="<?= base_url('formatacao') ?>">FORMATAÇÃO DO TRABALHO</a></li>
                             <li><a class="brandon_r  txt_white" href="<?= base_url('criterios') ?>">CRITÉRIOS DE AVALIAÇÃO</a></li>
@@ -94,19 +91,12 @@
                         </ol>
                     </div>
                 </li>
-                <li>
-                    <div class="collapsible-header txt_white"><i class="material-icons">event_note</i>PROGRAMAÇÃO</div>
-                    <div class="collapsible-body">
-                        <ol style="background-color: rgb(0, 65, 126);">
-                            <li><a class="brandon_r  txt_white" href="<?= base_url('programacao') ?>">PROGRAMAÇÃO GERAL</a></li>
-                            <li><a class="brandon_r  txt_white" href="<?= base_url('minicurso') ?>">MINICURSOS</a></li>
-                        </ol>
-                    </div>
-                </li>
+                
+
                 <li>
                     <div class="collapsible-header txt_white"><i class="material-icons">group</i>COMISSÃO</div>
                     <div class="collapsible-body">
-                        <ol style="background-color: rgb(0, 65, 126);">
+                        <ol style="background-color:  rgb(85, 104, 93);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('comissao') ?>">COMISSÃO ORGANIZADORA</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('comissao_cientifica') ?>">COMISSÃO CIENTÍFICA</a></li>
                         </ol>
@@ -115,7 +105,7 @@
                 <li>
                     <div class="collapsible-header txt_white"><i class="material-icons">history</i>HISTÓRICO</div>
                     <div class="collapsible-body">
-                        <ol style="background-color: rgb(0, 65, 126);">
+                        <ol style="background-color:  rgb(85, 104, 93);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('historico') ?>">HISTÓRICO DO CONGRESSO</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('memoria') ?>">MEMÓRIAS PHC 2015</a></li>
                         </ol>
@@ -124,7 +114,7 @@
                 <li>
                     <div class="collapsible-header txt_white"><i class="material-icons">class</i>OBRAS</div>
                     <div class="collapsible-body">
-                        <ol style="background-color: rgb(0, 65, 126);">
+                        <ol style="background-color:  rgb(85, 104, 93);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('obras_saviani') ?>">LANÇAMENTOS</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('obras_saviani') ?>">SAVIANI</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('obras_phc') ?>">AUTORES PHC</a></li>
@@ -134,7 +124,7 @@
                 <li>
                     <div class="collapsible-header txt_white"><i class="material-icons">business</i>HOSPEDAGEM</div>
                     <div class="collapsible-body">
-                        <ol style="background-color: rgb(0, 65, 126);">
+                        <ol style="background-color:  rgb(85, 104, 93);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('hoteis_parceiros') ?>">HOTÉIS PARCEIROS</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('hospedagem_solidaria') ?>">HOSPEDAGEM SOLIDÁRIA</a></li>
                         </ol>
@@ -143,7 +133,7 @@
                 <li>
                     <div class="collapsible-header txt_white"><i class="material-icons">info</i>OUTRAS INFORMAÇÕES</div>
                     <div class="collapsible-body">
-                        <ol style="background-color: rgb(0, 65, 126);">
+                        <ol style="background-color:  rgb(85, 104, 93);">
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>">LOCAIS DO EVENTO</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#alimentacao">ALIMENTAÇÃO</a></li>
                             <li><a class="brandon_r txt_white" href="<?= base_url('informacoes_gerais') ?>/#transporte">TRANSPORTE</a></li>

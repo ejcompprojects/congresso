@@ -16,14 +16,16 @@ require 'importacoes/menu.php';
 <div class="row animate fadeInLeft">
 <p><small>*Clique na imagem para ampliar. <a class="blue-text" href="<?= base_url('assets/img/foldercompleto.jpg') ?>" target="_blank">CLIQUE AQUI para visualizar na íntegra.</a> </p>
 	
-	<div class="col m6 s12 center">
+	<div class="col m12 s12 center">
 		<img class="folder materialboxed" src="<?= base_url('assets/img/folder2.jpg') ?>">
 	</div>
-	<div class="col m6 s12 center">
+	<div class="col m12 s12 center">
 		<img class="folder materialboxed" src="<?= base_url('assets/img/folder1.jpg') ?>">
 	</div>
 </div>
 
+
+<!-- Primeira tabela 
 <div class="row animate fadeInLeft">
 	<div class="col m12 s12 center">
 		<button class="prog mudacor bt_date brandon_t responsive" style="padding: 5px 10px; border-radius: 3px;" onclick="programacao('#primeiro')">11/07</button>
@@ -32,7 +34,6 @@ require 'importacoes/menu.php';
 	</div>
 </div>
 
-<!-- Primeira tabela -->
 <div id="primeiro" class="animate fadeInLeft">
 	<div class="12u">		
 		<table class="responsive-table striped tw_cent">
@@ -103,7 +104,6 @@ require 'importacoes/menu.php';
 	</div>
 </div>
 
-	<!-- Segunda tabela -->
 	<div id="segundo" class="animate fadeInLeft">
 		<div>
 			<table class="responsive-table striped tw_cent">
@@ -165,7 +165,6 @@ require 'importacoes/menu.php';
 		</div>
 	</div>
 
-	<!-- Terceira tabela -->
 	<div id="terceiro" class="animate fadeInLeft">
 		<div>
 			<table class="responsive-table striped tw_cent">
@@ -224,7 +223,7 @@ require 'importacoes/menu.php';
 		</table>
 	</div>
 </div>
-
+-->
 <script type="text/javascript">
 
 	$(".prog").click(function(){
