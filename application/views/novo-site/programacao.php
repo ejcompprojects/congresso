@@ -14,13 +14,13 @@ require 'importacoes/menu.php';
 
 
 <div class="row animate fadeInLeft">
-<p><small>*Clique na imagem para ampliar. <a class="blue-text" href="<?= base_url('assets/img/foldercompleto.jpg') ?>" target="_blank">CLIQUE AQUI para visualizar na íntegra.</a> </p>
+<p><small>*Clique na imagem para focar. <a class="blue-text" href="<?= base_url('assets/img/foldercompleto.jpg') ?>" target="_blank">CLIQUE AQUI para visualizar na íntegra.</a> </p>
 	
 	<div class="col m12 s12 center">
-		<img class="folder materialboxed" src="<?= base_url('assets/img/folder2.jpg') ?>">
+		<img class="folder materialboxed" src="<?= base_url('assets/img/Programação site 1.jpg') ?>">
 	</div>
 	<div class="col m12 s12 center">
-		<img class="folder materialboxed" src="<?= base_url('assets/img/folder1.jpg') ?>">
+		<img class="folder materialboxed" src="<?= base_url('assets/img/Programação site 2.jpg') ?>">
 	</div>
 </div>
 
