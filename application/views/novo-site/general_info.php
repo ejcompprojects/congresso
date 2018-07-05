@@ -137,8 +137,8 @@ require 'importacoes/menu.php';
 
 <div id="modalat" class="modal white-text cyan tw_cent">
     <div class="modal-content">
-      <h4>COMUNICADO III</h4>
-      <h5> Informamos que esgotaram as inscrições para o Congresso. Agradecemos o apoio de todas e todos. Comissão Organizadora do Congresso.</h5>
+      <h4>COMUNICADO V</h4>
+      <h5> Inscritos no Congresso: inscrições para minicursos serão encerradas no dia 06/07 às 12h00. Após essa data não serão realizadas inscrições em minicursos.<br><br>Inscritos interessados em alojamento: enviar email à comissão até o dia 06/07 às 12h00 (phcprudente2018@gmail.com). Após essa data não haverá inclusão de novos pedidos</h5>
       <a href="#!" class="modal-close waves-effect waves-green btn-flat float-right white-text right-align right"><i class="material-icons">close</i></a>
     </div>	
   </div>
