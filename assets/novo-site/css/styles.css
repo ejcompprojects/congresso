@@ -268,19 +268,19 @@ tbody {
 }
 
 .cyan{
-	background: #009eb3 !important
+	background: #469b6d !important
 }
 
 .cyan:hover{
-	background: #00c0da !important
+	background: #4eb67f !important
 }
 
 .red{
-	background: rgb(189, 54, 44) !important
+	background: #469b6d  !important
 }
 
 .red:hover{
-	background: rgb(209, 84, 75) !important
+	background: #4eb67f !important
 }
 
 .obra{
@@ -299,7 +299,7 @@ tbody {
 }
 
 .folder{
-    width: 500px;
+    width:100%;
     height: auto;
     margin: auto;
     margin-bottom: 20px;
@@ -307,19 +307,6 @@ tbody {
     -moz-transition: 0.2s ease-in-out;
     -o-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
-}
-
-@media only screen and (max-width: 840px) {
-    .folder{
-        width: 300px;
-        height: auto;
-        margin: auto;
-        margin-bottom: 20px;
-        -webkit-transition: 0.2s ease-in-out;
-        -moz-transition: 0.2s ease-in-out;
-        -o-transition: 0.2s ease-in-out;
-        transition: 0.2s ease-in-out;
-    }
 }
 
 .folder:hover{
