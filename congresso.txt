@@ -1,0 +1,10 @@
+Site pedagogiahistoricocritica.com.br
+banco: ponce_pedagogia
+usuário: ponce_pedagogia
+senha : CG2mwXzY@qe
+
+
+Site congresso.ejcomp.com.br
+banco: não tem
+usuario: ejcomp_congresso
+senha: trabalho#ejc

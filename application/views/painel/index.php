@@ -16,7 +16,7 @@
 	</div><!--/.row-->
 	<div class="row">
 		<div class="col-md-12" >
-			<?php 
+			<?php
 			if($porcentagem == 100){
 
 				echo '<div class="panel panel-success "><div class="panel-heading">
@@ -34,16 +34,16 @@
 				';
 			}
 
-			
+
 			?>
 			<span class="pull-right clickable panel-toggle panel-button-tab-left" ><em class="fa fa-toggle-up"></em></span></div>
 			<div class="panel-body">
 				<div class="col-md-12 no-padding">
 					<div class="row progress-labels">
 						<!-- <div class="col-sm-6"> -->
-							<?php 
-							
-							if(count($mensagens) > 0){ 
+							<?php
+
+							if(count($mensagens) > 0){
 										// echo '<p>Ainda resta você fazer:</p>';
 								echo '<ul>';
 								for($i = 0 ; $i < count($mensagens); $i++){
@@ -151,7 +151,7 @@
 								<div class="timeline-body">
 									<p>Nesta etapa, seu trabalho será validado pela nossa equipe, para verificar se o seu anexo de trabalho <strong>com</strong> e <strong>sem</strong> autor estão dentro das normas do evento.</p>
 									<p>Fique atento no sistema e em seu e-mail, pois caso haja alguma irregularidade nós enviaremos um e-mail para que você reenvie o trabalho da forma correta com um <strong><spam style="font-size:14pt;">PRAZO</spam></strong> de 3 dias úteis.</p>
-									
+
 								</div>
 							</div>
 						</li>
@@ -164,8 +164,8 @@
 								<div class="timeline-body">
 									<p>Nesta etapa, seu trabalho já fora validado e está de acordo com as normas do evento. Portanto ele foi enviado para que um membro de nossa equipe possa emitir o parecer se seu trabalho poderá ser apresentado no evento.</p>
 									<p>Aguarde que em breve será emitido o parecer sobre seu trabalho.</p>
-									
-									
+
+
 								</div>
 							</div>
 						</li>
@@ -179,6 +179,24 @@
 								<div class="timeline-body">
 									<p>Agora é só vir para o congresso e aproveitar o que temos a oferecer!</p>
 									<p><strong>OBS: Em breve abriremos as vagas para os minicursos e oficinas, fique atento pois são vagas limitadas!</strong></p>
+								</div>
+							</div>
+						</li>
+						<li id="certificado">
+							<div class="timeline-badge primary"><i class="glyphicon glyphicon-file"></i></div>
+							<div class="timeline-panel">
+								<div class="timeline-heading">
+									<h4 class="timeline-title"><strong><?= $indice++ ?> - Certificado</strong></h4>
+								</div>
+								<div class="timeline-body">
+									<p>Caso você tenha participado de 1 minicurso, 2 palestras e no mínimo uma outra atividade complementar, você estará apto a receber o certificado de participação.</p>
+									<p>Em caso de dúvidas ou algum problema, entre em contato com a comissão organizadora utilizando a área abaixo: "Entre em contato conosco".</p>
+								<div class="form-group">
+									<div class="col-md-12 widget-right">
+										<a href="<?=base_url('Certificado/Participacao')?>" target="_blank" class="btn btn-primary btn-md">Certificado de Participação!</a>
+										<a href="<?=base_url('Certificado/Minicurso')?>" target="_blank" class="btn btn-primary btn-md">Certificado de Minicurso!</a>
+									</div>
+								</div>
 								</div>
 							</div>
 						</li>

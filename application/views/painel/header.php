@@ -7,8 +7,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span></button>
 				<a class="navbar-brand hide-on-small-only hidden-sm-down hidden-sm hidden-xs" href="<?= base_url('Painel') ?>"><span>CONGRESSO:</span>PEDAGOGIA HISTÓRICO-CRÍTICA</a>
-				
-				
+
+
 			</div>
 		</div><!-- /.container-fluid -->
 	</nav>
@@ -24,7 +24,7 @@
 			<div class="clear"></div>
 		</div>
 		<div class="divider"></div>
-		
+
 		<ul class="nav menu">
 			<li><a href="<?= base_url('Painel') ?>"><em class="fa fa-home">&nbsp;</em> Página Inicial </a></li>
 			<li><a href="<?= base_url('Painel/profile') ?>"><em class="fa fa-user-circle">&nbsp;</em> Alterar Meus Dados</a></li>
@@ -32,9 +32,9 @@
 			<?php if($_SESSION['usuario']->id_tipo_inscricao == 6){ ?>
 				<li><a  href="<?= base_url('Painel/minicursos') ?>"><em class="fa fa-file">&nbsp;</em> Minicursos</a></li>
 			<?php } ?>
-			
+
+			<li><a href="#certificado"><em class="fa fa-file">&nbsp;</em> Certificado</a></li>
 			<li><a href="<?= base_url('Painel/logout') ?>"><em class="fa fa-power-off">&nbsp;</em> Sair</a></li>
 		</ul>
 	</div><!--/.sidebar-->
-		
-	
+
