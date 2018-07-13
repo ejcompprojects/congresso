@@ -126,7 +126,16 @@ class Trabalho_model extends CI_Model{
         $this->db->where("id_participante", $id);
         return $this->db->get("trabalho")->row();
     }
+    public function get_trabalhos_apresentados($id){
+        $tabela     = "trabalho";
+        $relacao    = "participante_apresentacao";
+        $this->db->select($tabela . '.id_participante as id, ' . $tabela . '.titulo');
+        $this->db->from($tabela);
+        $this->db->where($relacao.'.id_participante', $id);
+        $this->db->join($relacao, $tabela . '.id_participante = ' . $relacao . '.id_' . $tabela);
 
+        return $this->db->get()->result();
+    }
     public function getCoautoresTrabalho($id_trabalho){
         $this->db->from("participante");
         $this->db->join("coautor", "coautor.id_participante = participante.id");

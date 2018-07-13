@@ -40,6 +40,16 @@ class Certificado_model extends CI_Model{
         return $this->db->get()->result();
 
     }
+    public function isTrabalhoApresentadoParticipante(int $id_participante, int $id_trabalho){
+        $relacao    = "participante_apresentacao";
+        $this->db->select('*');
+        $this->db->from($relacao);
+        $this->db->where($relacao.'.id_participante',   $id_participante);
+        $this->db->where($relacao.'.id_trabalho',       $id_trabalho);
+
+        return count($this->db->get()->result());
+
+    }
 }
 
 ?>

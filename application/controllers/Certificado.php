@@ -108,6 +108,34 @@ class Certificado extends CI_Controller {
 			$this->load->view('certificado/error', $this->dados);
 		}
 	}
+	public function Trabalho($id_trabalho){
+		if(!(isset($this->session->usuario->id) &&
+			($this->session->usuario->id > 0))) exit("Não logado.");
+		$this->load->model('certificado_model', 'model');
+		$this->load->model('Trabalho_model', 'modelTrab');
+
+		$userId 	= $this->session->usuario->id;
+
+		if($this->model->isTrabalhoApresentadoParticipante($userId, $id_trabalho)){
+			$trabalho 	 = $this->modelTrab->get_trabalho($id_trabalho);
+
+			$this->msg 	 = "Certificamos que <b>{{nome}}</b> apresentou o trabalho intitulado
+							<b>{{trabalho}}</b> no <b>Congresso “Pedagogia Histórico-crítica:
+							em defesa da Escola Pública e Democrática em tempos de projetos de
+							‘’escolas sem partidos’’</b>, realizado no dia 12 de Julho,
+							das 08h00 às 12h00, totalizando carga horária de 04 horas.";
+			$this->msg 	 = str_replace("{{nome}}",  		$this->session->usuario->nome, 	$this->msg);
+			$this->msg 	 = str_replace("{{trabalho}}",		$trabalho->titulo,				$this->msg);
+			$this->html	 = str_replace("{{msg}}", 			$this->msg,						$this->html);
+			$this->gerar = true;
+		}
+		else
+		{
+			$this->dados['msg'] = "Infelizmente não foi registrado que você apresentou!";
+			$this->load->view('certificado/header');
+			$this->load->view('certificado/error', $this->dados);
+		}
+	}
 
 	function __destruct(){
 		if($this->gerar){
@@ -117,6 +145,7 @@ class Certificado extends CI_Controller {
 			$pdf->WriteHTML($this->css,1);
 			$pdf->WriteHTML($this->html);
 			$pdf->Output('certificado-CPHC.pdf','I');
+			// echo $this->html;
 		}
 	}
 

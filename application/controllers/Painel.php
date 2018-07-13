@@ -46,7 +46,7 @@ class Painel extends Login {
      $status_comprovante = $usuario->status_inscricao;
 
 
-     $vai_submeter_trabalho = $usuario->submeter_trabalho;    
+     $vai_submeter_trabalho = $usuario->submeter_trabalho;
 
 
      $trabalho = $this->get_trabalho($id);
@@ -68,7 +68,7 @@ class Painel extends Login {
         if($this->participante_model->inscricoesPagas() >= 350){
             $array['fase'] = 'ENVIAR_COMPROVANTE';
             $array['etapa'] = 2;
-            $array['porcentagem'] = 0;    
+            $array['porcentagem'] = 0;
 
             $array['div_enviar_comprovante'] = FALSE;
             $array['div_status_comprovante'] = FALSE;
@@ -112,8 +112,8 @@ class Painel extends Login {
 
             case 0:   //EM ANÁLISE:
             $array['status_comprovante'] = array(
-            	'title' => 'Seu comprovante de pagamento está em <b>análise.</b>', 
-            	'panel' => 'panel-info', 
+            	'title' => 'Seu comprovante de pagamento está em <b>análise.</b>',
+            	'panel' => 'panel-info',
             	'label' => 'Em Análise'
             );
 
@@ -156,7 +156,7 @@ class Painel extends Login {
         }
 
     }
-    
+
     if( $vai_submeter_trabalho ) {
 
                 if($enviou_trabalho){ //ele pode estar na fase de VALIDAÇÃO DO TRABALHO:
@@ -176,8 +176,8 @@ class Painel extends Login {
                 		if($data_atual > $data_limite){
                 			$array['etapa'] = 7;
                 			$array['status_trabalho'] = array(
-                				'title' => 'Você perdeu o prazo para reenvio do trabalho.<br>Você ainda poderá participar do evento mas não poderá reenviar o trabalho.', 
-                				'panel' => 'panel-danger', 
+                				'title' => 'Você perdeu o prazo para reenvio do trabalho.<br>Você ainda poderá participar do evento mas não poderá reenviar o trabalho.',
+                				'panel' => 'panel-danger',
                 				'label' => 'Etapa de Validação'
                 			);
                 			array_push($array['mensagens'], 'Você perdeu o prazo para envio de seu artigo.');
@@ -193,8 +193,8 @@ class Painel extends Login {
                         case 0: //EM ANÁLISE:
 
                         $array['status_trabalho'] = array(
-                        	'title' => 'Seu trabalho foi enviado com sucesso e será <strong>validado</strong> por um membro de nossa equipe.<br> Fique atento em seu e-mail e no sistema, pois o prazo para correção e reenvio do trabalho é de 3 dias úteis após o recebimento do aviso.', 
-                        	'panel' => 'panel-info', 
+                        	'title' => 'Seu trabalho foi enviado com sucesso e será <strong>validado</strong> por um membro de nossa equipe.<br> Fique atento em seu e-mail e no sistema, pois o prazo para correção e reenvio do trabalho é de 3 dias úteis após o recebimento do aviso.',
+                        	'panel' => 'panel-info',
                         	'label' => 'Etapa de Validação'
                         );
                         array_push($array['mensagens'], 'Seu trabalho está sendo validado por nossa equipe.');
@@ -204,8 +204,8 @@ class Painel extends Login {
                         case 1: //APROVADO:
 
                         $array['status_trabalho'] = array(
-                        	'title' => 'Seu trabalho foi validado e será encaminhado para um parecerista avaliar.<br>Dentro de alguns dias, enviaremos um e-mail para avisá-lo quanto ao parecer sobre seu trabalho.', 
-                        	'panel' => 'panel-info', 
+                        	'title' => 'Seu trabalho foi validado e será encaminhado para um parecerista avaliar.<br>Dentro de alguns dias, enviaremos um e-mail para avisá-lo quanto ao parecer sobre seu trabalho.',
+                        	'panel' => 'panel-info',
                         	'label' => 'Encaminhado Para Parecerista'
                         );
                         array_push($array['mensagens'], 'Seu trabalho foi validado por nossa equipe. Agora seu trabalho está sendo analisado por um parecerista.');
@@ -215,8 +215,8 @@ class Painel extends Login {
                         case 2: //REPROVADO:
 
                         $array['status_trabalho'] = array(
-                        	'title' => 'Foram encontrados erros em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
-                        	'panel' => 'panel-danger', 
+                        	'title' => 'Foram encontrados erros em seu trabalho:<br>'.$trabalho->justificativa.'<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.',
+                        	'panel' => 'panel-danger',
                         	'label' => 'Etapa de Validação'
                         );
                         array_push($array['mensagens'], 'Entre em "Enviar Arquivos" para anexar seu trabalho.');
@@ -227,8 +227,8 @@ class Painel extends Login {
                         $array['etapa'] = 6;
 
                         $array['status_trabalho'] = array(
-                        	'title' => 'Seu trabalho está sendo analisado por nossa equipe.', 
-                        	'panel' => 'panel-info', 
+                        	'title' => 'Seu trabalho está sendo analisado por nossa equipe.',
+                        	'panel' => 'panel-info',
                         	'label' => 'Etapa de Análise'
                         );
                         break;
@@ -236,8 +236,8 @@ class Painel extends Login {
                         case 4: //REENVIAR TRABALHO SEM AUTOR:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foram encontrados erros em seu trabalho SEM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
-                        	'panel' => 'panel-warning', 
+                        	'title' => '<b>Foram encontrados erros em seu trabalho SEM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.',
+                        	'panel' => 'panel-warning',
                         	'label' => 'Etapa de Validação'
                         );
                         $array['div_reenviar_trabalho'] = 1;
@@ -251,8 +251,8 @@ class Painel extends Login {
                         case 5: //REENVIAR TRABALHO COM AUTOR:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foram encontrados erros em seu trabalho COM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
-                        	'panel' => 'panel-warning', 
+                        	'title' => '<b>Foram encontrados erros em seu trabalho COM autor.</b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br<br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.',
+                        	'panel' => 'panel-warning',
                         	'label' => 'Etapa de Validação'
                         );
                         $array['div_reenviar_trabalho'] = 1;
@@ -267,12 +267,12 @@ class Painel extends Login {
                         case 6: //REENVIAR AMBOS:
 
                         $array['status_trabalho'] = array(
-                        	'title' => '<b>Foram encontrados erros em seu trabalho COM autor e SEM autor.<b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.', 
-                        	'panel' => 'panel-warning', 
+                        	'title' => '<b>Foram encontrados erros em seu trabalho COM autor e SEM autor.<b><br><br>Leia atentamente as informações sobre cada um e se atente ao que a nossa equipe escreveu sobre o que está errado em seu trabalho:<br>'.$trabalho->justificativa.'<br><br><br>Corrija os erros e reenvie o trabalho <b>ATÉ O DIA '.date('d/m/Y', strtotime($trabalho->data_limite)).'</b>.',
+                        	'panel' => 'panel-warning',
                         	'label' => 'Solicitado Reenvio'
                         );
                         $array['div_reenviar_trabalho'] = 1;
-                        
+
 
                         $array['status_reenvio'] = 'AMBOS';
 
@@ -383,7 +383,7 @@ class Painel extends Login {
                     $array['div_enviar_trabalho'] = FALSE;
                     $array['div_alerta_trabalho'] = FALSE;
                     $array['div_status_trabalho'] = FALSE;
-                    
+
                 }
             }
 
@@ -415,7 +415,10 @@ class Painel extends Login {
 
         	$data['messages'] = mensagens();
 
-        // echo '<pre>'; print_r($data); echo '</pre>'; exit();
+            $this->load->model('Trabalho_model', 'trabsModel');
+            $data['trabalhos'] = $this->trabsModel->get_trabalhos_apresentados($this->session->usuario->id);
+            // echo '<pre>'; print_r($data['trabalhos']); echo '</pre>'; exit();
+            // exit();
         	$this->load->view('painel/html_header');
         	$this->load->view('painel/header');
         	$this->load->view('painel/index', $data);
@@ -459,10 +462,10 @@ class Painel extends Login {
 
     // 	$vai_submeter_trabalho = $usuario->submeter_trabalho;
 
-    // 	$info = array();   
+    // 	$info = array();
     //     // $success = array();
     //     // $danger = array();
-    //     // $warning = array(); 
+    //     // $warning = array();
 
     //     $ponto = 0; //para poder marcar o avanço do participante
     //     $estagio = 2; //qual nível ele está.
@@ -483,7 +486,7 @@ class Painel extends Login {
     //     	}
     //     }
 
-    //     if($vai_submeter_trabalho){ 
+    //     if($vai_submeter_trabalho){
     //     	if($this->painel_model->possui_trabalho_anexado($id)){
     //     		$status_trabalho = $this->painel_model->status_trabalho($id);
     //     		switch($status_trabalho){
@@ -494,7 +497,7 @@ class Painel extends Login {
     //     	}else{
     //     		// $ultimo_dia_mes = $this->ultimo_dia(date('m'));
     //     		// $nome_do_mes = $this->nome_do_mes(date('m'));
-    //     		$info[] = 'O <span style="font-size:14pt;"><strong>PRAZO</strong></span> para envio do seu artigo é até <span style="font-size:14pt;"><strong>dia 30 de ABRIL!</strong></span>'; 
+    //     		$info[] = 'O <span style="font-size:14pt;"><strong>PRAZO</strong></span> para envio do seu artigo é até <span style="font-size:14pt;"><strong>dia 30 de ABRIL!</strong></span>';
     //     		if($estagio != 2) $estagio = 4;
 
 
@@ -573,7 +576,7 @@ class Painel extends Login {
             	case 6:	return 35; break;
 
             }
-            break; 
+            break;
             case 2: //pos graduação
             case 4: //professor de ensino publico
             switch($mes){
@@ -593,11 +596,11 @@ class Painel extends Login {
             	case 4: return 110; break;
             	case 5: return 140; break;
             	case 6: return 140; break;
-            } 
+            }
             break;
-            
 
-            
+
+
 
         }
     }
@@ -654,7 +657,7 @@ class Painel extends Login {
     	}
     	$status_trabalho = '';
 
-    	if($vai_submeter_trabalho){ 
+    	if($vai_submeter_trabalho){
     		if($this->painel_model->possui_trabalho_anexado($id)){
     			$status_trabalho = $this->painel_model->status_trabalho($id);
     			switch($status_trabalho){
@@ -667,7 +670,7 @@ class Painel extends Login {
     				case 6: $status_trabalho = 'Houve um problema com ambos trabalho, portanto será preciso reenviá-los'; break;
     			}
     		}else{
-    			$status_trabalho = 'Você deve enviar seu artigo até fim do mês!'; 
+    			$status_trabalho = 'Você deve enviar seu artigo até fim do mês!';
 
     		}
     	}
@@ -792,7 +795,7 @@ public function resend_article(){
 
         foreach ($coautores as $cpf) {
             if($cpf != $this->session->userdata('usuario')->cpf){ //se o cpf do coautor for diferente do CPF do usuário:
-                $qcoaut = $this->getcouator($cpf);            
+                $qcoaut = $this->getcouator($cpf);
                 if($qcoaut->num_rows() == 1){
                     $cdata['id_participante'] = $qcoaut->row()->id;
                     $cdata['id_trabalho'] = $this->session->userdata('usuario')->id;
@@ -819,7 +822,7 @@ public function profile(){
 	$data['mensagens'] = mensagens();
 	$id = $this->session->userdata('usuario')->id;
 	$this->db->where('id', $id);
-	$usuario = $this->db->get('participante')->row();    
+	$usuario = $this->db->get('participante')->row();
 
 
 
@@ -950,7 +953,7 @@ public function alterar_meus_dados(){
 
     	}
     	else
-    	{   
+    	{
 
     		$resposta['deu_certo'] = true;
     		$resposta['message'] = $this->upload->data('file_name');
@@ -1028,14 +1031,14 @@ public function alterar_meus_dados(){
                     $dia =  $this->minicurso_model->getDia($idMinicurso);
                     $vagas = $this->minicurso_model->vagasRestantes($idMinicurso, $this->session->usuario->id_tipo_inscricao);
                     if($vagas > 0){
-                        if(1){                            
+                        if(1){
                             $pode = true;
                             foreach ($array as $key => $min) {
                                 if((strtotime($dia->horario_inicio) < strtotime($min->horario_fim) &&
                                     strtotime($dia->horario_inicio) > strtotime($min->horario_inicio) ||
-                                   (strtotime($dia->horario_fim) > strtotime($min->horario_inicio) && 
-                                    strtotime($dia->horario_fim) < strtotime($min->horario_fim)) ) && 
-                                   ($dia->dia == $min->dia)){                                    
+                                   (strtotime($dia->horario_fim) > strtotime($min->horario_inicio) &&
+                                    strtotime($dia->horario_fim) < strtotime($min->horario_fim)) ) &&
+                                   ($dia->dia == $min->dia)){
                                     $pode = false;
                                 }
                             }
@@ -1049,7 +1052,7 @@ public function alterar_meus_dados(){
             			else
             				$this->session->set_flashdata('danger', "<b>Choque de horário. Você já está inscrito em outro minicurso neste mesmo horário. </b>");
             		}
-            		else 
+            		else
             			$this->session->set_flashdata('danger', "<b>Sem Vagas. Esse minicurso não possui mais vagas.</b>");
             	}
             	else{

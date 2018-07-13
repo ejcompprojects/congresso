@@ -195,6 +195,16 @@
 									<div class="col-md-12 widget-right">
 										<a href="<?=base_url('Certificado/Participacao')?>" target="_blank" class="btn btn-primary btn-md">Certificado de Participação!</a>
 										<a href="<?=base_url('Certificado/Minicurso')?>" target="_blank" class="btn btn-primary btn-md">Certificado de Minicurso!</a>
+										<?php
+										if(count($trabalhos) > 0){
+										?>
+											<h3>Certificação de Apresentação</h3>
+										<?php }?>
+										<ul style="margin-top: 1em;">
+										<?php foreach($trabalhos as $trabalho){?>
+											<li><a href="<?=base_url("Certificado/Trabalho/$trabalho->id")?>" target="_blank" class=""><?=$trabalho->titulo?></a>
+										<?php }?>
+										</ul>
 									</div>
 								</div>
 								</div>
